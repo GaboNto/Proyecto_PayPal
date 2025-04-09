@@ -37,4 +37,6 @@ finanzas-inteligentes-paypal/ ├── backend/ → Servidor NestJS ├── f
 
 ### Clonar el repositorio
 
-
+```bash
+git clone https://github.com/GaboNto/Proyecto_PayPal.git
+cd finanzas-inteligentes-paypal
