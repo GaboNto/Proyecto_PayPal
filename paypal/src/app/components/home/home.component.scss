@@ -1,0 +1,228 @@
+.home-container {
+    max-width: 100%;
+    overflow-x: hidden;
+    background: #fff;
+}
+
+// Hero Section
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 8%;
+    background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+    min-height: 600px;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 5%;
+    }
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+
+    h1 {
+        font-size: 3.5rem;
+        color: #003087;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+
+        @media (max-width: 768px) {
+            font-size: 2.5rem;
+        }
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: #444;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .main-illustration {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+// Features Section
+.features-section {
+    padding: 5rem 8%;
+    background: #ffffff;
+    text-align: center;
+
+    h2 {
+        font-size: 2.5rem;
+        color: #003087;
+        margin-bottom: 3rem;
+        font-weight: 600;
+    }
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.feature-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e7e7e7;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+        width: 70px;
+        height: 70px;
+        background: #009cde;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+
+        i {
+            font-size: 2rem;
+            color: white;
+        }
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        color: #003087;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    p {
+        color: #666;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .feature-link {
+        color: #009cde;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: #003087;
+        }
+
+        i {
+            font-size: 0.875rem;
+        }
+    }
+}
+
+// Security Section
+.security-section {
+    background: #f5f7fa;
+    padding: 5rem 8%;
+    text-align: center;
+
+    h2 {
+        font-size: 2.5rem;
+        color: #003087;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+
+    p {
+        color: #666;
+        margin-bottom: 2rem;
+        font-size: 1.125rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.security-features {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+
+    li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: #003087;
+        font-weight: 500;
+
+        i {
+            color: #009cde;
+            font-size: 1.25rem;
+        }
+    }
+}
+
+// Buttons
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+
+    @media (max-width: 768px) {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+.btn {
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.125rem;
+
+    &.btn-primary {
+        background: #009cde;
+        color: white;
+        border: none;
+
+        &:hover {
+            background: #008ac5;
+            transform: translateY(-2px);
+        }
+    }
+
+    &.btn-secondary {
+        background: transparent;
+        color: #003087;
+        border: 2px solid #003087;
+
+        &:hover {
+            background: #003087;
+            color: white;
+            transform: translateY(-2px);
+        }
+    }
+} 

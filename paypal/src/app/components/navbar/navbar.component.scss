@@ -1,0 +1,39 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1b1f23;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .navbar-brand {
+    .logo {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+  }
+
+  .navbar-menu {
+    display: flex;
+    gap: 2rem;
+
+    a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      &.active {
+        color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+} 

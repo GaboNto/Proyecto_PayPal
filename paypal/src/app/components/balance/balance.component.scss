@@ -1,0 +1,143 @@
+.balance-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .balance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h2 {
+      font-size: 1.5rem;
+      color: #2c2e2f;
+    }
+  }
+
+  .transactions-table {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    overflow: hidden;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th, td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        color: #6c757d;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .current-balance {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .balance-info {
+      h3 {
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+      }
+
+      .amount {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2c2e2f;
+        margin-bottom: 0.5rem;
+      }
+
+      .status {
+        color: #28a745;
+      }
+    }
+
+    .balance-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+
+  .financial-goals {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+
+    .goals-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+
+      h3 {
+        color: #2c2e2f;
+      }
+
+      .btn-add {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #0070ba;
+        color: white;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          background: #005ea6;
+        }
+      }
+    }
+  }
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s;
+
+  &.btn-primary {
+    background: #0070ba;
+    color: white;
+
+    &:hover {
+      background: #005ea6;
+    }
+  }
+
+  &.btn-secondary {
+    background: #f5f5f5;
+    color: #2c2e2f;
+
+    &:hover {
+      background: #e0e0e0;
+    }
+  }
+} 
