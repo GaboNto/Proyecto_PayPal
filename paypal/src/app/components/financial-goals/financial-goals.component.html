@@ -1,58 +1,130 @@
 <div class="goals-container">
-  <table class="goals-table">
-    <thead>
-      <tr>
-        <th>Nombre meta</th>
-        <th>monto de la meta (UF)</th>
-        <th>fecha</th>
-        <th>porcentaje</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>enero</td>
-        <td>100.000</td>
-        <td>05/01</td>
-        <td>10%</td>
-      </tr>
-      <tr>
-        <td>febrero</td>
-        <td>100.000</td>
-        <td>05/02</td>
-        <td>10%</td>
-      </tr>
-      <tr>
-        <td>marzo</td>
-        <td>50.000</td>
-        <td>05/03</td>
-        <td>5%</td>
-      </tr>
-      <tr>
-        <td>abril</td>
-        <td>200.000</td>
-        <td>05/04</td>
-        <td>20%</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="goals-header">
+    <h2>Objetivos financieros</h2>
+    <button class="btn-add" (click)="openModal()">+</button>
+  </div>
 
-  <div class="goals-chart">
-    <div class="target-line">
-      <span class="target-label">Meta 100%</span>
+  <div class="content-wrapper">
+    <div class="table-container">
+      <h3>Metas Financieras</h3>
+      <table class="goals-table">
+        <thead>
+          <tr>
+            <th>Nombre meta</th>
+            <th>Monto de la meta</th>
+            <th>Fecha</th>
+            <th>Progreso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let goal of goals">
+            <td>{{ goal.goalName }}</td>
+            <td>{{ formatAmount(goal.targetAmount) }}</td>
+            <td>{{ formatDate(goal.createdAt) }}</td>
+            <td>
+              <div class="progress-container">
+                <div class="progress-bar" 
+                     [style.width.%]="goal.progress"
+                     [attr.data-progress]="goal.progress.toFixed(1) + '%'">
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="goals.length === 0">
+            <td colspan="4" class="empty-state">
+              No hay metas financieras. ¡Añade una nueva meta!
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="chart-bars">
-      <div class="chart-bar" style="height: 10%;">
-        <div class="bar-label">Enero 10%</div>
+
+    <div class="goals-chart">
+      <div class="target-line">
+        <span class="target-label">Meta 100%</span>
       </div>
-      <div class="chart-bar" style="height: 20%;">
-        <div class="bar-label">Febrero 20%</div>
-      </div>
-      <div class="chart-bar" style="height: 25%;">
-        <div class="bar-label">Marzo 25%</div>
-      </div>
-      <div class="chart-bar" style="height: 45%;">
-        <div class="bar-label">Abril 45%</div>
+      <div class="chart-bars">
+        <div class="chart-bar" 
+             *ngFor="let goal of goals.slice(0, 4)"
+             [style.height.%]="goal.progress">
+          <div class="bar-label">{{ goal.goalName }} {{ goal.progress.toFixed(1) }}%</div>
+        </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal para nueva meta financiera -->
+<div class="modal" [class.show]="showModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Nueva Meta Financiera</h3>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+    
+    <form [formGroup]="goalForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="goalName">Nombre del objetivo</label>
+        <input 
+          type="text" 
+          id="goalName" 
+          formControlName="goalName" 
+          placeholder="ej: Comprar casa"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="targetAmount">Cantidad objetivo</label>
+        <input 
+          type="number" 
+          id="targetAmount" 
+          formControlName="targetAmount" 
+          placeholder="ej: 1000000"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="months">Duración (meses)</label>
+        <input 
+          type="number" 
+          id="months" 
+          formControlName="months" 
+          placeholder="ej: 12"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="initialAmount">Cantidad inicial (opcional)</label>
+        <input 
+          type="number" 
+          id="initialAmount" 
+          formControlName="initialAmount" 
+          placeholder="ej: 100000">
+      </div>
+
+      <div class="form-group">
+        <label for="priority">Prioridad</label>
+        <select id="priority" formControlName="priority" required>
+          <option value="alta">Alta</option>
+          <option value="media">Media</option>
+          <option value="baja">Baja</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripción (opcional)</label>
+        <textarea 
+          id="description" 
+          formControlName="description" 
+          placeholder="Describe tu objetivo..."
+          rows="3">
+        </textarea>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" (click)="closeModal()">Cancelar</button>
+        <button type="submit" class="btn-save" [disabled]="!goalForm.valid">Guardar</button>
+      </div>
+    </form>
   </div>
 </div>

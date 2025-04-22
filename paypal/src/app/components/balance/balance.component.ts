@@ -10,5 +10,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './balance.component.scss'
 })
 export class BalanceComponent {
+  showFinancialGoals = false;
+  showTransactions = false;
 
+  toggleFinancialGoals() {
+    this.showFinancialGoals = !this.showFinancialGoals;
+  }
+
+  toggleTransactions() {
+    this.showTransactions = !this.showTransactions;
+  }
 }
