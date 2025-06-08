@@ -1,0 +1,298 @@
+.balance-container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.balance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin: 0;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      font-size: 1rem;
+    }
+  }
+}
+
+.balance-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.transactions-table {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  overflow: hidden;
+
+  .transactions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+
+    h3 {
+      color: #2c2c2c;
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    .toggle-btn {
+      background-color: #0070ba;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #005ea6;
+      }
+
+      i {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .transactions-content {
+    max-height: 200px;
+    overflow: hidden;
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+
+    &.show {
+      max-height: 2000px;
+      opacity: 1;
+      transition: all 0.5s ease-in-out;
+    }
+
+    &:not(.show) {
+      opacity: 0.8;
+    }
+
+    table {
+      transform-origin: top;
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      color: #666;
+      font-weight: 500;
+    }
+
+    td {
+      color: #2c2c2c;
+
+      &.amount {
+        font-weight: 500;
+        
+        &.positive {
+          color: #4CAF50;
+        }
+        
+        &.negative {
+          color: #f44336;
+        }
+      }
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr {
+      transition: all 0.3s ease;
+    }
+  }
+}
+
+.current-balance {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .balance-info {
+    h3 {
+      margin: 0 0 0.5rem 0;
+      color: #666;
+    }
+
+    .amount {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #2c2c2c;
+      margin-bottom: 0.5rem;
+    }
+
+    .status {
+      color: #4CAF50;
+      font-weight: 500;
+    }
+  }
+
+  .balance-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.financial-goals-section {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  .goals-toggle-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #f8f9fa;
+    border: none;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2c2c2c;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background: #f0f0f0;
+    }
+
+    .toggle-icon {
+      font-size: 0.8rem;
+      color: #666;
+    }
+  }
+
+  .goals-content {
+    padding: 1rem;
+    transition: all 0.3s ease;
+  }
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+
+  &-primary {
+    background: #0070ba;
+    color: white;
+
+    &:hover {
+      background: #005ea6;
+    }
+  }
+
+  &-secondary {
+    background: #f8f9fa;
+    color: #2c2c2c;
+    border: 1px solid #ddd;
+
+    &:hover {
+      background: #f0f0f0;
+    }
+  }
+}
+
+.financial-goals {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  overflow: hidden;
+
+  .goals-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h3 {
+      color: #2c2c2c;
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    .toggle-btn {
+      background-color: #0070ba;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #005ea6;
+      }
+
+      i {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .goals-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+
+    &.show {
+      max-height: 1000px;
+      transition: max-height 0.5s ease-in;
+    }
+  }
+} 

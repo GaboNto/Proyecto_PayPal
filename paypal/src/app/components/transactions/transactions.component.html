@@ -1,0 +1,36 @@
+<div class="saldo-container">
+  <h2>Saldo actual</h2>
+  <div class="saldo-monto">${{ saldoActual | number:'1.0-0' }}</div>
+</div>
+
+<div class="contactos-container">
+  <h3>Contactos para transferir</h3>
+  <table class="contactos-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Nombre</th>
+        <th>Rut</th>
+        <th>Banco</th>
+        <th>Tipo de Cuenta</th>
+        <th>N° de Cuenta</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contacto of contactosOrdenados">
+        <td>
+          <span class="estrella" [class.favorito]="contacto.favorito" (click)="toggleFavorito(contacto)" style="cursor:pointer; font-size:2rem;">
+            {{ contacto.favorito ? '★' : '☆' }}
+          </span>
+        </td>
+        <td>{{ contacto.nombre }}</td>
+        <td>{{ contacto.rut }}</td>
+        <td>{{ contacto.banco }}</td>
+        <td>{{ contacto.tipoCuenta }}</td>
+        <td>{{ contacto.numeroCuenta }}</td>
+        <td><button class="btn-transferir">Transferir</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,80 @@
+<div class="pay-container">
+  <h1>Pagar</h1>
+  <p>Bienvenido a la sección de pagos. Aquí podrás realizar tus pagos de forma segura y rápida.</p>
+</div>
+
+<div class="pagos-container">
+  <div class="pagos-header">
+    <h2>Pagos automáticos</h2>
+    <div class="gastos-fijos">Gastos mensuales fijos: <span>${{ gastosFijos | number:'1.0-0' }}</span></div>
+  </div>
+  <button class="btn-agregar" (click)="abrirFormulario()" *ngIf="!mostrarFormulario">+ Nuevo pago automático</button>
+
+  <div class="modal-backdrop" *ngIf="mostrarFormulario || mostrarTicket"></div>
+  <div class="modal-formulario" *ngIf="mostrarFormulario">
+    <button class="modal-close" (click)="cancelarFormulario()" aria-label="Cerrar" [disabled]="mostrarTicket">×</button>
+    <h3>Nuevo pago automático</h3>
+    <form (ngSubmit)="agregarPago()" #formPago="ngForm">
+      <input type="text" placeholder="Nombre" [(ngModel)]="nuevoPago.nombre" name="nombre" required [disabled]="mostrarTicket">
+      <input type="number" placeholder="Monto" [(ngModel)]="nuevoPago.monto" name="monto" required min="1" [disabled]="mostrarTicket">
+      <select [(ngModel)]="nuevoPago.diaPago" name="diaPago" required [disabled]="mostrarTicket">
+        <option *ngFor="let dia of [].constructor(28); let i = index" [value]="(i+1) < 10 ? '0'+(i+1) : (i+1).toString()">Día {{ (i+1) < 10 ? '0'+(i+1) : (i+1) }}</option>
+      </select>
+      <label>
+        <input type="checkbox" [(ngModel)]="nuevoPago.activo" name="activo" [disabled]="mostrarTicket"> Activo
+      </label>
+      <div class="modal-actions">
+        <button type="submit" class="btn-confirmar" [disabled]="!formPago.form.valid || mostrarTicket">Guardar</button>
+        <button type="button" class="btn-cancelar" (click)="cancelarFormulario()" [disabled]="mostrarTicket">Cancelar</button>
+      </div>
+    </form>
+    <div class="modal-overlay" *ngIf="mostrarTicket"></div>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="mostrarTicket"></div>
+  <div class="modal-ticket" *ngIf="mostrarTicket && pagoPendiente">
+    <button class="modal-close" (click)="cancelarTicket()" aria-label="Cerrar">×</button>
+    <h3>Confirmar nuevo pago automático</h3>
+    <div class="ticket-datos">
+      <p><strong>Nombre:</strong> {{ pagoPendiente.nombre }}</p>
+      <p><strong>Monto:</strong> ${{ pagoPendiente.monto | number:'1.0-0' }}</p>
+      <p><strong>Día de pago:</strong> {{ pagoPendiente.diaPago }}</p>
+      <p><strong>Estado:</strong> {{ pagoPendiente.activo ? 'Activo' : 'Inactivo' }}</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-confirmar" (click)="confirmarPago()">Confirmar</button>
+      <button class="btn-cancelar" (click)="cancelarTicket()">Cancelar</button>
+    </div>
+  </div>
+
+  <table class="pagos-table" *ngIf="pagos.length > 0">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Monto</th>
+        <th>Día de pago</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pago of pagos; let i = index">
+        <td>{{ pago.nombre }}</td>
+        <td>${{ pago.monto | number:'1.0-0' }}</td>
+        <td>{{ pago.diaPago }}</td>
+        <td>
+          <span class="estado" [class.activo]="pago.activo" [class.inactivo]="!pago.activo">
+            {{ pago.activo ? 'Activo' : 'Inactivo' }}
+          </span>
+        </td>
+        <td>
+          <button class="btn-estado" (click)="alternarActivo(pago)">
+            {{ pago.activo ? 'Desactivar' : 'Activar' }}
+          </button>
+          <button class="btn-eliminar" (click)="eliminarPago(i)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="pagos.length === 0" class="vacio">No hay pagos automáticos registrados.</div>
+</div>

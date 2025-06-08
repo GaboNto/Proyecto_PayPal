@@ -1,0 +1,90 @@
+<div class="balance-container">
+  <div class="balance-header">
+    <h2>Balance</h2>
+  </div>
+
+  <div class="transactions-table">
+    <div class="transactions-header">
+      <h3>Historial de Transacciones</h3>
+      <button class="toggle-btn" (click)="toggleTransactions()">
+        <i [class]="showTransactions ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+        {{ showTransactions ? 'Ver menos' : 'Ver más' }}
+      </button>
+    </div>
+    <div class="transactions-content" [class.show]="showTransactions">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Monto</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>21/04/2025</td>
+            <td>Transferencia recibida - Juan Pérez</td>
+            <td class="amount positive">+$350.000</td>
+            <td>$890.000</td>
+          </tr>
+          <tr>
+            <td>18/04/2025</td>
+            <td>Pago Cuenta Agua - Aguas Andinas</td>
+            <td class="amount negative">-$25.990</td>
+            <td>$540.000</td>
+          </tr>
+          <tr *ngIf="showTransactions">
+            <td>15/04/2025</td>
+            <td>Pago Plan Celular - Claro</td>
+            <td class="amount negative">-$22.990</td>
+            <td>$565.990</td>
+          </tr>
+          <tr *ngIf="showTransactions">
+            <td>10/04/2025</td>
+            <td>Pago Cuenta Luz - Enel</td>
+            <td class="amount negative">-$32.800</td>
+            <td>$588.980</td>
+          </tr>
+          <tr *ngIf="showTransactions">
+            <td>05/04/2025</td>
+            <td>Depósito Sueldo - Empresa SA</td>
+            <td class="amount positive">+$580.000</td>
+            <td>$621.780</td>
+          </tr>
+          <tr *ngIf="showTransactions">
+            <td>02/04/2025</td>
+            <td>Pago Internet y TV Cable - Movistar</td>
+            <td class="amount negative">-$41.780</td>
+            <td>$41.780</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="current-balance">
+    <div class="balance-info">
+      <h3>Balance Actual</h3>
+      <div class="amount">$890.000</div>
+      <div class="status">Disponible</div>
+    </div>
+    <div class="balance-buttons">
+      <button class="btn btn-primary">Transferir</button>
+      <button class="btn btn-secondary">Depositar</button>
+    </div>
+  </div>
+
+  <div class="financial-goals">
+    <div class="goals-header">
+      <h3>Objetivos financieros</h3>
+      <button class="toggle-btn" (click)="toggleFinancialGoals()">
+        <i [class]="showFinancialGoals ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+        {{ showFinancialGoals ? 'Ocultar' : 'Mostrar' }}
+      </button>
+    </div>
+    <div class="goals-content" [class.show]="showFinancialGoals">
+      <app-financial-goals></app-financial-goals>
+    </div>
+  </div>
+</div>

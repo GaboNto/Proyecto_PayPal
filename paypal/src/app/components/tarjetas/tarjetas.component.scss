@@ -1,0 +1,246 @@
+.tarjetas-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.saldo-actual-container {
+  border: 1px solid #ccc;
+  padding: 15px 30px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.saldo-actual-container p {
+  margin: 0;
+  color: #555;
+  font-size: 0.9em;
+}
+
+.saldo-actual-container h2 {
+  margin: 5px 0 0;
+  font-size: 2em;
+  color: #333;
+}
+
+.info-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #eee;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #666;
+}
+
+.card-container {
+  margin-bottom: 30px;
+  position: relative;
+  width: 300px;
+  height: 180px;
+}
+
+.credit-card-svg {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.card-container:hover .credit-card-svg {
+  transform: scale(1.03);
+}
+
+.buttons-container {
+  display: flex;
+  gap: 20px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  font-size: 0.9em;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #e0e0e0;
+}
+
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.card-details {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 20px 20px 40px 20px;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.card-details p {
+  margin: 3px 0;
+}
+
+.card-number {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.card-expiry, .card-name, .card-company {
+  font-size: 0.8em;
+}
+
+.card-container.blocked .credit-card-svg {
+  filter: blur(8px) grayscale(80%);
+}
+
+.blocked-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  z-index: 3;
+}
+
+.blocked-icon {
+  width: 60px;
+  height: 60px;
+  filter: invert(1) drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+}
+
+.add-card-form,
+.card-selection-panel {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-card-form h3,
+.card-selection-panel h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 0.9em;
+  color: #555;
+  font-weight: bold;
+}
+
+.form-group input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.cancel-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  align-self: flex-end;
+}
+
+.cancel-btn:hover {
+  background-color: #d32f2f;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.card-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.card-item:hover {
+  background-color: #e6e6e6;
+  border-color: #b0b0b0;
+}
+
+.card-item.selected {
+  border-color: #007bff;
+  background-color: #e0f2ff;
+}
+
+.card-item-svg {
+  width: 60px;
+  height: 36px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.card-item p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #333;
+} 

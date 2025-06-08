@@ -1,0 +1,60 @@
+<div class="tarjetas-container">
+  <div class="saldo-actual-container">
+    <p>saldo actual</p>
+    <h2>$362.030</h2>
+    <span class="info-icon">i</span>
+  </div>
+
+  <div class="card-container" [ngClass]="{'blocked': cardBlocked}">
+    <div class="credit-card-svg" [innerHtml]="getCardSvg()"></div>
+    <div *ngIf="cardBlocked" class="blocked-overlay">
+      <img src="https://img.icons8.com/ios-filled/50/000000/lock.png" alt="Bloqueada" class="blocked-icon">
+    </div>
+    <div class="card-details" [ngClass]="{'visible-numbers': showNumbers}">
+      <p class="card-number">{{ showNumbers ? currentCard.fullNumber : '**** **** **** ' + currentCard.lastFourDigits }}</p>
+      <p class="card-expiry">VÁLIDO HASTA {{ currentCard.expiry }}</p>
+      <p class="card-name">{{ currentCard.name }}</p>
+      <p class="card-company">{{ currentCard.company }}</p>
+    </div>
+  </div>
+
+  <div class="buttons-container">
+    <button class="btn" (click)="toggleCardSelectionPanel()" [disabled]="cardBlocked"><img src="https://img.icons8.com/ios-filled/24/000000/recurring-appointment.png" alt="Cambiar tarjeta icon"> Cambiar tarjeta</button>
+    <button class="btn" (click)="viewNumbers()" [disabled]="cardBlocked"><img src="https://img.icons8.com/ios-filled/24/000000/visible--v1.png" alt="Ver numeros icon"> Ver numeros</button>
+    <button class="btn" (click)="toggleBlockCard()"><img [src]="cardBlocked ? 'https://img.icons8.com/ios-filled/24/000000/unlock-2.png' : 'https://img.icons8.com/ios-filled/24/000000/lock.png'" alt="Bloquear tarjeta icon"> {{ cardBlocked ? 'Desbloquear tarjeta' : 'Bloquear tarjeta' }}</button>
+    <button class="btn" (click)="toggleAddCardForm()" [disabled]="cardBlocked"><img src="https://img.icons8.com/ios-filled/24/000000/add-credit-card.png" alt="Agregar tarjeta icon"> Agregar tarjeta</button>
+  </div>
+
+  <div *ngIf="showCardSelectionPanel" class="card-selection-panel">
+    <h3>Seleccionar Tarjeta</h3>
+    <div class="card-list">
+      <div *ngFor="let card of cards" class="card-item" [ngClass]="{'selected': card.id === currentCard.id}" (click)="selectCard(card)">
+        <div class="card-item-svg" [innerHtml]="getCardItemSvg(card)"></div>
+        <p>{{ card.type }} (**** {{ card.lastFourDigits }})</p>
+      </div>
+    </div>
+    <button class="btn cancel-btn" (click)="toggleCardSelectionPanel()">Cerrar</button>
+  </div>
+
+  <div *ngIf="showAddCardForm" class="add-card-form">
+    <h3>Agregar Nueva Tarjeta</h3>
+    <div class="form-group">
+      <label for="cardName">Nombre en la tarjeta:</label>
+      <input type="text" id="cardName" [(ngModel)]="newCard.name" placeholder="Nombre Completo">
+    </div>
+    <div class="form-group">
+      <label for="cardNumber">Número de tarjeta:</label>
+      <input type="text" id="cardNumber" [(ngModel)]="newCard.fullNumber" maxlength="16" placeholder="16 dígitos">
+    </div>
+    <div class="form-group">
+      <label for="cardCvv">CVV:</label>
+      <input type="text" id="cardCvv" [(ngModel)]="newCard.cvv" maxlength="4" placeholder="CVV">
+    </div>
+    <div class="form-group">
+      <label for="cardExpiry">Fecha de vencimiento (MM/AA):</label>
+      <input type="text" id="cardExpiry" [(ngModel)]="newCard.expiry" maxlength="5" placeholder="MM/AA">
+    </div>
+    <button class="btn" (click)="addNewCard()">Guardar Tarjeta</button>
+    <button class="btn cancel-btn" (click)="toggleAddCardForm()">Cancelar</button>
+  </div>
+</div> 
