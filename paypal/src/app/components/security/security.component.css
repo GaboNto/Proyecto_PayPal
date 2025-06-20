@@ -1,0 +1,65 @@
+.security-advice-container {
+  max-width: 900px;
+  margin: 3rem auto;
+  background: #f5f7fa;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.security-advice-container h1 {
+  color: #003087;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.security-advice-container .subtitle {
+  color: #666;
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.advice-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.advice-item {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 2rem 1.5rem;
+  max-width: 260px;
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s;
+}
+
+.advice-item:hover {
+  box-shadow: 0 6px 24px rgba(0,156,222,0.12);
+}
+
+.advice-item i {
+  font-size: 2.5rem;
+  color: #009cde;
+  margin-bottom: 1rem;
+}
+
+.advice-item h3 {
+  color: #003087;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.advice-item p {
+  color: #444;
+  font-size: 1rem;
+  margin: 0;
+}

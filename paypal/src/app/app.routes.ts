@@ -5,6 +5,7 @@ import { FinancialGoalsComponent } from './components/financial-goals/financial-
 import { HomeComponent } from './components/home/home.component';
 import { PayComponent } from './components/pay.component';
 import { TarjetasComponent } from './components/tarjetas/tarjetas.component';
+import { SecurityComponent } from './components/security/security.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -12,5 +13,6 @@ export const routes: Routes = [
   { path: 'transactions', component: TransactionsComponent },
   { path: 'financial-goals', component: FinancialGoalsComponent },
   { path: 'pay', component: PayComponent },
-  { path: 'tarjetas', component: TarjetasComponent }
+  { path: 'tarjetas', component: TarjetasComponent },
+  { path: 'security', component: SecurityComponent }
 ];
