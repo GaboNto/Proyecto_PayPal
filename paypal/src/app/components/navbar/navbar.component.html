@@ -9,6 +9,20 @@
     <a routerLink="/transactions" routerLinkActive="active">Transferir</a>
     <a routerLink="/pay" routerLinkActive="active">Pagar</a>
     <a routerLink="/tarjetas" routerLinkActive="active">Tarjetas</a>
-    <a routerLink="/security" routerLinkActive="active">Seguridad</a>
+    <a href="#" routerLinkActive="active">Seguridad</a>
+    
+    <!-- Botón de inicio de sesión directo -->
+    <div class="navbar-end">
+      <div class="navbar-item" *ngIf="!(isLoggedIn$ | async)">
+        <a class="button is-primary" routerLink="/login">
+          <strong>Iniciar sesión</strong>
+        </a>
+      </div>
+      <div class="navbar-item" *ngIf="isLoggedIn$ | async">
+        <a class="logout-button" (click)="logout()">
+          Cerrar sesión
+        </a>
+      </div>
+    </div>
   </div>
 </nav>

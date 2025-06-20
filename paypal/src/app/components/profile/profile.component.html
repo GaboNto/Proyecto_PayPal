@@ -1,0 +1,31 @@
+<div class="profile-container" *ngIf="userProfile$ | async as user; else loading">
+  <div class="profile-card">
+    <h2>Mi Perfil</h2>
+    <div class="profile-details">
+      <div class="detail-item">
+        <span class="label">Nombre completo:</span>
+        <span class="value">{{ user.nombre }} {{ user.apellido }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Correo Electrónico:</span>
+        <span class="value">{{ user.email }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Fecha de Nacimiento:</span>
+        <span class="value">{{ user.fecha_nacimiento | date: 'dd/MM/yyyy' }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Ubicación:</span>
+        <span class="value">{{ user.ciudad }}, {{ user.pais }}</span>
+      </div>
+      <div class="detail-item balance">
+        <span class="label">Saldo disponible:</span>
+        <span class="value saldo-amount">{{ user.saldo.amount | currency:'USD':'symbol' }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p class="loading-text">Cargando perfil...</p>
+</ng-template>
