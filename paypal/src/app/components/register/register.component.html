@@ -1,0 +1,41 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <img src="assets/paypal-logo.svg" alt="PayPal Logo" class="logo">
+    <h2>Crear una cuenta</h2>
+    <p class="auth-subtitle">Regístrate para empezar a gestionar tus finanzas.</p>
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" [(ngModel)]="user.nombre" required>
+      </div>
+      <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input type="text" id="apellido" name="apellido" [(ngModel)]="user.apellido" required>
+      </div>
+      <div class="form-group">
+        <label for="ciudad">Ciudad</label>
+        <input type="text" id="ciudad" name="ciudad" [(ngModel)]="user.ciudad" required>
+      </div>
+      <div class="form-group">
+        <label for="pais">País</label>
+        <input type="text" id="pais" name="pais" [(ngModel)]="user.pais" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" [(ngModel)]="user.email" required email>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" [(ngModel)]="user.password" required minlength="6">
+      </div>
+      <div class="form-group">
+        <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" [(ngModel)]="user.fecha_nacimiento" required>
+      </div>
+      <button type="submit" class="auth-button" [disabled]="!registerForm.form.valid">Crear cuenta</button>
+    </form>
+    <div class="auth-link">
+      <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>
+    </div>
+  </div>
+</div> 

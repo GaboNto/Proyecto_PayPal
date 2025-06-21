@@ -8,71 +8,35 @@ Este proyecto fue desarrollado como parte del Taller de Aplicaciones Web de la c
 
 Una aplicación web que actúa como asistente financiero personal para ayudar a los usuarios a gestionar sus ingresos, gastos y hábitos de ahorro mediante visualizaciones interactivas, recomendaciones personalizadas y alertas automáticas.
 
-## 🚀 Tecnologías Utilizadas
+## 🔧 Tecnologías Utilizadas
 
-- **Frontend**: Angular 16, Bootstrap 5, Chart.js
-- **Backend**: NestJS, TypeORM, PostgreSQL
-- **Seguridad**: JWT, Google Authenticator
-- **Dev Tools**: Git, GitHub, Visual Studio Code
+### Frontend
+- Angular
+- Bootstrap
+- JWT (seguridad)
+- RxJS (Observables)
 
----
+### Backend
+- NestJS
+- TypeORM
+- PostgreSQL
+- JWT, Hashing, Guards
+- Swagger (documentación API)
 
-## 📦 Funcionalidades Principales
+## 📂 Estructura del Proyecto
+finanzas-inteligentes-paypal/ ├── backend/ → Servidor NestJS ├── frontend/ → Aplicación Angular ├── docs/ → Documentos técnicos y planificación
 
-- ✅ Autenticación segura con JWT
-- 🔐 Verificación en dos pasos con Google Authenticator
-- 📊 Dashboard financiero con gráficos interactivos
-- 💸 Transferencias entre cuentas con validaciones
-- 💳 Gestión de tarjetas (agregar, visualizar tipo/estado)
-- 📂 Historial de transacciones con filtros por fecha y categoría
-- 🔄 Recuperación de contraseña
-- ⚙️ Configuración de seguridad del usuario
-- 🔒 Protección de rutas según sesión activa
 
- ---
- 
-## 🛠️ Instalación y Ejecución
+## 🚀 Instrucciones de Instalación
 
-### 📍 Requisitos Previos
-
-- Node.js (v18+)
+### Requisitos Previos
+- Node.js v18+
 - Angular CLI
-- NestJS CLI
-- PostgreSQL (con base de datos creada)
-- Git
+- PostgreSQL
+- Nest CLI
 
----
-
-## 🖥️ Frontend - Angular
+### Clonar el repositorio
 
 ```bash
-cd frontend
-npm install
-ng serve
-```
-Abre http://localhost:4200 en tu navegador.
-
----
-
-## 🔙 Backend - NestJS
-
-```bash
-cd backend
-npm install
-npm run start:dev
-```
-Asegúrate de configurar el archivo .env con tu base de datos y clave secreta para JWT.
-
-### 🔧 Clonación del Repositorio
-
-```bash
-git clone https://github.com/tu-usuario/finanzas-personales.git
-cd finanzas-personales
-```
-## 📌 Metodología
-El proyecto se gestiona mediante Kanban, con roles separados para frontend, backend y líder de equipo.
-
-## 👥 Autores
-- [Manuel Lopez, Kevin Rojas, Sebastian Cayupi] – Frontend
-- [Felipe Guzman, Bryan Vidaurre, Juan Meneses] – Backend
-- [Gabriel Pailamilla] – Líder de Proyecto
+git clone https://github.com/GaboNto/Proyecto_PayPal.git
+cd finanzas-inteligentes-paypal
