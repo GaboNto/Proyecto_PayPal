@@ -12,15 +12,16 @@ const typeorm_1 = require("@nestjs/typeorm");
 const movimiento_service_1 = require("./movimiento.service");
 const movimiento_controller_1 = require("./movimiento.controller");
 const movimiento_entity_1 = require("./movimiento.entity");
-const saldo_module_1 = require("../../saldo/saldo/saldo.module");
+const cuentas_module_1 = require("../../cuentas/cuentas.module");
+const cuenta_entity_1 = require("../../cuentas/entities/cuenta.entity");
 let MovimientoModule = class MovimientoModule {
 };
 exports.MovimientoModule = MovimientoModule;
 exports.MovimientoModule = MovimientoModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([movimiento_entity_1.Movimiento]),
-            saldo_module_1.SaldoModule,
+            typeorm_1.TypeOrmModule.forFeature([movimiento_entity_1.Movimiento, cuenta_entity_1.Cuenta]),
+            cuentas_module_1.CuentasModule,
         ],
         providers: [movimiento_service_1.MovimientoService],
         controllers: [movimiento_controller_1.MovimientoController],

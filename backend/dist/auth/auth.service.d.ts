@@ -1,13 +1,36 @@
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { User } from 'src/users/user.entity';
+import { Repository } from 'typeorm';
+import { Cuenta } from 'src/cuentas/entities/cuenta.entity';
+import { Card } from 'src/card/card.entity';
 export declare class AuthService {
     private usersService;
     private jwtService;
-    constructor(usersService: UsersService, jwtService: JwtService);
+    private usersRepository;
+    private cuentasRepository;
+    private cardRepository;
+    constructor(usersService: UsersService, jwtService: JwtService, usersRepository: Repository<User>, cuentasRepository: Repository<Cuenta>, cardRepository: Repository<Card>);
     validateUser(email: string, pass: string): Promise<any>;
     login(user: any): Promise<{
         accessToken: string;
     }>;
-    register(createUserDto: CreateUserDto): Promise<import("../users/user.entity").User>;
+    register(createUserDto: CreateUserDto): Promise<{
+        id_usuario: number;
+        nombre: string;
+        apellido: string;
+        email: string;
+        fecha_nacimiento: string;
+        pais: string;
+        ciudad: string;
+        rut: string;
+        banco: string;
+        cuentas: Cuenta[];
+        destinatarios: import("../destinatarios/entities/destinatario.entity").Destinatario[];
+        bepass: string;
+    }>;
+    checkRutExists(rut: string): Promise<{
+        exists: boolean;
+    }>;
 }

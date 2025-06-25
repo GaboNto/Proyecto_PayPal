@@ -9,6 +9,7 @@ class CreateUserDto {
     fecha_nacimiento;
     ciudad;
     pais;
+    rut;
 }
 exports.CreateUserDto = CreateUserDto;
 //# sourceMappingURL=create-user.dto.js.map

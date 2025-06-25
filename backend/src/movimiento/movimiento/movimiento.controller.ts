@@ -9,32 +9,36 @@ import {
   HttpStatus,
   UsePipes, // Importa UsePipes
   ValidationPipe, // Importa ValidationPipe
-  Get
+  Get,
+  UseGuards
 } from '@nestjs/common';
 import { MovimientoService } from './movimiento.service';
 import { CreateMovimientoDto } from './dto/create-movimiento.dto'; 
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
-@Controller('movimientos')
+@Controller('cuentas')
 export class MovimientoController {
   constructor(private readonly movimientoService: MovimientoService) {}
 
-  @Post(':saldoId')
+  @UseGuards(JwtAuthGuard)
+  @Post(':cuentaId/movimientos')
   @HttpCode(HttpStatus.CREATED)
   @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true })) 
   async createMovimiento(
-    @Param('saldoId', ParseIntPipe) saldoId: number,
+    @Param('cuentaId', ParseIntPipe) cuentaId: number,
     @Body() createMovimientoDto: CreateMovimientoDto, 
   ) {
     const movimiento = await this.movimientoService.createMovimiento(
-    saldoId,
+    cuentaId,
     createMovimientoDto,
   );
   return movimiento;
   }
 
-  @Get('saldo/:saldoId')
-  async getMovimientosBySaldoId(@Param('saldoId', ParseIntPipe) saldoId: number) {
-    const movimientos = await this.movimientoService.findMovimientosBySaldoId(saldoId);
+  @UseGuards(JwtAuthGuard)
+  @Get(':cuentaId/movimientos')
+  async getMovimientosByCuentaId(@Param('cuentaId', ParseIntPipe) cuentaId: number) {
+    const movimientos = await this.movimientoService.findMovimientosByCuentaId(cuentaId);
     return movimientos;
   }
 }

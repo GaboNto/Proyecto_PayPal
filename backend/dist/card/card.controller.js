@@ -15,54 +15,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CardController = void 0;
 const common_1 = require("@nestjs/common");
 const card_service_1 = require("./card.service");
-const createcard_dto_1 = require("./dto/createcard.dto");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let CardController = class CardController {
     cardService;
     constructor(cardService) {
         this.cardService = cardService;
     }
-    async create(userId, dto) {
-        return this.cardService.createCard(dto, userId);
-    }
-    async findAll() {
-        return this.cardService.getAll();
-    }
-    async findByUser(userId) {
-        return this.cardService.getByUser(userId);
-    }
-    async delete(id) {
-        return this.cardService.deleteCard(id);
+    toggleBlockStatus(id, req) {
+        return this.cardService.toggleBlock(id, req.user);
     }
 };
 exports.CardController = CardController;
 __decorate([
-    (0, common_1.Post)(':userId'),
-    __param(0, (0, common_1.Param)('userId')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Patch)(':id/toggle-block'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, createcard_dto_1.CreateCardDto]),
-    __metadata("design:returntype", Promise)
-], CardController.prototype, "create", null);
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], CardController.prototype, "findAll", null);
-__decorate([
-    (0, common_1.Get)('user/:userId'),
-    __param(0, (0, common_1.Param)('userId')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], CardController.prototype, "findByUser", null);
-__decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], CardController.prototype, "delete", null);
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], CardController.prototype, "toggleBlockStatus", null);
 exports.CardController = CardController = __decorate([
     (0, common_1.Controller)('cards'),
     __metadata("design:paramtypes", [card_service_1.CardService])

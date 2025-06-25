@@ -1,11 +1,11 @@
 import { Repository } from 'typeorm';
 import { Movimiento } from './movimiento.entity';
-import { SaldoService } from 'src/saldo/saldo/saldo.service';
+import { Cuenta } from 'src/cuentas/entities/cuenta.entity';
 import { CreateMovimientoDto } from './dto/create-movimiento.dto';
 export declare class MovimientoService {
     private readonly movimientoRepository;
-    private readonly saldoService;
-    constructor(movimientoRepository: Repository<Movimiento>, saldoService: SaldoService);
-    createMovimiento(saldoId: number, createMovimientoDto: CreateMovimientoDto): Promise<Movimiento>;
-    findMovimientosBySaldoId(saldoId: number): Promise<Movimiento[]>;
+    private readonly cuentaRepository;
+    constructor(movimientoRepository: Repository<Movimiento>, cuentaRepository: Repository<Cuenta>);
+    createMovimiento(cuentaId: number, createMovimientoDto: CreateMovimientoDto): Promise<Movimiento>;
+    findMovimientosByCuentaId(cuentaId: number): Promise<Movimiento[]>;
 }

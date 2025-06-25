@@ -1,12 +1,19 @@
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
-import { SaldoService } from 'src/saldo/saldo/saldo.service';
 import { CreateUserDto } from 'src/auth/dto/create-user.dto';
+import { SetBepassDto } from './dto/set-bepass.dto';
+import { VerifyBepassDto } from './dto/verify-bepass.dto';
 export declare class UsersService {
-    private repo;
-    private readonly saldoService;
-    constructor(repo: Repository<User>, saldoService: SaldoService);
-    create(userData: CreateUserDto): Promise<User>;
+    private usersRepository;
+    constructor(usersRepository: Repository<User>);
+    findUserProfile(userId: number): Promise<User | null>;
     findUserByEmail(email: string): Promise<User | null>;
-    findUserById(id: number): Promise<User | null>;
+    create(createUserDto: CreateUserDto): Promise<User>;
+    findById(id: number): Promise<User>;
+    verifyBepass(userId: number, verifyBepassDto: VerifyBepassDto): Promise<{
+        success: boolean;
+    }>;
+    setBepass(userId: number, setBepassDto: SetBepassDto): Promise<{
+        message: string;
+    }>;
 }

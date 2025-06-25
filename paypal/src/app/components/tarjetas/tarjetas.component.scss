@@ -1,246 +1,342 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap');
+
+:host {
+  display: block;
+  padding: 2rem;
+  background-color: #f4f7f9;
+  font-family: 'Poppins', sans-serif;
+}
+
 .tarjetas-container {
+  max-width: 420px;
+  margin: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px;
 }
 
-.saldo-actual-container {
-  border: 1px solid #ccc;
-  padding: 15px 30px;
-  border-radius: 8px;
-  margin-bottom: 30px;
+.saldo-header {
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
   text-align: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 83, 224, 0.07);
+  border: 1px solid #e6e9ee;
+
+  h2 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  p {
+    margin: 0.25rem 0 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #003087;
+  }
+}
+
+.card-display-area {
+  perspective: 1000px;
+  margin-bottom: 2rem;
+  min-height: 230px;
+}
+
+.credit-card {
+  padding: 24px;
+  border-radius: 16px;
+  color: white;
   position: relative;
+  box-shadow: 0 15px 35px rgba(0, 48, 135, 0.2);
+  font-family: 'Roboto Mono', monospace;
+  transition: all 0.4s ease-in-out;
+  transform-style: preserve-3d;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 60%);
+    z-index: 1;
+  }
+
+  &.blocked {
+    filter: grayscale(1) blur(2px);
+    pointer-events: none;
+  }
+
+  &.visa {
+    background: linear-gradient(135deg, #1a438d, #0055a4);
+  }
+  &.mastercard {
+    background: linear-gradient(135deg, #333, #1a1a1a);
+  }
+
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .blocked-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(40, 40, 40, 0.7);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    border-radius: 16px;
+    backdrop-filter: blur(4px);
+    font-family: 'Poppins', sans-serif;
+
+    .fa-lock {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    span {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    .chip {
+      width: 50px;
+      height: 38px;
+      background: linear-gradient(135deg, #ddc49f, #bfab8a);
+      border-radius: 6px;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .card-logo {
+      height: 40px;
+      width: 65px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center right;
+      filter: invert(1) brightness(1.5);
+      
+      &.visa-logo {
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg');
+      }
+      &.mastercard-logo {
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg');
+      }
+    }
+  }
+
+  .card-number {
+    font-size: 1.6rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: 3px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+
+    .label {
+      display: block;
+      font-size: 0.6rem;
+      opacity: 0.7;
+      margin-bottom: 2px;
+    }
+    .value {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+  }
 }
 
-.saldo-actual-container p {
-  margin: 0;
-  color: #555;
-  font-size: 0.9em;
+.action-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+
+  button {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #dbe1e8;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 83, 224, 0.05);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 83, 224, 0.1);
+      border-color: #c0cde0;
+    }
+
+    &:disabled {
+      background-color: #e9ecef;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+      opacity: 0.7;
+    }
+
+    &.danger {
+      background-color: #fceeee;
+      color: #c93434;
+      border-color: #f7dada;
+    }
+    &.success {
+      background-color: #eaf6ec;
+      color: #2a7f40;
+      border-color: #d2edd9;
+    }
+
+    i {
+      font-size: 1.2rem;
+    }
+  }
 }
 
-.saldo-actual-container h2 {
-  margin: 5px 0 0;
-  font-size: 2em;
-  color: #333;
+.selection-panel {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    text-align: center;
+    color: #333;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border: 1px solid #eee;
+    margin-bottom: 0.5rem;
+
+    &:hover {
+      background-color: #f5f7fa;
+    }
+
+    &.active {
+      background-color: #e6f0ff;
+      border-color: #007bff;
+      font-weight: 600;
+    }
+  }
+  .btn-close-panel {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: #003087;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #002261;
+    }
+  }
 }
 
-.info-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #eee;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
+.loading-container, .no-cards-message {
+  text-align: center;
+  padding: 3rem;
+  color: #6c757d;
+}
+
+.no-cards-message {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.8em;
-  font-weight: bold;
-  color: #666;
+  background: #e9ecef;
+  color: #6c757d;
+  min-height: 230px;
+  border-radius: 16px;
+  font-weight: 500;
 }
 
-.card-container {
-  margin-bottom: 30px;
-  position: relative;
-  width: 300px;
-  height: 180px;
-}
-
-.credit-card-svg {
-  width: 100%;
-  height: 100%;
+// Re-using Bootstrap alert styles for simplicity
+.alert {
+  padding: 1rem 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
 }
 
-.card-container:hover .credit-card-svg {
-  transform: scale(1.03);
+// Estilos para el nuevo modal de Be Pass
+// Se aplican globalmente a los modales abiertos por este componente
+:host ::ng-deep .modal-content {
+  border-radius: 12px !important;
+  border: none !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15) !important;
 }
 
-.buttons-container {
-  display: flex;
-  gap: 20px;
+:host ::ng-deep .modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  .modal-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #343a40;
+  }
 }
 
-.btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  background-color: #f9f9f9;
-  cursor: pointer;
-  font-size: 0.9em;
-  color: #333;
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: #e0e0e0;
-}
-
-.btn[disabled] {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.btn img {
-  width: 20px;
-  height: 20px;
-}
-
-.card-details {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  color: white;
-  font-size: 1.1em;
-  font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding: 20px 20px 40px 20px;
-  box-sizing: border-box;
-  z-index: 2;
-}
-
-.card-details p {
-  margin: 3px 0;
-}
-
-.card-number {
-  font-size: 1.2em;
-  margin-bottom: 5px;
-}
-
-.card-expiry, .card-name, .card-company {
-  font-size: 0.8em;
-}
-
-.card-container.blocked .credit-card-svg {
-  filter: blur(8px) grayscale(80%);
-}
-
-.blocked-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-  z-index: 3;
-}
-
-.blocked-icon {
-  width: 60px;
-  height: 60px;
-  filter: invert(1) drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
-}
-
-.add-card-form,
-.card-selection-panel {
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
-  margin-top: 20px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.add-card-form h3,
-.card-selection-panel h3 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 15px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.form-group label {
-  font-size: 0.9em;
-  color: #555;
-  font-weight: bold;
-}
-
-.form-group input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1em;
-}
-
-.cancel-btn {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  align-self: flex-end;
-}
-
-.cancel-btn:hover {
-  background-color: #d32f2f;
-}
-
-.card-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-height: 300px;
-  overflow-y: auto;
-  padding-right: 5px;
-}
-
-.card-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 10px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.card-item:hover {
-  background-color: #e6e6e6;
-  border-color: #b0b0b0;
-}
-
-.card-item.selected {
-  border-color: #007bff;
-  background-color: #e0f2ff;
-}
-
-.card-item-svg {
-  width: 60px;
-  height: 36px;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.card-item p {
-  margin: 0;
-  font-size: 0.9em;
-  color: #333;
+:host ::ng-deep .modal-body {
+  p {
+    margin-bottom: 1.5rem;
+    color: #495057;
+  }
+  .form-group label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  #bepass-input {
+    letter-spacing: 5px;
+    font-size: 1.5rem;
+    font-family: 'Roboto Mono', monospace;
+  }
 } 

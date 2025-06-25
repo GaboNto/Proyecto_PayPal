@@ -25,8 +25,11 @@ let AuthController = class AuthController {
     async login(req) {
         return this.authService.login(req.user);
     }
-    register(createUserDto) {
+    async register(createUserDto) {
         return this.authService.register(createUserDto);
+    }
+    async checkRut(rut) {
+        return this.authService.checkRutExists(rut);
     }
 };
 exports.AuthController = AuthController;
@@ -40,11 +43,18 @@ __decorate([
 ], AuthController.prototype, "login", null);
 __decorate([
     (0, common_1.Post)('register'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
+__decorate([
+    (0, common_1.Get)('check-rut/:rut'),
+    __param(0, (0, common_1.Param)('rut')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "checkRut", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

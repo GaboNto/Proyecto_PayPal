@@ -1,69 +1,333 @@
-.saldo-container {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-  padding: 2rem;
-  margin-bottom: 2rem;
-  text-align: center;
+:host {
+  display: block;
+  background-color: #f8f9fa;
+  min-height: 100vh;
 }
-.saldo-monto {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #0070ba;
-  margin-top: 1rem;
-}
-.contactos-container {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-  padding: 2rem;
-}
-.contactos-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
-.contactos-table th, .contactos-table td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #eee;
-  text-align: left;
-}
-.contactos-table th {
-  background: #f5f5f5;
-  font-weight: 600;
-}
-.estrella-favorito i, .estrella-normal i {
-  font-size: 2rem;
-  vertical-align: middle;
-  cursor: pointer;
-  transition: color 0.2s, text-shadow 0.2s;
-}
-.estrella-favorito i {
-  color: #FFD700;
-  text-shadow: 0 0 2px #bfa100;
-}
-.estrella-normal i {
-  color: #222;
-}
-.estrella-normal i:before {
-  color: #222;
-}
-.btn-transferir {
-  background: #0070ba;
-  color: #fff;
+
+.alert-primary {
+  background-color: #004085; /* Un azul corporativo más oscuro */
   border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1.2rem;
+}
+
+.card {
+  border: none;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+}
+
+.list-group-item-action {
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background-color 0.2s ease;
 }
-.btn-transferir:hover {
-  background: #005ea6;
+
+.list-group-item-action:hover {
+  background-color: #e9ecef;
 }
-.estrella {
-  color: #222;
-  transition: color 0.2s;
+
+.bi-star, .bi-star-fill {
+  color: #6c757d; /* Color gris por defecto */
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
-.estrella.favorito {
-  color: #FFD700;
+
+.bi-star-fill {
+  color: #ffc107; /* Amarillo para favorito */
+}
+
+.bi-star:hover, .bi-star-fill:hover {
+  transform: scale(1.2);
+}
+
+/* Banner de saldo */
+.saldo-actual-banner {
+  background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.saldo-actual-banner h6 {
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+.saldo-actual-banner .h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Tabs personalizados */
+.tabs .btn {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.tabs .btn.active {
+  background-color: #0070ba;
+  border-color: #0070ba;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 112, 186, 0.3);
+}
+
+.tabs .btn:hover:not(.active) {
+  background-color: #e9ecef;
+  border-color: #0070ba;
+  color: #0070ba;
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 1.25rem 1.5rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* Formulario de agregar destinatario */
+.add-destinatario-form {
+  overflow: hidden;
+  transition: all 0.4s ease-in-out;
+  max-height: 0;
+  opacity: 0;
+  margin-bottom: 0;
+}
+
+.add-destinatario-form.show {
+  max-height: 600px;
+  opacity: 1;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+/* Lista de destinatarios */
+.destinatarios-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.destinatario-item {
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.destinatario-item:hover {
+  background-color: #f8f9fa;
+  transform: translateX(4px);
+}
+
+.destinatario-item:last-child {
+  border-bottom: none !important;
+}
+
+/* Botones de acción */
+.btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 6px;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #000;
+}
+
+.btn-outline-warning .bi-star-fill {
+  color: #ffc107;
+}
+
+.btn-outline-warning .bi-star {
+  color: #6c757d;
+}
+
+/* Estados vacíos */
+.text-muted .bi {
+  opacity: 0.5;
+}
+
+/* Formularios */
+.form-control, .form-select {
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #0070ba;
+  box-shadow: 0 0 0 0.2rem rgba(0, 112, 186, 0.25);
+}
+
+.form-label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+/* Alertas */
+.alert {
+  border-radius: 8px;
+  border: none;
+  padding: 1rem 1.25rem;
+}
+
+.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* Badges */
+.badge {
+  font-size: 0.75rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 6px;
+}
+
+/* Botones principales */
+.btn-primary {
+  background-color: #0070ba;
+  border-color: #0070ba;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #005ea6;
+  border-color: #005ea6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 112, 186, 0.3);
+}
+
+.btn-primary:disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .saldo-actual-banner {
+    padding: 1.5rem;
+  }
+  
+  .saldo-actual-banner .h2 {
+    font-size: 2rem;
+  }
+  
+  .tabs .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .add-destinatario-form.show {
+    padding: 1rem;
+  }
+}
+
+/* Scrollbar personalizado */
+.destinatarios-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.destinatarios-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.destinatarios-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.destinatarios-list::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tab-content {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Iconos */
+.bi {
+  line-height: 1;
+}
+
+/* Estados de carga */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Mejoras para accesibilidad */
+.btn:focus, .form-control:focus, .form-select:focus {
+  outline: 2px solid #0070ba;
+  outline-offset: 2px;
+}
+
+/* Estilos para dispositivos de alta densidad */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .card {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+  }
 }

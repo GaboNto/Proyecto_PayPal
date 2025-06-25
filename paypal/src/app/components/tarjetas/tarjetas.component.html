@@ -1,60 +1,184 @@
-<div class="tarjetas-container">
-  <div class="saldo-actual-container">
-    <p>saldo actual</p>
-    <h2>$362.030</h2>
-    <span class="info-icon">i</span>
+<div class="tarjetas-container" *ngIf="!isLoading; else loadingTemplate">
+  
+  <!-- Saldo de la cuenta seleccionada -->
+  <div class="saldo-header" *ngIf="selectedCuenta">
+    <h2>Saldo de {{ selectedCuenta.tipo_cuenta }}</h2>
+    <p>{{ selectedCuenta.saldo | currency:'CLP':'symbol-narrow':'1.0-0' }}</p>
   </div>
 
-  <div class="card-container" [ngClass]="{'blocked': cardBlocked}">
-    <div class="credit-card-svg" [innerHtml]="getCardSvg()"></div>
-    <div *ngIf="cardBlocked" class="blocked-overlay">
-      <img src="https://img.icons8.com/ios-filled/50/000000/lock.png" alt="Bloqueada" class="blocked-icon">
+  <!-- Contenedor principal de la tarjeta -->
+  <div class="card-display-area">
+    <ng-container *ngIf="currentCard; else noCardsTemplate">
+      <div class="credit-card" [ngClass]="{
+        'visa': !isMastercard, 
+        'mastercard': isMastercard, 
+        'blocked': currentCard.is_blocked 
+      }">
+        <!-- Capa de bloqueo -->
+        <div *ngIf="currentCard.is_blocked" class="blocked-overlay">
+          <i class="fas fa-lock"></i>
+          <span>Tarjeta Bloqueada</span>
+        </div>
+
+        <!-- Contenido de la tarjeta -->
+        <div class="card-header">
+          <div class="chip"></div>
+          <div class="card-logo" [class.visa-logo]="!isMastercard" [class.mastercard-logo]="isMastercard"></div>
+        </div>
+        <div class="card-number">
+          <span *ngIf="showCardDetails">{{ currentCard.cardNumber | formatCardNumber }}</span>
+          <span *ngIf="!showCardDetails">**** **** **** {{ currentCard.cardNumber.slice(-4) }}</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-holder">
+            <span class="label">Titular</span>
+            <span class="value">{{ titular }}</span>
+          </div>
+          <div class="card-expiry">
+            <span class="label">Expira</span>
+            <span class="value">{{ currentCard.expirationDate }}</span>
+          </div>
+          <div class="card-cvv">
+            <span class="label">CVV</span>
+            <span class="value">{{ showCardDetails ? currentCard.cvv : '***' }}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Botones de Acción -->
+  <div class="action-buttons" *ngIf="currentCard">
+    <button (click)="toggleSelectionPanel()" [disabled]="currentCard.is_blocked">
+      <i class="fas fa-exchange-alt"></i>
+      <span>Cambiar Cuenta</span>
+    </button>
+    <button (click)="promptForBePass('viewDetails', bepassModal)" [disabled]="currentCard.is_blocked">
+      <i class="fas fa-eye"></i>
+      <span>Ver Números</span>
+    </button>
+    <button (click)="promptForBePass('toggleBlock', bepassModal)"
+            [class.danger]="!currentCard.is_blocked" 
+            [class.success]="currentCard.is_blocked">
+      <i [ngClass]="currentCard.is_blocked ? 'fas fa-unlock' : 'fas fa-lock'"></i>
+      <span>{{ currentCard.is_blocked ? 'Desbloquear' : 'Bloquear' }}</span>
+    </button>
+    <button (click)="solicitarCuentaDeAhorro()" [disabled]="hasCuentaDeAhorro || currentCard.is_blocked">
+      <i class="fas fa-piggy-bank"></i>
+      <span>Abrir Cta. Ahorro</span>
+    </button>
+  </div>
+  
+  <!-- Panel de Selección de Cuentas -->
+  <div class="selection-panel" *ngIf="showSelectionPanel">
+    <h3>Selecciona una cuenta para ver su tarjeta</h3>
+    <ul>
+      <li *ngFor="let cuenta of cuentas" (click)="selectCuenta(cuenta)" [class.active]="cuenta.id === selectedCuenta?.id">
+        <div class="cuenta-info">
+          <strong>{{ cuenta.tipo_cuenta }}</strong>
+          <span>N°: ...{{ cuenta.numero_cuenta.slice(-4) }}</span>
+        </div>
+        <div class="cuenta-saldo">
+          {{ cuenta.saldo | currency:'CLP':'symbol-narrow':'1.0-0' }}
+        </div>
+      </li>
+    </ul>
+    <button class="btn-close-panel" (click)="showSelectionPanel = false">Cerrar</button>
+  </div>
+
+  <!-- Mensaje de Error -->
+  <div *ngIf="error" class="alert alert-danger mt-4">
+    <i class="fas fa-exclamation-triangle"></i> {{ error }}
+  </div>
+</div>
+
+<!-- Plantillas para estados de carga y sin tarjetas -->
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <p>Cargando tus tarjetas...</p>
+  </div>
+</ng-template>
+
+<ng-template #noCardsTemplate>
+  <div class="no-cards-message">
+    <p>No tienes tarjetas asociadas a esta cuenta.</p>
+  </div>
+</ng-template>
+
+<!-- Modal para la Clave Be Pass -->
+<ng-template #bepassModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Confirmación de Seguridad</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p>Por tu seguridad, ingresa tu <strong>Clave Be Pass</strong> de 6 dígitos para continuar.</p>
+    <div class="form-group">
+      <label for="bepass-input">Clave Be Pass</label>
+      <input #bepassInput type="password" id="bepass-input" class="form-control text-center" maxlength="6" autofocus>
     </div>
-    <div class="card-details" [ngClass]="{'visible-numbers': showNumbers}">
-      <p class="card-number">{{ showNumbers ? currentCard.fullNumber : '**** **** **** ' + currentCard.lastFourDigits }}</p>
-      <p class="card-expiry">VÁLIDO HASTA {{ currentCard.expiry }}</p>
-      <p class="card-name">{{ currentCard.name }}</p>
-      <p class="card-company">{{ currentCard.company }}</p>
-    </div>
+    <div *ngIf="error" class="alert alert-danger p-2 mt-3">{{ error }}</div>
   </div>
-
-  <div class="buttons-container">
-    <button class="btn" (click)="toggleCardSelectionPanel()" [disabled]="cardBlocked"><img src="https://img.icons8.com/ios-filled/24/000000/recurring-appointment.png" alt="Cambiar tarjeta icon"> Cambiar tarjeta</button>
-    <button class="btn" (click)="viewNumbers()" [disabled]="cardBlocked"><img src="https://img.icons8.com/ios-filled/24/000000/visible--v1.png" alt="Ver numeros icon"> Ver numeros</button>
-    <button class="btn" (click)="toggleBlockCard()"><img [src]="cardBlocked ? 'https://img.icons8.com/ios-filled/24/000000/unlock-2.png' : 'https://img.icons8.com/ios-filled/24/000000/lock.png'" alt="Bloquear tarjeta icon"> {{ cardBlocked ? 'Desbloquear tarjeta' : 'Bloquear tarjeta' }}</button>
-    <button class="btn" (click)="toggleAddCardForm()" [disabled]="cardBlocked"><img src="https://img.icons8.com/ios-filled/24/000000/add-credit-card.png" alt="Agregar tarjeta icon"> Agregar tarjeta</button>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="handleBePassConfirmation(bepassInput.value, modal)">Aceptar</button>
   </div>
+</ng-template>
 
-  <div *ngIf="showCardSelectionPanel" class="card-selection-panel">
-    <h3>Seleccionar Tarjeta</h3>
-    <div class="card-list">
-      <div *ngFor="let card of cards" class="card-item" [ngClass]="{'selected': card.id === currentCard.id}" (click)="selectCard(card)">
-        <div class="card-item-svg" [innerHtml]="getCardItemSvg(card)"></div>
-        <p>{{ card.type }} (**** {{ card.lastFourDigits }})</p>
+<!-- Modal de confirmación para abrir cuenta de ahorro -->
+<div class="modal fade" id="cuentaAhorroModal" tabindex="-1" aria-labelledby="cuentaAhorroModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="cuentaAhorroModalLabel">Abrir Cuenta de Ahorro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="bi bi-piggy-bank display-3 text-info mb-3"></i>
+        <p class="fs-5">¿Deseas abrir una cuenta de ahorro? <br>Costo <b>$0</b>. Incluye una nueva tarjeta digital.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary w-50" (click)="confirmarCuentaAhorro()" data-bs-dismiss="modal">Aceptar</button>
       </div>
     </div>
-    <button class="btn cancel-btn" (click)="toggleCardSelectionPanel()">Cerrar</button>
   </div>
+</div>
 
-  <div *ngIf="showAddCardForm" class="add-card-form">
-    <h3>Agregar Nueva Tarjeta</h3>
-    <div class="form-group">
-      <label for="cardName">Nombre en la tarjeta:</label>
-      <input type="text" id="cardName" [(ngModel)]="newCard.name" placeholder="Nombre Completo">
+<!-- Modal de éxito de cuenta de ahorro -->
+<div class="modal fade" id="ahorroSuccessModal" tabindex="-1" aria-labelledby="ahorroSuccessModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="ahorroSuccessModalLabel">¡Cuenta de Ahorro Creada!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="bi bi-piggy-bank display-3 text-success mb-3"></i>
+        <p class="fs-5">¡Tu Cuenta de Ahorro ha sido creada con éxito!<br>Incluye una nueva tarjeta digital.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-primary w-50" data-bs-dismiss="modal">Aceptar</button>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="cardNumber">Número de tarjeta:</label>
-      <input type="text" id="cardNumber" [(ngModel)]="newCard.fullNumber" maxlength="16" placeholder="16 dígitos">
+  </div>
+</div>
+
+<!-- Modal de advertencia: Be Pass requerido -->
+<div class="modal fade" id="bepassRequiredModal" tabindex="-1" aria-labelledby="bepassRequiredModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-warning text-dark">
+        <h5 class="modal-title" id="bepassRequiredModalLabel">Clave Be Pass requerida</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="bi bi-shield-lock display-3 text-warning mb-3"></i>
+        <p class="fs-5">Debes crear una clave Be Pass antes de poder bloquear o desbloquear tu tarjeta.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-primary w-50" (click)="goToSecurity()" data-bs-dismiss="modal">Ir a Seguridad</button>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="cardCvv">CVV:</label>
-      <input type="text" id="cardCvv" [(ngModel)]="newCard.cvv" maxlength="4" placeholder="CVV">
-    </div>
-    <div class="form-group">
-      <label for="cardExpiry">Fecha de vencimiento (MM/AA):</label>
-      <input type="text" id="cardExpiry" [(ngModel)]="newCard.expiry" maxlength="5" placeholder="MM/AA">
-    </div>
-    <button class="btn" (click)="addNewCard()">Guardar Tarjeta</button>
-    <button class="btn cancel-btn" (click)="toggleAddCardForm()">Cancelar</button>
   </div>
 </div> 

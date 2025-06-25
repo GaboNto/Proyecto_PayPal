@@ -6,5 +6,21 @@ export declare class AuthController {
     login(req: any): Promise<{
         accessToken: string;
     }>;
-    register(createUserDto: CreateUserDto): Promise<import("../users/user.entity").User>;
+    register(createUserDto: CreateUserDto): Promise<{
+        id_usuario: number;
+        nombre: string;
+        apellido: string;
+        email: string;
+        fecha_nacimiento: string;
+        pais: string;
+        ciudad: string;
+        rut: string;
+        banco: string;
+        cuentas: import("../cuentas/entities/cuenta.entity").Cuenta[];
+        destinatarios: import("../destinatarios/entities/destinatario.entity").Destinatario[];
+        bepass: string;
+    }>;
+    checkRut(rut: string): Promise<{
+        exists: boolean;
+    }>;
 }

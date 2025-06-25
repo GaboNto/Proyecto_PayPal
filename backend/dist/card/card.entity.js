@@ -11,15 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Card = void 0;
 const typeorm_1 = require("typeorm");
-const user_entity_1 = require("../users/user.entity");
-const movimiento_entity_1 = require("../movimiento/movimiento/movimiento.entity");
+const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
 let Card = class Card {
     id;
     cardNumber;
     cvv;
     expirationDate;
-    user;
-    movimientos;
+    is_blocked;
+    cuenta;
 };
 exports.Card = Card;
 __decorate([
@@ -39,14 +38,15 @@ __decorate([
     __metadata("design:type", String)
 ], Card.prototype, "expirationDate", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, { onDelete: 'CASCADE' }),
-    __metadata("design:type", user_entity_1.User)
-], Card.prototype, "user", void 0);
+    (0, typeorm_1.Column)({ type: 'boolean', default: false }),
+    __metadata("design:type", Boolean)
+], Card.prototype, "is_blocked", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => movimiento_entity_1.Movimiento, (movimiento) => movimiento.card),
-    __metadata("design:type", Array)
-], Card.prototype, "movimientos", void 0);
+    (0, typeorm_1.ManyToOne)(() => cuenta_entity_1.Cuenta, cuenta => cuenta.cards, { onDelete: 'CASCADE' }),
+    (0, typeorm_1.JoinColumn)({ name: 'id_cuenta' }),
+    __metadata("design:type", cuenta_entity_1.Cuenta)
+], Card.prototype, "cuenta", void 0);
 exports.Card = Card = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)('card')
 ], Card);
 //# sourceMappingURL=card.entity.js.map

@@ -12,15 +12,19 @@ const typeorm_1 = require("@nestjs/typeorm");
 const card_entity_1 = require("./card.entity");
 const card_service_1 = require("./card.service");
 const card_controller_1 = require("./card.controller");
-const user_entity_1 = require("../users/user.entity");
+const auth_module_1 = require("../auth/auth.module");
 let CardModule = class CardModule {
 };
 exports.CardModule = CardModule;
 exports.CardModule = CardModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([card_entity_1.Card, user_entity_1.User])],
-        controllers: [card_controller_1.CardController],
+        imports: [
+            typeorm_1.TypeOrmModule.forFeature([card_entity_1.Card]),
+            (0, common_1.forwardRef)(() => auth_module_1.AuthModule),
+        ],
         providers: [card_service_1.CardService],
+        controllers: [card_controller_1.CardController],
+        exports: [typeorm_1.TypeOrmModule, card_service_1.CardService]
     })
 ], CardModule);
 //# sourceMappingURL=card.module.js.map

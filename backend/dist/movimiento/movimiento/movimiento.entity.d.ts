@@ -1,10 +1,8 @@
-import { Saldo } from 'src/saldo/saldo/saldo.entity';
-import { Card } from 'src/card/card.entity';
+import { Cuenta } from 'src/cuentas/entities/cuenta.entity';
 export declare class Movimiento {
     id: number;
     amount: number;
     type: string;
     date: Date;
-    saldo: Saldo;
-    card: Card;
+    cuenta: Cuenta;
 }

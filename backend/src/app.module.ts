@@ -7,14 +7,19 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CardModule } from './card/card.module';
-import { SaldoModule } from './saldo/saldo/saldo.module';
 import { MovimientoModule } from './movimiento/movimiento/movimiento.module';
 import { User } from './users/user.entity';
-import { Saldo } from './saldo/saldo/saldo.entity';
 import { Movimiento } from './movimiento/movimiento/movimiento.entity';
 import { Card } from './card/card.entity';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { TransfersModule } from './transfers/transfers.module';
+import { CuentasModule } from './cuentas/cuentas.module';
+import { Cuenta } from './cuentas/entities/cuenta.entity';
+import { Transferencia } from './transfers/entities/transferencia.entity';
+import { UsuarioExterno } from './transfers/entities/usuario-externo.entity';
+import { DestinatariosModule } from './destinatarios/destinatarios.module';
+import { Destinatario } from './destinatarios/entities/destinatario.entity';
 
 @Module({
   imports: [
@@ -31,10 +36,9 @@ import { join } from 'path';
         host: configService.get('DB_HOST'),
         port: +configService.get('DB_PORT'),
         username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_DATABASE'),
-        entities: [User, Saldo, Movimiento, Card], 
-        //entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_DATABASE'),
+        entities: [User, Movimiento, Card, Cuenta, Transferencia, UsuarioExterno, Destinatario], 
         synchronize: true,
       }),
       inject: [ConfigService],
@@ -42,8 +46,10 @@ import { join } from 'path';
     UsersModule,
     AuthModule,
     CardModule,
-    SaldoModule,
     MovimientoModule,
+    TransfersModule,
+    CuentasModule,
+    DestinatariosModule,
   ],
   providers: [AppService],
   controllers: [AppController],

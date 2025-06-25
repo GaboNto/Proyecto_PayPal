@@ -8,21 +8,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const users_service_1 = require("../users/users.service");
 const bcrypt = require("bcrypt");
+const typeorm_1 = require("@nestjs/typeorm");
+const user_entity_1 = require("../users/user.entity");
+const typeorm_2 = require("typeorm");
+const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
+const card_entity_1 = require("../card/card.entity");
 let AuthService = class AuthService {
     usersService;
     jwtService;
-    constructor(usersService, jwtService) {
+    usersRepository;
+    cuentasRepository;
+    cardRepository;
+    constructor(usersService, jwtService, usersRepository, cuentasRepository, cardRepository) {
         this.usersService = usersService;
         this.jwtService = jwtService;
+        this.usersRepository = usersRepository;
+        this.cuentasRepository = cuentasRepository;
+        this.cardRepository = cardRepository;
     }
     async validateUser(email, pass) {
-        const user = await this.usersService.findUserByEmail(email);
+        const user = await this.usersRepository.findOne({ where: { email } });
         if (user && (await bcrypt.compare(pass, user.password))) {
             const { password, ...result } = user;
             return result;
@@ -36,19 +50,49 @@ let AuthService = class AuthService {
         };
     }
     async register(createUserDto) {
-        const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
-        const userToCreate = {
-            ...createUserDto,
+        const { password, ...userData } = createUserDto;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = this.usersRepository.create({
+            ...userData,
             password: hashedPassword,
-        };
-        return this.usersService.create(userToCreate);
+            banco: 'Paypal',
+        });
+        const savedUser = await this.usersRepository.save(newUser);
+        const numeroDeCuenta = Math.floor(1000000 + Math.random() * 900000000).toString();
+        const newCuenta = this.cuentasRepository.create({
+            usuario: savedUser,
+            numero_cuenta: numeroDeCuenta,
+            tipo_cuenta: 'Cuenta Vista',
+            saldo: 0,
+        });
+        await this.cuentasRepository.save(newCuenta);
+        const expirationDate = new Date();
+        expirationDate.setFullYear(expirationDate.getFullYear() + 4);
+        const newCard = this.cardRepository.create({
+            cardNumber: Math.floor(1000000000000000 + Math.random() * 9000000000000000).toString(),
+            cvv: Math.floor(100 + Math.random() * 900).toString(),
+            expirationDate: expirationDate.toLocaleDateString('es-ES', { month: '2-digit', year: '2-digit' }),
+            cuenta: newCuenta
+        });
+        await this.cardRepository.save(newCard);
+        const { password: _, ...result } = savedUser;
+        return result;
+    }
+    async checkRutExists(rut) {
+        const user = await this.usersRepository.findOne({ where: { rut } });
+        return { exists: !!user };
     }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
+    __param(2, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
+    __param(3, (0, typeorm_1.InjectRepository)(cuenta_entity_1.Cuenta)),
+    __param(4, (0, typeorm_1.InjectRepository)(card_entity_1.Card)),
     __metadata("design:paramtypes", [users_service_1.UsersService,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

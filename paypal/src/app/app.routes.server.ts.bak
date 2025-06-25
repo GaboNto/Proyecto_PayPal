@@ -1,0 +1,13 @@
+/*
+import { RenderMode, ServerRoute } from '@angular/ssr';
+import { Routes } from '@angular/router';
+import { AppComponent } from './app/app.component';
+
+export const serverRoutes: ServerRoute[] = [
+  {
+    path: 'shell',
+    component: AppComponent,
+    renderMode: RenderMode.Server,
+  },
+];
+*/

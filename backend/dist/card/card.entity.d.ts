@@ -1,10 +1,9 @@
-import { User } from '../users/user.entity';
-import { Movimiento } from 'src/movimiento/movimiento/movimiento.entity';
+import { Cuenta } from '../cuentas/entities/cuenta.entity';
 export declare class Card {
     id: string;
     cardNumber: string;
     cvv: string;
     expirationDate: string;
-    user: User;
-    movimientos: Movimiento[];
+    is_blocked: boolean;
+    cuenta: Cuenta;
 }

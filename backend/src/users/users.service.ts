@@ -1,39 +1,94 @@
 /* eslint-disable prettier/prettier */
 // src/users/users.service.ts
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
-import * as bcrypt from 'bcrypt';
-import { SaldoService } from 'src/saldo/saldo/saldo.service';
 import { CreateUserDto } from 'src/auth/dto/create-user.dto';
+import { SetBepassDto } from './dto/set-bepass.dto';
+import * as bcrypt from 'bcrypt';
+import { VerifyBepassDto } from './dto/verify-bepass.dto';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User) private repo: Repository<User>,
-    private readonly saldoService: SaldoService,
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
   ) {}
 
-  // Crear un nuevo usuario
-  async create(userData: CreateUserDto): Promise<User> {
-    
-    const user = this.repo.create(userData);
-    
-    const savedUser = await this.repo.save(user);
-    await this.saldoService.createInitialSaldo(savedUser, 0); // Saldo inicial de 0
-    return savedUser;
-  }
-
-  // Buscar un usuario por email
-  async findUserByEmail(email: string): Promise<User | null> {
-    return this.repo.findOne({ where: { email } });
-  }
-
-  async findUserById(id: number): Promise<User | null> {
-    return this.repo.findOne({ 
-      where: { id_usuario: id },
-      relations: ['saldo'],
+  async findUserProfile(userId: number): Promise<User | null> {
+    const user = await this.usersRepository.findOne({
+      where: { id_usuario: userId },
+      relations: ['cuentas'], 
     });
+    if (!user) {
+      throw new NotFoundException(`User profile with ID ${userId} not found`);
+    }
+    return user;
+  }
+
+  findUserByEmail(email: string) {
+    return this.usersRepository.findOne({ where: { email }, relations: ['cuentas'] });
+  }
+
+  async create(createUserDto: CreateUserDto) {
+    const newUser = this.usersRepository.create(createUserDto);
+    return this.usersRepository.save(newUser);
+  }
+
+  async findById(id: number) {
+    const user = await this.usersRepository.findOne({
+      where: { id_usuario: id },
+      relations: ['cuentas'], // Esto asegura que las cuentas del usuario se carguen
+    });
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    return user;
+  }
+
+  async verifyBepass(userId: number, verifyBepassDto: VerifyBepassDto): Promise<{ success: boolean }> {
+    const { bepass } = verifyBepassDto;
+    const user = await this.usersRepository.findOne({ where: { id_usuario: userId } });
+
+    if (!user) {
+      throw new NotFoundException('Usuario no encontrado.');
+    }
+
+    if (!user.bepass) {
+      throw new BadRequestException('El usuario no ha configurado una clave Be Pass.');
+    }
+
+    const isBepassValid = await bcrypt.compare(bepass, user.bepass);
+    if (!isBepassValid) {
+      throw new UnauthorizedException('La clave Be Pass es incorrecta.');
+    }
+
+    return { success: true };
+  }
+
+  async setBepass(userId: number, setBepassDto: SetBepassDto): Promise<{ message: string }> {
+    const { newBepass, confirmBepass, currentPassword } = setBepassDto;
+
+    if (newBepass !== confirmBepass) {
+      throw new BadRequestException('Las claves Be Pass no coinciden.');
+    }
+
+    const user = await this.usersRepository.findOne({ where: { id_usuario: userId } });
+    if (!user) {
+      throw new NotFoundException('Usuario no encontrado.');
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
+    if (!isPasswordCorrect) {
+      throw new UnauthorizedException('La contraseña actual es incorrecta.');
+    }
+
+    const hashedBepass = await bcrypt.hash(newBepass, 10);
+    user.bepass = hashedBepass;
+
+    await this.usersRepository.save(user);
+
+    return { message: 'Clave Be Pass actualizada con éxito.' };
   }
 }

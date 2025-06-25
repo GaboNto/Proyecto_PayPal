@@ -1,9 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Movimiento } from './movimiento.entity';
-import { SaldoService } from 'src/saldo/saldo/saldo.service';
+import { CuentasService } from 'src/cuentas/cuentas.service';
+import { Cuenta } from 'src/cuentas/entities/cuenta.entity';
 import { CreateMovimientoDto } from './dto/create-movimiento.dto'; 
 
 @Injectable()
@@ -11,44 +12,40 @@ export class MovimientoService {
   constructor(
     @InjectRepository(Movimiento)
     private readonly movimientoRepository: Repository<Movimiento>,
-    private readonly saldoService: SaldoService,
+    @InjectRepository(Cuenta)
+    private readonly cuentaRepository: Repository<Cuenta>,
   ) {}
 
- 
-  async createMovimiento(saldoId: number, createMovimientoDto: CreateMovimientoDto): Promise<Movimiento> {
+  async createMovimiento(cuentaId: number, createMovimientoDto: CreateMovimientoDto): Promise<Movimiento> {
     const { amount, type } = createMovimientoDto; 
 
-    const saldo = await this.saldoService.findSaldoById(saldoId);
-    if (!saldo) {
-      throw new NotFoundException('Saldo no encontrado.');
+    const cuenta = await this.cuentaRepository.findOne({ where: { id: cuentaId } });
+    if (!cuenta) {
+      throw new NotFoundException('Cuenta no encontrada.');
     }
 
-    const newMovimiento = this.movimientoRepository.create({ amount, type, saldo });
+    const newMovimiento = this.movimientoRepository.create({ amount, type, cuenta });
 
-    let updatedAmount = parseFloat(saldo.amount.toString());
+    let updatedAmount = parseFloat(cuenta.saldo.toString());
     const movimientoAmount = parseFloat(amount.toString());
 
     if (type === 'deposito') {
       updatedAmount += movimientoAmount;
     } else if (type === 'retiro') {
       if (updatedAmount < movimientoAmount) {
-        throw new Error('Saldo insuficiente para el retiro.');
+        throw new BadRequestException('Saldo insuficiente para el retiro.');
       }
       updatedAmount -= movimientoAmount;
-    } else if (type === 'transferencia') {
-        
-        throw new Error('La lógica de transferencia ');
-    }
-    else {
-      throw new Error('Tipo de movimiento no válido.');
+    } else {
+      throw new BadRequestException('Tipo de movimiento no válido.');
     }
 
-    await this.saldoService.updateSaldo(saldo.id, updatedAmount);
+    await this.cuentaRepository.update(cuenta.id, { saldo: updatedAmount });
 
     return this.movimientoRepository.save(newMovimiento);
   }
 
-  async findMovimientosBySaldoId(saldoId: number): Promise<Movimiento[]> {
-    return this.movimientoRepository.find({ where: { saldo: { id: saldoId } }, order: { date: 'DESC' } });
+  async findMovimientosByCuentaId(cuentaId: number): Promise<Movimiento[]> {
+    return this.movimientoRepository.find({ where: { cuenta: { id: cuentaId } }, order: { date: 'DESC' } });
   }
 }

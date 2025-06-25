@@ -11,8 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
-const card_entity_1 = require("../card/card.entity");
-const saldo_entity_1 = require("../saldo/saldo/saldo.entity");
+const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
 let User = class User {
     id_usuario;
     nombre;
@@ -22,8 +21,11 @@ let User = class User {
     fecha_nacimiento;
     pais;
     ciudad;
-    saldo;
-    cards;
+    rut;
+    banco;
+    cuentas;
+    destinatarios;
+    bepass;
 };
 exports.User = User;
 __decorate([
@@ -59,13 +61,25 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "ciudad", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => saldo_entity_1.Saldo, saldo => saldo.user),
-    __metadata("design:type", saldo_entity_1.Saldo)
-], User.prototype, "saldo", void 0);
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], User.prototype, "rut", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => card_entity_1.Card, card => card.user),
+    (0, typeorm_1.Column)({ length: 50, default: 'Paypal' }),
+    __metadata("design:type", String)
+], User.prototype, "banco", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => cuenta_entity_1.Cuenta, (cuenta) => cuenta.usuario),
     __metadata("design:type", Array)
-], User.prototype, "cards", void 0);
+], User.prototype, "cuentas", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)('Destinatario', (destinatario) => destinatario.propietario),
+    __metadata("design:type", Array)
+], User.prototype, "destinatarios", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'bepass', nullable: true }),
+    __metadata("design:type", String)
+], User.prototype, "bepass", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)('usuarios')
 ], User);

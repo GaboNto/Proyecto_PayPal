@@ -1,11 +1,10 @@
 // src/card/card.entity.ts
 
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from '../users/user.entity';
-import { Movimiento } from 'src/movimiento/movimiento/movimiento.entity';
+import { Cuenta } from '../cuentas/entities/cuenta.entity';
 
-
-@Entity()
+@Entity('card')
 export class Card {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -18,11 +17,11 @@ export class Card {
 
   @Column()
   expirationDate: string;
- 
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  user: User;
-  
-  @OneToMany(() => Movimiento, (movimiento) => movimiento.card)
-  movimientos: Movimiento[];
 
+  @Column({ type: 'boolean', default: false })
+  is_blocked: boolean;
+
+  @ManyToOne(() => Cuenta, cuenta => cuenta.cards, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'id_cuenta' })
+  cuenta: Cuenta;
 }

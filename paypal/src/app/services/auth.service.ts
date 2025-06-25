@@ -15,20 +15,20 @@ export class AuthService {
   // Revisa si ya existe un token en el almacenamiento local.
   private hasToken(): boolean {
     if (typeof localStorage !== 'undefined') {
-      return !!localStorage.getItem('access_token');
+      return !!localStorage.getItem('accessToken');
     }
     return false;
   }
 
   // Se llama al iniciar sesión. Guarda el token y notifica a los suscriptores.
   login(token: string): void {
-    localStorage.setItem('access_token', token);
+    localStorage.setItem('accessToken', token);
     this.loggedIn.next(true);
   }
 
   // Cierra la sesión. Elimina el token y notifica a los suscriptores.
   logout(): void {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem('accessToken');
     this.loggedIn.next(false);
     this.router.navigate(['/login']); // Redirige al login.
   }

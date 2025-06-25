@@ -11,15 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Movimiento = void 0;
 const typeorm_1 = require("typeorm");
-const saldo_entity_1 = require("../../saldo/saldo/saldo.entity");
-const card_entity_1 = require("../../card/card.entity");
+const cuenta_entity_1 = require("../../cuentas/entities/cuenta.entity");
 let Movimiento = class Movimiento {
     id;
     amount;
     type;
     date;
-    saldo;
-    card;
+    cuenta;
 };
 exports.Movimiento = Movimiento;
 __decorate([
@@ -39,13 +37,10 @@ __decorate([
     __metadata("design:type", Date)
 ], Movimiento.prototype, "date", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => saldo_entity_1.Saldo, saldo => saldo.movimientos),
-    __metadata("design:type", saldo_entity_1.Saldo)
-], Movimiento.prototype, "saldo", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => card_entity_1.Card, (card) => card.movimientos, { nullable: true }),
-    __metadata("design:type", card_entity_1.Card)
-], Movimiento.prototype, "card", void 0);
+    (0, typeorm_1.ManyToOne)(() => cuenta_entity_1.Cuenta, cuenta => cuenta.movimientos),
+    (0, typeorm_1.JoinColumn)({ name: 'cuentaId' }),
+    __metadata("design:type", cuenta_entity_1.Cuenta)
+], Movimiento.prototype, "cuenta", void 0);
 exports.Movimiento = Movimiento = __decorate([
     (0, typeorm_1.Entity)('movimientos')
 ], Movimiento);

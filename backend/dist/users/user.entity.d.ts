@@ -1,5 +1,5 @@
-import { Card } from '../card/card.entity';
-import { Saldo } from 'src/saldo/saldo/saldo.entity';
+import { Cuenta } from '../cuentas/entities/cuenta.entity';
+import { Destinatario } from '../destinatarios/entities/destinatario.entity';
 export declare class User {
     id_usuario: number;
     nombre: string;
@@ -9,6 +9,9 @@ export declare class User {
     fecha_nacimiento: string;
     pais: string;
     ciudad: string;
-    saldo: Saldo;
-    cards: Card[];
+    rut: string;
+    banco: string;
+    cuentas: Cuenta[];
+    destinatarios: Destinatario[];
+    bepass: string;
 }

@@ -17,50 +17,48 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const movimiento_entity_1 = require("./movimiento.entity");
-const saldo_service_1 = require("../../saldo/saldo/saldo.service");
+const cuenta_entity_1 = require("../../cuentas/entities/cuenta.entity");
 let MovimientoService = class MovimientoService {
     movimientoRepository;
-    saldoService;
-    constructor(movimientoRepository, saldoService) {
+    cuentaRepository;
+    constructor(movimientoRepository, cuentaRepository) {
         this.movimientoRepository = movimientoRepository;
-        this.saldoService = saldoService;
+        this.cuentaRepository = cuentaRepository;
     }
-    async createMovimiento(saldoId, createMovimientoDto) {
+    async createMovimiento(cuentaId, createMovimientoDto) {
         const { amount, type } = createMovimientoDto;
-        const saldo = await this.saldoService.findSaldoById(saldoId);
-        if (!saldo) {
-            throw new common_1.NotFoundException('Saldo no encontrado.');
+        const cuenta = await this.cuentaRepository.findOne({ where: { id: cuentaId } });
+        if (!cuenta) {
+            throw new common_1.NotFoundException('Cuenta no encontrada.');
         }
-        const newMovimiento = this.movimientoRepository.create({ amount, type, saldo });
-        let updatedAmount = parseFloat(saldo.amount.toString());
+        const newMovimiento = this.movimientoRepository.create({ amount, type, cuenta });
+        let updatedAmount = parseFloat(cuenta.saldo.toString());
         const movimientoAmount = parseFloat(amount.toString());
         if (type === 'deposito') {
             updatedAmount += movimientoAmount;
         }
         else if (type === 'retiro') {
             if (updatedAmount < movimientoAmount) {
-                throw new Error('Saldo insuficiente para el retiro.');
+                throw new common_1.BadRequestException('Saldo insuficiente para el retiro.');
             }
             updatedAmount -= movimientoAmount;
         }
-        else if (type === 'transferencia') {
-            throw new Error('La lógica de transferencia ');
-        }
         else {
-            throw new Error('Tipo de movimiento no válido.');
+            throw new common_1.BadRequestException('Tipo de movimiento no válido.');
         }
-        await this.saldoService.updateSaldo(saldo.id, updatedAmount);
+        await this.cuentaRepository.update(cuenta.id, { saldo: updatedAmount });
         return this.movimientoRepository.save(newMovimiento);
     }
-    async findMovimientosBySaldoId(saldoId) {
-        return this.movimientoRepository.find({ where: { saldo: { id: saldoId } }, order: { date: 'DESC' } });
+    async findMovimientosByCuentaId(cuentaId) {
+        return this.movimientoRepository.find({ where: { cuenta: { id: cuentaId } }, order: { date: 'DESC' } });
     }
 };
 exports.MovimientoService = MovimientoService;
 exports.MovimientoService = MovimientoService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(movimiento_entity_1.Movimiento)),
+    __param(1, (0, typeorm_1.InjectRepository)(cuenta_entity_1.Cuenta)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        saldo_service_1.SaldoService])
+        typeorm_2.Repository])
 ], MovimientoService);
 //# sourceMappingURL=movimiento.service.js.map

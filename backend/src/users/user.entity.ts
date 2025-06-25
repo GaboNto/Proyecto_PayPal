@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne } from 'typeorm';
-import { Card } from '../card/card.entity';
-import { Saldo } from 'src/saldo/saldo/saldo.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Cuenta } from '../cuentas/entities/cuenta.entity';
+import { Destinatario } from '../destinatarios/entities/destinatario.entity';
 
 @Entity('usuarios')
 export class User {
@@ -29,9 +29,18 @@ export class User {
   @Column()
   ciudad: string;
 
-  @OneToOne(() => Saldo, saldo => saldo.user)
-  saldo: Saldo;
+  @Column({ nullable: true })
+  rut: string;
 
-  @OneToMany(() => Card, card => card.user)
-  cards: Card[];
+  @Column({ length: 50, default: 'Paypal' })
+  banco: string;
+
+  @OneToMany(() => Cuenta, (cuenta: Cuenta) => cuenta.usuario)
+  cuentas: Cuenta[];
+
+  @OneToMany('Destinatario', (destinatario: Destinatario) => destinatario.propietario)
+  destinatarios: Destinatario[];
+
+  @Column({ name: 'bepass', nullable: true })
+  bepass: string;
 }

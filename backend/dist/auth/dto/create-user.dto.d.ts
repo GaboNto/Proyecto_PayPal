@@ -6,4 +6,5 @@ export declare class CreateUserDto {
     fecha_nacimiento: string;
     ciudad: string;
     pais: string;
+    rut: string;
 }

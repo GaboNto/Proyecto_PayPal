@@ -16,40 +16,43 @@ exports.MovimientoController = void 0;
 const common_1 = require("@nestjs/common");
 const movimiento_service_1 = require("./movimiento.service");
 const create_movimiento_dto_1 = require("./dto/create-movimiento.dto");
+const jwt_auth_guard_1 = require("../../auth/jwt-auth.guard");
 let MovimientoController = class MovimientoController {
     movimientoService;
     constructor(movimientoService) {
         this.movimientoService = movimientoService;
     }
-    async createMovimiento(saldoId, createMovimientoDto) {
-        const movimiento = await this.movimientoService.createMovimiento(saldoId, createMovimientoDto);
+    async createMovimiento(cuentaId, createMovimientoDto) {
+        const movimiento = await this.movimientoService.createMovimiento(cuentaId, createMovimientoDto);
         return movimiento;
     }
-    async getMovimientosBySaldoId(saldoId) {
-        const movimientos = await this.movimientoService.findMovimientosBySaldoId(saldoId);
+    async getMovimientosByCuentaId(cuentaId) {
+        const movimientos = await this.movimientoService.findMovimientosByCuentaId(cuentaId);
         return movimientos;
     }
 };
 exports.MovimientoController = MovimientoController;
 __decorate([
-    (0, common_1.Post)(':saldoId'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Post)(':cuentaId/movimientos'),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     (0, common_1.UsePipes)(new common_1.ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true })),
-    __param(0, (0, common_1.Param)('saldoId', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Param)('cuentaId', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, create_movimiento_dto_1.CreateMovimientoDto]),
     __metadata("design:returntype", Promise)
 ], MovimientoController.prototype, "createMovimiento", null);
 __decorate([
-    (0, common_1.Get)('saldo/:saldoId'),
-    __param(0, (0, common_1.Param)('saldoId', common_1.ParseIntPipe)),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)(':cuentaId/movimientos'),
+    __param(0, (0, common_1.Param)('cuentaId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], MovimientoController.prototype, "getMovimientosBySaldoId", null);
+], MovimientoController.prototype, "getMovimientosByCuentaId", null);
 exports.MovimientoController = MovimientoController = __decorate([
-    (0, common_1.Controller)('movimientos'),
+    (0, common_1.Controller)('cuentas'),
     __metadata("design:paramtypes", [movimiento_service_1.MovimientoService])
 ], MovimientoController);
 //# sourceMappingURL=movimiento.controller.js.map

@@ -17,35 +17,77 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const user_entity_1 = require("./user.entity");
-const saldo_service_1 = require("../saldo/saldo/saldo.service");
+const bcrypt = require("bcrypt");
 let UsersService = class UsersService {
-    repo;
-    saldoService;
-    constructor(repo, saldoService) {
-        this.repo = repo;
-        this.saldoService = saldoService;
+    usersRepository;
+    constructor(usersRepository) {
+        this.usersRepository = usersRepository;
     }
-    async create(userData) {
-        const user = this.repo.create(userData);
-        const savedUser = await this.repo.save(user);
-        await this.saldoService.createInitialSaldo(savedUser, 0);
-        return savedUser;
-    }
-    async findUserByEmail(email) {
-        return this.repo.findOne({ where: { email } });
-    }
-    async findUserById(id) {
-        return this.repo.findOne({
-            where: { id_usuario: id },
-            relations: ['saldo'],
+    async findUserProfile(userId) {
+        const user = await this.usersRepository.findOne({
+            where: { id_usuario: userId },
+            relations: ['cuentas'],
         });
+        if (!user) {
+            throw new common_1.NotFoundException(`User profile with ID ${userId} not found`);
+        }
+        return user;
+    }
+    findUserByEmail(email) {
+        return this.usersRepository.findOne({ where: { email }, relations: ['cuentas'] });
+    }
+    async create(createUserDto) {
+        const newUser = this.usersRepository.create(createUserDto);
+        return this.usersRepository.save(newUser);
+    }
+    async findById(id) {
+        const user = await this.usersRepository.findOne({
+            where: { id_usuario: id },
+            relations: ['cuentas'],
+        });
+        if (!user) {
+            throw new common_1.NotFoundException(`User with ID ${id} not found`);
+        }
+        return user;
+    }
+    async verifyBepass(userId, verifyBepassDto) {
+        const { bepass } = verifyBepassDto;
+        const user = await this.usersRepository.findOne({ where: { id_usuario: userId } });
+        if (!user) {
+            throw new common_1.NotFoundException('Usuario no encontrado.');
+        }
+        if (!user.bepass) {
+            throw new common_1.BadRequestException('El usuario no ha configurado una clave Be Pass.');
+        }
+        const isBepassValid = await bcrypt.compare(bepass, user.bepass);
+        if (!isBepassValid) {
+            throw new common_1.UnauthorizedException('La clave Be Pass es incorrecta.');
+        }
+        return { success: true };
+    }
+    async setBepass(userId, setBepassDto) {
+        const { newBepass, confirmBepass, currentPassword } = setBepassDto;
+        if (newBepass !== confirmBepass) {
+            throw new common_1.BadRequestException('Las claves Be Pass no coinciden.');
+        }
+        const user = await this.usersRepository.findOne({ where: { id_usuario: userId } });
+        if (!user) {
+            throw new common_1.NotFoundException('Usuario no encontrado.');
+        }
+        const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
+        if (!isPasswordCorrect) {
+            throw new common_1.UnauthorizedException('La contraseña actual es incorrecta.');
+        }
+        const hashedBepass = await bcrypt.hash(newBepass, 10);
+        user.bepass = hashedBepass;
+        await this.usersRepository.save(user);
+        return { message: 'Clave Be Pass actualizada con éxito.' };
     }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_2.Repository,
-        saldo_service_1.SaldoService])
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

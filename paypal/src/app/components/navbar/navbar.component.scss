@@ -3,44 +3,66 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-logo img {
+  height: 35px;
+  width: auto;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #0070ba;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #003087;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-login, .btn-register, .btn-logout {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #0070ba;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-login, .btn-logout {
+  background-color: #fff;
+  color: #0070ba;
+}
+
+.btn-login:hover, .btn-logout:hover {
+  background-color: #f5f5f5;
+}
+
+.btn-register {
   background-color: #0070ba;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
 
-  .navbar-brand {
-    .logo {
-      height: 40px;
-      width: auto;
-      object-fit: contain;
-    }
-  }
-
-  .navbar-menu {
-    display: flex;
-    gap: 2rem;
-
-    a {
-      text-decoration: none;
-      color: #ffffff;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 1.1rem;
-      letter-spacing: 0.3px;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      transition: all 0.3s ease;
-
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-        transform: translateY(-1px);
-      }
-
-      &.active {
-        color: #ffffff;
-        background-color: rgba(255, 255, 255, 0.2);
-        border-bottom: 2px solid #ffffff;
-      }
-    }
-  }
+.btn-register:hover {
+  background-color: #005ea6;
 }
 
 .dropdown-content {

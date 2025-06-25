@@ -15,14 +15,19 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const config_1 = require("@nestjs/config");
 const card_module_1 = require("./card/card.module");
-const saldo_module_1 = require("./saldo/saldo/saldo.module");
 const movimiento_module_1 = require("./movimiento/movimiento/movimiento.module");
 const user_entity_1 = require("./users/user.entity");
-const saldo_entity_1 = require("./saldo/saldo/saldo.entity");
 const movimiento_entity_1 = require("./movimiento/movimiento/movimiento.entity");
 const card_entity_1 = require("./card/card.entity");
 const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = require("path");
+const transfers_module_1 = require("./transfers/transfers.module");
+const cuentas_module_1 = require("./cuentas/cuentas.module");
+const cuenta_entity_1 = require("./cuentas/entities/cuenta.entity");
+const transferencia_entity_1 = require("./transfers/entities/transferencia.entity");
+const usuario_externo_entity_1 = require("./transfers/entities/usuario-externo.entity");
+const destinatarios_module_1 = require("./destinatarios/destinatarios.module");
+const destinatario_entity_1 = require("./destinatarios/entities/destinatario.entity");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -44,7 +49,7 @@ exports.AppModule = AppModule = __decorate([
                     username: configService.get('DB_USERNAME'),
                     password: configService.get('DB_PASSWORD'),
                     database: configService.get('DB_DATABASE'),
-                    entities: [user_entity_1.User, saldo_entity_1.Saldo, movimiento_entity_1.Movimiento, card_entity_1.Card],
+                    entities: [user_entity_1.User, movimiento_entity_1.Movimiento, card_entity_1.Card, cuenta_entity_1.Cuenta, transferencia_entity_1.Transferencia, usuario_externo_entity_1.UsuarioExterno, destinatario_entity_1.Destinatario],
                     synchronize: true,
                 }),
                 inject: [config_1.ConfigService],
@@ -52,8 +57,10 @@ exports.AppModule = AppModule = __decorate([
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
             card_module_1.CardModule,
-            saldo_module_1.SaldoModule,
             movimiento_module_1.MovimientoModule,
+            transfers_module_1.TransfersModule,
+            cuentas_module_1.CuentasModule,
+            destinatarios_module_1.DestinatariosModule,
         ],
         providers: [app_service_1.AppService],
         controllers: [app_controller_1.AppController],

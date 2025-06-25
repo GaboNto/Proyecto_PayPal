@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 // src/auth/auth.controller.ts
-import { Controller, Request, Post, UseGuards, Body } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Body, Get, Param, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -16,7 +16,12 @@ export class AuthController {
   }
 
   @Post('register')
-  register(@Body() createUserDto: CreateUserDto) {
+  async register(@Body(new ValidationPipe()) createUserDto: CreateUserDto) {
     return this.authService.register(createUserDto);
+  }
+
+  @Get('check-rut/:rut')
+  async checkRut(@Param('rut') rut: string) {
+    return this.authService.checkRutExists(rut);
   }
 }

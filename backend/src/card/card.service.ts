@@ -1,40 +1,32 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Card } from './card.entity';
-import { CreateCardDto } from './dto/createcard.dto';
-import { User } from '../users/user.entity';
 
 @Injectable()
 export class CardService {
   constructor(
     @InjectRepository(Card)
     private cardRepository: Repository<Card>,
-
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
   ) {}
 
-  async createCard(dto: CreateCardDto, userId: string): Promise<Card> {
-    const user = await this.userRepository.findOneBy({ id_usuario: Number(userId) });
-    if (!user) throw new Error('Usuario no encontrado');
-
-    const card = this.cardRepository.create({ ...dto, user });
-    throw this.cardRepository.save(card);
-  }
-
-  async getAll(): Promise<Card[]> {
-    return this.cardRepository.find({ relations: ['user'] });
-  }
-
-  async getByUser(userId: string): Promise<Card[]> {
-    return this.cardRepository.find({
-      where: { user: { id_usuario: Number(userId) } },
-      relations: ['user'],
+  async toggleBlock(cardId: string, user: { sub: number }): Promise<Card> {
+    const card = await this.cardRepository.findOne({
+      where: { id: cardId },
+      relations: ['cuenta', 'cuenta.usuario'], // Cargar la relación con la cuenta y el usuario
     });
-  }
 
-  async deleteCard(id: string): Promise<void> {
-    await this.cardRepository.delete(id);
+    if (!card) {
+      throw new NotFoundException('Tarjeta no encontrada.');
+    }
+
+    // Verificamos que el usuario que hace la petición es el dueño de la cuenta a la que pertenece la tarjeta
+    // El 'user' del token JWT tiene la id en la propiedad 'sub'
+    if (card.cuenta.usuario.id_usuario !== user.sub) {
+      throw new ForbiddenException('No tienes permiso para modificar esta tarjeta.');
+    }
+
+    card.is_blocked = !card.is_blocked;
+    return this.cardRepository.save(card);
   }
-}
+} 

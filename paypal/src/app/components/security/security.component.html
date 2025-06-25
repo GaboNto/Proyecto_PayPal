@@ -1,31 +1,77 @@
-<div class="security-advice-container">
-  <h1>Consejos de Seguridad</h1>
-  <p class="subtitle">Protege tu cuenta y tus datos personales siguiendo estas recomendaciones:</p>
-  <div class="advice-list">
-    <div class="advice-item">
-      <i class="fas fa-shield-alt"></i>
-      <h3>Verifica siempre la URL</h3>
-      <p>Asegúrate de que la dirección web sea la oficial antes de ingresar tus datos. No hagas clic en enlaces sospechosos.</p>
-    </div>
-    <div class="advice-item">
-      <i class="fas fa-user-lock"></i>
-      <h3>No compartas tu contraseña</h3>
-      <p>Nunca compartas tu contraseña ni códigos de verificación con nadie, ni siquiera con supuestos empleados.</p>
-    </div>
-    <div class="advice-item">
-      <i class="fas fa-envelope-open-text"></i>
-      <h3>Cuidado con correos y mensajes</h3>
-      <p>No abras archivos adjuntos ni respondas a mensajes de remitentes desconocidos. El phishing es una técnica común para robar información.</p>
-    </div>
-    <div class="advice-item">
-      <i class="fas fa-search-dollar"></i>
-      <h3>Revisa bien antes de enviar dinero</h3>
-      <p>Verifica los datos del destinatario antes de confirmar cualquier transferencia o pago.</p>
-    </div>
-    <div class="advice-item">
-      <i class="fas fa-sync-alt"></i>
-      <h3>Actualiza tus contraseñas periódicamente</h3>
-      <p>Cambia tus contraseñas cada cierto tiempo y utiliza combinaciones seguras para proteger tu cuenta.</p>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      
+      <!-- Formulario para Clave Be Pass -->
+      <div class="card shadow-sm mb-5">
+        <div class="card-body">
+          <h2 class="card-title">Configuración de Clave Be Pass</h2>
+          <p class="card-subtitle mb-4 text-muted">Esta clave de 6 dígitos es tu firma electrónica para autorizar transferencias y operaciones importantes.</p>
+
+          <div *ngIf="message" class="alert alert-success mt-3">{{ message }}</div>
+          <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+
+          <form (ngSubmit)="onSubmit()" #bepassForm="ngForm">
+            <div class="form-group">
+              <label for="newBepass">Crear nueva Clave Be Pass</label>
+              <input type="password" id="newBepass" name="newBepass" class="form-control" 
+                     [(ngModel)]="bepassData.newBepass" required minlength="6" maxlength="6" 
+                     pattern="[0-9]{6}" inputmode="numeric" (input)="onBepassInput($event)">
+              <small class="form-text text-muted">Debe contener exactamente 6 números.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmBepass">Confirmar nueva Clave</label>
+              <input type="password" id="confirmBepass" name="confirmBepass" class="form-control" 
+                     [(ngModel)]="bepassData.confirmBepass" required (input)="onBepassInput($event)" maxlength="6">
+            </div>
+
+            <hr class="my-4">
+
+            <div class="form-group">
+              <label for="currentPassword">Contraseña de tu cuenta</label>
+              <input type="password" id="currentPassword" name="currentPassword" class="form-control" 
+                     [(ngModel)]="bepassData.currentPassword" required>
+              <small class="form-text text-muted">Por tu seguridad, ingresa tu contraseña actual para confirmar el cambio.</small>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mt-4" [disabled]="!bepassForm.form.valid">Establecer Clave Be Pass</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Consejos de Seguridad -->
+      <div class="security-advice-container">
+        <h1>Consejos de Seguridad</h1>
+        <p class="subtitle">Protege tu cuenta y tus datos personales siguiendo estas recomendaciones:</p>
+        <div class="advice-list">
+          <div class="advice-item">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Verifica siempre la URL</h3>
+            <p>Asegúrate de que la dirección web sea la oficial antes de ingresar tus datos. No hagas clic en enlaces sospechosos.</p>
+          </div>
+          <div class="advice-item">
+            <i class="fas fa-user-lock"></i>
+            <h3>No compartas tu contraseña</h3>
+            <p>Nunca compartas tu contraseña ni códigos de verificación con nadie, ni siquiera con supuestos empleados.</p>
+          </div>
+          <div class="advice-item">
+            <i class="fas fa-envelope-open-text"></i>
+            <h3>Cuidado con correos y mensajes</h3>
+            <p>No abras archivos adjuntos ni respondas a mensajes de remitentes desconocidos. El phishing es una técnica común para robar información.</p>
+          </div>
+          <div class="advice-item">
+            <i class="fas fa-search-dollar"></i>
+            <h3>Revisa bien antes de enviar dinero</h3>
+            <p>Verifica los datos del destinatario antes de confirmar cualquier transferencia o pago.</p>
+          </div>
+          <div class="advice-item">
+            <i class="fas fa-sync-alt"></i>
+            <h3>Actualiza tus contraseñas periódicamente</h3>
+            <p>Cambia tus contraseñas cada cierto tiempo y utiliza combinaciones seguras para proteger tu cuenta.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
