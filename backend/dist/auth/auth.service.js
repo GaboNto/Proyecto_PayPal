@@ -22,18 +22,33 @@ const user_entity_1 = require("../users/user.entity");
 const typeorm_2 = require("typeorm");
 const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
 const card_entity_1 = require("../card/card.entity");
+const nodemailer = require("nodemailer");
+const crypto_1 = require("crypto");
 let AuthService = class AuthService {
     usersService;
     jwtService;
     usersRepository;
     cuentasRepository;
     cardRepository;
+    transporter;
+    recoveryTokens = {};
     constructor(usersService, jwtService, usersRepository, cuentasRepository, cardRepository) {
         this.usersService = usersService;
         this.jwtService = jwtService;
         this.usersRepository = usersRepository;
         this.cuentasRepository = cuentasRepository;
         this.cardRepository = cardRepository;
+        nodemailer.createTestAccount().then((testAccount) => {
+            this.transporter = nodemailer.createTransport({
+                host: 'smtp.ethereal.email',
+                port: 587,
+                secure: false,
+                auth: {
+                    user: testAccount.user,
+                    pass: testAccount.pass,
+                },
+            });
+        });
     }
     async validateUser(email, pass) {
         const user = await this.usersRepository.findOne({ where: { email } });
@@ -81,6 +96,45 @@ let AuthService = class AuthService {
     async checkRutExists(rut) {
         const user = await this.usersRepository.findOne({ where: { rut } });
         return { exists: !!user };
+    }
+    async forgotPassword(forgotPasswordDto) {
+        const { email } = forgotPasswordDto;
+        const user = await this.usersRepository.findOne({ where: { email } });
+        if (user) {
+            const token = (0, crypto_1.randomBytes)(32).toString('hex');
+            this.recoveryTokens[token] = {
+                email,
+                expires: Date.now() + 60 * 60 * 1000,
+            };
+            await this.sendRecoveryEmail(email, token);
+        }
+        return { message: 'Revisa tu bandeja de entrada. Si la cuenta existe, te llegará un enlace de recuperación.' };
+    }
+    async resetPassword(resetPasswordDto) {
+        const { token, newPassword } = resetPasswordDto;
+        const tokenData = this.recoveryTokens[token];
+        if (!tokenData || tokenData.expires < Date.now()) {
+            return { message: 'Token inválido o expirado.' };
+        }
+        const user = await this.usersRepository.findOne({ where: { email: tokenData.email } });
+        if (!user) {
+            return { message: 'Usuario no encontrado.' };
+        }
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword;
+        await this.usersRepository.save(user);
+        delete this.recoveryTokens[token];
+        return { message: 'Contraseña restablecida correctamente.' };
+    }
+    async sendRecoveryEmail(to, token) {
+        const info = await this.transporter.sendMail({
+            from: 'no-reply@paypal-clone.com',
+            to,
+            subject: 'Recuperación de contraseña',
+            text: `Para restablecer tu contraseña, haz clic en el siguiente enlace: http://localhost:3000/reset-password?token=${token}`,
+            html: `<p>Para restablecer tu contraseña, haz clic en el siguiente enlace:</p><a href="http://localhost:3000/reset-password?token=${token}">Restablecer contraseña</a>`
+        });
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     }
 };
 exports.AuthService = AuthService;

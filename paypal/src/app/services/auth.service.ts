@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,7 @@ export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
   isLoggedIn$ = this.loggedIn.asObservable();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   // Revisa si ya existe un token en el almacenamiento local.
   private hasToken(): boolean {
@@ -31,5 +33,13 @@ export class AuthService {
     localStorage.removeItem('accessToken');
     this.loggedIn.next(false);
     this.router.navigate(['/login']); // Redirige al login.
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post('/api/auth/forgot-password', { email });
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post('/api/auth/reset-password', { token, newPassword });
   }
 } 
