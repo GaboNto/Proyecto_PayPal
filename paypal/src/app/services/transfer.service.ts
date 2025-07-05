@@ -17,4 +17,12 @@ export class TransferService {
   createTransfer(transferData: any): Observable<any> {
     return this.http.post(this.apiUrl, transferData);
   }
+
+  getHistory(from?: string, to?: string): Observable<any> {
+    let params = '';
+    if (from) params += `from=${from}`;
+    if (to) params += (params ? '&' : '') + `to=${to}`;
+    const url = params ? `${this.apiUrl}/history?${params}` : `${this.apiUrl}/history`;
+    return this.http.get(url);
+  }
 } 

@@ -7,6 +7,7 @@
       <a (click)="handleTransferClick()" style="cursor: pointer;">Transferir</a>
       <a routerLink="/tarjetas">Tarjetas</a>
       <a routerLink="/security">Seguridad</a>
+      <a href="#features" *ngIf="!(isLoggedIn$ | async)">Característica</a>
     </div>
     <div class="navbar-actions">
       <ng-container *ngIf="isLoggedIn$ | async; else showLogin">

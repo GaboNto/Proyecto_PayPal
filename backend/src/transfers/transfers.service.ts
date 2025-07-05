@@ -71,6 +71,16 @@ export class TransfersService {
       await queryRunner.manager.save(cuentaOrigen);
       await queryRunner.manager.save(cuentaDestino);
 
+      // 6. Guardar el registro de la transferencia
+      const transferencia = this.transferenciasRepository.create({
+        usuario_id_origen: userId,
+        id_usuario_destino: userId, // El mismo usuario
+        id_usuario_externo: null,
+        monto,
+        comision: 0, // Sin comisión para transferencias internas
+      });
+      await queryRunner.manager.save(transferencia);
+
       await queryRunner.commitTransaction();
       return { message: 'Transferencia entre tus cuentas realizada con éxito.' };
 
@@ -105,10 +115,9 @@ export class TransfersService {
     await queryRunner.startTransaction();
 
     try {
-      // Usamos la primera cuenta "Cuenta Vista" del usuario como origen. 
-      // A futuro, se podría permitir al usuario elegir qué cuenta usar.
+      // Usamos la cuenta seleccionada por el usuario como origen.
       const cuentaOrigen = await queryRunner.manager.findOne(Cuenta, {
-        where: { usuario: { id_usuario: usuarioOrigenId }, tipo_cuenta: 'Cuenta Vista' },
+        where: { id: createTransferDto.cuentaOrigenId, usuario: { id_usuario: usuarioOrigenId } },
       });
 
       if (!cuentaOrigen) {
@@ -116,15 +125,16 @@ export class TransfersService {
       }
 
       if (banco_destino.toLowerCase() === 'paypal') {
-        // Transferencia interna
+        // Transferencia interna a otro usuario de PayPal
         const usuarioDestino = await queryRunner.manager.findOne(User, { where: { rut: rut_destinatario } });
 
         if (!usuarioDestino) {
           throw new NotFoundException('Usuario de destino no encontrado en Paypal.');
         }
 
+        // Buscar la cuenta destino por número de cuenta
         const cuentaDestino = await queryRunner.manager.findOne(Cuenta, {
-            where: { usuario: { id_usuario: usuarioDestino.id_usuario }, tipo_cuenta: 'Cuenta Vista' },
+          where: { usuario: { id_usuario: usuarioDestino.id_usuario }, numero_cuenta: numero_cuenta },
         });
         
         if (!cuentaDestino) {
@@ -204,5 +214,64 @@ export class TransfersService {
     } finally {
       await queryRunner.release();
     }
+  }
+
+  async getUserHistory(userId: number, from?: string, to?: string) {
+    const query = this.transferenciasRepository.createQueryBuilder('t')
+      .leftJoinAndSelect('t.usuario_origen', 'origen')
+      .leftJoinAndSelect('t.usuario_destino', 'destino')
+      .leftJoinAndSelect('t.usuario_externo', 'externo')
+      .where('t.usuario_id_origen = :userId OR t.id_usuario_destino = :userId', { userId });
+
+    if (from) {
+      query.andWhere('t.fecha >= :from', { from });
+    }
+    if (to) {
+      query.andWhere('t.fecha <= :to', { to });
+    }
+    query.orderBy('t.fecha', 'DESC');
+    const transfers = await query.getMany();
+
+    // Mapear la respuesta para el frontend
+    return transfers.map(t => {
+      // Determinar tipo de transferencia
+      let tipo = 'A usuario PayPal';
+      if (t.usuario_externo) tipo = 'A cuenta externa';
+      else if (t.usuario_id_origen === t.id_usuario_destino) tipo = 'Entre mis cuentas';
+
+      // Origen
+      const origen = t.usuario_origen ? {
+        rut: t.usuario_origen.rut,
+        nombre: t.usuario_origen.nombre + ' ' + t.usuario_origen.apellido,
+        id_usuario: t.usuario_origen.id_usuario,
+      } : null;
+      // Destino
+      let destino: any = null;
+      if (t.usuario_externo) {
+        destino = {
+          nombre: t.usuario_externo.nombre,
+          rut: t.usuario_externo.rut,
+          numero_cuenta: t.usuario_externo.numero_cuenta,
+          banco: t.usuario_externo.banco,
+          tipo_cuenta: t.usuario_externo.tipo_cuenta,
+        };
+      } else if (t.usuario_destino) {
+        destino = {
+          nombre: t.usuario_destino.nombre + ' ' + t.usuario_destino.apellido,
+          rut: t.usuario_destino.rut,
+          id_usuario: t.usuario_destino.id_usuario,
+        };
+      }
+      return {
+        id: t.id,
+        fecha: t.fecha,
+        monto: t.monto,
+        comision: t.comision,
+        tipo,
+        origen,
+        destino,
+        hora: t.fecha ? new Date(t.fecha).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : null,
+      };
+    });
   }
 } 

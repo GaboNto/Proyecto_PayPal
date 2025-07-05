@@ -15,6 +15,7 @@ interface Cuenta {
   numero_cuenta: string;
   tipo_cuenta: string;
   saldo: number;
+  fecha_apertura: string;
 }
 
 @Component({
@@ -95,6 +96,15 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   countdownDisplay: string = '02:00';
   isCountdownRunning: boolean = false;
 
+  saldoDisponibleSeleccionado: number = 0;
+
+  historial: any[] = [];
+  fechaInicio: string = '';
+  fechaFin: string = '';
+  today: string = new Date().toISOString().slice(0, 10);
+
+  transferenciaSeleccionada: any = null;
+
   constructor(
     private http: HttpClient,
     private transferService: TransferService,
@@ -111,6 +121,9 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     this.transferData.banco_destino = this.bancos[0]; 
     this.onBancoChange();
     this.loadUserAccounts();
+    this.actualizarSaldoDisponible();
+    this.setFechasHistorial();
+    this.cargarHistorial();
   }
 
   ngAfterViewInit(): void {
@@ -265,14 +278,19 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         this.montoError = '';
         return;
     }
-
+    this.actualizarSaldoDisponible();
+    const saldoDisponible = this.saldoDisponibleSeleccionado;
     const comision = this.transferData.banco_destino !== 'Paypal' ? 300 : 0;
     const montoTotal = this.transferData.monto + comision;
 
-    if (montoTotal > this.saldoActual) {
-        this.montoError = 'El monto excede tu saldo disponible (incluyendo comisión).';
+    if (montoTotal > saldoDisponible) {
+      if (comision > 0) {
+        this.montoError = `Saldo insuficiente para realizar la transferencia. Recuerda que la comisión es de $${comision} y el total a descontar será $${montoTotal}.`;
+      } else {
+        this.montoError = `Saldo insuficiente para realizar la transferencia. El total a descontar será $${montoTotal}.`;
+      }
     } else {
-        this.montoError = '';
+      this.montoError = '';
     }
   }
 
@@ -327,10 +345,16 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       this.montoError = 'El monto debe ser mayor a cero.';
       isValid = false;
     } else {
+      this.actualizarSaldoDisponible();
+      const saldoDisponible = this.saldoDisponibleSeleccionado;
       const comision = this.transferData.banco_destino !== 'Paypal' ? 300 : 0;
       const montoTotal = this.transferData.monto + comision;
-      if (montoTotal > this.saldoActual) {
-        this.montoError = `Saldo insuficiente para realizar la transferencia. Recuerda que la comisión es de $${comision} y el total a descontar será $${montoTotal}.`;
+      if (montoTotal > saldoDisponible) {
+        if (comision > 0) {
+          this.montoError = `Saldo insuficiente para realizar la transferencia. Recuerda que la comisión es de $${comision} y el total a descontar será $${montoTotal}.`;
+        } else {
+          this.montoError = `Saldo insuficiente para realizar la transferencia. El total a descontar será $${montoTotal}.`;
+        }
         isValid = false;
       }
     }
@@ -444,7 +468,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         this.message = '¡Transferencia realizada con éxito!';
         this.error = '';
         this.resetForm();
-        this.loadSaldo();
+        this.loadUserAccounts(); // Recarga las cuentas y saldos
+        this.loadSaldo(); // Recarga el saldo principal
         this.cancelTransfer(); // Cierra modal y detiene contador
         this.cdr.detectChanges();
       },
@@ -457,12 +482,42 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   }
 
   private executeInternalTransfer(): void {
+    const cuentaOrigen = this.cuentas.find(c => c.id === this.cuentaOrigenId);
+    const saldoDisponible = cuentaOrigen ? cuentaOrigen.saldo : 0;
+    const comision = 0; // Transferencia interna, nunca hay comisión
+    const montoTotal = Number(this.montoInterno) + comision;
+
+    if (montoTotal > saldoDisponible) {
+      this.error = `Saldo insuficiente para realizar la transferencia interna. El total a descontar será $${montoTotal}.`;
+      this.cdr.detectChanges();
+      return;
+    }
+
     const internalTransferData = {
-      cuentaOrigenId: this.cuentaOrigenId,
-      cuentaDestinoId: this.cuentaDestinoId,
-      monto: this.montoInterno,
+      cuentaOrigenId: Number(this.cuentaOrigenId),
+      cuentaDestinoId: Number(this.cuentaDestinoId),
+      monto: Number(this.montoInterno),
       bepass: this.bepassFromModal
     };
+
+    // Log para depuración
+    console.log('internalTransferData:', internalTransferData);
+
+    if (!internalTransferData.cuentaDestinoId || isNaN(internalTransferData.cuentaDestinoId)) {
+      this.error = 'Debes seleccionar una cuenta de destino válida.';
+      this.cdr.detectChanges();
+      return;
+    }
+    if (!internalTransferData.cuentaOrigenId || isNaN(internalTransferData.cuentaOrigenId)) {
+      this.error = 'Debes seleccionar una cuenta de origen válida.';
+      this.cdr.detectChanges();
+      return;
+    }
+    if (!internalTransferData.monto || isNaN(internalTransferData.monto) || internalTransferData.monto <= 0) {
+      this.error = 'El monto debe ser un número positivo.';
+      this.cdr.detectChanges();
+      return;
+    }
 
     this.transferService.transferBetweenOwnAccounts(internalTransferData).subscribe({
       next: (response: any) => {
@@ -507,6 +562,10 @@ export class TransactionsComponent implements OnInit, OnDestroy {
           // Si hay más de una, seleccionar la primera por defecto
           this.cuentaOrigenId = this.cuentas[0].id;
         }
+        // Actualiza el saldo global (banner) y el saldo disponible del select
+        const cuentaPrincipal = this.cuentas.find(c => c.tipo_cuenta === 'Cuenta Vista');
+        this.saldoActual = cuentaPrincipal ? cuentaPrincipal.saldo : 0;
+        this.actualizarSaldoDisponible();
         this.cdr.detectChanges();
       },
       error: () => {
@@ -527,6 +586,10 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     this.activeTab = tab;
     this.error = '';
     this.message = '';
+    if (tab === 'history') {
+      this.setFechasHistorial();
+      this.cargarHistorial();
+    }
   }
 
   onSubmitInternal(): void {
@@ -544,6 +607,51 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     this.cuentaDestinoId = null;
     this.montoInterno = null;
     this.bepassInterno = '';
+  }
+
+  actualizarSaldoDisponible(): void {
+    const cuentaOrigen = this.cuentas.find(c => c.id === this.cuentaOrigenId);
+    this.saldoDisponibleSeleccionado = cuentaOrigen ? cuentaOrigen.saldo : 0;
+    this.cdr.detectChanges();
+  }
+
+  onCuentaOrigenChange(): void {
+    this.actualizarSaldoDisponible();
+    this.onMontoChange(); // Revalida el monto con el nuevo saldo
+  }
+
+  cargarHistorial(): void {
+    this.transferService.getHistory(this.fechaInicio, this.fechaFin).subscribe({
+      next: (data) => {
+        this.historial = data;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.historial = [];
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  setFechasHistorial(): void {
+    // Fecha de inicio: fecha de creación de la cuenta más antigua
+    if (this.cuentas.length > 0) {
+      const fechas = this.cuentas.map(c => new Date(c.fecha_apertura));
+      const minFecha = new Date(Math.min(...fechas.map(f => f.getTime())));
+      this.fechaInicio = minFecha.toISOString().slice(0, 10);
+    } else {
+      this.fechaInicio = new Date().toISOString().slice(0, 10);
+    }
+    // Fecha de fin: hoy
+    this.fechaFin = new Date().toISOString().slice(0, 10);
+  }
+
+  verDetalles(transferencia: any): void {
+    this.transferenciaSeleccionada = transferencia;
+  }
+
+  cerrarDetalles(): void {
+    this.transferenciaSeleccionada = null;
   }
 }
 

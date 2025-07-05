@@ -19,6 +19,7 @@ class CreateTransferDto {
     numero_cuenta;
     monto;
     bepass;
+    cuentaOrigenId;
 }
 exports.CreateTransferDto = CreateTransferDto;
 __decorate([
@@ -56,4 +57,9 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateTransferDto.prototype, "bepass", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], CreateTransferDto.prototype, "cuentaOrigenId", void 0);
 //# sourceMappingURL=create-transfer.dto.js.map

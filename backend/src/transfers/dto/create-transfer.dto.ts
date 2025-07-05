@@ -28,4 +28,8 @@ export class CreateTransferDto {
   @IsString()
   @IsNotEmpty()
   bepass: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  cuentaOrigenId: number;
 } 

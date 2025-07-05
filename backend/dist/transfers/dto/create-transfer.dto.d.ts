@@ -6,4 +6,5 @@ export declare class CreateTransferDto {
     numero_cuenta: string;
     monto: number;
     bepass: string;
+    cuentaOrigenId: number;
 }

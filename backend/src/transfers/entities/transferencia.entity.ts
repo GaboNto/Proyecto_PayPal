@@ -26,14 +26,14 @@ export class Transferencia {
   usuario_destino: User;
 
   @Column({ nullable: true })
-  id_usuario_destino: number;
+  id_usuario_destino: number | null;
 
   @ManyToOne(() => UsuarioExterno, { nullable: true })
   @JoinColumn({ name: 'id_usuario_externo' })
   usuario_externo: UsuarioExterno;
   
   @Column({ nullable: true })
-  id_usuario_externo: number;
+  id_usuario_externo: number | null;
 
   @Column('int')
   monto: number;

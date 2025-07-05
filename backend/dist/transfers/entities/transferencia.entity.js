@@ -46,7 +46,7 @@ __decorate([
 ], Transferencia.prototype, "usuario_destino", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", Number)
+    __metadata("design:type", Object)
 ], Transferencia.prototype, "id_usuario_destino", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => usuario_externo_entity_1.UsuarioExterno, { nullable: true }),
@@ -55,7 +55,7 @@ __decorate([
 ], Transferencia.prototype, "usuario_externo", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", Number)
+    __metadata("design:type", Object)
 ], Transferencia.prototype, "id_usuario_externo", void 0);
 __decorate([
     (0, typeorm_1.Column)('int'),

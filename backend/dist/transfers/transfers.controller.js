@@ -31,6 +31,10 @@ let TransfersController = class TransfersController {
         const usuarioOrigenId = req.user.sub;
         return this.transfersService.create(createTransferDto, usuarioOrigenId);
     }
+    async getHistory(req, from, to) {
+        const userId = req.user.sub;
+        return this.transfersService.getUserHistory(userId, from, to);
+    }
 };
 exports.TransfersController = TransfersController;
 __decorate([
@@ -51,6 +55,16 @@ __decorate([
     __metadata("design:paramtypes", [create_transfer_dto_1.CreateTransferDto, Object]),
     __metadata("design:returntype", void 0)
 ], TransfersController.prototype, "create", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('history'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Query)('from')),
+    __param(2, (0, common_1.Query)('to')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, String]),
+    __metadata("design:returntype", Promise)
+], TransfersController.prototype, "getHistory", null);
 exports.TransfersController = TransfersController = __decorate([
     (0, common_1.Controller)('transfers'),
     __metadata("design:paramtypes", [transfers_service_1.TransfersService])

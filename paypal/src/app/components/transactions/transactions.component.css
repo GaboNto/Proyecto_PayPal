@@ -331,3 +331,24 @@
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
   }
 }
+
+.btn-outline-info.btn-sm {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-size: 1.08rem;
+  border-width: 2px;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  color: #0056b3;
+  background: #e3f6ff;
+  border-color: #00bfff;
+  min-width: 150px;
+  box-shadow: 0 2px 8px rgba(0,191,255,0.08);
+  transition: box-shadow 0.2s, background 0.2s, color 0.2s;
+}
+.btn-outline-info.btn-sm:hover, .btn-outline-info.btn-sm:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0,191,255,0.25);
+  background: #00bfff;
+  color: #fff;
+  border-color: #0099cc;
+}
