@@ -15,21 +15,6 @@ export declare class TransfersService {
     transferBetweenOwnAccounts(createDto: CreateInternalTransferDto, userId: number): Promise<{
         message: string;
     }>;
-    create(createTransferDto: CreateTransferDto, usuarioOrigenId: number): Promise<{
-        message: string;
-    }>;
-    getUserHistory(userId: number, from?: string, to?: string): Promise<{
-        id: number;
-        fecha: Date;
-        monto: number;
-        comision: number;
-        tipo: string;
-        origen: {
-            rut: string;
-            nombre: string;
-            id_usuario: number;
-        } | null;
-        destino: any;
-        hora: string | null;
-    }[]>;
+    create(createTransferDto: CreateTransferDto, usuarioOrigenId: number): unknown;
+    getUserHistory(userId: number, from?: string, to?: string): unknown;
 }

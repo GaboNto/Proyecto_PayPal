@@ -249,12 +249,24 @@
         <div class="card-header d-flex flex-column flex-md-row align-items-md-center justify-content-between">
           <h5 class="mb-0">Historial de Transacciones</h5>
           <div class="d-flex gap-2 mt-2 mt-md-0">
-            <label class="form-label mb-0">Desde:
-              <input type="date" [(ngModel)]="fechaInicio" (change)="cargarHistorial()" [max]="fechaFin" class="form-control form-control-sm d-inline-block w-auto ms-1">
-            </label>
-            <label class="form-label mb-0">Hasta:
-              <input type="date" [(ngModel)]="fechaFin" (change)="cargarHistorial()" [min]="fechaInicio" [max]="(today | date:'yyyy-MM-dd')" class="form-control form-control-sm d-inline-block w-auto ms-1">
-            </label>
+            <div class="row mb-3 align-items-end">
+              <div class="col-md-3">
+                <label>Desde:</label>
+                <input type="date" class="form-control" [(ngModel)]="fechaInicio" (change)="cargarHistorial()" title="Fecha de inicio" placeholder="Desde">
+              </div>
+              <div class="col-md-3">
+                <label>Hasta:</label>
+                <input type="date" class="form-control" [(ngModel)]="fechaFin" (change)="cargarHistorial()" title="Fecha de fin" placeholder="Hasta">
+              </div>
+              <div class="col-md-3">
+                <label>Monto:</label>
+                <input type="number" class="form-control" [(ngModel)]="filtroMonto" placeholder="Filtrar por monto">
+              </div>
+              <div class="col-md-3">
+                <label>Destinatario:</label>
+                <input type="text" class="form-control" [(ngModel)]="filtroDestinatario" placeholder="Filtrar por destinatario">
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-body p-0">
@@ -276,7 +288,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let t of historial">
+                <tr *ngFor="let t of historialFiltrado">
                   <td>{{ t.fecha | date:'dd/MM/yyyy' }}</td>
                   <td>{{ t.monto | currency:'CLP':'symbol-narrow':'1.0-0' }}</td>
                   <td>{{ t.comision | currency:'CLP':'symbol-narrow':'1.0-0' }}</td>
@@ -329,7 +341,7 @@
   </ng-template>
 
   <!-- Modal de detalles de transferencia -->
-  <div class="modal fade show" tabindex="-1" style="display: block; background: rgba(0,0,0,0.3);" *ngIf="transferenciaSeleccionada">
+  <div class="modal fade show custom-modal-overlay" tabindex="-1" *ngIf="transferenciaSeleccionada">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">

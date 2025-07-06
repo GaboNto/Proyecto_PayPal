@@ -5,7 +5,7 @@
 -- Dumped from database version 15.3
 -- Dumped by pg_dump version 15.3
 
--- Started on 2025-07-05 17:28:36
+-- Started on 2025-07-06 14:41:20
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -244,7 +244,8 @@ CREATE TABLE public.usuarios (
     ciudad character varying NOT NULL,
     rut character varying,
     banco character varying(50) DEFAULT 'Paypal'::character varying NOT NULL,
-    bepass character varying
+    bepass character varying,
+    totp_secret character varying
 );
 
 
@@ -377,6 +378,9 @@ a415e9e2-f5f7-4f35-af02-84fe666617d1	2527817277755137	597	7/29	f	1
 585c8181-2672-483b-abbd-9880c3956a04	1077805520243352	738	7/29	f	2
 e93ebdcd-536c-4ffd-a96e-0aa0513e9407	2874795022043235	659	7/29	f	3
 8dc4bf76-989a-45a5-aa13-a7f3e2f973ee	6773792190074583	753	7/29	f	4
+a9c9f6e1-e4a6-4b91-9760-9940ffd3e9e4	6950186224256716	149	7/29	f	5
+a71af13d-2ec7-46a8-a041-5876797b0508	3317179885879563	857	7/29	f	6
+83447ec5-c566-4b23-a259-762e248ee80d	3286289763542758	352	7/29	f	7
 \.
 
 
@@ -391,6 +395,9 @@ COPY public.cuentas (id, numero_cuenta, tipo_cuenta, saldo, fecha_apertura, id_u
 2	821051720	Cuenta Vista	40400.00	2025-07-05 10:06:10.205681	2
 1	322305441	Cuenta Vista	3000.00	2025-07-04 18:25:11.334713	1
 4	131583002	Cuenta de Ahorro	4000.00	2025-07-05 10:38:12.299791	1
+5	109160078	Cuenta Vista	0.00	2025-07-05 18:46:03.520218	3
+6	499413976	Cuenta Vista	0.00	2025-07-06 11:49:13.141585	4
+7	78968784	Cuenta Vista	0.00	2025-07-06 14:27:38.800981	5
 \.
 
 
@@ -440,9 +447,12 @@ COPY public.transferencias (id, usuario_id_origen, id_usuario_destino, id_usuari
 -- Data for Name: usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.usuarios (id_usuario, nombre, apellido, correo_electronico, contrasena, fecha_nacimiento, pais, ciudad, rut, banco, bepass) FROM stdin;
-2	felipe	guzman	elbalazomaximo@gmail.com	$2b$10$vMHIeGBok7JhEkGio/p1ROyx.3JqS/oA1WmgziRgimPjY1q7AwJYi	2000-07-19	chile	arica	20788117-1	Paypal	$2b$10$1p8ezCzBRkcyrJ3gzg69nezfFrXzF/AMUCKnqAPZyix7uKebfMsX6
-1	bastian	sucso	elbalazoo@gmail.com	$2b$10$j0nfQeksu99yqU9tEFcvsesOmtox/U1wDlwhJnJLhmy0ejpZm9ewO	2000-07-19	chile	arica	12610490-1	Paypal	$2b$10$k2l64dQbPL8N8QPxuuckJ.ehvefsZyybaKakAQXJwGgFdwSXcSNnW
+COPY public.usuarios (id_usuario, nombre, apellido, correo_electronico, contrasena, fecha_nacimiento, pais, ciudad, rut, banco, bepass, totp_secret) FROM stdin;
+3	ignacio	lopez	jettie.mills56@ethereal.email	$2b$10$9OkZcHTJH3/vaDG/YMr9QOihcxvJDCjuQqVrIC2WGd/w1tpVBYY3m	2000-07-19	chile	arica	10353408-9	Paypal	\N	\N
+2	felipe	guzman	elbalazomaximo@gmail.com	$2b$10$/zzb.yD9bjPFJ/PK33n6K.AoZVArlOI3iLS/lH5QiAj2l0LQfTW.2	2000-07-19	chile	arica	20788117-1	Paypal	$2b$10$1p8ezCzBRkcyrJ3gzg69nezfFrXzF/AMUCKnqAPZyix7uKebfMsX6	\N
+1	bastian	sucso	elbalazoo@gmail.com	$2b$10$SW9coffiouNvYz05vk3WJeu2IQ.UkbhEwDe8pOLw3NIqCnQwtUBYa	2000-07-19	chile	arica	12610490-1	Paypal	$2b$10$usp6uwIVqJ2ibepOc5D5UeZHq10zvS/HvNDgrg0uEvlMktOpJcLEW	\N
+4	kathia	arias	elbalazomaxi@gmail.com	$2b$10$pVyB6zlSp85iKZOwpJmFw.MAgtr9vPlZMS9IlKSOG8p1fCgSU.kJS	2000-07-19	chile	arica	21369340-9	Paypal	$2b$10$4JwMwBLaNndVX1WzOR71NuRxS84k1fkt5TNoKco8bp5wcoB.WJ4Ru	IN4EUJJGIFIEEJTTJE3EONTRNQ4C6XRUN4WHIJLOGB4FI4JGNNVQ
+5	cristian	gutierrez	paypal@prueba.com	$2b$10$j1SjPUERsq.gPjNzfq1DluucolsZaDxkv4j/N.p.G/DvwbclENl4.	2000-07-19	chile	arica	15749165-2	Paypal	$2b$10$MXzjzaS73ZfkL/fwCOfxru3R/KLgh9vbkUBwB6PvMyCbGa1MaPds6	PMWDSRSQNNITCRSQIY3EMVR4IB4FC52UJIYEE2ZMHJZDQKKUJVEQ
 \.
 
 
@@ -471,7 +481,7 @@ COPY public.usuarios_externos (id, nombre, rut, banco, tipo_cuenta, numero_cuent
 -- Name: cuentas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.cuentas_id_seq', 4, true);
+SELECT pg_catalog.setval('public.cuentas_id_seq', 7, true);
 
 
 --
@@ -516,7 +526,7 @@ SELECT pg_catalog.setval('public.usuarios_externos_id_seq', 1, false);
 -- Name: usuarios_id_usuario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuarios_id_usuario_seq', 2, true);
+SELECT pg_catalog.setval('public.usuarios_id_usuario_seq', 5, true);
 
 
 --
@@ -672,7 +682,7 @@ ALTER TABLE ONLY public.transferencias
     ADD CONSTRAINT "FK_c6fb361b271501646fcc1b3506c" FOREIGN KEY (id_usuario_destino) REFERENCES public.usuarios(id_usuario);
 
 
--- Completed on 2025-07-05 17:28:36
+-- Completed on 2025-07-06 14:41:20
 
 --
 -- PostgreSQL database dump complete

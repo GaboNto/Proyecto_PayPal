@@ -15,6 +15,7 @@ class SetBepassDto {
     newBepass;
     confirmBepass;
     currentPassword;
+    isChange;
 }
 exports.SetBepassDto = SetBepassDto;
 __decorate([

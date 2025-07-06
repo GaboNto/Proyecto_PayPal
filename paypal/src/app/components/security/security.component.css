@@ -94,3 +94,70 @@ hr {
   font-size: 0.95rem;
   color: #6c757d;
 }
+
+/* Estilos para el modal y backdrop del QR 2FA */
+.modal-backdrop.show {
+  z-index: 1050;
+}
+.modal.d-block {
+  z-index: 1060;
+  background: rgba(0,0,0,0.2);
+}
+.modal-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.recover-password-section {
+  width: 100%;
+}
+.recover-password-form {
+  min-width: 300px;
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 12px;
+  background: #fff;
+}
+.recover-password-form h2.card-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #0a2972;
+  margin-bottom: 0.5rem;
+}
+.recover-password-form .card-subtitle {
+  font-size: 1.25rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+.recover-password-form .btn-lg {
+  width: 100%;
+  font-size: 1.25rem;
+  padding: 0.75rem 0;
+}
+.recover-password-form {
+  margin-top: 1.5rem;
+}
+
+.security-card {
+  max-width: 900px;
+  width: 100%;
+}
+.recover-password-form {
+  max-width: 500px;
+}
+
+.compact-recover-form {
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
+  font-size: 1rem;
+}
+.compact-recover-form .form-label {
+  font-size: 1rem;
+}
+.compact-recover-form .form-control {
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+}
+.compact-recover-form .btn-lg {
+  font-size: 1.1rem;
+  padding: 0.5rem 0;
+}

@@ -14,4 +14,5 @@ export declare class User {
     cuentas: Cuenta[];
     destinatarios: Destinatario[];
     bepass: string;
+    totpSecret: string;
 }

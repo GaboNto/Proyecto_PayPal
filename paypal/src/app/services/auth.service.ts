@@ -42,4 +42,12 @@ export class AuthService {
   resetPassword(token: string, newPassword: string): Observable<any> {
     return this.http.post('/api/auth/reset-password', { token, newPassword });
   }
+
+  setup2FA(): Observable<{ secret: string, qr: string }> {
+    return this.http.get<{ secret: string, qr: string }>('/api/users/2fa/setup');
+  }
+
+  verify2FA(code: string): Observable<{ success: boolean }> {
+    return this.http.post<{ success: boolean }>('/api/users/2fa/verify', { code });
+  }
 } 

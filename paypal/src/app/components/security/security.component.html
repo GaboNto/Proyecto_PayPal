@@ -2,41 +2,113 @@
   <div class="row">
     <div class="col-md-8 offset-md-2">
       
-      <!-- Formulario para Clave Be Pass -->
-      <div class="card shadow-sm mb-5">
-        <div class="card-body">
-          <h2 class="card-title">Configuración de Clave Be Pass</h2>
-          <p class="card-subtitle mb-4 text-muted">Esta clave de 6 dígitos es tu firma electrónica para autorizar transferencias y operaciones importantes.</p>
+      <!-- Si NO tiene Be Pass, muestra el formulario de creación -->
+      <div *ngIf="!hasBePass">
+        <!-- Formulario para Clave Be Pass (creación) -->
+        <div class="card shadow-sm mb-5">
+          <div class="card-body">
+            <h2 class="card-title">Configuración de Clave Be Pass</h2>
+            <p class="card-subtitle mb-4 text-muted">Esta clave de 6 dígitos es tu firma electrónica para autorizar transferencias y operaciones importantes.</p>
 
-          <div *ngIf="message" class="alert alert-success mt-3">{{ message }}</div>
-          <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+            <div *ngIf="message" class="alert alert-success mt-3">{{ message }}</div>
+            <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
 
-          <form (ngSubmit)="onSubmit()" #bepassForm="ngForm">
-            <div class="form-group">
-              <label for="newBepass">Crear nueva Clave Be Pass</label>
-              <input type="password" id="newBepass" name="newBepass" class="form-control" 
-                     [(ngModel)]="bepassData.newBepass" required minlength="6" maxlength="6" 
-                     pattern="[0-9]{6}" inputmode="numeric" (input)="onBepassInput($event)">
-              <small class="form-text text-muted">Debe contener exactamente 6 números.</small>
+            <form (ngSubmit)="onSubmit()" #bepassForm="ngForm">
+              <div class="form-group">
+                <label for="newBepass">Crear nueva Clave Be Pass</label>
+                <input type="password" id="newBepass" name="newBepass" class="form-control" 
+                       [(ngModel)]="bepassData.newBepass" required minlength="6" maxlength="6" 
+                       pattern="[0-9]{6}" inputmode="numeric" (input)="onBepassInput($event)">
+                <small class="form-text text-muted">Debe contener exactamente 6 números.</small>
+              </div>
+
+              <div class="form-group">
+                <label for="confirmBepass">Confirmar nueva Clave</label>
+                <input type="password" id="confirmBepass" name="confirmBepass" class="form-control" 
+                       [(ngModel)]="bepassData.confirmBepass" required (input)="onBepassInput($event)" maxlength="6">
+              </div>
+
+              <hr class="my-4">
+
+              <div class="form-group">
+                <label for="currentPassword">Contraseña de tu cuenta</label>
+                <input type="password" id="currentPassword" name="currentPassword" class="form-control" 
+                       [(ngModel)]="bepassData.currentPassword" required>
+                <small class="form-text text-muted">Por tu seguridad, ingresa tu contraseña actual para confirmar el cambio.</small>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block mt-4" [disabled]="!bepassForm.form.valid">Establecer Clave Be Pass</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Si tiene Be Pass y NO ha pasado 2FA, muestra el flujo de 2FA -->
+      <div *ngIf="hasBePass && !is2FAVerified">
+        <div class="card shadow-sm mb-5">
+          <div class="card-body">
+            <h2 class="card-title">Verificación 2FA</h2>
+            <p class="card-subtitle mb-4 text-muted">Ingresa el código de Google Authenticator para continuar.</p>
+            <app-google-2fa (verified)="on2FAVerified($event)"></app-google-2fa>
+          </div>
+        </div>
+      </div>
+
+      <!-- Si tiene Be Pass y ya pasó 2FA, muestra el formulario de cambio -->
+      <div *ngIf="hasBePass && is2FAVerified">
+        <div class="card shadow-sm mb-5">
+          <div class="card-body">
+            <h2 class="card-title">Cambiar Clave Be Pass</h2>
+            <form (ngSubmit)="onChangeBepassSubmit()" #changeBepassForm="ngForm">
+              <div class="form-group">
+                <label for="changeNewBepass">Nueva Clave Be Pass</label>
+                <input type="password" id="changeNewBepass" name="newBepass" class="form-control"
+                       [(ngModel)]="changeBepassData.newBepass" required minlength="6" maxlength="6"
+                       pattern="[0-9]{6}" inputmode="numeric" (input)="onChangeBepassInput($event)">
+                <small class="form-text text-muted">Debe contener exactamente 6 números.</small>
+              </div>
+              <div class="form-group">
+                <label for="changeConfirmBepass">Confirmar nueva Clave</label>
+                <input type="password" id="changeConfirmBepass" name="confirmBepass" class="form-control"
+                       [(ngModel)]="changeBepassData.confirmBepass" required (input)="onChangeBepassInput($event)" maxlength="6">
+              </div>
+              <hr class="my-4">
+              <div class="form-group">
+                <label for="changeCurrentPassword">Contraseña de tu cuenta</label>
+                <input type="password" id="changeCurrentPassword" name="currentPassword" class="form-control"
+                       [(ngModel)]="changeBepassData.currentPassword" required>
+                <small class="form-text text-muted">Por tu seguridad, ingresa tu contraseña actual para confirmar el cambio.</small>
+              </div>
+              <div *ngIf="changeMessage" class="alert alert-success mt-3">{{ changeMessage }}</div>
+              <div *ngIf="changeError" class="alert alert-danger mt-3">{{ changeError }}</div>
+              <button type="submit" class="btn btn-primary btn-block mt-4" [disabled]="!changeBepassForm.form.valid">Cambiar Clave Be Pass</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apartado de recuperación de contraseña -->
+      <div class="d-flex flex-column align-items-center w-100">
+        <div class="card shadow-sm mb-5 security-card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center w-100">
+              <div class="recover-password-form w-100 compact-recover-form">
+                <h2 class="card-title">Recuperar contraseña de la cuenta</h2>
+                <p class="card-subtitle mb-4 text-muted">Se enviará un correo a tu email registrado para restablecer tu contraseña.</p>
+                <form (ngSubmit)="onRecoverPasswordSubmit()">
+                  <div class="mb-2">
+                    <label for="recoverEmail" class="form-label">Correo electrónico</label>
+                    <input type="email" id="recoverEmail" name="recoverEmail" class="form-control" [(ngModel)]="recoverEmail" [readonly]="true" required>
+                  </div>
+                  <div *ngIf="recoverMessage" class="alert alert-success mt-2">{{ recoverMessage }}</div>
+                  <div *ngIf="recoverError" class="alert alert-danger mt-2">{{ recoverError }}</div>
+                  <div class="d-grid mt-2">
+                    <button type="submit" class="btn btn-primary btn-lg">Enviar correo</button>
+                  </div>
+                </form>
+              </div>
             </div>
-
-            <div class="form-group">
-              <label for="confirmBepass">Confirmar nueva Clave</label>
-              <input type="password" id="confirmBepass" name="confirmBepass" class="form-control" 
-                     [(ngModel)]="bepassData.confirmBepass" required (input)="onBepassInput($event)" maxlength="6">
-            </div>
-
-            <hr class="my-4">
-
-            <div class="form-group">
-              <label for="currentPassword">Contraseña de tu cuenta</label>
-              <input type="password" id="currentPassword" name="currentPassword" class="form-control" 
-                     [(ngModel)]="bepassData.currentPassword" required>
-              <small class="form-text text-muted">Por tu seguridad, ingresa tu contraseña actual para confirmar el cambio.</small>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-block mt-4" [disabled]="!bepassForm.form.valid">Establecer Clave Be Pass</button>
-          </form>
+          </div>
         </div>
       </div>
 
@@ -69,6 +141,27 @@
             <i class="fas fa-sync-alt"></i>
             <h3>Actualiza tus contraseñas periódicamente</h3>
             <p>Cambia tus contraseñas cada cierto tiempo y utiliza combinaciones seguras para proteger tu cuenta.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal/Sección QR 2FA -->
+      <div *ngIf="show2FAQr" class="modal-backdrop show"></div>
+      <div *ngIf="show2FAQr" class="modal d-block" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Configura Google Authenticator</h5>
+              <button type="button" class="btn-close" aria-label="Cerrar" (click)="close2FAQr()"></button>
+            </div>
+            <div class="modal-body text-center">
+              <p>Escanea este código QR con Google Authenticator para activar la verificación en dos pasos.</p>
+              <img [src]="qrData" alt="QR 2FA" />
+              <p class="mt-3"><strong>¿Ya lo escaneaste?</strong></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="close2FAQr()">Listo</button>
+            </div>
           </div>
         </div>
       </div>

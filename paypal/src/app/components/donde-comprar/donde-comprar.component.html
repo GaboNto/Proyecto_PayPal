@@ -1,0 +1,160 @@
+<div class="donde-comprar-container">
+ 
+  <div class="header">
+    <div class="header-content">
+      <h1>🛒 ¿Dónde comprar con PayPal?</h1>
+      <p>Descubre miles de comercios que aceptan PayPal para pagos seguros y rápidos</p>
+    </div>
+  </div>
+
+  
+  <div class="search-section">
+    <div class="search-container">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          placeholder="Buscar comercios, categorías o productos..."
+          class="search-input"
+          [(ngModel)]="terminoBusqueda"
+          (input)="buscarComercios(terminoBusqueda)"
+        >
+        <button 
+          class="search-button" 
+          *ngIf="terminoBusqueda.trim() !== ''"
+          (click)="limpiarBusqueda()"
+        >
+          Limpiar
+        </button>
+        <button 
+          class="search-button" 
+          *ngIf="terminoBusqueda.trim() === ''"
+        >
+          Buscar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="categories-section">
+    <h2>Categorías populares</h2>
+    <div class="categories-grid">
+      <button 
+        *ngFor="let categoria of categorias" 
+        class="category-card"
+        [class.active]="categoriaSeleccionada === categoria.id"
+        (click)="cambiarCategoria(categoria.id)"
+      >
+        <span class="category-icon">{{ categoria.icono }}</span>
+        <span class="category-name">{{ categoria.nombre }}</span>
+      </button>
+    </div>
+  </div>
+
+ 
+  <div class="popular-section" *ngIf="categoriaSeleccionada === 'todos' && comerciosPopulares.length > 0">
+    <h2>🔥 Comercios más populares</h2>
+    <div class="comercios-grid">
+      <div 
+        *ngFor="let comercio of comerciosPopulares" 
+        class="comercio-card popular"
+        (click)="visitarComercio(comercio)"
+      >
+        <div class="comercio-header">
+          <span class="comercio-logo">{{ comercio.logo }}</span>
+          <span class="popular-badge">🔥 Popular</span>
+        </div>
+        <h3 class="comercio-nombre">{{ comercio.nombre }}</h3>
+        <p class="comercio-descripcion">{{ comercio.descripcion }}</p>
+        <div class="comercio-footer">
+          <span class="paypal-badge">💙 Acepta PayPal</span>
+          <button class="visitar-btn">Visitar →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="comercios-section">
+    <div class="section-header">
+      <h2>
+        <span *ngIf="terminoBusqueda.trim() !== ''">
+          Resultados de búsqueda para "{{ terminoBusqueda }}"
+        </span>
+        <span *ngIf="terminoBusqueda.trim() === '' && categoriaSeleccionada !== 'todos'">
+          {{ nombreCategoriaSeleccionada }}
+        </span>
+        <span *ngIf="terminoBusqueda.trim() === '' && categoriaSeleccionada === 'todos'">Todos los comercios</span>
+        <span class="comercio-count">({{ comerciosFiltrados.length }} comercios)</span>
+      </h2>
+    </div>
+
+    <div class="comercios-grid">
+      <div 
+        *ngFor="let comercio of comerciosFiltrados" 
+        class="comercio-card"
+        [class.popular]="comercio.popular"
+        (click)="visitarComercio(comercio)"
+      >
+        <div class="comercio-header">
+          <span class="comercio-logo">{{ comercio.logo }}</span>
+          <span class="popular-badge" *ngIf="comercio.popular">🔥 Popular</span>
+        </div>
+        <h3 class="comercio-nombre">{{ comercio.nombre }}</h3>
+        <p class="comercio-descripcion">{{ comercio.descripcion }}</p>
+        <div class="comercio-footer">
+          <span class="paypal-badge">💙 Acepta PayPal</span>
+          <button class="visitar-btn">Visitar →</button>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="no-comercios" *ngIf="comerciosFiltrados.length === 0">
+      <div class="no-comercios-content">
+        <span class="no-comercios-icon">🔍</span>
+        <h3>No se encontraron comercios</h3>
+        <p *ngIf="terminoBusqueda.trim() !== ''">
+          No hay resultados para "{{ terminoBusqueda }}". Intenta con otros términos.
+        </p>
+        <p *ngIf="terminoBusqueda.trim() === ''">
+          Intenta con otra categoría o busca con diferentes términos.
+        </p>
+        <button 
+          class="btn-secondary" 
+          *ngIf="terminoBusqueda.trim() !== ''"
+          (click)="limpiarBusqueda()"
+        >
+          Limpiar búsqueda
+        </button>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="info-section">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">🛡️</div>
+        <h3>Pagos seguros</h3>
+        <p>Tus datos están protegidos con encriptación de nivel bancario</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">⚡</div>
+        <h3>Pagos rápidos</h3>
+        <p>Completa tus compras en segundos sin ingresar datos de tarjeta</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🔄</div>
+        <h3>Reembolsos fáciles</h3>
+        <p>Protección al comprador y reembolsos automáticos disponibles</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🌍</div>
+        <h3>Comercios globales</h3>
+        <p>Compra en comercios de todo el mundo con una sola cuenta</p>
+      </div>
+    </div>
+  </div>
+</div> 
