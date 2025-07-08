@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TransferService {
-  private apiUrl = '/api/transfers';
+  private apiUrl = 'http://localhost:3000/api/transfers';
 
   constructor(private http: HttpClient) { }
 

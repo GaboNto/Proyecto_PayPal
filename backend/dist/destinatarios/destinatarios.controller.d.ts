@@ -6,9 +6,9 @@ export declare class DestinatariosController {
     private readonly destinatariosService;
     private readonly usersService;
     constructor(destinatariosService: DestinatariosService, usersService: UsersService);
-    create(createDestinatarioDto: CreateDestinatarioDto, req: any): Promise<import("./entities/destinatario.entity").Destinatario>;
-    findAll(req: any): Promise<import("./entities/destinatario.entity").Destinatario[]>;
-    update(id: number, updateDestinatarioDto: UpdateDestinatarioDto, req: any): Promise<import("./entities/destinatario.entity").Destinatario>;
-    remove(id: number, req: any): Promise<void>;
-    toggleFavorito(id: number, req: any): Promise<import("./entities/destinatario.entity").Destinatario>;
+    create(createDestinatarioDto: CreateDestinatarioDto, req: any): unknown;
+    findAll(req: any): unknown;
+    update(id: number, updateDestinatarioDto: UpdateDestinatarioDto, req: any): unknown;
+    remove(id: number, req: any): unknown;
+    toggleFavorito(id: number, req: any): unknown;
 }

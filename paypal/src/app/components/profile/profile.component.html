@@ -22,26 +22,6 @@
         <span class="label">Saldo disponible:</span>
         <span class="value saldo-amount">{{ saldoDisponible | currency:'CLP':'symbol-narrow':'1.0-0' }}</span>
       </div>
-      <div class="text-center mt-4">
-        <button class="btn btn-warning" (click)="showChangePassword = true">Cambiar mi contraseña</button>
-      </div>
-      <div *ngIf="showChangePassword" class="change-password-form mt-3">
-        <h4>Cambiar contraseña</h4>
-        <form (ngSubmit)="onChangePassword()">
-          <div class="form-group">
-            <label for="currentPassword">Contraseña actual</label>
-            <input type="password" id="currentPassword" [(ngModel)]="currentPassword" name="currentPassword" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="newPassword">Nueva contraseña</label>
-            <input type="password" id="newPassword" [(ngModel)]="newPassword" name="newPassword" class="form-control" required minlength="6">
-          </div>
-          <button type="submit" class="btn btn-primary">Guardar</button>
-          <button type="button" class="btn btn-secondary ms-2" (click)="showChangePassword = false">Cancelar</button>
-        </form>
-        <div *ngIf="passwordChangeMessage" class="mt-2 text-success">{{ passwordChangeMessage }}</div>
-        <div *ngIf="passwordChangeError" class="mt-2 text-danger">{{ passwordChangeError }}</div>
-      </div>
     </div>
   </div>
 </div>

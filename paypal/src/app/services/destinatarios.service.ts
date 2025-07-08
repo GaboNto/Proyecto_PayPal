@@ -21,7 +21,7 @@ export type UpdateDestinatario = Partial<CreateDestinatario>;
   providedIn: 'root'
 })
 export class DestinatariosService {
-  private apiUrl = '/api/destinatarios';
+  private apiUrl = 'http://localhost:3000/api/destinatarios';
 
   constructor(private http: HttpClient) { }
 

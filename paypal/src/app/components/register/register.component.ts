@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
       tap(() => this.rutExistsError = ''), // Limpia el error anterior
       switchMap(rut => {
         if (this.validateRut(rut)) {
-          return this.http.get<{ exists: boolean }>(`/api/auth/check-rut/${rut}`).pipe(
+          return this.http.get<{ exists: boolean }>(`http://localhost:3000/api/auth/check-rut/${rut}`).pipe(
             catchError(() => of({ exists: false })) // En caso de error, no bloquear el registro
           );
         }
@@ -110,7 +110,7 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
       alert('Por favor, completa todos los campos correctamente.');
       return;
     }
-    this.http.post('/api/auth/register', this.user)
+    this.http.post('http://localhost:3000/api/auth/register', this.user)
       .subscribe({
         next: (response) => {
           console.log('Registration successful', response);

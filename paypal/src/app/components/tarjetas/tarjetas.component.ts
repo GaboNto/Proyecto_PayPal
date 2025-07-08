@@ -79,7 +79,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
   loadInitialData(): void {
     this.isLoading = true;
     // Obtener nombre del usuario
-    this.http.get<any>('/api/users/profile').pipe(
+    this.http.get<any>('http://localhost:3000/api/users/profile').pipe(
       tap(profile => {
         this.userName = `${profile.nombre} ${profile.apellido}`.toUpperCase();
         this.titular = this.userName; // Actualizar titular aquí

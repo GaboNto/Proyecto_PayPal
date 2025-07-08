@@ -72,10 +72,6 @@ let UsersController = class UsersController {
             throw new common_1.UnauthorizedException('Código 2FA incorrecto');
         return { success: true };
     }
-    async changePassword(req, currentPassword, newPassword) {
-        const userId = req.user.sub;
-        return this.usersService.changePassword(userId, currentPassword, newPassword);
-    }
 };
 exports.UsersController = UsersController;
 __decorate([
@@ -129,16 +125,6 @@ __decorate([
     __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "verify2FA", null);
-__decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Post)('change-password'),
-    __param(0, (0, common_1.Request)()),
-    __param(1, (0, common_1.Body)('currentPassword')),
-    __param(2, (0, common_1.Body)('newPassword')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String, String]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "changePassword", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

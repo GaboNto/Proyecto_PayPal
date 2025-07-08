@@ -32,7 +32,7 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.http.post<{accessToken: string}>('/api/auth/login', this.loginForm.value)
+      this.http.post<{accessToken: string}>('http://localhost:3000/api/auth/login', this.loginForm.value)
         .subscribe({
           next: (response) => {
             console.log('Login successful', response);
