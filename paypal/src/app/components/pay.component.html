@@ -9,6 +9,7 @@
     <div class="gastos-fijos">Gastos mensuales fijos: <span>${{ gastosFijos | number:'1.0-0' }}</span></div>
   </div>
   <button class="btn-agregar" (click)="abrirFormulario()" *ngIf="!mostrarFormulario">+ Nuevo pago automático</button>
+  <button class="btn-transferir" (click)="irATransferir()">Transferir</button>
 
   <div class="modal-backdrop" *ngIf="mostrarFormulario || mostrarTicket"></div>
   <div class="modal-formulario" *ngIf="mostrarFormulario">

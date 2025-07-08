@@ -23,7 +23,7 @@ export class NavbarComponent {
       if (isLoggedIn) {
         this.router.navigate(['/transactions']);
       } else {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/transactions-public']);
       }
     });
   }

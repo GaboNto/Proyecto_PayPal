@@ -1,11 +1,63 @@
+body, app-root, .main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(270deg, #00c6fb, #0070ba, #00c6fb, #0070ba);
+  background-size: 400% 400%;
+  animation: gradientMove 18s ease-in-out infinite;
+  opacity: 0.18;
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.lines-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.lines-bg::before, .lines-bg::after {
+  content: '';
+  position: absolute;
+  width: 180px; height: 100vh;
+  opacity: 0.13;
+  background: repeating-linear-gradient(
+    120deg,
+    #0070ba 0px, #0070ba 4px,
+    transparent 4px, transparent 24px,
+    #00c6fb 24px, #00c6fb 28px,
+    transparent 28px, transparent 48px
+  );
+}
+.lines-bg::before {
+  left: 0; top: 0;
+}
+.lines-bg::after {
+  right: 0; top: 0;
+}
 .tarjetas-publica-container {
-  max-width: 700px;
-  margin: 3rem auto;
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 36px 28px;
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  padding: 2.5rem 2rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
   text-align: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
 }
 .tarjetas-publica-container h1 {
   color: #0a2972;
@@ -19,19 +71,25 @@
 }
 .tarjetas-tipos {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
   justify-content: center;
-  margin-bottom: 2.5rem;
+  align-items: flex-start;
+  gap: 2rem;
+  margin: 2.5rem 0 2rem 0;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .tarjeta-info {
-  background: #f8f9fa;
-  border-radius: 12px;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
-  padding: 1.5rem 1rem;
-  min-width: 220px;
-  max-width: 300px;
-  flex: 1 1 220px;
+  background: #f7fafd;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0,112,186,0.06);
+  padding: 1.5rem 1.5rem 1.2rem 1.5rem;
+  min-width: 260px;
+  max-width: 340px;
+  flex: 1 1 260px;
+  margin: 0 0.5rem;
   text-align: left;
 }
 .tarjeta-info h2 {
@@ -46,7 +104,7 @@
 }
 .ventajas {
   margin-top: 2.5rem;
-  text-align: left;
+  text-align: center;
 }
 .ventajas h2 {
   color: #0a2972;
@@ -54,8 +112,9 @@
   margin-bottom: 0.5rem;
 }
 .ventajas ul {
-  list-style: disc inside;
-  margin-left: 1.5rem;
+  display: inline-block;
+  text-align: left;
+  margin-left: 0;
   color: #333;
 }
 .cta {
@@ -74,4 +133,25 @@
 }
 .btn.btn-primary:hover {
   background: #005ea6;
+}
+@media (max-width: 1000px) {
+  .tarjetas-publica-container {
+    max-width: 98vw;
+    margin: 20px auto;
+    padding: 18px 4vw;
+  }
+}
+@media (max-width: 900px) {
+  .tarjetas-tipos {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    max-width: 98vw;
+  }
+  .tarjeta-info {
+    max-width: 98vw;
+    min-width: 0;
+    width: 100%;
+    text-align: left;
+  }
 } 

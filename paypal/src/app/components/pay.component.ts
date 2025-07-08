@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgFor, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface PagoAutomatico {
   nombre: string;
@@ -28,6 +29,8 @@ export class PayComponent {
   mostrarFormulario: boolean = false;
   mostrarTicket: boolean = false;
   pagoPendiente: PagoAutomatico | null = null;
+
+  constructor(private router: Router) {}
 
   get gastosFijos(): number {
     return this.pagos.filter(p => p.activo).reduce((acc, p) => acc + p.monto, 0);
@@ -70,5 +73,15 @@ export class PayComponent {
   cancelarFormulario() {
     this.mostrarFormulario = false;
     this.nuevoPago = { nombre: '', monto: 0, diaPago: '01', activo: true };
+  }
+
+  irATransferir() {
+    // Suponiendo que el token de autenticación se guarda en localStorage con la clave 'token'
+    const isLoggedIn = !!localStorage.getItem('token');
+    if (isLoggedIn) {
+      this.router.navigate(['/transactions']);
+    } else {
+      this.router.navigate(['/transactions-public']);
+    }
   }
 }

@@ -1,11 +1,90 @@
+body, app-root, .main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(120deg, #0070ba22 0px, #0070ba22 4px, transparent 4px, transparent 32px, #00c6fb22 32px, #00c6fb22 36px, transparent 36px, transparent 64px);
+  opacity: 0.18;
+}
+.security-icons-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.security-icons-bg .icon {
+  position: absolute;
+  font-size: 4.5rem;
+  opacity: 0.10;
+  user-select: none;
+  pointer-events: none;
+}
+.security-icons-bg .icon.lock {
+  left: 40px; top: 12vh; color: #0070ba;
+}
+.security-icons-bg .icon.shield {
+  right: 60px; top: 30vh; color: #00c6fb;
+}
+.security-icons-bg .icon.key {
+  left: 60px; bottom: 18vh; color: #0070ba;
+}
+.security-icons-bg .icon.eye {
+  right: 40px; bottom: 10vh; color: #00c6fb;
+}
+.seguridad-banner-right {
+  position: fixed;
+  top: 0; right: 0;
+  width: 320px;
+  height: 100vh;
+  background: linear-gradient(135deg, #e3f4fd 60%, #b3e0fc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: -4px 0 18px rgba(0,0,0,0.07);
+}
+.banner-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #005fa3;
+  text-align: center;
+}
+.banner-icon {
+  font-size: 4.5rem;
+  margin-bottom: 18px;
+}
+.banner-text h3 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
 .seguridad-publica-container {
-  max-width: 600px;
-  margin: 3rem auto;
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 36px 28px;
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  padding: 2.5rem 2rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
   text-align: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+@media (max-width: 1000px) {
+  .seguridad-publica-container {
+    max-width: 98vw;
+    margin: 20px auto;
+    padding: 18px 4vw;
+  }
 }
 .seguridad-publica-container h1 {
   color: #0a2972;

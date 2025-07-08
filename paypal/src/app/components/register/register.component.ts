@@ -27,6 +27,8 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
   };
   rutError: string = '';
   rutExistsError: string = '';
+  passwordError: string = '';
+  fechaNacimientoError: string = '';
   private rutSubject = new Subject<string>();
   private rutSubscription: Subscription | undefined;
 
@@ -105,8 +107,105 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  capitalizeFirstLetter(value: string): string {
+    if (!value) return '';
+    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+  }
+
+  onNombreBlur() {
+    this.user.nombre = this.capitalizeFirstLetter(this.user.nombre);
+  }
+
+  onApellidoBlur() {
+    this.user.apellido = this.capitalizeFirstLetter(this.user.apellido);
+  }
+
+  onCiudadBlur() {
+    this.user.ciudad = this.capitalizeFirstLetter(this.user.ciudad);
+  }
+
+  onPaisBlur() {
+    this.user.pais = this.capitalizeFirstLetter(this.user.pais);
+  }
+
+  // Validación personalizada para la contraseña
+  validatePassword(password: string): boolean {
+    // Solo requiere mínimo 6 caracteres
+    return typeof password === 'string' && password.length >= 6;
+  }
+
+  validateFechaNacimiento(fecha: string): boolean {
+    if (!fecha) return false;
+    const hoy = new Date();
+    const fechaNacimiento = new Date(fecha);
+    if (fechaNacimiento > hoy) return false; // No permitir fechas futuras
+    const edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    const m = hoy.getMonth() - fechaNacimiento.getMonth();
+    const d = hoy.getDate() - fechaNacimiento.getDate();
+    let edadReal = edad;
+    if (m < 0 || (m === 0 && d < 0)) {
+      edadReal--;
+    }
+    if (edadReal < 18 || edadReal > 120) return false;
+    return true;
+  }
+
+  getFechaNacimientoError(): string {
+    if (!this.user.fecha_nacimiento) return '';
+    const hoy = new Date();
+    const fechaNacimiento = new Date(this.user.fecha_nacimiento);
+    if (fechaNacimiento > hoy) {
+      return 'La fecha de nacimiento no puede ser en el futuro.';
+    }
+    const edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    const m = hoy.getMonth() - fechaNacimiento.getMonth();
+    const d = hoy.getDate() - fechaNacimiento.getDate();
+    let edadReal = edad;
+    if (m < 0 || (m === 0 && d < 0)) {
+      edadReal--;
+    }
+    if (edadReal < 18) {
+      return 'Debes ser mayor de 18 años para registrarte.';
+    }
+    if (edadReal > 120) {
+      return 'La edad máxima permitida es 120 años.';
+    }
+    return '';
+  }
+
+  getEmailError(form: NgForm): string {
+    const emailCtrl = form.controls['email'];
+    if (emailCtrl && emailCtrl.touched && emailCtrl.invalid) {
+      if (emailCtrl.errors?.['required']) {
+        return 'El correo electrónico es obligatorio.';
+      }
+      if (emailCtrl.errors?.['email']) {
+        return 'El formato del correo electrónico no es válido.';
+      }
+    }
+    return '';
+  }
+
+  getPasswordError(form: NgForm): string {
+    const passwordCtrl = form.controls['password'];
+    if (passwordCtrl && passwordCtrl.touched) {
+      if (passwordCtrl.errors?.['required']) {
+        return 'La contraseña es obligatoria.';
+      }
+      if (passwordCtrl.errors?.['minlength'] || !this.validatePassword(passwordCtrl.value)) {
+        return 'La contraseña debe tener al menos 6 caracteres.';
+      }
+    }
+    return '';
+  }
+
   onSubmit(registerForm: NgForm) {
-    if (registerForm.invalid || this.rutError || this.rutExistsError) {
+    this.passwordError = '';
+    this.fechaNacimientoError = this.getFechaNacimientoError();
+    if (!this.validatePassword(this.user.password)) {
+      this.passwordError = 'La contraseña debe tener al menos 6 caracteres.';
+    }
+    if (registerForm.invalid || this.rutError || this.rutExistsError || this.passwordError || this.fechaNacimientoError) {
       alert('Por favor, completa todos los campos correctamente.');
       return;
     }

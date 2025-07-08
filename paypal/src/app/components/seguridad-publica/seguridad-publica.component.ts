@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-seguridad-publica',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div class="seguridad-publica-container">
+  template: `<div class='seguridad-publica-container'>
       <h1>Seguridad en PayPal</h1>
       <p class="subtitle">Tu seguridad es nuestra prioridad. Descubre cómo protegemos tus datos y transacciones, incluso antes de que te registres.</p>
       <ul class="seguridad-list">
@@ -40,8 +39,7 @@ import { CommonModule } from '@angular/common';
       <div class="cta">
         <a routerLink="/register" class="btn btn-primary">Crea tu cuenta y compra seguro</a>
       </div>
-    </div>
-  `,
+    </div>`,
   styleUrls: ['./seguridad-publica.component.css']
 })
 export class SeguridadPublicaComponent {} 
