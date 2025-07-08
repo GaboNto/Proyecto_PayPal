@@ -1,235 +1,665 @@
-.home-container {
-    max-width: 100%;
-    overflow-x: hidden;
-    background: #fff;
+/* Reset y Configuración Inicial */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-// Hero Section
+/* Variables de Color inspiradas en PayPal y tonos azules */
+:root {
+    --paypal-blue: #0070ba; /* Azul principal de PayPal */
+    --paypal-dark-blue: #003087; /* Azul oscuro para texto y fondos */
+    --paypal-light-blue: #009cde; /* Azul más claro para acentos y elementos interactivos */
+    --paypal-vibrant-accent: #2ecc71; /* Un verde vibrante para acentos importantes (ej. seguridad, éxito) */
+    --paypal-gray-text: #5e646a; /* Gris para texto secundario y párrafos */
+    --white: #ffffff;
+    --light-bg: #eef4f9; /* Fondo general muy suave, casi blanco con un toque de azul */
+    --section-bg-alt: #f8fbfd; /* Fondo alternativo para secciones, aún más claro */
+    --shadow-light: rgba(0, 0, 0, 0.08);
+    --shadow-medium: rgba(0, 0, 0, 0.12);
+}
+
+/* Home Container */
+.home-container {
+    font-family: 'Inter', sans-serif; /* Fuente moderna */
+    color: var(--paypal-gray-text);
+    background-color: var(--light-bg); /* Color de fondo general */
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Secciones Generales */
+section {
+    padding: 80px 40px;
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+/* Títulos */
+h1, h2 {
+    color: var(--paypal-dark-blue); /* Azul oscuro para títulos principales */
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 3.8rem; /* Más grande para mayor impacto */
+    line-height: 1.2;
+    text-align: left;
+}
+
+h2 {
+    font-size: 3rem; /* Más grande para encabezados de sección */
+}
+
+p {
+    font-size: 1.15rem; /* Ligeramente más grande para mejor legibilidad */
+    line-height: 1.8;
+    color: var(--paypal-gray-text); /* Aseguramos color de párrafo */
+}
+
+/* --- Botones Generales --- */
+.btn {
+    padding: 18px 36px; /* Más padding para que se vean más grandes */
+    border-radius: 35px; /* Bordes aún más redondos */
+    font-size: 1.2rem; /* Texto de botón más grande */
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Más espacio entre texto y icono */
+    letter-spacing: 0.5px; /* Un poco de espaciado para un look premium */
+}
+
+.btn-primary {
+    background-color: var(--paypal-blue); /* Azul principal de PayPal, muy visible */
+    color: var(--white);
+    box-shadow: 0 6px 20px rgba(0, 112, 186, 0.4); /* Sombra más pronunciada */
+}
+
+.btn-primary:hover {
+    background-color: var(--paypal-dark-blue); /* Oscurece al hover */
+    transform: translateY(-4px); /* Efecto de "levantar" más pronunciado */
+    box-shadow: 0 8px 25px rgba(0, 112, 186, 0.5);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--white);
+    border: 2px solid var(--white); /* Borde blanco para contraste */
+}
+
+.btn-outline:hover {
+    background-color: var(--white);
+    color: var(--paypal-blue); /* Color del botón principal al hover */
+    transform: translateY(-4px);
+}
+
+/* --- Hero Section --- */
 .hero-section {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 4rem 8%;
-    background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
-    min-height: 600px;
-
-    @media (max-width: 768px) {
-        flex-direction: column;
-        text-align: center;
-        padding: 2rem 5%;
-    }
+    align-items: center;
+    padding: 120px 80px; /* Más padding para que se vea más grande y "premium" */
+    background: linear-gradient(135deg, var(--paypal-dark-blue) 0%, var(--paypal-blue) 100%); /* Degradado de azules vibrantes */
+    color: var(--white);
+    border-radius: 25px; /* Bordes aún más redondeados */
+    margin: 50px 50px 80px 50px; /* Margen para que resalte y tenga aire */
+    box-shadow: 0px 25px 50px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada para profundidad */
 }
 
 .hero-content {
-    flex: 1;
-    max-width: 600px;
+    max-width: 55%;
+    padding-right: 50px; /* Más espacio */
+}
 
-    h1 {
-        font-size: 3.5rem;
-        color: #003087;
-        line-height: 1.2;
-        margin-bottom: 1.5rem;
-        font-weight: 700;
+.hero-subtitle {
+    font-size: 1.5rem; /* Más grande y legible */
+    margin-bottom: 50px; /* Más espacio antes de los botones */
+    opacity: 0.98; /* Muy cerca del blanco para contraste */
+}
 
-        @media (max-width: 768px) {
-            font-size: 2.5rem;
-        }
-    }
-
-    .hero-subtitle {
-        font-family: 'Inter', sans-serif;
-        font-size: 1.25rem;
-        font-weight: 500;
-        color: #444;
-        margin-bottom: 2rem;
-        line-height: 1.6;
-        letter-spacing: 0.2px;
-    }
+.cta-buttons {
+    display: flex;
+    gap: 30px; /* Más espacio entre botones */
 }
 
 .hero-image {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    .main-illustration {
-        max-width: 100%;
-        height: auto;
-    }
+    max-width: 40%;
+    text-align: center;
 }
 
-// Features Section
-.features-section {
-    padding: 5rem 8%;
-    background: #ffffff;
-    text-align: center;
+.main-illustration {
+    max-width: 100%;
+    height: auto;
+    animation: float 3s ease-in-out infinite;
+}
 
-    h2 {
-        font-size: 2.5rem;
-        color: #003087;
-        margin-bottom: 3rem;
-        font-weight: 600;
-    }
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); } /* Mayor movimiento */
+    100% { transform: translateY(0px); }
+}
+
+/* --- Features Section --- */
+.features-section {
+    background-color: var(--section-bg-alt); /* Fondo claro pero diferente al del container */
+    text-align: center;
+    padding: 80px 40px;
 }
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px; /* Más espacio entre tarjetas */
+    margin-top: 50px;
 }
 
 .feature-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 2rem;
+    background-color: var(--white);
+    padding: 35px; /* Más padding interno */
+    border-radius: 20px; /* Bordes más redondeados */
+    box-shadow: 0px 15px 30px var(--shadow-light); /* Sombra más suave */
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #e7e7e7;
-
-    &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .feature-icon {
-        width: 70px;
-        height: 70px;
-        background: #009cde;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1.5rem;
-
-        i {
-            font-size: 2rem;
-            color: white;
-        }
-    }
-
-    h3 {
-        font-size: 1.5rem;
-        color: #003087;
-        margin-bottom: 1rem;
-        font-weight: 600;
-    }
-
-    p {
-        font-family: 'Inter', sans-serif;
-        font-size: 1.1rem;
-        font-weight: 400;
-        color: #444;
-        margin-bottom: 1.5rem;
-        line-height: 1.6;
-        letter-spacing: 0.1px;
-    }
-
-    .feature-link {
-        color: #009cde;
-        text-decoration: none;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: color 0.3s ease;
-
-        &:hover {
-            color: #003087;
-        }
-
-        i {
-            font-size: 0.875rem;
-        }
-    }
+    border: 1px solid #e5e5e5; /* Borde sutil */
 }
 
-// Security Section
+.feature-card:hover {
+    transform: translateY(-10px); /* Efecto de levantar más pronunciado */
+    box-shadow: 0px 20px 40px var(--shadow-medium);
+}
+
+.feature-icon {
+    font-size: 3.5rem; /* Iconos más grandes */
+    color: var(--paypal-light-blue); /* Azul claro para iconos */
+    margin-bottom: 30px; /* Más espacio */
+    background-color: rgba(0, 156, 222, 0.15); /* Fondo suave con tono de azul claro, un poco más opaco */
+    border-radius: 50%;
+    padding: 25px; /* Más padding para que el círculo sea más grande */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 156, 222, 0.1); /* Sombra sutil en el círculo del icono */
+}
+
+.feature-card h3 {
+    font-size: 1.8rem; /* Títulos de característica más grandes */
+    margin-bottom: 15px;
+    color: var(--paypal-dark-blue);
+}
+
+.feature-card p {
+    font-size: 1.05rem; /* Texto de descripción */
+    margin-bottom: 30px;
+    flex-grow: 1;
+}
+
+.feature-link {
+    font-weight: 700;
+    color: var(--paypal-blue); /* Azul principal para enlaces */
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.05rem; /* Enlaces más grandes */
+}
+
+.feature-link i {
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.feature-link:hover {
+    color: var(--paypal-dark-blue);
+}
+
+.feature-link:hover i {
+    transform: translateX(8px); /* Mayor movimiento de la flecha */
+}
+
+/* --- Testimonials Section --- */
+.testimonials-section {
+    background-color: var(--light-bg); /* Fondo coherente con light-bg */
+    text-align: center;
+    padding: 80px 40px;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 35px; /* Más espacio */
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.testimonial-card {
+    background-color: var(--white); /* Fondo blanco para las tarjetas */
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 25px var(--shadow-light);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #1b76aa;
+}
+
+.testimonial-card p:first-of-type {
+    font-style: italic;
+    font-size: 1.25rem; /* Tamaño de texto de testimonio más grande */
+    color: var(--paypal-gray-text);
+    margin-bottom: 25px;
+    padding-left: 30px; /* Más espacio para comillas */
+}
+
+.testimonial-card p:first-of-type::before {
+    content: '“';
+    font-family: serif;
+    font-size: 6rem; /* Comillas mucho más grandes */
+    color: var(--paypal-light-blue); /* Azul claro para las comillas */
+    position: absolute;
+    left: 0;
+    top: -15px; /* Ajuste de posición */
+    opacity: 0.25; /* Un poco más visible */
+    z-index: 0; /* Asegurar que esté detrás del texto */
+}
+
+.testimonial-card h4 {
+    font-weight: 700;
+    margin-top: 15px;
+    color: var(--paypal-dark-blue);
+    font-size: 1.3rem; /* Nombre del cliente más grande */
+}
+
+.testimonial-card .client-title {
+    font-size: 1rem;
+    color: var(--paypal-gray-text);
+    margin-top: 5px;
+}
+
+/* --- Security Section --- */
 .security-section {
-    background: #f5f7fa;
-    padding: 5rem 8%;
-    text-align: center;
-
-    h2 {
-        font-size: 2.5rem;
-        color: #003087;
-        margin-bottom: 1.5rem;
-        font-weight: 600;
-    }
-
-    p {
-        color: #666;
-        margin-bottom: 2rem;
-        font-size: 1.125rem;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-.security-features {
-    list-style: none;
-    padding: 0;
+    background-color: var(--paypal-dark-blue); /* Fondo azul oscuro impactante */
+    color: var(--white); /* Texto blanco para alto contraste */
     display: flex;
     justify-content: center;
-    gap: 3rem;
+    align-items: center;
+    gap: 70px; /* Más espacio */
+    padding: 100px 50px; /* Más padding */
     flex-wrap: wrap;
-
-    li {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        color: #003087;
-        font-weight: 500;
-
-        i {
-            color: #009cde;
-            font-size: 1.25rem;
-        }
-    }
+    text-align: center; /* Asegurar que el contenido se centre en móvil */
 }
 
-// Buttons
-.cta-buttons {
+.security-content {
+    max-width: 600px;
+    text-align: left; /* Títulos y texto a la izquierda en desktop */
+}
+
+.security-content h2 {
+    color: var(--white); /* Título blanco */
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.security-content p {
+    color: var(--white); /* Párrafo blanco */
+    margin-bottom: 35px;
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.security-features li {
     display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.15rem;
+    color: var(--white); /* Texto de característica blanco */
+}
 
-    @media (max-width: 768px) {
+.security-features li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.15rem;
+    color: var(--white); /* Texto de característica blanco */
+}
+
+.security-features i {
+    color: var(--paypal-vibrant-accent); /* ¡Verde vibrante para la seguridad! */
+    font-size: 1.8rem; /* Iconos más grandes */
+}
+
+.security-image {
+    max-width: 480px; /* Imagen un poco más grande */
+    min-width: 300px;
+    text-align: center;
+}
+
+.security-illustration {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.2)); /* Sombra más fuerte */
+}
+
+/* --- NUEVA Sección: ¿Por qué elegirnos? --- */
+.why-us-section {
+    background-color: var(--white); /* Fondo blanco */
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.why-us-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 35px;
+    margin-top: 50px;
+}
+
+.why-us-card {
+    background-color: var(--section-bg-alt); /* Fondo sutil para las tarjetas */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px var(--shadow-light);
+    transition: all 0.3s ease;
+    text-align: center;
+    border: 1px solid #e5e5e5;
+}
+
+.why-us-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 12px 25px var(--shadow-medium);
+}
+
+.why-us-card i {
+    font-size: 3.2rem;
+    color: var(--paypal-blue); /* Iconos en azul principal */
+    margin-bottom: 20px;
+}
+
+.why-us-card h3 {
+    font-size: 1.7rem;
+    color: var(--paypal-dark-blue);
+    margin-bottom: 10px;
+}
+
+.why-us-card p {
+    font-size: 1rem;
+    color: var(--paypal-gray-text);
+}
+
+/* --- NUEVA Sección: Productos y Soluciones --- */
+.products-section {
+    background-color: var(--light-bg); /* Fondo coherente con light-bg */
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+    margin-top: 50px;
+}
+
+.product-card {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 25px var(--shadow-light);
+    transition: all 0.3s ease;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 15px 35px var(--shadow-medium);
+}
+
+.product-image {
+    max-width: 120px; /* Tamaño de la imagen del producto */
+    height: auto;
+    margin-bottom: 25px;
+}
+
+.product-card h3 {
+    font-size: 1.8rem;
+    color: var(--paypal-dark-blue);
+    margin-bottom: 15px;
+}
+
+.product-card p {
+    font-size: 1.05rem;
+    color: var(--paypal-gray-text);
+    margin-bottom: 25px;
+}
+
+.product-link {
+    font-weight: 700;
+    color: var(--paypal-blue);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.05rem;
+}
+
+.product-link i {
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.product-link:hover {
+    color: var(--paypal-dark-blue);
+}
+
+.product-link:hover i {
+    transform: translateX(8px);
+}
+
+
+/* --- Blog Section --- */
+.blog-section {
+    background-color: var(--section-bg-alt); /* Fondo alternativo para el blog */
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+    margin-top: 50px;
+    justify-content: center;
+}
+
+.blog-card {
+    background-color: var(--white);
+    border-radius: 20px; /* Bordes más redondeados */
+    box-shadow: 0px 10px 25px var(--shadow-light);
+    overflow: hidden;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 15px 35px var(--shadow-medium);
+}
+
+.blog-image {
+    width: 100%;
+    height: 220px; /* Imagen más alta */
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+}
+
+.blog-card h3 {
+    font-size: 1.6rem; /* Títulos de blog más grandes */
+    color: var(--paypal-dark-blue);
+    margin: 25px 25px 12px 25px;
+    text-align: left;
+}
+
+.blog-card p {
+    font-size: 1rem;
+    color: var(--paypal-gray-text);
+    margin: 0 25px 25px 25px;
+    text-align: left;
+}
+
+.blog-link {
+    display: block;
+    margin: 0 25px 25px 25px;
+    font-weight: 600;
+    color: var(--paypal-blue);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.05rem;
+}
+
+.blog-link i {
+    font-size: 0.9rem;
+    transition: transform 0.2s ease;
+}
+
+.blog-link:hover {
+    color: var(--paypal-dark-blue);
+}
+
+.blog-link:hover i {
+    transform: translateX(8px);
+}
+
+/* --- NUEVA Sección: Contacto / CTA Final --- */
+.contact-cta-section {
+    background-color: var(--paypal-blue); /* Fondo azul principal para CTA final */
+    color: var(--white);
+    padding: 100px 50px;
+    text-align: center;
+}
+
+.contact-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-content h2 {
+    color: var(--white);
+    margin-bottom: 25px;
+}
+
+.contact-content p {
+    font-size: 1.3rem;
+    margin-bottom: 45px;
+    opacity: 0.95;
+    color: var(--white);
+}
+
+.contact-cta-section .btn {
+    margin: 0 15px; /* Espacio entre botones */
+}
+
+.contact-cta-section .btn-outline {
+    border-color: var(--white);
+}
+
+.contact-cta-section .btn-outline:hover {
+    color: var(--paypal-blue); /* Para que el texto cambie a azul al pasar el ratón */
+}
+
+/* --- Media Queries para Responsividad (ajustes finos) --- */
+@media (max-width: 1024px) {
+    h1 { font-size: 3.2rem; }
+    h2 { font-size: 2.6rem; }
+    .hero-section, .security-section, .why-us-section, .products-section, .blog-section, .contact-cta-section {
+        padding: 80px 30px;
+        flex-direction: column;
+        text-align: center;
+        margin: 40px 30px 60px 30px; /* Ajuste para el margen del hero */
+    }
+    .hero-section {
+        margin: 40px 30px 60px 30px; /* Ajuste específico para el hero */
+    }
+    .hero-content, .security-content, .contact-content {
+        max-width: 100%;
+        padding-right: 0;
+        text-align: center;
+    }
+    .hero-image, .security-image {
+        max-width: 85%;
+        margin-top: 50px;
+    }
+    .cta-buttons, .contact-cta-section .btn {
         justify-content: center;
-        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .features-grid, .testimonials-grid, .why-us-grid, .products-grid, .blog-grid {
+        grid-template-columns: 1fr;
+    }
+    .feature-card, .testimonial-card, .why-us-card, .product-card, .blog-card {
+        max-width: 450px;
+        margin: 0 auto;
+    }
+    .security-features {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    section {
+        padding: 70px 25px;
     }
 }
 
-.btn {
-    padding: 1rem 2rem;
-    border-radius: 25px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-size: 1.125rem;
+@media (max-width: 768px) {
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2.2rem; }
+    p { font-size: 1.05rem; }
+    .hero-subtitle { font-size: 1.2rem; }
+    .btn { padding: 16px 30px; font-size: 1.1rem; }
+    .feature-icon { font-size: 3rem; padding: 20px; }
+    .feature-card h3 { font-size: 1.6rem; }
+    .feature-card p { font-size: 0.95rem; }
+    .testimonial-card p:first-of-type { font-size: 1.15rem; padding-left: 25px; }
+    .testimonial-card p:first-of-type::before { font-size: 4rem; top: -10px; }
+    .security-content p, .contact-content p { font-size: 1.1rem; }
+    .security-features li { font-size: 1.05rem; }
+    .security-features i { font-size: 1.6rem; }
+    .why-us-card i { font-size: 2.8rem; }
+    .why-us-card h3 { font-size: 1.5rem; }
+    .product-card h3 { font-size: 1.6rem; }
+    .product-card p { font-size: 0.95rem; }
+    .blog-card h3 { font-size: 1.4rem; }
+    .blog-image { height: 180px; }
+}
 
-    &.btn-primary {
-        background: #009cde;
-        color: white;
-        border: none;
-
-        &:hover {
-            background: #008ac5;
-            transform: translateY(-2px);
-        }
+@media (max-width: 480px) {
+    .hero-section {
+        padding: 60px 20px;
+        margin: 30px 20px 50px 20px;
     }
-
-    &.btn-secondary {
-        background: transparent;
-        color: #003087;
-        border: 2px solid #003087;
-
-        &:hover {
-            background: #003087;
-            color: white;
-            transform: translateY(-2px);
-        }
-    }
-} 
+    h1 { font-size: 2.4rem; }
+    h2 { font-size: 1.9rem; }
+    .hero-subtitle { font-size: 1rem; margin-bottom: 30px; }
+    .btn { width: 100%; }
+    .cta-buttons, .contact-cta-section .btn { flex-direction: column; gap: 15px; }
+    section { padding: 50px 15px; }
+    .feature-card, .testimonial-card, .why-us-card, .product-card, .blog-card { max-width: 100%; }
+    .testimonial-card p:first-of-type::before { font-size: 3.5rem; top: -8px; }
+    .security-content h2, .contact-content h2 { text-align: center; }
+    .security-content p, .contact-content p { text-align: center; }
+    .security-features { justify-content: center; }
+    .security-features li { flex-direction: column; text-align: center; gap: 5px; }
+    .security-features i { margin-bottom: 5px; }
+}
