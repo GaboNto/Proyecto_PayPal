@@ -7,6 +7,21 @@ export declare class TransfersController {
     transferBetweenOwnAccounts(createInternalTransferDto: CreateInternalTransferDto, req: any): Promise<{
         message: string;
     }>;
-    create(createTransferDto: CreateTransferDto, req: any): unknown;
-    getHistory(req: any, from?: string, to?: string): unknown;
+    create(createTransferDto: CreateTransferDto, req: any): Promise<{
+        message: string;
+    }>;
+    getHistory(req: any, from?: string, to?: string): Promise<{
+        id: number;
+        fecha: Date;
+        monto: number;
+        comision: number;
+        tipo: string;
+        origen: {
+            rut: string;
+            nombre: string;
+            id_usuario: number;
+        } | null;
+        destino: any;
+        hora: string | null;
+    }[]>;
 }

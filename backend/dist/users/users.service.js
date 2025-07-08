@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
@@ -94,6 +93,22 @@ let UsersService = class UsersService {
         await this.usersRepository.save(user);
         return { message: user.bepass ? 'Clave Be Pass actualizada con éxito.' : 'Clave Be Pass creada con éxito.' };
     }
+    async changePassword(userId, currentPassword, newPassword) {
+        const user = await this.usersRepository.findOne({ where: { id_usuario: userId } });
+        if (!user) {
+            throw new common_1.NotFoundException('Usuario no encontrado.');
+        }
+        const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
+        if (!isPasswordCorrect) {
+            throw new common_1.UnauthorizedException('La contraseña actual es incorrecta.');
+        }
+        if (newPassword.length < 6) {
+            throw new common_1.BadRequestException('La nueva contraseña debe tener al menos 6 caracteres.');
+        }
+        user.password = await bcrypt.hash(newPassword, 10);
+        await this.usersRepository.save(user);
+        return { message: 'Contraseña actualizada correctamente.' };
+    }
     async save(user) {
         return this.usersRepository.save(user);
     }
@@ -102,6 +117,6 @@ exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

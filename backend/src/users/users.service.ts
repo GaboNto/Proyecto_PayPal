@@ -105,6 +105,23 @@ export class UsersService {
     return { message: user.bepass ? 'Clave Be Pass actualizada con éxito.' : 'Clave Be Pass creada con éxito.' };
   }
 
+  async changePassword(userId: number, currentPassword: string, newPassword: string): Promise<{ message: string }> {
+    const user = await this.usersRepository.findOne({ where: { id_usuario: userId } });
+    if (!user) {
+      throw new NotFoundException('Usuario no encontrado.');
+    }
+    const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
+    if (!isPasswordCorrect) {
+      throw new UnauthorizedException('La contraseña actual es incorrecta.');
+    }
+    if (newPassword.length < 6) {
+      throw new BadRequestException('La nueva contraseña debe tener al menos 6 caracteres.');
+    }
+    user.password = await bcrypt.hash(newPassword, 10);
+    await this.usersRepository.save(user);
+    return { message: 'Contraseña actualizada correctamente.' };
+  }
+
   async save(user: User) {
     return this.usersRepository.save(user);
   }

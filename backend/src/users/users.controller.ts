@@ -79,4 +79,15 @@ export class UsersController {
     if (!verified) throw new UnauthorizedException('Código 2FA incorrecto');
     return { success: true };
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('change-password')
+  async changePassword(
+    @Request() req,
+    @Body('currentPassword') currentPassword: string,
+    @Body('newPassword') newPassword: string
+  ) {
+    const userId = req.user.sub;
+    return this.usersService.changePassword(userId, currentPassword, newPassword);
+  }
 }
