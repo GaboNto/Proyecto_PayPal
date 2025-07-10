@@ -352,3 +352,8 @@
   color: #fff;
   border-color: #0099cc;
 }
+
+.custom-modal-overlay {
+  display: block;
+  background: rgba(0, 0, 0, 0.3);
+}

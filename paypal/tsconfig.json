@@ -22,9 +22,8 @@
       "ES2022",
       "dom"
     ],
-    "types": [
-      "node"
-    ]
+    "types": [],
+    "forceConsistentCasingInFileNames": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

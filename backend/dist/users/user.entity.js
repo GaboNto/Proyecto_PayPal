@@ -26,6 +26,7 @@ let User = class User {
     cuentas;
     destinatarios;
     bepass;
+    totpSecret;
 };
 exports.User = User;
 __decorate([
@@ -80,6 +81,10 @@ __decorate([
     (0, typeorm_1.Column)({ name: 'bepass', nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "bepass", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'totp_secret', nullable: true }),
+    __metadata("design:type", String)
+], User.prototype, "totpSecret", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)('usuarios')
 ], User);

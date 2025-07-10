@@ -11,4 +11,6 @@ export class SetBepassDto {
 
   @IsString()
   currentPassword: string;
+
+  isChange?: boolean;
 } 

@@ -1,0 +1,49 @@
+.donde-comprar-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 2rem 2.5rem;
+  text-align: center;
+}
+.donde-comprar-container h1 {
+  color: #0a2972;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+.donde-comprar-container .subtitle {
+  color: #6c757d;
+  font-size: 1.15rem;
+  margin-bottom: 2rem;
+}
+.shops-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.shop-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 110px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 1rem 0.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s;
+}
+.shop-item img {
+  max-width: 60px;
+  margin-bottom: 0.5rem;
+}
+.shop-item span {
+  font-weight: 500;
+  color: #222;
+  font-size: 1rem;
+}
+.shop-item:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+} 

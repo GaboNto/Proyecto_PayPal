@@ -84,11 +84,28 @@ export class UsersService {
       throw new UnauthorizedException('La contraseña actual es incorrecta.');
     }
 
+    // Validación: si el usuario ya tiene Be Pass, solo puede cambiarla, no crearla de nuevo
+    if (user.bepass) {
+      // Si el frontend está en modo creación, lanzar error
+      if (!setBepassDto.isChange) {
+        throw new BadRequestException('Ya tienes una clave Be Pass. Solo puedes cambiarla.');
+      }
+    } else {
+      // Si el frontend está en modo cambio, lanzar error
+      if (setBepassDto.isChange) {
+        throw new BadRequestException('No tienes una clave Be Pass configurada. Debes crearla primero.');
+      }
+    }
+
     const hashedBepass = await bcrypt.hash(newBepass, 10);
     user.bepass = hashedBepass;
 
     await this.usersRepository.save(user);
 
-    return { message: 'Clave Be Pass actualizada con éxito.' };
+    return { message: user.bepass ? 'Clave Be Pass actualizada con éxito.' : 'Clave Be Pass creada con éxito.' };
+  }
+
+  async save(user: User) {
+    return this.usersRepository.save(user);
   }
 }

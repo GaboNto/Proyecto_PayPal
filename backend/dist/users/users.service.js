@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
@@ -78,16 +79,29 @@ let UsersService = class UsersService {
         if (!isPasswordCorrect) {
             throw new common_1.UnauthorizedException('La contraseña actual es incorrecta.');
         }
+        if (user.bepass) {
+            if (!setBepassDto.isChange) {
+                throw new common_1.BadRequestException('Ya tienes una clave Be Pass. Solo puedes cambiarla.');
+            }
+        }
+        else {
+            if (setBepassDto.isChange) {
+                throw new common_1.BadRequestException('No tienes una clave Be Pass configurada. Debes crearla primero.');
+            }
+        }
         const hashedBepass = await bcrypt.hash(newBepass, 10);
         user.bepass = hashedBepass;
         await this.usersRepository.save(user);
-        return { message: 'Clave Be Pass actualizada con éxito.' };
+        return { message: user.bepass ? 'Clave Be Pass actualizada con éxito.' : 'Clave Be Pass creada con éxito.' };
+    }
+    async save(user) {
+        return this.usersRepository.save(user);
     }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

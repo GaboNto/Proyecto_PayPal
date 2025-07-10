@@ -43,4 +43,7 @@ export class User {
 
   @Column({ name: 'bepass', nullable: true })
   bepass: string;
+
+  @Column({ name: 'totp_secret', nullable: true })
+  totpSecret: string;
 }

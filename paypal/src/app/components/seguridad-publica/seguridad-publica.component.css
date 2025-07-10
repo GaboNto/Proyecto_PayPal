@@ -1,0 +1,90 @@
+.seguridad-publica-container {
+  max-width: 600px;
+  margin: 3rem auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+.seguridad-publica-container h1 {
+  color: #0a2972;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+.seguridad-publica-container .subtitle {
+  color: #6c757d;
+  font-size: 1.15rem;
+  margin-bottom: 2rem;
+}
+.seguridad-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+.seguridad-list li {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  text-align: left;
+  padding-left: 1.5rem;
+  position: relative;
+}
+.cta {
+  margin-top: 2rem;
+}
+.btn.btn-primary {
+  background: #0070ba;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.btn.btn-primary:hover {
+  background: #005ea6;
+}
+.extra-seguridad {
+  margin-top: 2.5rem;
+  text-align: left;
+}
+.extra-seguridad h2 {
+  color: #0a2972;
+  font-size: 1.3rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+.extra-seguridad p {
+  color: #333;
+  margin-bottom: 1rem;
+}
+.consejos-list {
+  list-style: disc inside;
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.enlaces-utiles {
+  margin-top: 1.5rem;
+}
+.enlaces-utiles h3 {
+  font-size: 1.1rem;
+  color: #0a2972;
+  margin-bottom: 0.5rem;
+}
+.enlaces-utiles ul {
+  list-style: none;
+  padding: 0;
+}
+.enlaces-utiles li {
+  margin-bottom: 0.5rem;
+}
+.enlaces-utiles a {
+  color: #0070ba;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.enlaces-utiles a:hover {
+  color: #005ea6;
+} 

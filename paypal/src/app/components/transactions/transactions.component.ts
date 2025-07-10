@@ -105,6 +105,9 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   transferenciaSeleccionada: any = null;
 
+  filtroMonto: number|null = null;
+  filtroDestinatario: string = '';
+
   constructor(
     private http: HttpClient,
     private transferService: TransferService,
@@ -652,6 +655,15 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   cerrarDetalles(): void {
     this.transferenciaSeleccionada = null;
+  }
+
+  get historialFiltrado() {
+    return this.historial.filter(t => {
+      const fechaValida = (!this.fechaInicio || t.fecha >= this.fechaInicio) && (!this.fechaFin || t.fecha <= this.fechaFin);
+      const montoValido = this.filtroMonto == null || t.monto == this.filtroMonto;
+      const destinatarioValido = !this.filtroDestinatario || (t.nombre_destinatario && t.nombre_destinatario.toLowerCase().includes(this.filtroDestinatario.toLowerCase()));
+      return fechaValida && montoValido && destinatarioValido;
+    });
   }
 }
 

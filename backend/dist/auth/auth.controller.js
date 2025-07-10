@@ -18,7 +18,6 @@ const passport_1 = require("@nestjs/passport");
 const auth_service_1 = require("./auth.service");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const forgot_password_dto_1 = require("./dto/forgot-password.dto");
-const reset_password_dto_1 = require("./dto/reset-password.dto");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
@@ -35,9 +34,6 @@ let AuthController = class AuthController {
     }
     async forgotPassword(forgotPasswordDto) {
         return this.authService.forgotPassword(forgotPasswordDto);
-    }
-    async resetPassword(resetPasswordDto) {
-        return this.authService.resetPassword(resetPasswordDto);
     }
 };
 exports.AuthController = AuthController;
@@ -65,18 +61,11 @@ __decorate([
 ], AuthController.prototype, "checkRut", null);
 __decorate([
     (0, common_1.Post)('forgot-password'),
-    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [forgot_password_dto_1.ForgotPasswordDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "forgotPassword", null);
-__decorate([
-    (0, common_1.Post)('reset-password'),
-    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [reset_password_dto_1.ResetPasswordDto]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "resetPassword", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

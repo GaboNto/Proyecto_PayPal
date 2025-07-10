@@ -1,0 +1,479 @@
+.donde-comprar-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+
+.header {
+  background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  
+  .header-content {
+    max-width: 800px;
+    margin: 0 auto;
+    
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin: 0;
+      line-height: 1.6;
+    }
+  }
+}
+
+
+.search-section {
+  padding: 2rem;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+  .search-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 50px;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    
+    &:focus-within {
+      border-color: #0070ba;
+      box-shadow: 0 0 0 3px rgba(0, 112, 186, 0.1);
+    }
+  }
+  
+  .search-icon {
+    font-size: 1.2rem;
+    margin: 0 1rem;
+    color: #6c757d;
+  }
+  
+  .search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    padding: 0.75rem;
+    outline: none;
+    
+    &::placeholder {
+      color: #6c757d;
+    }
+  }
+  
+  .search-button {
+    background: #0070ba;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: #005ea6;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+
+.categories-section {
+  padding: 3rem 2rem;
+  background: white;
+  
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #1a1a1a;
+  }
+  
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: #e9ecef;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    &.active {
+      background: #0070ba;
+      color: white;
+      border-color: #0070ba;
+    }
+  }
+  
+  .category-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .category-name {
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+}
+
+
+.popular-section {
+  padding: 3rem 2rem;
+  background: #f8f9fa;
+  
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #1a1a1a;
+  }
+}
+
+
+.comercios-section {
+  padding: 3rem 2rem;
+  background: white;
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin: 0;
+    }
+    
+    .comercio-count {
+      font-size: 1rem;
+      color: #6c757d;
+      font-weight: normal;
+    }
+  }
+}
+
+.comercios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.comercio-card {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #0070ba;
+  }
+  
+  &.popular {
+    border: 2px solid #ffc107;
+    background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+  }
+  
+  .comercio-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .comercio-logo {
+    font-size: 2.5rem;
+  }
+  
+  .popular-badge {
+    background: #ffc107;
+    color: #1a1a1a;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  
+  .comercio-nombre {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: #1a1a1a;
+  }
+  
+  .comercio-descripcion {
+    color: #6c757d;
+    margin: 0 0 1rem 0;
+    line-height: 1.5;
+  }
+  
+  .comercio-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .paypal-badge {
+    background: #0070ba;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  
+  .visitar-btn {
+    background: transparent;
+    color: #0070ba;
+    border: 1px solid #0070ba;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: #0070ba;
+      color: white;
+    }
+  }
+}
+
+
+.no-comercios {
+  text-align: center;
+  padding: 4rem 2rem;
+  
+  .no-comercios-content {
+    max-width: 400px;
+    margin: 0 auto;
+    
+    .no-comercios-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #1a1a1a;
+    }
+    
+    p {
+      color: #6c757d;
+      margin: 0;
+    }
+  }
+}
+
+
+.info-section {
+  padding: 4rem 2rem;
+  background: #f8f9fa;
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .info-card {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+    
+    .info-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #1a1a1a;
+    }
+    
+    p {
+      color: #6c757d;
+      margin: 0;
+      line-height: 1.6;
+    }
+  }
+}
+
+
+.cta-section {
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+  color: white;
+  text-align: center;
+  
+  .cta-content {
+    max-width: 600px;
+    margin: 0 auto;
+    
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+
+.btn-primary, .btn-secondary {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.btn-primary {
+  background: #ffc107;
+  color: #1a1a1a;
+  
+  &:hover {
+    background: #ffb300;
+  }
+}
+
+.btn-secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  
+  &:hover {
+    background: white;
+    color: #0070ba;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .header {
+    padding: 2rem 1rem;
+    
+    .header-content h1 {
+      font-size: 2rem;
+    }
+  }
+  
+  .search-section {
+    padding: 1rem;
+    
+    .search-box {
+      flex-direction: column;
+      gap: 1rem;
+      border-radius: 12px;
+    }
+    
+    .search-button {
+      width: 100%;
+    }
+  }
+  
+  .categories-section,
+  .popular-section,
+  .comercios-section {
+    padding: 2rem 1rem;
+  }
+  
+  .categories-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+  
+  .comercios-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cta-section {
+    padding: 2rem 1rem;
+    
+    .cta-content h2 {
+      font-size: 2rem;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+    }
+  }
+} 

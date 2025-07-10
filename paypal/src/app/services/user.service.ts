@@ -21,4 +21,8 @@ export class UserService {
   hasBepass(): Observable<{ hasBepass: boolean }> {
     return this.http.get<{ hasBepass: boolean }>(`${this.apiUrl}/has-bepass`);
   }
+
+  getProfile(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/profile`);
+  }
 } 

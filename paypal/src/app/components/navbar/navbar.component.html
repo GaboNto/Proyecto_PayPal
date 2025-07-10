@@ -4,10 +4,13 @@
       <a routerLink="/"><img src="assets/paypal-logo.svg" alt="PayPal Logo"></a>
     </div>
     <div class="navbar-links">
-      <a (click)="handleTransferClick()" style="cursor: pointer;">Transferir</a>
-      <a routerLink="/tarjetas">Tarjetas</a>
-      <a routerLink="/security">Seguridad</a>
+      <a (click)="handleTransferClick()" class="transfer-link">Transferir</a>
+      <a *ngIf="isLoggedIn$ | async" routerLink="/tarjetas">Tarjetas</a>
+      <a *ngIf="!(isLoggedIn$ | async)" routerLink="/tarjetas-publica">Tarjetas</a>
+      <a *ngIf="isLoggedIn$ | async" routerLink="/security">Seguridad</a>
+      <a *ngIf="!(isLoggedIn$ | async)" routerLink="/seguridad-publica">Seguridad</a>
       <a href="#features" *ngIf="!(isLoggedIn$ | async)">Característica</a>
+      <a routerLink="/donde-comprar" *ngIf="!(isLoggedIn$ | async)">¿Dónde comprar?</a>
     </div>
     <div class="navbar-actions">
       <ng-container *ngIf="isLoggedIn$ | async; else showLogin">

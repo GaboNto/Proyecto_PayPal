@@ -18,6 +18,8 @@ const users_service_1 = require("./users.service");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const set_bepass_dto_1 = require("./dto/set-bepass.dto");
 const verify_bepass_dto_1 = require("./dto/verify-bepass.dto");
+const speakeasy = require("speakeasy");
+const qrcode = require("qrcode");
 let UsersController = class UsersController {
     usersService;
     constructor(usersService) {
@@ -37,6 +39,38 @@ let UsersController = class UsersController {
     async hasBepass(req) {
         const user = await this.usersService.findById(req.user.sub);
         return { hasBepass: !!user.bepass };
+    }
+    async setup2FA(req) {
+        const user = await this.usersService.findById(req.user.sub);
+        if (!user)
+            throw new common_1.NotFoundException('Usuario no encontrado');
+        if (!user.totpSecret) {
+            const secret = speakeasy.generateSecret({ name: `PayPal (${user.email})` });
+            user.totpSecret = secret.base32;
+            await this.usersService.save(user);
+        }
+        const otpauth = speakeasy.otpauthURL({
+            secret: user.totpSecret,
+            label: `PayPal (${user.email})`,
+            issuer: 'PayPal',
+            encoding: 'base32',
+        });
+        const qr = await qrcode.toDataURL(otpauth);
+        return { secret: user.totpSecret, qr };
+    }
+    async verify2FA(req, code) {
+        const user = await this.usersService.findById(req.user.sub);
+        if (!user || !user.totpSecret)
+            throw new common_1.UnauthorizedException('2FA no configurado');
+        const verified = speakeasy.totp.verify({
+            secret: user.totpSecret,
+            encoding: 'base32',
+            token: code,
+            window: 1
+        });
+        if (!verified)
+            throw new common_1.UnauthorizedException('Código 2FA incorrecto');
+        return { success: true };
     }
 };
 exports.UsersController = UsersController;
@@ -74,6 +108,23 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "hasBepass", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('2fa/setup'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "setup2FA", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Post)('2fa/verify'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Body)('code')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "verify2FA", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

@@ -1,0 +1,77 @@
+.tarjetas-publica-container {
+  max-width: 700px;
+  margin: 3rem auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+.tarjetas-publica-container h1 {
+  color: #0a2972;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+.tarjetas-publica-container .subtitle {
+  color: #6c757d;
+  font-size: 1.15rem;
+  margin-bottom: 2rem;
+}
+.tarjetas-tipos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+.tarjeta-info {
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  padding: 1.5rem 1rem;
+  min-width: 220px;
+  max-width: 300px;
+  flex: 1 1 220px;
+  text-align: left;
+}
+.tarjeta-info h2 {
+  color: #0070ba;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+.tarjeta-info ul {
+  list-style: disc inside;
+  margin-left: 1rem;
+  color: #333;
+}
+.ventajas {
+  margin-top: 2.5rem;
+  text-align: left;
+}
+.ventajas h2 {
+  color: #0a2972;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.ventajas ul {
+  list-style: disc inside;
+  margin-left: 1.5rem;
+  color: #333;
+}
+.cta {
+  margin-top: 2.5rem;
+}
+.btn.btn-primary {
+  background: #0070ba;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.btn.btn-primary:hover {
+  background: #005ea6;
+} 
