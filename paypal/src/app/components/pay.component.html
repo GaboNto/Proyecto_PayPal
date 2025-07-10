@@ -1,32 +1,32 @@
 <div class="pay-container">
-  <h1>Pagar</h1>
-  <p>Bienvenido a la sección de pagos. Aquí podrás realizar tus pagos de forma segura y rápida.</p>
+  <h1>{{ 'pay.title' | translate }}</h1>
+  <p>{{ 'pay.welcome' | translate }}</p>
 </div>
 
 <div class="pagos-container">
   <div class="pagos-header">
-    <h2>Pagos automáticos</h2>
-    <div class="gastos-fijos">Gastos mensuales fijos: <span>${{ gastosFijos | number:'1.0-0' }}</span></div>
+    <h2>{{ 'pay.automaticPayments' | translate }}</h2>
+    <div class="gastos-fijos">{{ 'pay.monthlyFixedExpenses' | translate }} <span>${{ gastosFijos | number:'1.0-0' }}</span></div>
   </div>
-  <button class="btn-agregar" (click)="abrirFormulario()" *ngIf="!mostrarFormulario">+ Nuevo pago automático</button>
-  <button class="btn-transferir" (click)="irATransferir()">Transferir</button>
+  <button class="btn-agregar" (click)="abrirFormulario()" *ngIf="!mostrarFormulario">{{ 'pay.newAutomaticPayment' | translate }}</button>
+  <button class="btn-transferir" (click)="irATransferir()">{{ 'pay.transfer' | translate }}</button>
 
   <div class="modal-backdrop" *ngIf="mostrarFormulario || mostrarTicket"></div>
   <div class="modal-formulario" *ngIf="mostrarFormulario">
-    <button class="modal-close" (click)="cancelarFormulario()" aria-label="Cerrar" [disabled]="mostrarTicket">×</button>
-    <h3>Nuevo pago automático</h3>
+    <button class="modal-close" (click)="cancelarFormulario()" [attr.aria-label]="'Cerrar'" [disabled]="mostrarTicket">×</button>
+    <h3>{{ 'pay.modal.title' | translate }}</h3>
     <form (ngSubmit)="agregarPago()" #formPago="ngForm">
-      <input type="text" placeholder="Nombre" [(ngModel)]="nuevoPago.nombre" name="nombre" required [disabled]="mostrarTicket">
-      <input type="number" placeholder="Monto" [(ngModel)]="nuevoPago.monto" name="monto" required min="1" [disabled]="mostrarTicket">
+      <input type="text" [placeholder]="'pay.modal.name' | translate" [(ngModel)]="nuevoPago.nombre" name="nombre" required [disabled]="mostrarTicket">
+      <input type="number" [placeholder]="'pay.modal.amount' | translate" [(ngModel)]="nuevoPago.monto" name="monto" required min="1" [disabled]="mostrarTicket">
       <select [(ngModel)]="nuevoPago.diaPago" name="diaPago" required [disabled]="mostrarTicket">
-        <option *ngFor="let dia of [].constructor(28); let i = index" [value]="(i+1) < 10 ? '0'+(i+1) : (i+1).toString()">Día {{ (i+1) < 10 ? '0'+(i+1) : (i+1) }}</option>
+        <option *ngFor="let dia of [].constructor(28); let i = index" [value]="(i+1) < 10 ? '0'+(i+1) : (i+1).toString()">{{ 'pay.modal.day' | translate }} {{ (i+1) < 10 ? '0'+(i+1) : (i+1) }}</option>
       </select>
       <label>
-        <input type="checkbox" [(ngModel)]="nuevoPago.activo" name="activo" [disabled]="mostrarTicket"> Activo
+        <input type="checkbox" [(ngModel)]="nuevoPago.activo" name="activo" [disabled]="mostrarTicket"> {{ 'pay.modal.active' | translate }}
       </label>
       <div class="modal-actions">
-        <button type="submit" class="btn-confirmar" [disabled]="!formPago.form.valid || mostrarTicket">Guardar</button>
-        <button type="button" class="btn-cancelar" (click)="cancelarFormulario()" [disabled]="mostrarTicket">Cancelar</button>
+        <button type="submit" class="btn-confirmar" [disabled]="!formPago.form.valid || mostrarTicket">{{ 'pay.modal.save' | translate }}</button>
+        <button type="button" class="btn-cancelar" (click)="cancelarFormulario()" [disabled]="mostrarTicket">{{ 'pay.modal.cancel' | translate }}</button>
       </div>
     </form>
     <div class="modal-overlay" *ngIf="mostrarTicket"></div>
@@ -34,28 +34,28 @@
 
   <div class="modal-backdrop" *ngIf="mostrarTicket"></div>
   <div class="modal-ticket" *ngIf="mostrarTicket && pagoPendiente">
-    <button class="modal-close" (click)="cancelarTicket()" aria-label="Cerrar">×</button>
-    <h3>Confirmar nuevo pago automático</h3>
+    <button class="modal-close" (click)="cancelarTicket()" [attr.aria-label]="'Cerrar'">×</button>
+    <h3>{{ 'pay.confirmation.title' | translate }}</h3>
     <div class="ticket-datos">
-      <p><strong>Nombre:</strong> {{ pagoPendiente.nombre }}</p>
-      <p><strong>Monto:</strong> ${{ pagoPendiente.monto | number:'1.0-0' }}</p>
-      <p><strong>Día de pago:</strong> {{ pagoPendiente.diaPago }}</p>
-      <p><strong>Estado:</strong> {{ pagoPendiente.activo ? 'Activo' : 'Inactivo' }}</p>
+      <p><strong>{{ 'pay.modal.name' | translate }}:</strong> {{ pagoPendiente.nombre }}</p>
+      <p><strong>{{ 'pay.modal.amount' | translate }}:</strong> ${{ pagoPendiente.monto | number:'1.0-0' }}</p>
+      <p><strong>{{ 'pay.modal.paymentDay' | translate }}:</strong> {{ pagoPendiente.diaPago }}</p>
+      <p><strong>{{ 'pay.table.status' | translate }}:</strong> {{ pagoPendiente.activo ? ('pay.modal.active' | translate) : ('common.inactive' | translate) }}</p>
     </div>
     <div class="modal-actions">
-      <button class="btn-confirmar" (click)="confirmarPago()">Confirmar</button>
-      <button class="btn-cancelar" (click)="cancelarTicket()">Cancelar</button>
+      <button class="btn-confirmar" (click)="confirmarPago()">{{ 'pay.confirmation.confirm' | translate }}</button>
+      <button class="btn-cancelar" (click)="cancelarTicket()">{{ 'pay.modal.cancel' | translate }}</button>
     </div>
   </div>
 
   <table class="pagos-table" *ngIf="pagos.length > 0">
     <thead>
       <tr>
-        <th>Nombre</th>
-        <th>Monto</th>
-        <th>Día de pago</th>
-        <th>Estado</th>
-        <th>Acciones</th>
+        <th>{{ 'pay.table.name' | translate }}</th>
+        <th>{{ 'pay.table.amount' | translate }}</th>
+        <th>{{ 'pay.table.paymentDay' | translate }}</th>
+        <th>{{ 'pay.table.status' | translate }}</th>
+        <th>{{ 'pay.table.actions' | translate }}</th>
       </tr>
     </thead>
     <tbody>
@@ -65,17 +65,17 @@
         <td>{{ pago.diaPago }}</td>
         <td>
           <span class="estado" [class.activo]="pago.activo" [class.inactivo]="!pago.activo">
-            {{ pago.activo ? 'Activo' : 'Inactivo' }}
+            {{ pago.activo ? ('pay.modal.active' | translate) : ('common.inactive' | translate) }}
           </span>
         </td>
         <td>
           <button class="btn-estado" (click)="alternarActivo(pago)">
-            {{ pago.activo ? 'Desactivar' : 'Activar' }}
+            {{ pago.activo ? ('pay.table.deactivate' | translate) : ('pay.table.activate' | translate) }}
           </button>
-          <button class="btn-eliminar" (click)="eliminarPago(i)">Eliminar</button>
+          <button class="btn-eliminar" (click)="eliminarPago(i)">{{ 'pay.table.delete' | translate }}</button>
         </td>
       </tr>
     </tbody>
   </table>
-  <div *ngIf="pagos.length === 0" class="vacio">No hay pagos automáticos registrados.</div>
+  <div *ngIf="pagos.length === 0" class="vacio">{{ 'pay.emptyState' | translate }}</div>
 </div>

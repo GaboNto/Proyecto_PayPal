@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, tap } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 export interface UserProfile {
   id_usuario: number;
@@ -19,7 +20,10 @@ export interface UserProfile {
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    TranslateModule,
+  ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })

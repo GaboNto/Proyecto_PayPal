@@ -1,24 +1,24 @@
 <div class="transactions-public-container">
-  <h1><span class="icon">💸</span> Transferencias en PayPal</h1>
-  <p class="intro">En nuestra plataforma puedes realizar transferencias de dinero de forma <strong>rápida</strong>, <strong>segura</strong> y <strong>sencilla</strong>.</p>
+  <h1><span class="icon">💸</span> {{ 'public.transactions.title' | translate }}</h1>
+  <p class="intro">{{ 'public.transactions.description' | translate }}</p>
 
   <div class="info-section">
     <div class="info-icon">🔄</div>
     <div>
-      <h2>¿Qué es una transferencia?</h2>
-      <p>Una transferencia es el envío de dinero desde tu cuenta a la cuenta de otra persona o empresa, ya sea dentro de PayPal o a otros bancos.</p>
+      <h2>{{ 'public.transactions.whatIsTransfer' | translate }}</h2>
+      <p>{{ 'public.transactions.transferDefinition' | translate }}</p>
     </div>
   </div>
 
   <div class="info-section">
     <div class="info-icon">⚡</div>
     <div>
-      <h2>¿Cómo funcionan las transferencias?</h2>
+      <h2>{{ 'public.transactions.howTransfersWork' | translate }}</h2>
       <ul>
-        <li>Debes estar registrado e iniciar sesión para realizar transferencias.</li>
-        <li>Puedes transferir a cuentas propias, de terceros o a otros bancos.</li>
-        <li>Las transferencias son procesadas de manera segura y rápida.</li>
-        <li>Recibirás notificaciones y podrás ver el historial de tus movimientos.</li>
+        <li>{{ 'public.transactions.step1' | translate }}</li>
+        <li>{{ 'public.transactions.step2' | translate }}</li>
+        <li>{{ 'public.transactions.step3' | translate }}</li>
+        <li>{{ 'public.transactions.step4' | translate }}</li>
       </ul>
     </div>
   </div>
@@ -26,19 +26,19 @@
   <div class="info-section">
     <div class="info-icon">🌟</div>
     <div>
-      <h2>Beneficios de registrarte</h2>
+      <h2>{{ 'public.transactions.benefits' | translate }}</h2>
       <ul>
-        <li>Acceso a transferencias ilimitadas.</li>
-        <li>Historial y seguimiento de tus movimientos.</li>
-        <li>Mayor seguridad y protección de tus fondos.</li>
-        <li>Soporte personalizado.</li>
+        <li>{{ 'public.transactions.benefit1' | translate }}</li>
+        <li>{{ 'public.transactions.benefit2' | translate }}</li>
+        <li>{{ 'public.transactions.benefit3' | translate }}</li>
+        <li>{{ 'public.transactions.benefit4' | translate }}</li>
       </ul>
     </div>
   </div>
 
   <div class="cta">
-    <a routerLink="/register" class="btn btn-primary">Regístrate ahora</a>
-    <span>o</span>
-    <a routerLink="/login" class="btn btn-secondary">Inicia sesión</a>
+    <a routerLink="/register" class="btn btn-primary">{{ 'auth.register' | translate }}</a>
+    <span>{{ 'common.or' | translate }}</span>
+    <a routerLink="/login" class="btn btn-secondary">{{ 'auth.login' | translate }}</a>
   </div>
 </div> 

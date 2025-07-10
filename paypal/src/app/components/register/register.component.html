@@ -1,51 +1,51 @@
 <div class="auth-container">
   <div class="auth-card">
     <img src="assets/paypal-logo.svg" alt="PayPal Logo" class="logo">
-    <h2>Crear una cuenta</h2>
-    <p class="auth-subtitle">Regístrate para empezar a gestionar tus finanzas.</p>
+    <h2>{{ 'register.title' | translate }}</h2>
+    <p class="auth-subtitle">{{ 'register.subtitle' | translate }}</p>
     <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
       <div class="form-group">
-        <label for="nombre">Nombre</label>
+        <label for="nombre">{{ 'register.name' | translate }}</label>
         <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="user.nombre" required (blur)="onNombreBlur()">
       </div>
       <div class="form-group">
-        <label for="apellido">Apellido</label>
+        <label for="apellido">{{ 'register.lastname' | translate }}</label>
         <input type="text" id="apellido" name="apellido" class="form-control" [(ngModel)]="user.apellido" required (blur)="onApellidoBlur()">
       </div>
       <div class="form-group">
-        <label for="rut">RUT</label>
+        <label for="rut">{{ 'register.rut' | translate }}</label>
         <input type="text" id="rut" name="rut" class="form-control" [(ngModel)]="user.rut" (input)="onRutChange($event)" required>
         <small *ngIf="rutError" class="form-text text-danger">{{ rutError }}</small>
         <small *ngIf="rutExistsError" class="form-text text-danger">{{ rutExistsError }}</small>
       </div>
       <div class="form-group">
-        <label for="ciudad">Ciudad</label>
+        <label for="ciudad">{{ 'register.city' | translate }}</label>
         <input type="text" id="ciudad" name="ciudad" class="form-control" [(ngModel)]="user.ciudad" required (blur)="onCiudadBlur()">
       </div>
       <div class="form-group">
-        <label for="pais">País</label>
+        <label for="pais">{{ 'register.country' | translate }}</label>
         <input type="text" id="pais" name="pais" class="form-control" [(ngModel)]="user.pais" required (blur)="onPaisBlur()">
       </div>
       <div class="form-group">
-        <label for="email">Correo electrónico</label>
+        <label for="email">{{ 'register.email' | translate }}</label>
         <input type="email" id="email" name="email" class="form-control" [(ngModel)]="user.email" required email #emailCtrl="ngModel">
         <small *ngIf="getEmailError(registerForm)" class="form-text text-danger">{{ getEmailError(registerForm) }}</small>
       </div>
       <div class="form-group">
-        <label for="password">Contraseña</label>
+        <label for="password">{{ 'register.password' | translate }}</label>
         <input type="password" id="password" name="password" class="form-control" [(ngModel)]="user.password" required minlength="6" #passwordCtrl="ngModel">
         <small *ngIf="getPasswordError(registerForm)" class="form-text text-danger">{{ getPasswordError(registerForm) }}</small>
         <small *ngIf="passwordError" class="form-text text-danger">{{ passwordError }}</small>
       </div>
       <div class="form-group">
-        <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+        <label for="fecha_nacimiento">{{ 'register.birthdate' | translate }}</label>
         <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control" [(ngModel)]="user.fecha_nacimiento" required>
         <small *ngIf="getFechaNacimientoError()" class="form-text text-danger">{{ getFechaNacimientoError() }}</small>
       </div>
-      <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerForm.form.valid || rutError || rutExistsError">Crear cuenta</button>
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerForm.form.valid || rutError || rutExistsError">{{ 'register.button' | translate }}</button>
     </form>
     <div class="auth-link">
-      <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>
+      <p>{{ 'register.alreadyAccount' | translate }} <a routerLink="/login">{{ 'register.loginHere' | translate }}</a></p>
     </div>
   </div>
 </div>
@@ -55,15 +55,15 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title" id="successModalLabel">¡Registro Exitoso!</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <h5 class="modal-title" id="successModalLabel">{{ 'register.successTitle' | translate }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" [attr.aria-label]="'register.close' | translate"></button>
       </div>
       <div class="modal-body text-center">
         <i class="bi bi-check-circle-fill display-3 text-success mb-3"></i>
-        <p class="fs-5">¡Tu cuenta ha sido creada exitosamente! Ahora puedes iniciar sesión.</p>
+        <p class="fs-5">{{ 'register.successMsg' | translate }}</p>
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-primary w-50" (click)="goToLogin()" data-bs-dismiss="modal">Iniciar sesión</button>
+        <button type="button" class="btn btn-primary w-50" (click)="goToLogin()" data-bs-dismiss="modal">{{ 'register.successBtn' | translate }}</button>
       </div>
     </div>
   </div>

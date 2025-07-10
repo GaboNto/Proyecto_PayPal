@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 interface Comercio {
   id: number;
@@ -15,19 +16,19 @@ interface Comercio {
 @Component({
   selector: 'app-donde-comprar',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './donde-comprar.component.html',
   styleUrl: './donde-comprar.component.scss'
 })
 export class DondeComprarComponent {
   
   categorias = [
-    { id: 'todos', nombre: 'Todos', icono: '🛒' },
-    { id: 'streaming', nombre: 'Streaming', icono: '📺' },
-    { id: 'gaming', nombre: 'Gaming', icono: '🎮' },
-    { id: 'moda', nombre: 'Moda', icono: '👕' },
-    { id: 'tecnologia', nombre: 'Tecnología', icono: '💻' },
-    { id: 'viajes', nombre: 'Viajes', icono: '✈️' }
+    { id: 'todos', nombre: 'whereToBuy.category.all', icono: '🛒' },
+    { id: 'streaming', nombre: 'whereToBuy.category.streaming', icono: '📺' },
+    { id: 'gaming', nombre: 'whereToBuy.category.gaming', icono: '🎮' },
+    { id: 'moda', nombre: 'whereToBuy.category.fashion', icono: '👕' },
+    { id: 'tecnologia', nombre: 'whereToBuy.category.technology', icono: '💻' },
+    { id: 'viajes', nombre: 'whereToBuy.category.travel', icono: '✈️' }
   ];
 
   categoriaSeleccionada = 'todos';
@@ -37,46 +38,46 @@ export class DondeComprarComponent {
     // Streaming
     {
       id: 1,
-      nombre: 'Netflix',
+      nombre: 'whereToBuy.commerce.netflix',
       categoria: 'streaming',
       logo: '📺',
-      descripcion: 'Películas y series en streaming',
+      descripcion: 'whereToBuy.commerceDesc.netflix',
       popular: true,
       url: 'https://netflix.com'
     },
     {
       id: 2,
-      nombre: 'Spotify',
+      nombre: 'whereToBuy.commerce.spotify',
       categoria: 'streaming',
       logo: '🎵',
-      descripcion: 'Música y podcasts',
+      descripcion: 'whereToBuy.commerceDesc.spotify',
       popular: true,
       url: 'https://spotify.com'
     },
     {
       id: 3,
-      nombre: 'Disney+',
+      nombre: 'whereToBuy.commerce.disney',
       categoria: 'streaming',
       logo: '🏰',
-      descripcion: 'Contenido de Disney, Marvel y Star Wars',
+      descripcion: 'whereToBuy.commerceDesc.disney',
       popular: false,
       url: 'https://disneyplus.com'
     },
     {
       id: 4,
-      nombre: 'HBO Max',
+      nombre: 'whereToBuy.commerce.hbo',
       categoria: 'streaming',
       logo: '📺',
-      descripcion: 'Series y películas premium',
+      descripcion: 'whereToBuy.commerceDesc.hbo',
       popular: false,
       url: 'https://hbomax.com'
     },
     {
       id: 5,
-      nombre: 'Amazon Prime',
+      nombre: 'whereToBuy.commerce.amazon',
       categoria: 'streaming',
       logo: '📦',
-      descripcion: 'Streaming y envíos gratis',
+      descripcion: 'whereToBuy.commerceDesc.amazon',
       popular: false,
       url: 'https://amazon.com/prime'
     },
@@ -84,37 +85,37 @@ export class DondeComprarComponent {
     // Gaming
     {
       id: 6,
-      nombre: 'Steam',
+      nombre: 'whereToBuy.commerce.steam',
       categoria: 'gaming',
       logo: '🎮',
-      descripcion: 'Plataforma de juegos digitales',
+      descripcion: 'whereToBuy.commerceDesc.steam',
       popular: true,
       url: 'https://store.steampowered.com'
     },
     {
       id: 7,
-      nombre: 'PlayStation Store',
+      nombre: 'whereToBuy.commerce.playstation',
       categoria: 'gaming',
       logo: '🎮',
-      descripcion: 'Juegos para PlayStation',
+      descripcion: 'whereToBuy.commerceDesc.playstation',
       popular: true,
       url: 'https://store.playstation.com'
     },
     {
       id: 8,
-      nombre: 'Xbox Store',
+      nombre: 'whereToBuy.commerce.xbox',
       categoria: 'gaming',
       logo: '🎮',
-      descripcion: 'Juegos para Xbox',
+      descripcion: 'whereToBuy.commerceDesc.xbox',
       popular: false,
       url: 'https://xbox.com/games'
     },
     {
       id: 9,
-      nombre: 'Nintendo eShop',
+      nombre: 'whereToBuy.commerce.nintendo',
       categoria: 'gaming',
       logo: '🎮',
-      descripcion: 'Juegos para Nintendo Switch',
+      descripcion: 'whereToBuy.commerceDesc.nintendo',
       popular: false,
       url: 'https://nintendo.com/eshop'
     },
@@ -122,37 +123,37 @@ export class DondeComprarComponent {
     // Moda
     {
       id: 10,
-      nombre: 'Zara',
+      nombre: 'whereToBuy.commerce.zara',
       categoria: 'moda',
       logo: '👕',
-      descripcion: 'Ropa y accesorios de moda',
+      descripcion: 'whereToBuy.commerceDesc.zara',
       popular: false,
       url: 'https://zara.com'
     },
     {
       id: 11,
-      nombre: 'H&M',
+      nombre: 'whereToBuy.commerce.hm',
       categoria: 'moda',
       logo: '👕',
-      descripcion: 'Ropa casual y accesorios',
+      descripcion: 'whereToBuy.commerceDesc.hm',
       popular: false,
       url: 'https://hm.com'
     },
     {
       id: 12,
-      nombre: 'Nike',
+      nombre: 'whereToBuy.commerce.nike',
       categoria: 'moda',
       logo: '👟',
-      descripcion: 'Ropa deportiva y calzado',
+      descripcion: 'whereToBuy.commerceDesc.nike',
       popular: true,
       url: 'https://nike.com'
     },
     {
       id: 13,
-      nombre: 'Adidas',
+      nombre: 'whereToBuy.commerce.adidas',
       categoria: 'moda',
       logo: '👟',
-      descripcion: 'Ropa y calzado deportivo',
+      descripcion: 'whereToBuy.commerceDesc.adidas',
       popular: false,
       url: 'https://adidas.com'
     },
@@ -160,28 +161,28 @@ export class DondeComprarComponent {
     // Tecnología
     {
       id: 14,
-      nombre: 'Apple Store',
+      nombre: 'whereToBuy.commerce.apple',
       categoria: 'tecnologia',
       logo: '🍎',
-      descripcion: 'Productos Apple y accesorios',
+      descripcion: 'whereToBuy.commerceDesc.apple',
       popular: false,
       url: 'https://apple.com'
     },
     {
       id: 15,
-      nombre: 'Samsung',
+      nombre: 'whereToBuy.commerce.samsung',
       categoria: 'tecnologia',
       logo: '📱',
-      descripcion: 'Smartphones y electrónicos',
+      descripcion: 'whereToBuy.commerceDesc.samsung',
       popular: true,
       url: 'https://samsung.com'
     },
     {
       id: 16,
-      nombre: 'Microsoft Store',
+      nombre: 'whereToBuy.commerce.microsoft',
       categoria: 'tecnologia',
       logo: '💻',
-      descripcion: 'Software y hardware Microsoft',
+      descripcion: 'whereToBuy.commerceDesc.microsoft',
       popular: false,
       url: 'https://microsoft.com/store'
     },
@@ -189,76 +190,66 @@ export class DondeComprarComponent {
     // Viajes
     {
       id: 17,
-      nombre: 'Booking.com',
+      nombre: 'whereToBuy.commerce.booking',
       categoria: 'viajes',
       logo: '🏨',
-      descripcion: 'Reservas de hoteles y alojamientos',
+      descripcion: 'whereToBuy.commerceDesc.booking',
       popular: true,
       url: 'https://booking.com'
     },
     {
       id: 18,
-      nombre: 'Airbnb',
+      nombre: 'whereToBuy.commerce.airbnb',
       categoria: 'viajes',
       logo: '🏠',
-      descripcion: 'Alojamientos únicos y experiencias',
-      popular: false,
+      descripcion: 'whereToBuy.commerceDesc.airbnb',
+      popular: true,
       url: 'https://airbnb.com'
     }
   ];
 
- 
   get comerciosFiltrados(): Comercio[] {
     let comercios = this.comercios;
     
-   
+    // Filtrar por categoría
     if (this.categoriaSeleccionada !== 'todos') {
-      comercios = comercios.filter(comercio => comercio.categoria === this.categoriaSeleccionada);
+      comercios = comercios.filter(c => c.categoria === this.categoriaSeleccionada);
     }
     
-   
+    // Filtrar por término de búsqueda
     if (this.terminoBusqueda.trim() !== '') {
-      const termino = this.terminoBusqueda.toLowerCase().trim();
-      comercios = comercios.filter(comercio => 
-        comercio.nombre.toLowerCase().includes(termino) ||
-        comercio.descripcion.toLowerCase().includes(termino) ||
-        comercio.categoria.toLowerCase().includes(termino)
+      const termino = this.terminoBusqueda.toLowerCase();
+      comercios = comercios.filter(c => 
+        c.nombre.toLowerCase().includes(termino) ||
+        c.descripcion.toLowerCase().includes(termino) ||
+        c.categoria.toLowerCase().includes(termino)
       );
     }
     
     return comercios;
   }
 
- 
   get comerciosPopulares(): Comercio[] {
-    if (this.terminoBusqueda.trim() !== '') {
-      return []; // No mostrar populares si hay búsqueda activa
-    }
-    return this.comercios.filter(comercio => comercio.popular);
+    return this.comercios.filter(c => c.popular);
   }
 
-  
   get nombreCategoriaSeleccionada(): string {
     const categoria = this.categorias.find(c => c.id === this.categoriaSeleccionada);
-    return categoria ? categoria.nombre : 'Todos';
+    return categoria ? categoria.nombre : '';
   }
 
-  
   cambiarCategoria(categoria: string) {
     this.categoriaSeleccionada = categoria;
   }
 
-  
   buscarComercios(termino: string) {
     this.terminoBusqueda = termino;
   }
 
- 
   limpiarBusqueda() {
     this.terminoBusqueda = '';
   }
 
-  
   visitarComercio(comercio: Comercio) {
     window.open(comercio.url, '_blank');
   }

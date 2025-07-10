@@ -4,21 +4,21 @@
       <a routerLink="/"><img src="assets/paypal-logo.svg" alt="PayPal Logo"></a>
     </div>
     <div class="navbar-links">
-      <a (click)="handleTransferClick()" class="transfer-link">Transferir</a>
-      <a *ngIf="isLoggedIn$ | async" routerLink="/tarjetas">Tarjetas</a>
-      <a *ngIf="!(isLoggedIn$ | async)" routerLink="/tarjetas-publica">Tarjetas</a>
-      <a *ngIf="isLoggedIn$ | async" routerLink="/security">Seguridad</a>
-      <a *ngIf="!(isLoggedIn$ | async)" routerLink="/seguridad-publica">Seguridad</a>
-      <a href="#features" *ngIf="!(isLoggedIn$ | async)">Característica</a>
-      <a routerLink="/donde-comprar" *ngIf="!(isLoggedIn$ | async)">¿Dónde comprar?</a>
+      <a (click)="handleTransferClick()" class="transfer-link">{{ 'navbar.transfer' | translate }}</a>
+      <a *ngIf="isLoggedIn$ | async" routerLink="/tarjetas">{{ 'navbar.cards' | translate }}</a>
+      <a *ngIf="!(isLoggedIn$ | async)" routerLink="/tarjetas-publica">{{ 'navbar.cards' | translate }}</a>
+      <a *ngIf="isLoggedIn$ | async" routerLink="/security">{{ 'navbar.security' | translate }}</a>
+      <a *ngIf="!(isLoggedIn$ | async)" routerLink="/seguridad-publica">{{ 'navbar.security' | translate }}</a>
+      <a href="#features" *ngIf="!(isLoggedIn$ | async)">{{ 'navbar.feature' | translate }}</a>
+      <a routerLink="/donde-comprar" *ngIf="!(isLoggedIn$ | async)">{{ 'navbar.whereToBuy' | translate }}</a>
     </div>
     <div class="navbar-actions">
       <ng-container *ngIf="isLoggedIn$ | async; else showLogin">
-        <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+        <button class="btn-logout" (click)="logout()">{{ 'navbar.logout' | translate }}</button>
       </ng-container>
       <ng-template #showLogin>
-        <a routerLink="/login" class="btn-login">Iniciar Sesión</a>
-        <a routerLink="/register" class="btn-register">Registrarse</a>
+        <a routerLink="/login" class="btn-login">{{ 'navbar.login' | translate }}</a>
+        <a routerLink="/register" class="btn-register">{{ 'navbar.register' | translate }}</a>
       </ng-template>
     </div>
   </nav>

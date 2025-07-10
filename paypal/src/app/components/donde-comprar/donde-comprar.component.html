@@ -2,8 +2,8 @@
  
   <div class="header">
     <div class="header-content">
-      <h1>🛒 ¿Dónde comprar con PayPal?</h1>
-      <p>Descubre miles de comercios que aceptan PayPal para pagos seguros y rápidos</p>
+      <h1>🛒 {{ 'whereToBuy.title' | translate }}</h1>
+      <p>{{ 'whereToBuy.subtitle' | translate }}</p>
     </div>
   </div>
 
@@ -14,7 +14,7 @@
         <span class="search-icon">🔍</span>
         <input 
           type="text" 
-          placeholder="Buscar comercios, categorías o productos..."
+          [placeholder]="'whereToBuy.searchPlaceholder' | translate"
           class="search-input"
           [(ngModel)]="terminoBusqueda"
           (input)="buscarComercios(terminoBusqueda)"
@@ -24,13 +24,13 @@
           *ngIf="terminoBusqueda.trim() !== ''"
           (click)="limpiarBusqueda()"
         >
-          Limpiar
+          {{ 'whereToBuy.clear' | translate }}
         </button>
         <button 
           class="search-button" 
           *ngIf="terminoBusqueda.trim() === ''"
         >
-          Buscar
+          {{ 'whereToBuy.search' | translate }}
         </button>
       </div>
     </div>
@@ -38,7 +38,7 @@
 
   
   <div class="categories-section">
-    <h2>Categorías populares</h2>
+    <h2>{{ 'whereToBuy.popularCategories' | translate }}</h2>
     <div class="categories-grid">
       <button 
         *ngFor="let categoria of categorias" 
@@ -47,14 +47,14 @@
         (click)="cambiarCategoria(categoria.id)"
       >
         <span class="category-icon">{{ categoria.icono }}</span>
-        <span class="category-name">{{ categoria.nombre }}</span>
+        <span class="category-name">{{ categoria.nombre | translate }}</span>
       </button>
     </div>
   </div>
 
  
   <div class="popular-section" *ngIf="categoriaSeleccionada === 'todos' && comerciosPopulares.length > 0">
-    <h2>🔥 Comercios más populares</h2>
+    <h2>🔥 {{ 'whereToBuy.mostPopularStores' | translate }}</h2>
     <div class="comercios-grid">
       <div 
         *ngFor="let comercio of comerciosPopulares" 
@@ -63,13 +63,13 @@
       >
         <div class="comercio-header">
           <span class="comercio-logo">{{ comercio.logo }}</span>
-          <span class="popular-badge">🔥 Popular</span>
+          <span class="popular-badge">🔥 {{ 'whereToBuy.popular' | translate }}</span>
         </div>
-        <h3 class="comercio-nombre">{{ comercio.nombre }}</h3>
-        <p class="comercio-descripcion">{{ comercio.descripcion }}</p>
+        <h3 class="comercio-nombre">{{ comercio.nombre | translate }}</h3>
+        <p class="comercio-descripcion">{{ comercio.descripcion | translate }}</p>
         <div class="comercio-footer">
-          <span class="paypal-badge">💙 Acepta PayPal</span>
-          <button class="visitar-btn">Visitar →</button>
+          <span class="paypal-badge">💙 {{ 'whereToBuy.acceptsPayPal' | translate }}</span>
+          <button class="visitar-btn">{{ 'whereToBuy.visit' | translate }} →</button>
         </div>
       </div>
     </div>
@@ -80,13 +80,13 @@
     <div class="section-header">
       <h2>
         <span *ngIf="terminoBusqueda.trim() !== ''">
-          Resultados de búsqueda para "{{ terminoBusqueda }}"
+          {{ 'whereToBuy.searchResultsFor' | translate }} "{{ terminoBusqueda }}"
         </span>
         <span *ngIf="terminoBusqueda.trim() === '' && categoriaSeleccionada !== 'todos'">
           {{ nombreCategoriaSeleccionada }}
         </span>
-        <span *ngIf="terminoBusqueda.trim() === '' && categoriaSeleccionada === 'todos'">Todos los comercios</span>
-        <span class="comercio-count">({{ comerciosFiltrados.length }} comercios)</span>
+        <span *ngIf="terminoBusqueda.trim() === '' && categoriaSeleccionada === 'todos'">{{ 'whereToBuy.allStores' | translate }}</span>
+        <span class="comercio-count">({{ comerciosFiltrados.length }} {{ 'whereToBuy.stores' | translate }})</span>
       </h2>
     </div>
 
@@ -99,13 +99,13 @@
       >
         <div class="comercio-header">
           <span class="comercio-logo">{{ comercio.logo }}</span>
-          <span class="popular-badge" *ngIf="comercio.popular">🔥 Popular</span>
+          <span class="popular-badge" *ngIf="comercio.popular">🔥 {{ 'whereToBuy.popular' | translate }}</span>
         </div>
-        <h3 class="comercio-nombre">{{ comercio.nombre }}</h3>
-        <p class="comercio-descripcion">{{ comercio.descripcion }}</p>
+        <h3 class="comercio-nombre">{{ comercio.nombre | translate }}</h3>
+        <p class="comercio-descripcion">{{ comercio.descripcion | translate }}</p>
         <div class="comercio-footer">
-          <span class="paypal-badge">💙 Acepta PayPal</span>
-          <button class="visitar-btn">Visitar →</button>
+          <span class="paypal-badge">💙 {{ 'whereToBuy.acceptsPayPal' | translate }}</span>
+          <button class="visitar-btn">{{ 'whereToBuy.visit' | translate }} →</button>
         </div>
       </div>
     </div>
@@ -114,19 +114,19 @@
     <div class="no-comercios" *ngIf="comerciosFiltrados.length === 0">
       <div class="no-comercios-content">
         <span class="no-comercios-icon">🔍</span>
-        <h3>No se encontraron comercios</h3>
+        <h3>{{ 'whereToBuy.noStoresFound' | translate }}</h3>
         <p *ngIf="terminoBusqueda.trim() !== ''">
-          No hay resultados para "{{ terminoBusqueda }}". Intenta con otros términos.
+          {{ 'whereToBuy.noResultsFor' | translate }} "{{ terminoBusqueda }}". {{ 'whereToBuy.tryOtherTerms' | translate }}
         </p>
         <p *ngIf="terminoBusqueda.trim() === ''">
-          Intenta con otra categoría o busca con diferentes términos.
+          {{ 'whereToBuy.tryOtherCategory' | translate }}
         </p>
         <button 
           class="btn-secondary" 
           *ngIf="terminoBusqueda.trim() !== ''"
           (click)="limpiarBusqueda()"
         >
-          Limpiar búsqueda
+          {{ 'whereToBuy.clearSearch' | translate }}
         </button>
       </div>
     </div>
@@ -137,23 +137,23 @@
     <div class="info-grid">
       <div class="info-card">
         <div class="info-icon">🛡️</div>
-        <h3>Pagos seguros</h3>
-        <p>Tus datos están protegidos con encriptación de nivel bancario</p>
+        <h3>{{ 'whereToBuy.securePayments' | translate }}</h3>
+        <p>{{ 'whereToBuy.securePaymentsDesc' | translate }}</p>
       </div>
       <div class="info-card">
         <div class="info-icon">⚡</div>
-        <h3>Pagos rápidos</h3>
-        <p>Completa tus compras en segundos sin ingresar datos de tarjeta</p>
+        <h3>{{ 'whereToBuy.fastPayments' | translate }}</h3>
+        <p>{{ 'whereToBuy.fastPaymentsDesc' | translate }}</p>
       </div>
       <div class="info-card">
         <div class="info-icon">🔄</div>
-        <h3>Reembolsos fáciles</h3>
-        <p>Protección al comprador y reembolsos automáticos disponibles</p>
+        <h3>{{ 'whereToBuy.easyRefunds' | translate }}</h3>
+        <p>{{ 'whereToBuy.easyRefundsDesc' | translate }}</p>
       </div>
       <div class="info-card">
         <div class="info-icon">🌍</div>
-        <h3>Comercios globales</h3>
-        <p>Compra en comercios de todo el mundo con una sola cuenta</p>
+        <h3>{{ 'whereToBuy.globalStores' | translate }}</h3>
+        <p>{{ 'whereToBuy.globalStoresDesc' | translate }}</p>
       </div>
     </div>
   </div>

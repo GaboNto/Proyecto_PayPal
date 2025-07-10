@@ -2,22 +2,23 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { TranslateModule } from '@ngx-translate/core';
 import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-google-2fa',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   template: `
     <form (ngSubmit)="onSubmit()" #form2fa="ngForm">
       <div class="form-group">
-        <label for="code2fa">Código 2FA</label>
+        <label for="code2fa">{{ 'security.twoFactorCode' | translate }}</label>
         <input type="text" id="code2fa" name="code2fa" class="form-control" maxlength="6" minlength="6"
                [(ngModel)]="code" required pattern="[0-9]{6}" inputmode="numeric" (input)="onInput($event)">
-        <small class="form-text text-muted">Ingresa el código de 6 dígitos de Google Authenticator.</small>
+        <small class="form-text text-muted">{{ 'security.enter6DigitCode' | translate }}</small>
       </div>
       <div *ngIf="error" class="alert alert-danger mt-2">{{ error }}</div>
-      <button type="submit" class="btn btn-success mt-3" [disabled]="!form2fa.form.valid">Verificar</button>
+      <button type="submit" class="btn btn-success mt-3" [disabled]="!form2fa.form.valid">{{ 'security.verify' | translate }}</button>
     </form>
   `
 })

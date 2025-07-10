@@ -1,60 +1,60 @@
 <div class="balance-container">
   <div class="balance-header">
-    <h2>Balance</h2>
+    <h2>{{ 'balance.title' | translate }}</h2>
   </div>
 
   <div class="transactions-table">
     <div class="transactions-header">
-      <h3>Historial de Transacciones</h3>
+      <h3>{{ 'balance.transactionHistory' | translate }}</h3>
       <button class="toggle-btn" (click)="toggleTransactions()">
         <i [class]="showTransactions ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
-        {{ showTransactions ? 'Ver menos' : 'Ver más' }}
+        {{ showTransactions ? ('balance.showLess' | translate) : ('balance.showMore' | translate) }}
       </button>
     </div>
     <div class="transactions-content" [class.show]="showTransactions">
       <table>
         <thead>
           <tr>
-            <th>Fecha</th>
-            <th>Descripción</th>
-            <th>Monto</th>
-            <th>Balance</th>
+            <th>{{ 'balance.table.date' | translate }}</th>
+            <th>{{ 'balance.table.description' | translate }}</th>
+            <th>{{ 'balance.table.amount' | translate }}</th>
+            <th>{{ 'balance.table.balance' | translate }}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>21/04/2025</td>
-            <td>Transferencia recibida - Juan Pérez</td>
+            <td>{{ 'balance.sampleTransactions.receivedTransfer' | translate }}</td>
             <td class="amount positive">+$350.000</td>
             <td>$890.000</td>
           </tr>
           <tr>
             <td>18/04/2025</td>
-            <td>Pago Cuenta Agua - Aguas Andinas</td>
+            <td>{{ 'balance.sampleTransactions.waterPayment' | translate }}</td>
             <td class="amount negative">-$25.990</td>
             <td>$540.000</td>
           </tr>
           <tr *ngIf="showTransactions">
             <td>15/04/2025</td>
-            <td>Pago Plan Celular - Claro</td>
+            <td>{{ 'balance.sampleTransactions.cellPayment' | translate }}</td>
             <td class="amount negative">-$22.990</td>
             <td>$565.990</td>
           </tr>
           <tr *ngIf="showTransactions">
             <td>10/04/2025</td>
-            <td>Pago Cuenta Luz - Enel</td>
+            <td>{{ 'balance.sampleTransactions.electricityPayment' | translate }}</td>
             <td class="amount negative">-$32.800</td>
             <td>$588.980</td>
           </tr>
           <tr *ngIf="showTransactions">
             <td>05/04/2025</td>
-            <td>Depósito Sueldo - Empresa SA</td>
+            <td>{{ 'balance.sampleTransactions.salaryDeposit' | translate }}</td>
             <td class="amount positive">+$580.000</td>
             <td>$621.780</td>
           </tr>
           <tr *ngIf="showTransactions">
             <td>02/04/2025</td>
-            <td>Pago Internet y TV Cable - Movistar</td>
+            <td>{{ 'balance.sampleTransactions.internetPayment' | translate }}</td>
             <td class="amount negative">-$41.780</td>
             <td>$41.780</td>
           </tr>
@@ -65,22 +65,22 @@
 
   <div class="current-balance">
     <div class="balance-info">
-      <h3>Balance Actual</h3>
+      <h3>{{ 'balance.currentBalance' | translate }}</h3>
       <div class="amount">$890.000</div>
-      <div class="status">Disponible</div>
+      <div class="status">{{ 'balance.available' | translate }}</div>
     </div>
     <div class="balance-buttons">
-      <button class="btn btn-primary">Transferir</button>
-      <button class="btn btn-secondary">Depositar</button>
+      <button class="btn btn-primary">{{ 'balance.transfer' | translate }}</button>
+      <button class="btn btn-secondary">{{ 'balance.deposit' | translate }}</button>
     </div>
   </div>
 
   <div class="financial-goals">
     <div class="goals-header">
-      <h3>Objetivos financieros</h3>
+      <h3>{{ 'balance.financialGoals' | translate }}</h3>
       <button class="toggle-btn" (click)="toggleFinancialGoals()">
         <i [class]="showFinancialGoals ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
-        {{ showFinancialGoals ? 'Ocultar' : 'Mostrar' }}
+        {{ showFinancialGoals ? ('balance.hide' | translate) : ('balance.show' | translate) }}
       </button>
     </div>
     <div class="goals-content" [class.show]="showFinancialGoals">

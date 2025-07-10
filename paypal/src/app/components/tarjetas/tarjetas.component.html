@@ -2,7 +2,7 @@
   
   <!-- Saldo de la cuenta seleccionada -->
   <div class="saldo-header" *ngIf="selectedCuenta">
-    <h2>Saldo de {{ selectedCuenta.tipo_cuenta }}</h2>
+    <h2>{{ 'cards.balanceOf' | translate }} {{ selectedCuenta.tipo_cuenta }}</h2>
     <p>{{ selectedCuenta.saldo | currency:'CLP':'symbol-narrow':'1.0-0' }}</p>
   </div>
 
@@ -17,7 +17,7 @@
         <!-- Capa de bloqueo -->
         <div *ngIf="currentCard.is_blocked" class="blocked-overlay">
           <i class="fas fa-lock"></i>
-          <span>Tarjeta Bloqueada</span>
+          <span>{{ 'cards.card.blocked' | translate }}</span>
         </div>
 
         <!-- Contenido de la tarjeta -->
@@ -31,15 +31,15 @@
         </div>
         <div class="card-footer">
           <div class="card-holder">
-            <span class="label">Titular</span>
+            <span class="label">{{ 'cards.card.holder' | translate }}</span>
             <span class="value">{{ titular }}</span>
           </div>
           <div class="card-expiry">
-            <span class="label">Expira</span>
+            <span class="label">{{ 'cards.card.expires' | translate }}</span>
             <span class="value">{{ currentCard.expirationDate }}</span>
           </div>
           <div class="card-cvv">
-            <span class="label">CVV</span>
+            <span class="label">{{ 'cards.card.cvv' | translate }}</span>
             <span class="value">{{ showCardDetails ? currentCard.cvv : '***' }}</span>
           </div>
         </div>
@@ -51,27 +51,27 @@
   <div class="action-buttons" *ngIf="currentCard">
     <button (click)="toggleSelectionPanel()" [disabled]="currentCard.is_blocked">
       <i class="fas fa-exchange-alt"></i>
-      <span>Cambiar Cuenta</span>
+      <span>{{ 'cards.changeAccount' | translate }}</span>
     </button>
     <button (click)="promptForBePass('viewDetails', bepassModal)" [disabled]="currentCard.is_blocked">
       <i class="fas fa-eye"></i>
-      <span>Ver Números</span>
+      <span>{{ 'cards.viewNumbers' | translate }}</span>
     </button>
     <button (click)="promptForBePass('toggleBlock', bepassModal)"
             [class.danger]="!currentCard.is_blocked" 
             [class.success]="currentCard.is_blocked">
       <i [ngClass]="currentCard.is_blocked ? 'fas fa-unlock' : 'fas fa-lock'"></i>
-      <span>{{ currentCard.is_blocked ? 'Desbloquear' : 'Bloquear' }}</span>
+      <span>{{ currentCard.is_blocked ? ('cards.unlock' | translate) : ('cards.lock' | translate) }}</span>
     </button>
     <button (click)="solicitarCuentaDeAhorro()" [disabled]="hasCuentaDeAhorro || currentCard.is_blocked">
       <i class="fas fa-piggy-bank"></i>
-      <span>Abrir Cta. Ahorro</span>
+      <span>{{ 'cards.openSavingsAccount' | translate }}</span>
     </button>
   </div>
   
   <!-- Panel de Selección de Cuentas -->
   <div class="selection-panel" *ngIf="showSelectionPanel">
-    <h3>Selecciona una cuenta para ver su tarjeta</h3>
+    <h3>{{ 'cards.selectAccount' | translate }}</h3>
     <ul>
       <li *ngFor="let cuenta of cuentas" (click)="selectCuenta(cuenta)" [class.active]="cuenta.id === selectedCuenta?.id">
         <div class="cuenta-info">
@@ -83,7 +83,7 @@
         </div>
       </li>
     </ul>
-    <button class="btn-close-panel" (click)="showSelectionPanel = false">Cerrar</button>
+    <button class="btn-close-panel" (click)="showSelectionPanel = false">{{ 'cards.close' | translate }}</button>
   </div>
 
   <!-- Mensaje de Error -->
@@ -95,33 +95,33 @@
 <!-- Plantillas para estados de carga y sin tarjetas -->
 <ng-template #loadingTemplate>
   <div class="loading-container">
-    <p>Cargando tus tarjetas...</p>
+    <p>{{ 'cards.loadingCards' | translate }}</p>
   </div>
 </ng-template>
 
 <ng-template #noCardsTemplate>
   <div class="no-cards-message">
-    <p>No tienes tarjetas asociadas a esta cuenta.</p>
+    <p>{{ 'cards.noCards' | translate }}</p>
   </div>
 </ng-template>
 
 <!-- Modal para la Clave Be Pass -->
 <ng-template #bepassModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Confirmación de Seguridad</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    <h4 class="modal-title" id="modal-title">{{ 'cards.securityConfirmation' | translate }}</h4>
+    <button type="button" class="btn-close" [attr.aria-label]="'Close'" (click)="modal.dismiss()"></button>
   </div>
   <div class="modal-body">
-    <p>Por tu seguridad, ingresa tu <strong>Clave Be Pass</strong> de 6 dígitos para continuar.</p>
+    <p>{{ 'cards.bePassRequired' | translate }}</p>
     <div class="form-group">
-      <label for="bepass-input">Clave Be Pass</label>
+      <label for="bepass-input">{{ 'cards.bePass' | translate }}</label>
       <input #bepassInput type="password" id="bepass-input" class="form-control text-center" maxlength="6" autofocus>
     </div>
     <div *ngIf="error" class="alert alert-danger p-2 mt-3">{{ error }}</div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancelar</button>
-    <button type="button" class="btn btn-primary" (click)="handleBePassConfirmation(bepassInput.value, modal)">Aceptar</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss()">{{ 'common.cancel' | translate }}</button>
+    <button type="button" class="btn btn-primary" (click)="handleBePassConfirmation(bepassInput.value, modal)">{{ 'common.accept' | translate }}</button>
   </div>
 </ng-template>
 
@@ -130,16 +130,16 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="cuentaAhorroModalLabel">Abrir Cuenta de Ahorro</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <h5 class="modal-title" id="cuentaAhorroModalLabel">{{ 'cards.openSavingsAccountModal.title' | translate }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" [attr.aria-label]="'Cerrar'"></button>
       </div>
       <div class="modal-body text-center">
         <i class="bi bi-piggy-bank display-3 text-info mb-3"></i>
-        <p class="fs-5">¿Deseas abrir una cuenta de ahorro? <br>Costo <b>$0</b>. Incluye una nueva tarjeta digital.</p>
+        <p class="fs-5">{{ 'cards.openSavingsAccountModal.description' | translate }}</p>
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary w-50" (click)="confirmarCuentaAhorro()" data-bs-dismiss="modal">Aceptar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'cards.openSavingsAccountModal.cancel' | translate }}</button>
+        <button type="button" class="btn btn-primary w-50" (click)="confirmarCuentaAhorro()" data-bs-dismiss="modal">{{ 'cards.openSavingsAccountModal.accept' | translate }}</button>
       </div>
     </div>
   </div>
@@ -150,15 +150,15 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title" id="ahorroSuccessModalLabel">¡Cuenta de Ahorro Creada!</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <h5 class="modal-title" id="ahorroSuccessModalLabel">{{ 'cards.savingsSuccessModal.title' | translate }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" [attr.aria-label]="'Cerrar'"></button>
       </div>
       <div class="modal-body text-center">
         <i class="bi bi-piggy-bank display-3 text-success mb-3"></i>
-        <p class="fs-5">¡Tu Cuenta de Ahorro ha sido creada con éxito!<br>Incluye una nueva tarjeta digital.</p>
+        <p class="fs-5">{{ 'cards.savingsSuccessModal.description' | translate }}</p>
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-primary w-50" data-bs-dismiss="modal">Aceptar</button>
+        <button type="button" class="btn btn-primary w-50" data-bs-dismiss="modal">{{ 'cards.savingsSuccessModal.accept' | translate }}</button>
       </div>
     </div>
   </div>
@@ -169,15 +169,15 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-warning text-dark">
-        <h5 class="modal-title" id="bepassRequiredModalLabel">Clave Be Pass requerida</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <h5 class="modal-title" id="bepassRequiredModalLabel">{{ 'cards.bePassRequiredModal.title' | translate }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" [attr.aria-label]="'Cerrar'"></button>
       </div>
       <div class="modal-body text-center">
         <i class="bi bi-shield-lock display-3 text-warning mb-3"></i>
-        <p class="fs-5">Debes crear una clave Be Pass antes de poder bloquear o desbloquear tu tarjeta.</p>
+        <p class="fs-5">{{ 'cards.bePassRequiredModal.description' | translate }}</p>
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-primary w-50" (click)="goToSecurity()" data-bs-dismiss="modal">Ir a Seguridad</button>
+        <button type="button" class="btn btn-primary w-50" (click)="goToSecurity()" data-bs-dismiss="modal">{{ 'cards.bePassRequiredModal.goToSecurity' | translate }}</button>
       </div>
     </div>
   </div>

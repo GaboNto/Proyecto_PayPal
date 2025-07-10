@@ -58,6 +58,25 @@ body.modal-open {
   font-size: 0.95rem;
   margin-top: 8px;
 }
+.footer-lang-select {
+  margin-left: 1.5rem;
+  display: inline-block;
+}
+.footer-lang-select select {
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  background: #f7fafd;
+  color: #222;
+  font-size: 1rem;
+  font-weight: 500;
+  outline: none;
+  transition: border 0.2s;
+  margin-left: 0.5rem;
+}
+.footer-lang-select select:focus {
+  border: 1.5px solid #0070ba;
+}
 @media (max-width: 700px) {
   .footer-links, .footer-secondary {
     flex-direction: column;
@@ -66,5 +85,9 @@ body.modal-open {
   .footer {
     font-size: 0.97rem;
     padding: 24px 0 12px 0;
+  }
+  .footer-lang-select {
+    margin-left: 0;
+    margin-top: 0.7rem;
   }
 }

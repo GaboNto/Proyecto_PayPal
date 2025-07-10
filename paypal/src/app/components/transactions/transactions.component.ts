@@ -9,6 +9,7 @@ import { Observable, of, Subscription, timer } from 'rxjs';
 import { catchError, tap, switchMap, take } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 interface Cuenta {
   id: number;
@@ -21,7 +22,7 @@ interface Cuenta {
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [CommonModule, NgFor, FormsModule, NgbModalModule],
+  imports: [CommonModule, NgFor, FormsModule, NgbModalModule, TranslateModule],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

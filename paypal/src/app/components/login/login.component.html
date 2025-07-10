@@ -1,24 +1,24 @@
 <div class="auth-container">
   <div class="auth-card">
-    <h2>Iniciar Sesión</h2>
-    <p class="auth-subtitle">Accede a tu cuenta para gestionar tus finanzas.</p>
+    <h2>{{ 'login.title' | translate }}</h2>
+    <p class="auth-subtitle">{{ 'login.subtitle' | translate }}</p>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email">{{ 'login.email' | translate }}</label>
         <input id="email" type="email" formControlName="email" />
       </div>
       <div class="form-group">
-        <label for="password">Contraseña</label>
+        <label for="password">{{ 'login.password' | translate }}</label>
         <input id="password" type="password" formControlName="password" />
       </div>
-      <button type="submit" class="auth-button" [disabled]="!loginForm.valid">Iniciar sesión</button>
+      <button type="submit" class="auth-button" [disabled]="!loginForm.valid">{{ 'login.button' | translate }}</button>
     </form>
     <div *ngIf="error" class="error-message">{{ error }}</div>
     <p class="auth-link">
-      <a routerLink="/forgot-password">¿Olvidaste tu contraseña?</a>
+      <a routerLink="/forgot-password">{{ 'login.forgot' | translate }}</a>
     </p>
     <p class="auth-link">
-      ¿No tienes cuenta? <a routerLink="/register">Regístrate aquí</a>
+      {{ 'login.noAccount' | translate }} <a routerLink="/register">{{ 'login.registerHere' | translate }}</a>
     </p>
   </div>
 </div>

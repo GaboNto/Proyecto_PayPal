@@ -7,23 +7,23 @@
         <!-- Formulario para Clave Be Pass (creación) -->
         <div class="card shadow-sm mb-5">
           <div class="card-body">
-            <h2 class="card-title">Configuración de Clave Be Pass</h2>
-            <p class="card-subtitle mb-4 text-muted">Esta clave de 6 dígitos es tu firma electrónica para autorizar transferencias y operaciones importantes.</p>
+            <h2 class="card-title">{{ 'security.bePassSetup' | translate }}</h2>
+            <p class="card-subtitle mb-4 text-muted">{{ 'security.bePassDescription' | translate }}</p>
 
             <div *ngIf="message" class="alert alert-success mt-3">{{ message }}</div>
             <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
 
             <form (ngSubmit)="onSubmit()" #bepassForm="ngForm">
               <div class="form-group">
-                <label for="newBepass">Crear nueva Clave Be Pass</label>
+                <label for="newBepass">{{ 'security.createNewBePass' | translate }}</label>
                 <input type="password" id="newBepass" name="newBepass" class="form-control" 
                        [(ngModel)]="bepassData.newBepass" required minlength="6" maxlength="6" 
                        pattern="[0-9]{6}" inputmode="numeric" (input)="onBepassInput($event)">
-                <small class="form-text text-muted">Debe contener exactamente 6 números.</small>
+                <small class="form-text text-muted">{{ 'security.bePassHint' | translate }}</small>
               </div>
 
               <div class="form-group">
-                <label for="confirmBepass">Confirmar nueva Clave</label>
+                <label for="confirmBepass">{{ 'security.confirmNewBePass' | translate }}</label>
                 <input type="password" id="confirmBepass" name="confirmBepass" class="form-control" 
                        [(ngModel)]="bepassData.confirmBepass" required (input)="onBepassInput($event)" maxlength="6">
               </div>
@@ -31,13 +31,13 @@
               <hr class="my-4">
 
               <div class="form-group">
-                <label for="currentPassword">Contraseña de tu cuenta</label>
+                <label for="currentPassword">{{ 'security.currentPassword' | translate }}</label>
                 <input type="password" id="currentPassword" name="currentPassword" class="form-control" 
                        [(ngModel)]="bepassData.currentPassword" required>
-                <small class="form-text text-muted">Por tu seguridad, ingresa tu contraseña actual para confirmar el cambio.</small>
+                <small class="form-text text-muted">{{ 'security.currentPasswordHint' | translate }}</small>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-block mt-4" [disabled]="!bepassForm.form.valid">Establecer Clave Be Pass</button>
+              <button type="submit" class="btn btn-primary btn-block mt-4" [disabled]="!bepassForm.form.valid">{{ 'security.setBePass' | translate }}</button>
             </form>
           </div>
         </div>
@@ -47,8 +47,8 @@
       <div *ngIf="hasBePass && !is2FAVerified">
         <div class="card shadow-sm mb-5">
           <div class="card-body">
-            <h2 class="card-title">Verificación 2FA</h2>
-            <p class="card-subtitle mb-4 text-muted">Ingresa el código de Google Authenticator para continuar.</p>
+            <h2 class="card-title">{{ 'security.twoFactorVerification' | translate }}</h2>
+            <p class="card-subtitle mb-4 text-muted">{{ 'security.twoFactorDescription' | translate }}</p>
             <app-google-2fa (verified)="on2FAVerified($event)"></app-google-2fa>
           </div>
         </div>
@@ -58,30 +58,30 @@
       <div *ngIf="hasBePass && is2FAVerified">
         <div class="card shadow-sm mb-5">
           <div class="card-body">
-            <h2 class="card-title">Cambiar Clave Be Pass</h2>
+            <h2 class="card-title">{{ 'security.changeBePass' | translate }}</h2>
             <form (ngSubmit)="onChangeBepassSubmit()" #changeBepassForm="ngForm">
               <div class="form-group">
-                <label for="changeNewBepass">Nueva Clave Be Pass</label>
+                <label for="changeNewBepass">{{ 'security.newBePass' | translate }}</label>
                 <input type="password" id="changeNewBepass" name="newBepass" class="form-control"
                        [(ngModel)]="changeBepassData.newBepass" required minlength="6" maxlength="6"
                        pattern="[0-9]{6}" inputmode="numeric" (input)="onChangeBepassInput($event)">
-                <small class="form-text text-muted">Debe contener exactamente 6 números.</small>
+                <small class="form-text text-muted">{{ 'security.bePassHint' | translate }}</small>
               </div>
               <div class="form-group">
-                <label for="changeConfirmBepass">Confirmar nueva Clave</label>
+                <label for="changeConfirmBepass">{{ 'security.confirmNewBePass' | translate }}</label>
                 <input type="password" id="changeConfirmBepass" name="confirmBepass" class="form-control"
                        [(ngModel)]="changeBepassData.confirmBepass" required (input)="onChangeBepassInput($event)" maxlength="6">
               </div>
               <hr class="my-4">
               <div class="form-group">
-                <label for="changeCurrentPassword">Contraseña de tu cuenta</label>
+                <label for="changeCurrentPassword">{{ 'security.currentPassword' | translate }}</label>
                 <input type="password" id="changeCurrentPassword" name="currentPassword" class="form-control"
                        [(ngModel)]="changeBepassData.currentPassword" required>
-                <small class="form-text text-muted">Por tu seguridad, ingresa tu contraseña actual para confirmar el cambio.</small>
+                <small class="form-text text-muted">{{ 'security.currentPasswordHint' | translate }}</small>
               </div>
               <div *ngIf="changeMessage" class="alert alert-success mt-3">{{ changeMessage }}</div>
               <div *ngIf="changeError" class="alert alert-danger mt-3">{{ changeError }}</div>
-              <button type="submit" class="btn btn-primary btn-block mt-4" [disabled]="!changeBepassForm.form.valid">Cambiar Clave Be Pass</button>
+              <button type="submit" class="btn btn-primary btn-block mt-4" [disabled]="!changeBepassForm.form.valid">{{ 'security.changeBePass' | translate }}</button>
             </form>
           </div>
         </div>
@@ -93,17 +93,17 @@
           <div class="card-body">
             <div class="d-flex flex-column align-items-center w-100">
               <div class="recover-password-form w-100 compact-recover-form">
-                <h2 class="card-title">Recuperar contraseña de la cuenta</h2>
-                <p class="card-subtitle mb-4 text-muted">Se enviará un correo a tu email registrado para restablecer tu contraseña.</p>
+                <h2 class="card-title">{{ 'security.recoverPassword' | translate }}</h2>
+                <p class="card-subtitle mb-4 text-muted">{{ 'security.recoverDescription' | translate }}</p>
                 <form (ngSubmit)="onRecoverPasswordSubmit()">
                   <div class="mb-2">
-                    <label for="recoverEmail" class="form-label">Correo electrónico</label>
+                    <label for="recoverEmail" class="form-label">{{ 'common.email' | translate }}</label>
                     <input type="email" id="recoverEmail" name="recoverEmail" class="form-control" [(ngModel)]="recoverEmail" [readonly]="true" required>
                   </div>
                   <div *ngIf="recoverMessage" class="alert alert-success mt-2">{{ recoverMessage }}</div>
                   <div *ngIf="recoverError" class="alert alert-danger mt-2">{{ recoverError }}</div>
                   <div class="d-grid mt-2">
-                    <button type="submit" class="btn btn-primary btn-lg">Enviar correo</button>
+                    <button type="submit" class="btn btn-primary btn-lg">{{ 'security.sendEmail' | translate }}</button>
                   </div>
                 </form>
               </div>
@@ -114,33 +114,33 @@
 
       <!-- Consejos de Seguridad -->
       <div class="security-advice-container">
-        <h1>Consejos de Seguridad</h1>
-        <p class="subtitle">Protege tu cuenta y tus datos personales siguiendo estas recomendaciones:</p>
+        <h1>{{ 'security.securityTips' | translate }}</h1>
+        <p class="subtitle">{{ 'security.securitySubtitle' | translate }}</p>
         <div class="advice-list">
           <div class="advice-item">
             <i class="fas fa-shield-alt"></i>
-            <h3>Verifica siempre la URL</h3>
-            <p>Asegúrate de que la dirección web sea la oficial antes de ingresar tus datos. No hagas clic en enlaces sospechosos.</p>
+            <h3>{{ 'security.tips.verifyUrl.title' | translate }}</h3>
+            <p>{{ 'security.tips.verifyUrl.description' | translate }}</p>
           </div>
           <div class="advice-item">
             <i class="fas fa-user-lock"></i>
-            <h3>No compartas tu contraseña</h3>
-            <p>Nunca compartas tu contraseña ni códigos de verificación con nadie, ni siquiera con supuestos empleados.</p>
+            <h3>{{ 'security.tips.dontSharePassword.title' | translate }}</h3>
+            <p>{{ 'security.tips.dontSharePassword.description' | translate }}</p>
           </div>
           <div class="advice-item">
             <i class="fas fa-envelope-open-text"></i>
-            <h3>Cuidado con correos y mensajes</h3>
-            <p>No abras archivos adjuntos ni respondas a mensajes de remitentes desconocidos. El phishing es una técnica común para robar información.</p>
+            <h3>{{ 'security.tips.carefulWithEmails.title' | translate }}</h3>
+            <p>{{ 'security.tips.carefulWithEmails.description' | translate }}</p>
           </div>
           <div class="advice-item">
             <i class="fas fa-search-dollar"></i>
-            <h3>Revisa bien antes de enviar dinero</h3>
-            <p>Verifica los datos del destinatario antes de confirmar cualquier transferencia o pago.</p>
+            <h3>{{ 'security.tips.verifyBeforeSending.title' | translate }}</h3>
+            <p>{{ 'security.tips.verifyBeforeSending.description' | translate }}</p>
           </div>
           <div class="advice-item">
             <i class="fas fa-sync-alt"></i>
-            <h3>Actualiza tus contraseñas periódicamente</h3>
-            <p>Cambia tus contraseñas cada cierto tiempo y utiliza combinaciones seguras para proteger tu cuenta.</p>
+            <h3>{{ 'security.tips.updatePasswords.title' | translate }}</h3>
+            <p>{{ 'security.tips.updatePasswords.description' | translate }}</p>
           </div>
         </div>
       </div>
@@ -151,16 +151,16 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Configura Google Authenticator</h5>
-              <button type="button" class="btn-close" aria-label="Cerrar" (click)="close2FAQr()"></button>
+              <h5 class="modal-title">{{ 'security.googleAuthenticator.title' | translate }}</h5>
+              <button type="button" class="btn-close" [attr.aria-label]="'Cerrar'" (click)="close2FAQr()"></button>
             </div>
             <div class="modal-body text-center">
-              <p>Escanea este código QR con Google Authenticator para activar la verificación en dos pasos.</p>
+              <p>{{ 'security.googleAuthenticator.description' | translate }}</p>
               <img [src]="qrData" alt="QR 2FA" />
-              <p class="mt-3"><strong>¿Ya lo escaneaste?</strong></p>
+              <p class="mt-3"><strong>{{ 'security.googleAuthenticator.scanned' | translate }}</strong></p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" (click)="close2FAQr()">Listo</button>
+              <button type="button" class="btn btn-primary" (click)="close2FAQr()">{{ 'security.googleAuthenticator.ready' | translate }}</button>
             </div>
           </div>
         </div>
