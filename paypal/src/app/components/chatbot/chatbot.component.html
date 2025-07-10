@@ -1,0 +1,39 @@
+<div class="chatbot-widget" [class.open]="isOpen">
+  <div class="chatbot-header">
+    <span>Paypal Guide</span>
+    <span class="close-btn" *ngIf="isOpen" (click)="toggleChat($event)">&times;</span>
+  </div>
+  <div class="chatbot-body" *ngIf="isOpen">
+    <div class="chatbot-messages" #messagesContainer>
+      <div *ngFor="let msg of messages" [ngClass]="{'chatbot-message': true, 'bot': msg.from === 'bot', 'user': msg.from === 'user'}">
+        <ng-container *ngIf="msg.html; else plainText">
+          <span [innerHTML]="msg.text"></span>
+        </ng-container>
+        <ng-template #plainText>
+          <strong *ngIf="msg.from === 'bot'">Paypal Guide: </strong>{{msg.text}}
+          <span *ngIf="msg.from === 'user'" style="float:right;"> :Tú</span>
+        </ng-template>
+      </div>
+    </div>
+    <div class="chatbot-buttons">
+      <button class="chatbot-btn" (click)="handleOption('Quiero abrir una cuenta', $event)">Abrir cuenta</button>
+      <button class="chatbot-btn" (click)="handleOption('Necesito soporte técnico', $event)">Soporte técnico</button>
+      <button class="chatbot-btn" (click)="handleOption('Consultar movimientos', $event)">Consultar movimientos</button>
+      <button class="chatbot-btn" (click)="handleOption('Hablar con un asesor', $event)">Hablar con un asesor</button>
+    </div>
+    <form (submit)="sendMessage()" class="chatbot-input-row">
+      <input [(ngModel)]="userMessage" name="msg" class="chatbot-input" placeholder="Type your message..." autocomplete="off" />
+      <button type="submit" class="chatbot-send-btn">&#9658;</button>
+    </form>
+  </div>
+</div>
+<div 
+  class="chatbot-notification" 
+  *ngIf="showNotification && !isOpen"
+  (click)="openFromNotification()"
+>
+  ¿Quieres que te ayude a saber más de nosotros?
+</div>
+<button class="chatbot-fab" *ngIf="!isOpen" (click)="toggleChat()">
+  <i class="bi bi-chat-dots"></i>
+</button>
