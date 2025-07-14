@@ -30,6 +30,7 @@ const destinatarios_module_1 = require("./destinatarios/destinatarios.module");
 const destinatario_entity_1 = require("./destinatarios/entities/destinatario.entity");
 const pagos_module_1 = require("./pagos/pagos.module");
 const pago_entity_1 = require("./pagos/entities/pago.entity");
+const chatbot_module_1 = require("./chatbot/chatbot.module");
 const crypto = require("crypto");
 global.crypto = crypto;
 let AppModule = class AppModule {
@@ -66,6 +67,7 @@ exports.AppModule = AppModule = __decorate([
             cuentas_module_1.CuentasModule,
             destinatarios_module_1.DestinatariosModule,
             pagos_module_1.PagosModule,
+            chatbot_module_1.ChatbotModule,
         ],
         providers: [app_service_1.AppService],
         controllers: [app_controller_1.AppController],

@@ -22,6 +22,7 @@ import { DestinatariosModule } from './destinatarios/destinatarios.module';
 import { Destinatario } from './destinatarios/entities/destinatario.entity';
 import { PagosModule } from './pagos/pagos.module';
 import { Pago } from './pagos/entities/pago.entity';
+import { ChatbotModule } from './chatbot/chatbot.module';
 import * as crypto from 'crypto';
 
 (global as any).crypto = crypto;
@@ -57,6 +58,7 @@ import * as crypto from 'crypto';
     CuentasModule,
     DestinatariosModule,
     PagosModule,
+    ChatbotModule,
   ],
   providers: [AppService],
   controllers: [AppController],

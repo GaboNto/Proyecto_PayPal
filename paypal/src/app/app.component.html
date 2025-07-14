@@ -1,4 +1,7 @@
 <app-navbar></app-navbar>
+
 <main class="main-container">
   <router-outlet></router-outlet>
 </main>
+
+<app-chat-bubble *ngIf="authService.isLoggedIn$ | async"></app-chat-bubble>
