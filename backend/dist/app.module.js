@@ -28,6 +28,10 @@ const transferencia_entity_1 = require("./transfers/entities/transferencia.entit
 const usuario_externo_entity_1 = require("./transfers/entities/usuario-externo.entity");
 const destinatarios_module_1 = require("./destinatarios/destinatarios.module");
 const destinatario_entity_1 = require("./destinatarios/entities/destinatario.entity");
+const pagos_module_1 = require("./pagos/pagos.module");
+const pago_entity_1 = require("./pagos/entities/pago.entity");
+const crypto = require("crypto");
+global.crypto = crypto;
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -49,7 +53,7 @@ exports.AppModule = AppModule = __decorate([
                     username: configService.get('DB_USERNAME'),
                     password: configService.get('DB_PASSWORD'),
                     database: configService.get('DB_DATABASE'),
-                    entities: [user_entity_1.User, movimiento_entity_1.Movimiento, card_entity_1.Card, cuenta_entity_1.Cuenta, transferencia_entity_1.Transferencia, usuario_externo_entity_1.UsuarioExterno, destinatario_entity_1.Destinatario],
+                    entities: [user_entity_1.User, movimiento_entity_1.Movimiento, card_entity_1.Card, cuenta_entity_1.Cuenta, transferencia_entity_1.Transferencia, usuario_externo_entity_1.UsuarioExterno, destinatario_entity_1.Destinatario, pago_entity_1.Pago],
                     synchronize: true,
                 }),
                 inject: [config_1.ConfigService],
@@ -61,6 +65,7 @@ exports.AppModule = AppModule = __decorate([
             transfers_module_1.TransfersModule,
             cuentas_module_1.CuentasModule,
             destinatarios_module_1.DestinatariosModule,
+            pagos_module_1.PagosModule,
         ],
         providers: [app_service_1.AppService],
         controllers: [app_controller_1.AppController],
