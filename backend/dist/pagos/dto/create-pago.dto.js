@@ -12,16 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreatePagoDto = void 0;
 const class_validator_1 = require("class-validator");
 class CreatePagoDto {
-    idusuario;
+    numeroCuenta;
     monto;
     descripcion;
 }
 exports.CreatePagoDto = CreatePagoDto;
 __decorate([
-    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Number)
-], CreatePagoDto.prototype, "idusuario", void 0);
+    __metadata("design:type", String)
+], CreatePagoDto.prototype, "numeroCuenta", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
     (0, class_validator_1.IsNotEmpty)(),

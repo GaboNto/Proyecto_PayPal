@@ -1,64 +1,67 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException, BadRequestException } from '@nestjs/common';
 import { CreatePagoDto } from './dto/create-pago.dto';
-import { UpdatePagoDto } from './dto/update-pago.dto';
-import axios from 'axios';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pago } from './entities/pago.entity';
+import { Cuenta } from 'src/cuentas/entities/cuenta.entity';
+import axios from 'axios';
 
 @Injectable()
 export class PagosService {
   constructor(
     @InjectRepository(Pago)
     private readonly pagosRepository: Repository<Pago>,
-  ) {}
+    @InjectRepository(Cuenta)
+    private readonly cuentaRepository: Repository<Cuenta>,
+  ) { }
 
   async create(createPagoDto: CreatePagoDto) {
+    const { monto, descripcion, numeroCuenta } = createPagoDto;
+
+    const cuenta = await this.cuentaRepository.findOne({
+      where: { numero_cuenta: numeroCuenta },
+      relations: ['usuario'],
+    })
+
+    if (!cuenta) {
+      throw new NotFoundException('La cuenta no existe');
+    }
+
+    if (cuenta.saldo < monto) {
+      throw new BadRequestException('Saldo insuficiente en la cuenta');
+    }
+
+    let categoria: string;
+
     try {
-      // Llamada POST a la API FastAPI para obtener la categoría
       const response = await axios.post('http://127.0.0.1:8000/predecir', {
-        texto: createPagoDto.descripcion,
+        texto: descripcion,
       });
-
-      const categoria = response.data.categoria;
-
-      // Crear la entidad Pago para guardar
-      const nuevoPago = this.pagosRepository.create({
-        idusuario: createPagoDto.idusuario,
-        monto: createPagoDto.monto,
-        descripcion: createPagoDto.descripcion,
-        categoria, // Campo extra que guardas con la categoría predicha
-      });
-
-      // Guardar en base de datos
-      const pagoGuardado = await this.pagosRepository.save(nuevoPago);
-
-      return {
-        message: 'Pago creado y categorizado',
-        pago: pagoGuardado,
-      };
+      categoria = response.data.categoria;
     } catch (error) {
       console.error('Error al conectar con FastAPI:', error.message);
-      throw new InternalServerErrorException('Error al conectar con el servicio de predicción');
+      throw new InternalServerErrorException('Error al predecir categoría');
     }
-  }
 
-  findAll() {
-    return this.pagosRepository.find();
-  }
+    // Crear pago con idusuario desde relación usuario
+    const nuevoPago = this.pagosRepository.create({
+      idusuario: cuenta.usuario.id_usuario,
+      monto,
+      descripcion,
+      categoria,
+    });
 
-  findOne(id: number) {
-    return this.pagosRepository.findOneBy({ id });
-  }
+    const pagoGuardado = await this.pagosRepository.save(nuevoPago);
 
-  async update(id: number, updatePagoDto: UpdatePagoDto) {
-    await this.pagosRepository.update(id, updatePagoDto);
-    return this.findOne(id);
-  }
+    // Actualizar saldo
+    cuenta.saldo -= monto;
+    await this.cuentaRepository.save(cuenta);
 
-  async remove(id: number) {
-    await this.pagosRepository.delete(id);
-    return { message: `Pago #${id} eliminado` };
+    return {
+      message: 'Pago creado correctamente',
+      pago: pagoGuardado,
+      nuevoSaldo: cuenta.saldo,
+    };
   }
 }

@@ -6,9 +6,9 @@ import {
 } from 'class-validator';
 
 export class CreatePagoDto {
-  @IsInt()
+  @IsString()
   @IsNotEmpty()
-  idusuario: number;
+  numeroCuenta: string;
 
   @IsInt()
   @IsNotEmpty()

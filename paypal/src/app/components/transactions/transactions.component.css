@@ -357,3 +357,122 @@
   display: block;
   background: rgba(0, 0, 0, 0.3);
 }
+
+/* Fondo del overlay del modal */
+.custom-modal-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45); /* oscurecido para resaltar el modal */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1050;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Diálogo modal */
+.modal-dialog {
+  max-width: 600px;
+  width: 90%;
+  border-radius: 16px;
+}
+
+/* Contenedor del contenido */
+.modal-content {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+}
+
+/* Encabezado del modal */
+.modal-header {
+  background-color: #0070ba;
+  color: white;
+  border-bottom: none;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Título del modal */
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Botón de cierre */
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  color: white;
+  opacity: 0.85;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-close:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Cuerpo del modal */
+.modal-body {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  color: #343a40;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Pie del modal */
+.modal-footer {
+  background-color: #f8f9fa;
+  border-top: none;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* Botón de cierre del modal */
+.modal-footer .btn {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .modal-dialog {
+    max-width: 95%;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .modal-footer {
+    padding: 1rem;
+  }
+}

@@ -1,5 +1,5 @@
 export declare class CreatePagoDto {
-    idusuario: number;
+    numeroCuenta: string;
     monto: number;
     descripcion: string;
 }
