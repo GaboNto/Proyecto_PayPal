@@ -197,6 +197,7 @@ let TransfersService = class TransfersService {
         }
         query.orderBy('t.fecha', 'DESC');
         const transfers = await query.getMany();
+        console.log('Transferencias encontradas:', transfers);
         return transfers.map(t => {
             let tipo = 'A usuario PayPal';
             if (t.usuario_externo)

@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/swagger": "^11.2.0",
     "axios": "^1.10.0",
     "marked": "^16.0.0",

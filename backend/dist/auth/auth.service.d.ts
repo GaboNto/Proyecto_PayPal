@@ -41,4 +41,5 @@ export declare class AuthService {
     forgotPassword(forgotPasswordDto: ForgotPasswordDto): Promise<any>;
     resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
     private sendRecoveryEmail;
+    private sendLoginNotification;
 }

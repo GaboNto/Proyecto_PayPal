@@ -60,6 +60,7 @@ let AuthService = class AuthService {
     }
     async login(user) {
         const payload = { username: user.email, sub: user.id_usuario };
+        await this.sendLoginNotification(user.email, user.nombre);
         return {
             accessToken: this.jwtService.sign(payload),
         };
@@ -135,6 +136,21 @@ let AuthService = class AuthService {
             html: `<p>Para restablecer tu contraseña, haz clic en el siguiente enlace:</p><a href="http://localhost:3000/reset-password?token=${token}">Restablecer contraseña</a>`
         });
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    }
+    async sendLoginNotification(to, nombre) {
+        const info = await this.transporter.sendMail({
+            from: 'no-reply@paypal-clone.com',
+            to,
+            subject: 'Notificación de inicio de sesión',
+            text: `Hola ${nombre}, se ha iniciado sesión en tu cuenta.`,
+            html: `
+      <p>Hola <strong>${nombre}</strong>,</p>
+      <p>Se ha iniciado sesión en tu cuenta de PayPal Clone.</p>
+      <p>Si no fuiste tú, por favor cambia tu contraseña de inmediato.</p>
+      <p><small>Fecha y hora: ${new Date().toLocaleString()}</small></p>
+    `
+        });
+        console.log('Login email enviado. Vista previa: %s', nodemailer.getTestMessageUrl(info));
     }
 };
 exports.AuthService = AuthService;

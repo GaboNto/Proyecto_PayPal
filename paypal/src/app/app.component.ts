@@ -4,6 +4,8 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ChatBubbleComponent } from "./components/chat-bubble/chat-bubble.component";
 import { AuthService } from './services/auth.service';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,8 @@ import { AuthService } from './services/auth.service';
     RouterLink,
     RouterLinkActive,
     NavbarComponent,
-    ChatBubbleComponent
+    ChatBubbleComponent,
+    SidebarComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
