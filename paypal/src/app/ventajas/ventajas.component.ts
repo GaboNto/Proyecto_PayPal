@@ -1,5 +1,6 @@
 // Importamos los módulos necesarios
 import { Component, AfterViewInit, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 // Decorador del componente con selector, plantilla y estilos asociados
 @Component({
