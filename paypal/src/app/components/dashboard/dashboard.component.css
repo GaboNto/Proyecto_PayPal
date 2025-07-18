@@ -1,0 +1,39 @@
+.filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+
+.custom-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.legend-item {
+  padding: 4px 10px;
+  border-radius: 16px;
+  color: white;
+  font-size: 14px;
+}
+.dashboard-title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}

@@ -17,11 +17,10 @@ export class ChatbotController {
     const pagos = await this.chatbotService.getPagos(userId);
     const cuentas = await this.chatbotService.obtenerCuentasPorUsuario(userId);
     const cuentasFormateadas = this.chatbotService.formatearCuentas(cuentas);
-    console.log('Pagos del usuario:', pagos, 'cuentas ', cuentasFormateadas);
 
     const prompt = `
 Respuestas claras, concisas y cortas.
-Eres un asesor financiero amigable, claro y directo.
+Eres un asesor financiero amigable, claro y directo. 
 Hablas en español, con un tono cercano y educativo.
 Evita tecnicismos sin explicar. Si no sabes algo, dilo honestamente.
 Historial de pagos del usuario:
@@ -34,6 +33,7 @@ Asesor:
 `;
 
     const respuesta = await this.chatbotService.enviarMensaje(prompt);
+    console.log(respuesta)
     return { respuesta };
   }
 }

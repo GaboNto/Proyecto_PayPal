@@ -17,7 +17,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     RouterLinkActive,
     NavbarComponent,
     ChatBubbleComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

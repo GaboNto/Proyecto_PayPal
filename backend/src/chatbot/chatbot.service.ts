@@ -56,13 +56,20 @@ export class ChatbotService {
     });
     if (!pagos.length) return 'No hay pagos registrados.';
 
-    // Formatea los pagos en una lista legible
-    const lista = pagos.map(p =>
-      `Descripción: ${p.descripcion}, Monto: $${p.monto}, Fecha: ${p.fecha.toISOString().split('T')[0]}, Categoría: ${p.categoria}`
-    ).join('\n');
+    const lista = pagos.map(p => {
+      const fechaLocal = p.fecha.toLocaleString('es-CL', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      return `Descripción: ${p.descripcion}, Monto: $${p.monto}, Fecha: ${fechaLocal}, Categoría: ${p.categoria}`;
+    }).join('\n');
 
     return `Historial de pagos del usuario:\n${lista}`;
   }
+
 
   async obtenerCuentasPorUsuario(id_usuario: number): Promise<Cuenta[]> {
     return this.cuentasRepo.find({

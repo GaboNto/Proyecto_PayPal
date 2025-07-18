@@ -231,8 +231,6 @@ export class TransfersService {
     }
     query.orderBy('t.fecha', 'DESC');
     const transfers = await query.getMany();
-    console.log('Transferencias encontradas:', transfers);
-
     // Mapear la respuesta para el frontend
     return transfers.map(t => {
       // Determinar tipo de transferencia

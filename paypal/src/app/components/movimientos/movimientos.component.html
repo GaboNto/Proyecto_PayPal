@@ -1,0 +1,30 @@
+<div *ngIf="loading" class="loading">Cargando movimientos...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<div class="table-container" *ngIf="!loading && !error && movimientos.length > 0">
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Categoría</th>
+                <th>Monto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let movimiento of movimientos">
+                <td>{{ movimiento.fecha | date:'short' }}</td>
+                <td>{{ movimiento.descripcion }}</td>
+                <td>{{ movimiento.categoria }}</td>
+                <td [ngClass]="{'positivo': movimiento.abono > 0, 'negativo': movimiento.abono < 0}">
+                    {{ movimiento.abono | currency:'USD':'symbol':'1.2-2' }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="!loading && movimientos.length === 0" class="empty-state">
+    <h3>No hay movimientos</h3>
+    <p>Cuando los haya, aparecerán aquí.</p>
+</div>

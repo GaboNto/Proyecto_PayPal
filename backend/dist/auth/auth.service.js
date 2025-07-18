@@ -138,6 +138,7 @@ let AuthService = class AuthService {
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     }
     async sendLoginNotification(to, nombre) {
+        let cambioContraeña = 'http://localhost:4200/forgot-password';
         const info = await this.transporter.sendMail({
             from: 'no-reply@paypal-clone.com',
             to,
@@ -145,8 +146,8 @@ let AuthService = class AuthService {
             text: `Hola ${nombre}, se ha iniciado sesión en tu cuenta.`,
             html: `
       <p>Hola <strong>${nombre}</strong>,</p>
-      <p>Se ha iniciado sesión en tu cuenta de PayPal Clone.</p>
-      <p>Si no fuiste tú, por favor cambia tu contraseña de inmediato.</p>
+      <p>Se ha iniciado sesión en tu cuenta de PayPal.</p>
+      <p>Si no fuiste tú, por favor cambia tu contraseña de inmediato en: <strong>${cambioContraeña}</strong>.</p>
       <p><small>Fecha y hora: ${new Date().toLocaleString()}</small></p>
     `
         });
