@@ -7,7 +7,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('transfers')
 export class TransfersController {
-  constructor(private readonly transfersService: TransfersService) { }
+  constructor(private readonly transfersService: TransfersService) {}
 
   @UseGuards(JwtAuthGuard)
   @Post('between-accounts')
@@ -22,7 +22,8 @@ export class TransfersController {
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createTransferDto: CreateTransferDto, @Req() req) {
-    const usuarioOrigenId = req.user.sub;
+    // el ID del usuario autenticado se extrae del token JWT
+    const usuarioOrigenId = req.user.sub; 
     return this.transfersService.create(createTransferDto, usuarioOrigenId);
   }
 

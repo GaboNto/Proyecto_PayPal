@@ -46,12 +46,12 @@ interface Cuenta {
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
   activeTab: 'new' | 'history' | 'internal' = 'new';
-
+  
   saldoActual: number = 0;
   destinatarios$: Observable<Destinatario[]> = of([]);
   showAddDestinatarioForm: boolean = false;
   editingDestinatarioId: number | null = null;
-
+  
   newDestinatario: CreateDestinatario = {
     nombre: '',
     rut: '',
@@ -78,7 +78,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   bancos: string[] = ['Paypal', 'BancoEstado', 'BCI', 'Banco de Chile', 'Scotiabank', 'Banco Falabella'];
   tiposDeCuenta: string[] = ['Cuenta Vista', 'Cuenta Corriente', 'Cuenta de Ahorro'];
-
+  
   // Nuevas propiedades para transferencia interna
   cuentas: Cuenta[] = [];
   cuentaOrigenId: number | null = null;
@@ -105,7 +105,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   transferenciaSeleccionada: any = null;
 
-  filtroMonto: number | null = null;
+  filtroMonto: number|null = null;
   filtroDestinatario: string = '';
 
   constructor(
@@ -116,12 +116,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     private zone: NgZone,
     private cdr: ChangeDetectorRef,
     private modalService: NgbModal
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loadSaldo();
     this.loadDestinatarios();
-    this.transferData.banco_destino = this.bancos[0];
+    this.transferData.banco_destino = this.bancos[0]; 
     this.onBancoChange();
     this.loadUserAccounts();
     this.actualizarSaldoDisponible();
@@ -170,12 +170,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       });
     }
   }
-
+  
   handleEdit(destinatario: Destinatario): void {
     this.editingDestinatarioId = destinatario.id;
     this.newDestinatario = { ...destinatario };
     this.showAddDestinatarioForm = true;
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0); 
   }
 
   handleDelete(id: number): void {
@@ -231,7 +231,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       banco: '', tipo_cuenta: '', numero_cuenta: ''
     };
   }
-
+  
   validateRut(rut: string): boolean {
     if (!rut) return false;
     rut = rut.replace(/\./g, '').replace('-', '').trim().toLowerCase();
@@ -239,14 +239,14 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     let dv = rut.slice(-1);
 
     if (!/^[0-9]+[0-9kK]{1}$/.test(rut)) return false;
-
+    
     let sum = 0;
     let M = 2;
     for (let i = body.length - 1; i >= 0; i--) {
-      sum += parseInt(body.charAt(i), 10) * M;
-      if (M < 7) { M++; } else { M = 2; }
+        sum += parseInt(body.charAt(i), 10) * M;
+        if (M < 7) { M++; } else { M = 2; }
     }
-
+    
     const VCalc = 11 - (sum % 11);
     const dvCalc = (VCalc === 11) ? '0' : (VCalc === 10) ? 'k' : VCalc.toString();
 
@@ -262,13 +262,13 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     }
     return rut;
   }
-
+  
   onRutChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     const originalValue = input.value;
     const formattedValue = this.formatRut(originalValue);
     this.transferData.rut_destinatario = formattedValue;
-
+    
     if (formattedValue && !this.validateRut(formattedValue)) {
       this.rutError = 'El RUT ingresado no es válido.';
     } else {
@@ -278,8 +278,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   onMontoChange(): void {
     if (this.transferData.monto === null || this.transferData.monto <= 0) {
-      this.montoError = '';
-      return;
+        this.montoError = '';
+        return;
     }
     this.actualizarSaldoDisponible();
     const saldoDisponible = this.saldoDisponibleSeleccionado;
@@ -298,10 +298,10 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   }
 
   onNumeroCuentaInput(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    input.value = input.value.replace(/[^0-9]/g, '');
-    this.transferData.numero_cuenta = input.value;
-    this.onMontoChange();
+      const input = event.target as HTMLInputElement;
+      input.value = input.value.replace(/[^0-9]/g, '');
+      this.transferData.numero_cuenta = input.value;
+      this.onMontoChange();
   }
 
   onBancoChange(): void {
@@ -361,7 +361,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         isValid = false;
       }
     }
-
+    
     if (this.transferData.rut_destinatario && !this.validateRut(this.transferData.rut_destinatario)) {
       this.rutError = 'El RUT ingresado no es válido.';
       isValid = false;
@@ -377,8 +377,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   openBepassModal() {
     this.error = '';
     this.startCountdown();
-    this.modalReference = this.modalService.open(this.bepassModalRef, { ariaLabelledBy: 'modal-basic-title', centered: true });
-
+    this.modalReference = this.modalService.open(this.bepassModalRef, {ariaLabelledBy: 'modal-basic-title', centered: true});
+    
     this.modalReference.result.then(
       (result: any) => {
         // El modal se cerró (ej. con Confirmar)
@@ -453,7 +453,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     } else {
       this.executeInternalTransfer();
     }
-
+    
     if (this.modalReference) {
       this.modalReference.close();
     }
@@ -604,7 +604,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     this.transferType = 'internal';
     this.openBepassModal();
   }
-
+  
   private resetInternalForm(): void {
     this.cuentaOrigenId = null;
     this.cuentaDestinoId = null;
@@ -626,7 +626,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   cargarHistorial(): void {
     this.transferService.getHistory(this.fechaInicio, this.fechaFin).subscribe({
       next: (data) => {
-        console.log(data)
         this.historial = data;
         this.cdr.detectChanges();
       },

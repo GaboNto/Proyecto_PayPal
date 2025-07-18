@@ -32,9 +32,4 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], SetBepassDto.prototype, "currentPassword", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsBoolean)(),
-    __metadata("design:type", Boolean)
-], SetBepassDto.prototype, "isChange", void 0);
 //# sourceMappingURL=set-bepass.dto.js.map

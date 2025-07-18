@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TransfersService } from './transfers.service';
@@ -17,4 +16,4 @@ import { Cuenta } from 'src/cuentas/entities/cuenta.entity';
   controllers: [TransfersController],
   providers: [TransfersService],
 })
-export class TransfersModule { } 
+export class TransfersModule {} 

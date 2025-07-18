@@ -1,11 +1,4 @@
 <app-navbar></app-navbar>
-
-<div class="layout-wrapper">
-  <app-sidebar *ngIf="authService.isLoggedIn$ | async"></app-sidebar>
-
-  <main class="main-container">
-    <router-outlet></router-outlet>
-  </main>
-</div>
-
-<app-chat-bubble *ngIf="authService.isLoggedIn$ | async"></app-chat-bubble>
+<main class="main-container">
+  <router-outlet></router-outlet>
+</main>

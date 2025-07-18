@@ -1,4 +1,4 @@
-import { IsString, Length, Matches, IsOptional, IsBoolean } from 'class-validator';
+import { IsString, Length, Matches } from 'class-validator';
 
 export class SetBepassDto {
   @IsString()
@@ -12,7 +12,5 @@ export class SetBepassDto {
   @IsString()
   currentPassword: string;
 
-  @IsOptional()
-  @IsBoolean()
   isChange?: boolean;
-}
+} 

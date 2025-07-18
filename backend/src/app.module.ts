@@ -20,14 +20,6 @@ import { Transferencia } from './transfers/entities/transferencia.entity';
 import { UsuarioExterno } from './transfers/entities/usuario-externo.entity';
 import { DestinatariosModule } from './destinatarios/destinatarios.module';
 import { Destinatario } from './destinatarios/entities/destinatario.entity';
-import { PagosModule } from './pagos/pagos.module';
-import { Pago } from './pagos/entities/pago.entity';
-import { ChatbotModule } from './chatbot/chatbot.module';
-import { MovimientosModule } from './movimientos/movimientos.module';
-import * as crypto from 'crypto';
-
-(global as any).crypto = crypto;
-
 
 @Module({
   imports: [
@@ -46,7 +38,7 @@ import * as crypto from 'crypto';
         username: configService.get('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_DATABASE'),
-        entities: [User, Movimiento, Card, Cuenta, Transferencia, UsuarioExterno, Destinatario,Pago], 
+        entities: [User, Movimiento, Card, Cuenta, Transferencia, UsuarioExterno, Destinatario], 
         synchronize: true,
       }),
       inject: [ConfigService],
@@ -58,9 +50,6 @@ import * as crypto from 'crypto';
     TransfersModule,
     CuentasModule,
     DestinatariosModule,
-    PagosModule,
-    ChatbotModule,
-    MovimientosModule,
   ],
   providers: [AppService],
   controllers: [AppController],

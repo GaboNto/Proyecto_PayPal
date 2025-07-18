@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cuenta = void 0;
 const typeorm_1 = require("typeorm");
@@ -48,7 +49,7 @@ __decorate([
 ], Cuenta.prototype, "saldo", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ name: 'fecha_apertura', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
-    __metadata("design:type", Date)
+    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
 ], Cuenta.prototype, "fecha_apertura", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => movimiento_entity_1.Movimiento, movimiento => movimiento.cuenta),

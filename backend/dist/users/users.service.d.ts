@@ -7,14 +7,14 @@ export declare class UsersService {
     private usersRepository;
     constructor(usersRepository: Repository<User>);
     findUserProfile(userId: number): Promise<User | null>;
-    findUserByEmail(email: string): Promise<User | null>;
-    create(createUserDto: CreateUserDto): Promise<User>;
-    findById(id: number): Promise<User>;
+    findUserByEmail(email: string): any;
+    create(createUserDto: CreateUserDto): unknown;
+    findById(id: number): unknown;
     verifyBepass(userId: number, verifyBepassDto: VerifyBepassDto): Promise<{
         success: boolean;
     }>;
     setBepass(userId: number, setBepassDto: SetBepassDto): Promise<{
         message: string;
     }>;
-    save(user: User): Promise<User>;
+    save(user: User): unknown;
 }

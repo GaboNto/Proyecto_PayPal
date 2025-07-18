@@ -16,12 +16,12 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 export class LoginComponent {
   email = '';
   password = '';
-  error: string | null = null;
+  error = '';
   loginForm: FormGroup;
 
   constructor(
-    private http: HttpClient,
-    private router: Router,
+    private http: HttpClient, 
+    private router: Router, 
     private authService: AuthService
   ) {
     this.loginForm = new FormGroup({
@@ -30,33 +30,24 @@ export class LoginComponent {
     });
   }
 
-  isLoading = false; // Declara esta propiedad en tu componente
-
-
   onSubmit() {
     if (this.loginForm.valid) {
-      this.isLoading = true;
-      this.error = null;
-
-      this.http.post<{ accessToken: string }>('http://localhost:3000/api/auth/login', this.loginForm.value)
+      this.http.post<{accessToken: string}>('http://localhost:3000/api/auth/login', this.loginForm.value)
         .subscribe({
           next: (response) => {
-            this.isLoading = false;
+            console.log('Login successful', response);
             if (response && response.accessToken) {
               this.authService.login(response.accessToken);
-              this.router.navigate(['/profile']);
+              this.router.navigate(['/profile']); // Redirigir a la página de perfil
             } else {
               this.error = 'No se recibió el token de acceso';
             }
           },
           error: (err) => {
-            this.isLoading = false;
             this.error = 'Credenciales incorrectas. Por favor, verifica tu email y contraseña.';
             console.error('Error de autenticación:', err);
           }
         });
     }
   }
-
-
 }
