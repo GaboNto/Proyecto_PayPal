@@ -14,6 +14,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { DondeComprarComponent } from './components/donde-comprar/donde-comprar.component';
 import { SeguridadPublicaComponent } from './components/seguridad-publica/seguridad-publica.component';
 import { TarjetasPublicaComponent } from './components/tarjetas/tarjetas-publica.component';
+import { VentajasComponent } from './ventajas/ventajas.component';
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -30,6 +31,7 @@ export const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'donde-comprar', component: DondeComprarComponent },
   { path: 'seguridad-publica', component: SeguridadPublicaComponent },
+  { path: 'ventajas', component: VentajasComponent },
   { path: 'tarjetas-publica', component: TarjetasPublicaComponent }
 ];
 
