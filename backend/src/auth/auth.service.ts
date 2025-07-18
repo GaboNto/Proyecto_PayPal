@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable prettier/prettier */
 // src/auth/auth.service.ts
 import { Injectable, UnauthorizedException } from '@nestjs/common';
@@ -60,21 +63,26 @@ export class AuthService {
   // Iniciar sesión y generar un JWT
   async login(user: any) {
     const payload = { username: user.email, sub: user.id_usuario };
+
+    // Enviar notificación por correo
+    await this.sendLoginNotification(user.email, user.nombre);
+
     return {
       accessToken: this.jwtService.sign(payload),
     };
   }
 
+
   async register(createUserDto: CreateUserDto) {
     const { password, ...userData } = createUserDto;
     const hashedPassword = await bcrypt.hash(password, 10);
-    
+
     const newUser = this.usersRepository.create({
       ...userData,
-        password: hashedPassword,
+      password: hashedPassword,
       banco: 'Paypal',
     });
-    
+
     const savedUser = await this.usersRepository.save(newUser);
 
     // Crear cuenta para el nuevo usuario
@@ -86,11 +94,11 @@ export class AuthService {
       saldo: 0,
     });
     await this.cuentasRepository.save(newCuenta);
-    
+
     // --- Creación automática de tarjeta ---
     const expirationDate = new Date();
     expirationDate.setFullYear(expirationDate.getFullYear() + 4);
-    
+
     const newCard = this.cardRepository.create({
       cardNumber: Math.floor(1000000000000000 + Math.random() * 9000000000000000).toString(),
       cvv: Math.floor(100 + Math.random() * 900).toString(),
@@ -158,4 +166,23 @@ export class AuthService {
     // Solo para pruebas: mostrar la URL de vista previa de Ethereal
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   }
+
+  private async sendLoginNotification(to: string, nombre: string) {
+    let cambioContraeña = 'http://localhost:4200/forgot-password'
+    const info = await this.transporter.sendMail({
+      from: 'no-reply@paypal-clone.com',
+      to,
+      subject: 'Notificación de inicio de sesión',
+      text: `Hola ${nombre}, se ha iniciado sesión en tu cuenta.`,
+      html: `
+      <p>Hola <strong>${nombre}</strong>,</p>
+      <p>Se ha iniciado sesión en tu cuenta de PayPal.</p>
+      <p>Si no fuiste tú, por favor cambia tu contraseña de inmediato en: <strong>${cambioContraeña}</strong>.</p>
+      <p><small>Fecha y hora: ${new Date().toLocaleString()}</small></p>
+    `
+    });
+
+    console.log('Login email enviado. Vista previa: %s', nodemailer.getTestMessageUrl(info));
+  }
+
 }

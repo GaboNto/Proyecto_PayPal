@@ -17,12 +17,29 @@ export declare class AuthService {
     private recoveryTokens;
     constructor(usersService: UsersService, jwtService: JwtService, usersRepository: Repository<User>, cuentasRepository: Repository<Cuenta>, cardRepository: Repository<Card>);
     validateUser(email: string, pass: string): Promise<any>;
-    login(user: any): unknown;
-    register(createUserDto: CreateUserDto): unknown;
+    login(user: any): Promise<{
+        accessToken: string;
+    }>;
+    register(createUserDto: CreateUserDto): Promise<{
+        id_usuario: number;
+        nombre: string;
+        apellido: string;
+        email: string;
+        fecha_nacimiento: string;
+        pais: string;
+        ciudad: string;
+        rut: string;
+        banco: string;
+        cuentas: Cuenta[];
+        destinatarios: import("../destinatarios/entities/destinatario.entity").Destinatario[];
+        bepass: string;
+        totpSecret: string;
+    }>;
     checkRutExists(rut: string): Promise<{
         exists: boolean;
     }>;
     forgotPassword(forgotPasswordDto: ForgotPasswordDto): Promise<any>;
     resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
     private sendRecoveryEmail;
+    private sendLoginNotification;
 }

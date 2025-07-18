@@ -1,4 +1,4 @@
-<header>
+<header *ngIf="!(isLoggedIn$ | async)">
   <nav class="navbar">
     <div class="navbar-logo">
       <a routerLink="/"><img src="assets/paypal-logo.svg" alt="PayPal Logo"></a>

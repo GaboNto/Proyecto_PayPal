@@ -8,5 +8,21 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs-modules/mailer": "^2.0.2",
+    "@nestjs/swagger": "^11.2.0",
+    "axios": "^1.10.0",
+    "chart.js": "^4.5.0",
+    "marked": "^16.0.0",
+    "ng2-charts": "^8.0.0",
+    "nodemailer": "^7.0.5",
+    "qrcode": "^1.5.4",
+    "speakeasy": "^2.0.0",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/qrcode": "^1.5.5",
+    "@types/speakeasy": "^2.0.10"
+  }
 }

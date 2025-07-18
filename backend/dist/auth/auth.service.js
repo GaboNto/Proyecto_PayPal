@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
@@ -61,6 +60,7 @@ let AuthService = class AuthService {
     }
     async login(user) {
         const payload = { username: user.email, sub: user.id_usuario };
+        await this.sendLoginNotification(user.email, user.nombre);
         return {
             accessToken: this.jwtService.sign(payload),
         };
@@ -137,6 +137,22 @@ let AuthService = class AuthService {
         });
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     }
+    async sendLoginNotification(to, nombre) {
+        let cambioContraeña = 'http://localhost:4200/forgot-password';
+        const info = await this.transporter.sendMail({
+            from: 'no-reply@paypal-clone.com',
+            to,
+            subject: 'Notificación de inicio de sesión',
+            text: `Hola ${nombre}, se ha iniciado sesión en tu cuenta.`,
+            html: `
+      <p>Hola <strong>${nombre}</strong>,</p>
+      <p>Se ha iniciado sesión en tu cuenta de PayPal.</p>
+      <p>Si no fuiste tú, por favor cambia tu contraseña de inmediato en: <strong>${cambioContraeña}</strong>.</p>
+      <p><small>Fecha y hora: ${new Date().toLocaleString()}</small></p>
+    `
+        });
+        console.log('Login email enviado. Vista previa: %s', nodemailer.getTestMessageUrl(info));
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
@@ -144,6 +160,10 @@ exports.AuthService = AuthService = __decorate([
     __param(2, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
     __param(3, (0, typeorm_1.InjectRepository)(cuenta_entity_1.Cuenta)),
     __param(4, (0, typeorm_1.InjectRepository)(card_entity_1.Card)),
-    __metadata("design:paramtypes", [users_service_1.UsersService, typeof (_a = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _a : Object, typeof (_b = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _b : Object, typeof (_c = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _c : Object, typeof (_d = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _d : Object])
+    __metadata("design:paramtypes", [users_service_1.UsersService,
+        jwt_1.JwtService,
+        typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map
