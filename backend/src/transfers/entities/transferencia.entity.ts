@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -31,9 +32,15 @@ export class Transferencia {
   @ManyToOne(() => UsuarioExterno, { nullable: true })
   @JoinColumn({ name: 'id_usuario_externo' })
   usuario_externo: UsuarioExterno;
-  
+
   @Column({ nullable: true })
   id_usuario_externo: number | null;
+
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  cuenta_origen: string | null;
+
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  cuenta_destino: string | null;
 
   @Column('int')
   monto: number;
@@ -41,6 +48,7 @@ export class Transferencia {
   @Column('int', { default: 0 })
   comision: number;
 
+
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   fecha: Date;
-} 
+}

@@ -1,4 +1,3 @@
-<!-- Título principal del dashboard -->
 <h1 class="dashboard-title">Dashboard de Finanzas Personales</h1>
 
 <div class="filters">
@@ -11,13 +10,28 @@
         Hasta:
         <input type="date" [(ngModel)]="fechaFin" (change)="aplicarFiltros()" />
     </label>
+
+    <label>
+        Categoría:
+        <select [(ngModel)]="categoriaSeleccionada" (change)="aplicarFiltros()">
+            <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+        </select>
+    </label>
 </div>
 
 <div class="charts-container">
     <div class="chart pie-chart">
-        <h3>Gráficos de Gastos</h3>
+        <h3>Gráfico de Gastos</h3>
         <ngx-charts-pie-chart [view]="view" [results]="pieChartData" [scheme]="colorScheme" [legend]="true"
             [labels]="true" [doughnut]="false" [explodeSlices]="false" [arcWidth]="0.25">
         </ngx-charts-pie-chart>
+    </div>
+
+    <div class="chart line-chart">
+        <h3>Historial de Saldo por Cuenta</h3>
+        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="lineChartData" [legend]="lineChartLegend"
+            [xAxis]="true" [yAxis]="true" [xAxisLabel]="lineChartXAxisLabel" [yAxisLabel]="lineChartYAxisLabel"
+            [autoScale]="true" [timeline]="true" [showGridLines]="true" [roundDomains]="true" [animations]="true">
+        </ngx-charts-line-chart>
     </div>
 </div>

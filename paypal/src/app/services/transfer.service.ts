@@ -25,4 +25,9 @@ export class TransferService {
     const url = params ? `${this.apiUrl}/history?${params}` : `${this.apiUrl}/history`;
     return this.http.get(url);
   }
-} 
+
+
+  obtenerHistorialUsuario(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/historial`);
+  }
+}

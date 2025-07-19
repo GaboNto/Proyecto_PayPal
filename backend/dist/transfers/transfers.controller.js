@@ -35,6 +35,10 @@ let TransfersController = class TransfersController {
         const userId = req.user.sub;
         return this.transfersService.getUserHistory(userId, from, to);
     }
+    async obtenerHistorialUsuario(req) {
+        const userId = req.user.sub;
+        return this.transfersService.obtenerHistorialPorUsuario(userId);
+    }
 };
 exports.TransfersController = TransfersController;
 __decorate([
@@ -65,6 +69,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, String, String]),
     __metadata("design:returntype", Promise)
 ], TransfersController.prototype, "getHistory", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('historial'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TransfersController.prototype, "obtenerHistorialUsuario", null);
 exports.TransfersController = TransfersController = __decorate([
     (0, common_1.Controller)('transfers'),
     __metadata("design:paramtypes", [transfers_service_1.TransfersService])

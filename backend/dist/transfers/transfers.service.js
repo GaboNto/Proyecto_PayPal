@@ -20,18 +20,22 @@ const user_entity_1 = require("../users/user.entity");
 const transferencia_entity_1 = require("./entities/transferencia.entity");
 const usuario_externo_entity_1 = require("./entities/usuario-externo.entity");
 const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
+const typeorm_3 = require("typeorm");
 const bcrypt = require("bcrypt");
+const historial_saldos_1 = require("./entities/historial-saldos");
 let TransfersService = class TransfersService {
     usersRepository;
     transferenciasRepository;
     usuariosExternosRepository;
     cuentasRepository;
+    historialRepository;
     dataSource;
-    constructor(usersRepository, transferenciasRepository, usuariosExternosRepository, cuentasRepository, dataSource) {
+    constructor(usersRepository, transferenciasRepository, usuariosExternosRepository, cuentasRepository, historialRepository, dataSource) {
         this.usersRepository = usersRepository;
         this.transferenciasRepository = transferenciasRepository;
         this.usuariosExternosRepository = usuariosExternosRepository;
         this.cuentasRepository = cuentasRepository;
+        this.historialRepository = historialRepository;
         this.dataSource = dataSource;
     }
     async transferBetweenOwnAccounts(createDto, userId) {
@@ -70,10 +74,21 @@ let TransfersService = class TransfersService {
                 usuario_id_origen: userId,
                 id_usuario_destino: userId,
                 id_usuario_externo: null,
+                cuenta_destino: cuentaDestino.numero_cuenta,
+                cuenta_origen: cuentaOrigen.numero_cuenta,
                 monto,
                 comision: 0,
             });
             await queryRunner.manager.save(transferencia);
+            const historialOrigen = this.historialRepository.create({
+                numero_cuenta: cuentaOrigen.numero_cuenta,
+                saldo: cuentaOrigen.saldo,
+            });
+            const historialDestino = this.historialRepository.create({
+                numero_cuenta: cuentaDestino.numero_cuenta,
+                saldo: cuentaDestino.saldo,
+            });
+            await queryRunner.manager.save([historialOrigen, historialDestino]);
             await queryRunner.commitTransaction();
             return { message: 'Transferencia entre tus cuentas realizada con éxito.' };
         }
@@ -124,15 +139,27 @@ let TransfersService = class TransfersService {
                 }
                 cuentaOrigen.saldo = Number(cuentaOrigen.saldo) - monto;
                 cuentaDestino.saldo = Number(cuentaDestino.saldo) + monto;
+                const cuenta_destino = cuentaDestino.numero_cuenta;
                 await queryRunner.manager.save(cuentaOrigen);
                 await queryRunner.manager.save(cuentaDestino);
                 const transferencia = this.transferenciasRepository.create({
                     usuario_id_origen: usuarioOrigenId,
                     id_usuario_destino: usuarioDestino.id_usuario,
+                    cuenta_destino,
+                    cuenta_origen: cuentaOrigen.numero_cuenta,
                     monto,
                     comision: 0,
                 });
                 await queryRunner.manager.save(transferencia);
+                const historialOrigen = this.historialRepository.create({
+                    numero_cuenta: cuentaOrigen.numero_cuenta,
+                    saldo: cuentaOrigen.saldo,
+                });
+                const historialDestino = this.historialRepository.create({
+                    numero_cuenta: cuentaDestino.numero_cuenta,
+                    saldo: cuentaDestino.saldo,
+                });
+                await queryRunner.manager.save([historialOrigen, historialDestino]);
             }
             else {
                 const comision = 300;
@@ -168,6 +195,11 @@ let TransfersService = class TransfersService {
                     comision,
                 });
                 await queryRunner.manager.save(transferencia);
+                const historialOrigen = this.historialRepository.create({
+                    numero_cuenta: cuentaOrigen.numero_cuenta,
+                    saldo: cuentaOrigen.saldo,
+                });
+                await queryRunner.manager.save([historialOrigen]);
             }
             await queryRunner.commitTransaction();
             return { message: 'Transferencia realizada con éxito' };
@@ -237,6 +269,22 @@ let TransfersService = class TransfersService {
             };
         });
     }
+    async obtenerHistorialPorUsuario(usuarioId) {
+        const cuentas = await this.cuentasRepository.find({
+            where: { usuario: { id_usuario: usuarioId } },
+            select: ['numero_cuenta'],
+        });
+        if (cuentas.length === 0) {
+            return [];
+        }
+        const numerosCuenta = cuentas.map(c => c.numero_cuenta);
+        const historial = await this.historialRepository.find({
+            where: { numero_cuenta: (0, typeorm_3.In)(numerosCuenta) },
+            order: { fecha: 'DESC' },
+        });
+        console.log(historial);
+        return historial;
+    }
 };
 exports.TransfersService = TransfersService;
 exports.TransfersService = TransfersService = __decorate([
@@ -245,7 +293,9 @@ exports.TransfersService = TransfersService = __decorate([
     __param(1, (0, typeorm_1.InjectRepository)(transferencia_entity_1.Transferencia)),
     __param(2, (0, typeorm_1.InjectRepository)(usuario_externo_entity_1.UsuarioExterno)),
     __param(3, (0, typeorm_1.InjectRepository)(cuenta_entity_1.Cuenta)),
+    __param(4, (0, typeorm_1.InjectRepository)(historial_saldos_1.HistorialSaldos)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
         typeorm_2.Repository,
         typeorm_2.Repository,
         typeorm_2.Repository,

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MovimientosService, MovimientoHistorialDto } from '../../services/movimientos.service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+import { MovimientosService, MovimientoHistorialDto } from '../../services/movimientos.service';
+import { TransferService } from '../../services/transfer.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,40 +16,51 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 export class DashboardComponent implements OnInit {
 
   movimientos: MovimientoHistorialDto[] = [];
-
   filteredMovimientos: MovimientoHistorialDto[] = [];
+  historial: any[] = [];
 
-  // Filtros
   fechaInicio: string = '';
   fechaFin: string = '';
   categoriaSeleccionada: string = 'Todas';
+  categorias: string[] = ['Todas'];
 
-  categorias: string[] = ['Todas']; // para cargar categorías únicas de los movimientos
-
-  // Datos para gráficos
   pieChartData: any[] = [];
   lineChartData: any[] = [];
 
-  // Opciones gráficos
   view: [number, number] = [700, 400];
   colorScheme = 'vivid';
 
-  // Line chart options
-  lineChartLegend = false;
-  lineChartXAxisLabel = 'Fecha';
-  lineChartYAxisLabel = 'Monto';
+  lineChartLegend = true;
+  lineChartXAxisLabel = 'Fecha y Hora';
+  lineChartYAxisLabel = 'Saldo';
 
-  constructor(private movimientosService: MovimientosService) { }
+  constructor(
+    private movimientosService: MovimientosService,
+    private transferService: TransferService
+  ) { }
 
   ngOnInit(): void {
+    this.cargarHistorial();
     this.cargarMovimientos();
+  }
+
+  cargarHistorial() {
+    this.transferService.obtenerHistorialUsuario().subscribe({
+      next: data => {
+        this.historial = data;
+        this.actualizarLineChartHistorial();
+      },
+      error: err => {
+        console.error('Error al cargar historial:', err);
+      }
+    });
   }
 
   cargarMovimientos(): void {
     this.movimientosService.obtenerMovimientosPorUsuario().subscribe({
       next: data => {
         this.movimientos = data;
-        this.categorias = ['Todas', 'Viajes', 'Supermercado', 'Arroz'].filter(c => c !== 'Transferencia');
+        this.categorias = ['Todas', ...Array.from(new Set(data.map(m => m.categoria)))].filter(c => c !== 'Transferencia');
         this.aplicarFiltros();
       },
       error: () => {
@@ -57,17 +70,15 @@ export class DashboardComponent implements OnInit {
   }
 
   aplicarFiltros(): void {
-    // Filtrar por fecha
     this.filteredMovimientos = this.movimientos.filter(m => {
       const fecha = new Date(m.fecha);
-      const desdeOk = this.fechaInicio ? (fecha >= new Date(this.fechaInicio)) : true;
-      const hastaOk = this.fechaFin ? (fecha <= new Date(this.fechaFin)) : true;
+      const desdeOk = this.fechaInicio ? fecha >= new Date(this.fechaInicio) : true;
+      const hastaOk = this.fechaFin ? fecha <= new Date(this.fechaFin) : true;
       const categoriaOk = this.categoriaSeleccionada === 'Todas' || m.categoria === this.categoriaSeleccionada;
       return desdeOk && hastaOk && categoriaOk;
     });
 
     this.actualizarPieChart();
-    this.actualizarLineChart();
   }
 
   actualizarPieChart(): void {
@@ -81,27 +92,28 @@ export class DashboardComponent implements OnInit {
     this.pieChartData = Object.entries(agrupado).map(([name, value]) => ({ name, value }));
   }
 
+  actualizarLineChartHistorial(): void {
+    const cuentasMap = new Map<string, { name: string, series: { name: string, value: number }[] }>();
 
+    this.historial.forEach(item => {
+      const cuenta = item.numero_cuenta;
+      const fecha = new Date(item.fecha);
+      const label = fecha.toLocaleString(); // incluye fecha y hora
 
-  actualizarLineChart(): void {
-    // Agrupar por fecha (por día) y sumar abonos netos
-    const agrupado: Record<string, number> = {};
+      if (!cuentasMap.has(cuenta)) {
+        cuentasMap.set(cuenta, {
+          name: `Cuenta ${cuenta}`,
+          series: []
+        });
+      }
 
-    this.filteredMovimientos.forEach(m => {
-      const fechaKey = new Date(m.fecha).toISOString().split('T')[0]; // yyyy-mm-dd
-      agrupado[fechaKey] = (agrupado[fechaKey] || 0) + m.abono;
+      cuentasMap.get(cuenta)!.series.push({
+        name: label,
+        value: parseFloat(item.saldo)
+      });
     });
 
-    // Convertir a formato que espera ngx-charts (series con name, value)
-    const sortedDates = Object.keys(agrupado).sort();
-
-    this.lineChartData = [{
-      name: 'Saldo neto',
-      series: sortedDates.map(date => ({
-        name: date,
-        value: agrupado[date]
-      }))
-    }];
+    this.lineChartData = Array.from(cuentasMap.values());
   }
 
 }

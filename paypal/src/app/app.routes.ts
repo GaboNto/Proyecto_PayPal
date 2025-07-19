@@ -34,10 +34,10 @@ export const routes: Routes = [
   { path: 'donde-comprar', component: DondeComprarComponent },
   { path: 'seguridad-publica', component: SeguridadPublicaComponent },
 
-  
+
   { path: 'tarjetas-publica', component: TarjetasPublicaComponent },
   { path: 'movimientos', component: MovimientosComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'ventajas', component: VentajasComponent },
   { path: 'tarjetas-publica', component: TarjetasPublicaComponent }
 ];

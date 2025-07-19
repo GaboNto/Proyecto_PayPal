@@ -32,4 +32,13 @@ export class TransfersController {
     const userId = req.user.sub;
     return this.transfersService.getUserHistory(userId, from, to);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('historial')
+  async obtenerHistorialUsuario(@Req() req) {
+    const userId = req.user.sub; // id del usuario autenticado
+    return this.transfersService.obtenerHistorialPorUsuario(userId);
+  }
+
+
 } 
