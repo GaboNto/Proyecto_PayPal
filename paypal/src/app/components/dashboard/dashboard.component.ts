@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { firstValueFrom } from 'rxjs';
 
 import { MovimientosService, MovimientoHistorialDto } from '../../services/movimientos.service';
 import { TransferService } from '../../services/transfer.service';
@@ -25,7 +26,15 @@ export class DashboardComponent implements OnInit {
   categorias: string[] = ['Todas'];
 
   pieChartData: any[] = [];
-  lineChartData: any[] = [];
+
+  // Cambiamos esta variable: ahora será un array de objetos, uno por cuenta
+  lineChartsDataPorCuenta: {
+    cuenta: string;
+    tipoCuenta: string;
+    saldoActual: number;
+    data: any[];
+  }[] = [];
+
 
   view: [number, number] = [700, 400];
   colorScheme = 'vivid';
@@ -48,7 +57,7 @@ export class DashboardComponent implements OnInit {
     this.transferService.obtenerHistorialUsuario().subscribe({
       next: data => {
         this.historial = data;
-        this.actualizarLineChartHistorial();
+        this.actualizarLineChartsPorCuenta();
       },
       error: err => {
         console.error('Error al cargar historial:', err);
@@ -92,13 +101,13 @@ export class DashboardComponent implements OnInit {
     this.pieChartData = Object.entries(agrupado).map(([name, value]) => ({ name, value }));
   }
 
-  actualizarLineChartHistorial(): void {
-    const cuentasMap = new Map<string, { name: string, series: { name: string, value: number }[] }>();
+  async actualizarLineChartsPorCuenta(): Promise<void> {
+    const cuentasMap = new Map<string, { name: string; series: { name: string; value: number }[] }>();
 
     this.historial.forEach(item => {
       const cuenta = item.numero_cuenta;
       const fecha = new Date(item.fecha);
-      const label = fecha.toLocaleString(); // incluye fecha y hora
+      const fechaISO = fecha.toISOString().substring(0, 19);
 
       if (!cuentasMap.has(cuenta)) {
         cuentasMap.set(cuenta, {
@@ -108,12 +117,45 @@ export class DashboardComponent implements OnInit {
       }
 
       cuentasMap.get(cuenta)!.series.push({
-        name: label,
+        name: fechaISO,
         value: parseFloat(item.saldo)
       });
     });
 
-    this.lineChartData = Array.from(cuentasMap.values());
-  }
+    // Ordenar cada serie por fecha ascendente
+    cuentasMap.forEach(cuentaData => {
+      cuentaData.series.sort((a, b) => a.name.localeCompare(b.name));
+    });
 
+    // Obtener array de cuentas para consulta
+    const cuentasArray = Array.from(cuentasMap.entries());
+
+    // Para cada cuenta, llamar al servicio para obtener tipoCuenta y saldo
+    const lineChartsDataPromises = cuentasArray.map(async ([cuenta, data]) => {
+      try {
+        // Cambia aquí
+        console.log('Llamando a obtenerTipoYSaldoPorCuenta para:', cuenta);
+        const info = await firstValueFrom(this.transferService.obtenerTipoYSaldoPorCuenta(cuenta));
+        return {
+          cuenta,
+          tipoCuenta: info?.tipoCuenta || 'Desconocido',
+          saldoActual: info?.saldo ?? 0,
+          data: [data] // ngx-charts espera un array de series, aquí uno por gráfico
+        };
+      } catch (error) {
+        console.error(`Error al obtener tipo y saldo para cuenta ${cuenta}:`, error);
+        return {
+          cuenta,
+          tipoCuenta: 'Desconocido',
+          saldoActual: 0,
+          data: [data]
+        };
+      }
+    });
+
+    this.lineChartsDataPorCuenta = await Promise.all(lineChartsDataPromises);
+    console.log(this.lineChartsDataPorCuenta);
+
+
+  }
 }

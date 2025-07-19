@@ -25,4 +25,8 @@ export declare class TransfersController {
         hora: string | null;
     }[]>;
     obtenerHistorialUsuario(req: any): Promise<import("./entities/historial-saldos").HistorialSaldos[]>;
+    obtenerTipoYSaldo(numeroCuenta: string): Promise<{
+        tipoCuenta: string | null;
+        saldo: number | null;
+    }>;
 }

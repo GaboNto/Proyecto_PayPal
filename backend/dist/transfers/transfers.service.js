@@ -282,8 +282,17 @@ let TransfersService = class TransfersService {
             where: { numero_cuenta: (0, typeorm_3.In)(numerosCuenta) },
             order: { fecha: 'DESC' },
         });
-        console.log(historial);
         return historial;
+    }
+    async obtenerTipoYSaldoPorNumeroCuenta(numeroCuenta) {
+        const cuenta = await this.cuentasRepository.findOne({ where: { numero_cuenta: numeroCuenta } });
+        if (!cuenta) {
+            return { tipoCuenta: null, saldo: null };
+        }
+        return {
+            tipoCuenta: cuenta.tipo_cuenta || null,
+            saldo: Number(cuenta.saldo)
+        };
     }
 };
 exports.TransfersService = TransfersService;

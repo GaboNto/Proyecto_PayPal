@@ -10,13 +10,6 @@
         Hasta:
         <input type="date" [(ngModel)]="fechaFin" (change)="aplicarFiltros()" />
     </label>
-
-    <label>
-        Categoría:
-        <select [(ngModel)]="categoriaSeleccionada" (change)="aplicarFiltros()">
-            <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
-        </select>
-    </label>
 </div>
 
 <div class="charts-container">
@@ -27,11 +20,13 @@
         </ngx-charts-pie-chart>
     </div>
 
-    <div class="chart line-chart">
-        <h3>Historial de Saldo por Cuenta</h3>
-        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="lineChartData" [legend]="lineChartLegend"
-            [xAxis]="true" [yAxis]="true" [xAxisLabel]="lineChartXAxisLabel" [yAxisLabel]="lineChartYAxisLabel"
-            [autoScale]="true" [timeline]="true" [showGridLines]="true" [roundDomains]="true" [animations]="true">
+    <div *ngFor="let cuentaData of lineChartsDataPorCuenta" class="chart line-chart">
+        <div class="cuenta-header">
+            <h4>{{ cuentaData.tipoCuenta }}</h4>
+            <h4>Saldo actual: {{ cuentaData.saldoActual | currency:'CLP':'symbol' }}</h4>
+        </div>
+        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="cuentaData.data" [xAxis]="true"
+            [yAxis]="true" [xAxisLabel]="lineChartXAxisLabel" [yAxisLabel]="lineChartYAxisLabel" [autoScale]="true"
+            [timeline]="true" [showGridLines]="true" [roundDomains]="true" [animations]="true">
         </ngx-charts-line-chart>
     </div>
-</div>

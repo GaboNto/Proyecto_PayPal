@@ -337,9 +337,25 @@ export class TransfersService {
       where: { numero_cuenta: In(numerosCuenta) },
       order: { fecha: 'DESC' },
     });
-    console.log(historial)
     return historial;
   }
+
+  async obtenerTipoYSaldoPorNumeroCuenta(numeroCuenta: string): Promise<{ tipoCuenta: string | null; saldo: number | null }> {
+    // Buscar la cuenta por número de cuenta
+    const cuenta = await this.cuentasRepository.findOne({ where: { numero_cuenta: numeroCuenta } });
+
+    if (!cuenta) {
+      // Si no existe la cuenta, devuelve nulls o lanza excepción si prefieres
+      return { tipoCuenta: null, saldo: null };
+    }
+
+    // Retorna tipo y saldo (ajusta 'tipo' si tu campo tiene otro nombre)
+    return {
+      tipoCuenta: (cuenta as any).tipo_cuenta || null,
+      saldo: Number(cuenta.saldo)
+    };
+  }
+
 
 
 } 

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Post, Body, UseGuards, Req, ValidationPipe, Get, Query } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Req, ValidationPipe, Get, Query, NotFoundException, Param } from '@nestjs/common';
 import { TransfersService } from './transfers.service';
 import { CreateTransferDto } from './dto/create-transfer.dto';
 import { CreateInternalTransferDto } from './dto/create-internal-transfer.dto';
@@ -39,6 +39,18 @@ export class TransfersController {
     const userId = req.user.sub; // id del usuario autenticado
     return this.transfersService.obtenerHistorialPorUsuario(userId);
   }
+
+  @Get('cuenta-info/:numeroCuenta')
+  async obtenerTipoYSaldo(@Param('numeroCuenta') numeroCuenta: string) {
+    const resultado = await this.transfersService.obtenerTipoYSaldoPorNumeroCuenta(numeroCuenta);
+    if (!resultado.tipoCuenta && resultado.saldo === null) {
+      throw new NotFoundException('Cuenta no encontrada');
+    }
+    console.log(resultado)
+    return resultado;
+  }
+
+
 
 
 } 

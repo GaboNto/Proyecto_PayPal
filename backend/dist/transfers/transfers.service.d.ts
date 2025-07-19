@@ -35,4 +35,8 @@ export declare class TransfersService {
         hora: string | null;
     }[]>;
     obtenerHistorialPorUsuario(usuarioId: number): Promise<HistorialSaldos[]>;
+    obtenerTipoYSaldoPorNumeroCuenta(numeroCuenta: string): Promise<{
+        tipoCuenta: string | null;
+        saldo: number | null;
+    }>;
 }

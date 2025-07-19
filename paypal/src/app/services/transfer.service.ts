@@ -30,4 +30,13 @@ export class TransferService {
   obtenerHistorialUsuario(): Observable<any> {
     return this.http.get(`${this.apiUrl}/historial`);
   }
+
+  // Ejemplo en el service:
+  obtenerTipoYSaldoPorCuenta(numeroCuenta: string) {
+    return this.http.get<{ tipoCuenta: string, saldo: number }>(`${this.apiUrl}/cuenta-info/${numeroCuenta}`);
+  }
+
+
+
+
 }
