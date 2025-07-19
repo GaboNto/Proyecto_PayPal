@@ -24,6 +24,18 @@ export class TransfersService {
     private dataSource: DataSource,
   ) {}
 
+    /**
+   * Realiza tranferencias entre las cuentas del usuario
+   *
+   * @param createDto - contiene los datos para que se realice trnaferencia.
+   * @param userId - ID del usuario que realiza la operación.
+   * @returns retorna un mensaje exitoso
+   * @throws BadRequestException - Si las cuentas son iguales o saldo insuficiente.
+   * @throws UnauthorizedException - Si la clave Be Pass es incorrecta o no está configurada.
+   * @throws ForbiddenException - Si las cuentas no pertenecen al usuario.
+   * @throws NotFoundException - Si alguna cuenta no existe.
+   * @throws InternalServerErrorException - Si ocurre un error inesperado en la transacción.
+   */
   async transferBetweenOwnAccounts(createDto: CreateInternalTransferDto, userId: number): Promise<{ message: string }> {
     const { cuentaOrigenId, cuentaDestinoId, monto, bepass } = createDto;
 
@@ -95,6 +107,17 @@ export class TransfersService {
     }
   }
 
+    /**
+   * se realizan tranferencia entre cuentas que no pertenecen al mismo usuario ni banco.
+   *
+   * @param createTransferDto - contiene los datos para realizar la trasferencia
+   * @param usuarioOrigenId - ID del usuario que transfiere.
+   * @returns Retorna un mensaje de éxito.
+   * @throws UnauthorizedException - Si la clave Be Pass es incorrecta o no está configurada.
+   * @throws NotFoundException - Si no se encuentra la cuenta de origen o el destinatario.
+   * @throws BadRequestException - Si no hay saldo suficiente.
+   * @throws InternalServerErrorException - Si ocurre un error inesperado.
+   */
   async create(createTransferDto: CreateTransferDto, usuarioOrigenId: number) {
     const { monto, banco_destino, rut_destinatario, nombre_destinatario, tipo_cuenta, numero_cuenta, bepass } = createTransferDto;
 
@@ -216,6 +239,14 @@ export class TransfersService {
     }
   }
 
+    /**
+   * se optiene elhistorial de las transferencias realizada por un usuario filtrado por la fecha
+   *las fechas son opcioonales 
+   * @param userId - ID del usuario.
+   * @param from - Fecha inicial del rango.
+   * @param to - Fecha final del rango.
+   * @returns retorna las tranferencias al front end
+   */
   async getUserHistory(userId: number, from?: string, to?: string) {
     const query = this.transferenciasRepository.createQueryBuilder('t')
       .leftJoinAndSelect('t.usuario_origen', 'origen')

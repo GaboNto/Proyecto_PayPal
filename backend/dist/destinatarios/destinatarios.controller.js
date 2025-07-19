@@ -19,6 +19,7 @@ const destinatarios_service_1 = require("./destinatarios.service");
 const create_destinatario_dto_1 = require("./dto/create-destinatario.dto");
 const users_service_1 = require("../users/users.service");
 const update_destinatario_dto_1 = require("./dto/update-destinatario.dto");
+const swagger_1 = require("@nestjs/swagger");
 let DestinatariosController = class DestinatariosController {
     destinatariosService;
     usersService;
@@ -52,6 +53,12 @@ exports.DestinatariosController = DestinatariosController;
 __decorate([
     (0, common_1.Post)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
+    (0, swagger_1.ApiOperation)({ summary: 'Crear nuevo destinatario' }),
+    (0, swagger_1.ApiBody)({ type: create_destinatario_dto_1.CreateDestinatarioDto }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'Destinatario creado correctamente',
+    }),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -60,6 +67,11 @@ __decorate([
 ], DestinatariosController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Listar todos los destinatarios del usuario autenticado' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Lista de destinatarios obtenida correctamente',
+    }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -67,6 +79,13 @@ __decorate([
 ], DestinatariosController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Actualizar un destinatario existente' }),
+    (0, swagger_1.ApiParam)({ name: 'id', type: Number, description: 'ID del destinatario' }),
+    (0, swagger_1.ApiBody)({ type: update_destinatario_dto_1.UpdateDestinatarioDto }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Destinatario actualizado correctamente',
+    }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Req)()),
@@ -77,6 +96,12 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
+    (0, swagger_1.ApiOperation)({ summary: 'Eliminar un destinatario por ID' }),
+    (0, swagger_1.ApiParam)({ name: 'id', type: Number, description: 'ID del destinatario' }),
+    (0, swagger_1.ApiResponse)({
+        status: 204,
+        description: 'Destinatario eliminado correctamente',
+    }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -86,6 +111,12 @@ __decorate([
 __decorate([
     (0, common_1.Patch)(':id/favorito'),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, swagger_1.ApiOperation)({ summary: 'Marcar o desmarcar destinatario como favorito' }),
+    (0, swagger_1.ApiParam)({ name: 'id', type: Number, description: 'ID del destinatario' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Estado de favorito actualizado correctamente',
+    }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -93,6 +124,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], DestinatariosController.prototype, "toggleFavorito", null);
 exports.DestinatariosController = DestinatariosController = __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
+    (0, swagger_1.ApiTags)('destinatarios'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Controller)('destinatarios'),
     __metadata("design:paramtypes", [destinatarios_service_1.DestinatariosService,

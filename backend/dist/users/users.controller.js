@@ -20,6 +20,7 @@ const set_bepass_dto_1 = require("./dto/set-bepass.dto");
 const verify_bepass_dto_1 = require("./dto/verify-bepass.dto");
 const speakeasy = require("speakeasy");
 const qrcode = require("qrcode");
+const swagger_1 = require("@nestjs/swagger");
 let UsersController = class UsersController {
     usersService;
     constructor(usersService) {
@@ -77,6 +78,8 @@ exports.UsersController = UsersController;
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('profile'),
+    (0, swagger_1.ApiOperation)({ summary: 'Obtener perfil del usuario autenticado' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Perfil del usuario retornado exitosamente' }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -85,6 +88,9 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('verify-bepass'),
+    (0, swagger_1.ApiOperation)({ summary: 'Verificar la clave bepass del usuario' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Bepass verificado correctamente' }),
+    (0, swagger_1.ApiBody)({ type: verify_bepass_dto_1.VerifyBepassDto }),
     __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
@@ -94,6 +100,9 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Patch)('set-bepass'),
+    (0, swagger_1.ApiOperation)({ summary: 'Configurar clave bepass para el usuario' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Bepass configurado correctamente' }),
+    (0, swagger_1.ApiBody)({ type: set_bepass_dto_1.SetBepassDto }),
     __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
@@ -103,6 +112,8 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('has-bepass'),
+    (0, swagger_1.ApiOperation)({ summary: 'Verifica si el usuario tiene clave bepass configurada' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Retorna un booleano indicando si bepass está configurado' }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -111,6 +122,8 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('2fa/setup'),
+    (0, swagger_1.ApiOperation)({ summary: 'Generar QR para configurar 2FA (Google Authenticator)' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Secret y QR code para configurar 2FA' }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -119,6 +132,9 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('2fa/verify'),
+    (0, swagger_1.ApiOperation)({ summary: 'Verificar código 2FA ingresado por el usuario' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: '2FA verificado correctamente' }),
+    (0, swagger_1.ApiBody)({ schema: { type: 'object', properties: { code: { type: 'string', description: 'Código 2FA de 6 dígitos' } } } }),
     __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)('code')),
     __metadata("design:type", Function),
@@ -126,6 +142,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "verify2FA", null);
 exports.UsersController = UsersController = __decorate([
+    (0, swagger_1.ApiTags)('Users'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);

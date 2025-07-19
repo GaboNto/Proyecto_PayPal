@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const movimiento_service_1 = require("./movimiento.service");
 const create_movimiento_dto_1 = require("./dto/create-movimiento.dto");
 const jwt_auth_guard_1 = require("../../auth/jwt-auth.guard");
+const swagger_1 = require("@nestjs/swagger");
 let MovimientoController = class MovimientoController {
     movimientoService;
     constructor(movimientoService) {
@@ -36,6 +37,11 @@ __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(':cuentaId/movimientos'),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
+    (0, swagger_1.ApiOperation)({ summary: 'Crear un nuevo movimiento (depósito, retiro, transferencia)' }),
+    (0, swagger_1.ApiParam)({ name: 'cuentaId', description: 'ID de la cuenta a la cual se le asociará el movimiento' }),
+    (0, swagger_1.ApiBody)({ type: create_movimiento_dto_1.CreateMovimientoDto, description: 'Datos del movimiento a registrar' }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: 'Movimiento creado correctamente' }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: 'Datos inválidos para el movimiento' }),
     (0, common_1.UsePipes)(new common_1.ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true })),
     __param(0, (0, common_1.Param)('cuentaId', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
@@ -46,6 +52,10 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(':cuentaId/movimientos'),
+    (0, swagger_1.ApiOperation)({ summary: 'Obtener movimientos asociados a una cuenta' }),
+    (0, swagger_1.ApiParam)({ name: 'cuentaId', description: 'ID de la cuenta para listar los movimientos' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Lista de movimientos de la cuenta' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Cuenta no encontrada o sin movimientos' }),
     __param(0, (0, common_1.Param)('cuentaId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),

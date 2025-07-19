@@ -16,6 +16,7 @@ exports.CuentasController = void 0;
 const common_1 = require("@nestjs/common");
 const cuentas_service_1 = require("./cuentas.service");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const swagger_1 = require("@nestjs/swagger");
 let CuentasController = class CuentasController {
     cuentasService;
     constructor(cuentasService) {
@@ -32,6 +33,9 @@ exports.CuentasController = CuentasController;
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Obtener cuentas del usuario autenticado' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Listado de cuentas devuelto correctamente' }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado' }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -40,6 +44,23 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Crear una nueva cuenta para el usuario autenticado' }),
+    (0, swagger_1.ApiBody)({
+        schema: {
+            type: 'object',
+            properties: {
+                tipo_cuenta: {
+                    type: 'string',
+                    example: 'corriente',
+                    description: 'Tipo de cuenta a crear (ej. corriente, vista, ahorro)',
+                },
+            },
+            required: ['tipo_cuenta'],
+        },
+    }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: 'Cuenta creada correctamente' }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: 'Datos inválidos' }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado' }),
     __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -47,6 +68,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CuentasController.prototype, "createAccount", null);
 exports.CuentasController = CuentasController = __decorate([
+    (0, swagger_1.ApiTags)('Cuentas'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('cuentas'),
     __metadata("design:paramtypes", [cuentas_service_1.CuentasService])
 ], CuentasController);

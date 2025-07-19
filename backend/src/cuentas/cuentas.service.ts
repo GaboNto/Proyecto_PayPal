@@ -5,6 +5,12 @@ import { Cuenta } from './entities/cuenta.entity';
 import { User } from '../users/user.entity';
 import { Card } from '../card/card.entity';
 
+/**
+ * @class CuentasService
+ * @description Servicio encargado de la lógica de la cuentas bancarias.
+ * Proporciona métodos para crear nuevas cuentas para usuarios y consultar las cuentas existentes
+ * de un usuario, incluyendo la creación automática de una tarjeta asociada al crear una cuenta.
+ */
 @Injectable()
 export class CuentasService {
   constructor(
@@ -16,6 +22,16 @@ export class CuentasService {
     private cardRepository: Repository<Card>,
   ) {}
 
+    /**
+   * @method create
+   * @description Crea una nueva cuenta para un usuario específico y genera automáticamente una tarjeta asociada.
+   * Valida la existencia del usuario y previene la creación de múltiples cuentas del mismo tipo para un mismo usuario.
+   * @param userId El ID numérico del usuario para quien se creará la cuenta.
+   * @param tipo_cuenta El tipo de cuenta a crear ('ahorro', 'corriente').
+   * @returns retorna la entidad Cuenta creada, incluyendo su tarjeta asociada.
+   * @throws NotFoundException Si el usuario especificado por `userId` no se encuentra.
+   * @throws BadRequestException Si el usuario ya posee una cuenta del `tipo_cuenta` especificado.
+   */
   async create(userId: number, tipo_cuenta: string): Promise<Cuenta> {
     const usuario = await this.usersRepository.findOne({ where: { id_usuario: userId } });
     if (!usuario) {
@@ -49,7 +65,13 @@ export class CuentasService {
     
     return savedCuenta;
   }
-
+    /**
+   * @method findByUserId
+   * @description Busca y devuelve todas las cuentas bancarias asociadas a un ID de usuario específico.
+   * Incluye las tarjetas asociadas a cada cuenta en la respuesta.
+   * @param userId El ID numérico del usuario cuyas cuentas se desean obtener.
+   * @returns Una Promesa que resuelve en un array de entidades Cuenta, incluyendo sus relaciones con Card.
+   */
   async findByUserId(userId: number): Promise<Cuenta[]> {
     return this.cuentasRepository.find({
       where: { usuario: { id_usuario: userId } },

@@ -12,12 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateMovimientoDto = void 0;
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
+const swagger_1 = require("@nestjs/swagger");
 class CreateMovimientoDto {
     amount;
     type;
 }
 exports.CreateMovimientoDto = CreateMovimientoDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Cantidad de dinero (número positivo)',
+        example: 10000
+    }),
     (0, class_validator_1.IsNotEmpty)({ message: 'La cantidad no puede estar vacía' }),
     (0, class_validator_1.IsNumber)({}, { message: 'La cantidad debe ser un número' }),
     (0, class_validator_1.IsPositive)({ message: 'La cantidad debe ser un número positivo' }),
@@ -25,6 +30,11 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateMovimientoDto.prototype, "amount", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Tipo de movimiento: deposito, retiro o transferencia',
+        example: 'deposito',
+        enum: ['deposito', 'retiro', 'transferencia']
+    }),
     (0, class_validator_1.IsNotEmpty)({ message: 'El tipo de movimiento no puede estar vacío' }),
     (0, class_validator_1.IsString)({ message: 'El tipo de movimiento debe ser una cadena de texto' }),
     (0, class_validator_1.IsIn)(['deposito', 'retiro', 'transferencia'], { message: 'Tipo de movimiento no válido' }),

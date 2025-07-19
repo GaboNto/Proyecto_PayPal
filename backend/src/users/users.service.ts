@@ -16,10 +16,17 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
+   /**
+    * Se busca un unico usuario asociado a su ID, registrado en la base de datos
+    * y su cuenta relaciona.
+    * @param userId 
+    * @returns el user identificado 
+    * @throws NotFoundException si no se encuentra el usuari
+    */
   async findUserProfile(userId: number): Promise<User | null> {
     const user = await this.usersRepository.findOne({
       where: { id_usuario: userId },
-      relations: ['cuentas'], 
+      relations: ['cuentas'], // aqui buscamo la cuenta relacionada  con el usuario 
     });
     if (!user) {
       throw new NotFoundException(`User profile with ID ${userId} not found`);
@@ -27,15 +34,32 @@ export class UsersService {
     return user;
   }
 
+ 
+  /**
+   * Buscamos un usuario por su email asociado
+   * @param email - Emeail asociado al usuario
+   * @returns Devuelve al usuairo o o un null en caso de no ser encontrado
+   */
   findUserByEmail(email: string) {
     return this.usersRepository.findOne({ where: { email }, relations: ['cuentas'] });
   }
 
+  /**
+   * creamos un usuario nuevo con las propiedades del DTO
+   * @param createUserDto - objeto con los datos para crear el usuario
+   * @returns retorna al usuario encontrado 
+   */
   async create(createUserDto: CreateUserDto) {
     const newUser = this.usersRepository.create(createUserDto);
     return this.usersRepository.save(newUser);
   }
 
+   /**
+    * Busca un usuario por su ID, incluyendo sus cuentas asociadas.
+    * @param id - ID del usuario a buscar.
+    * @returns retorna al usuario encontrado
+    * @throws NotFoundException si no se encuentra el usuario.
+    */
   async findById(id: number) {
     const user = await this.usersRepository.findOne({
       where: { id_usuario: id },
@@ -47,6 +71,17 @@ export class UsersService {
     return user;
   }
 
+  
+  /**
+   * Verifica si la clave Be Pass proporcionada coincide con la almacenada en el usuario.
+   *
+   * @param userId - ID del usuario a validar.
+   * @param verifyBepassDto - Objeto con la clave Be Pass a verificar.
+   * @returns retorna si fue exitosa la verificación.
+   * @throws NotFoundException si el usuario no existe.
+   * @throws BadRequestException si el usuario no tiene una Be Pass configurada.
+   * @throws UnauthorizedException si la Be Pass es incorrecta.
+   */
   async verifyBepass(userId: number, verifyBepassDto: VerifyBepassDto): Promise<{ success: boolean }> {
     const { bepass } = verifyBepassDto;
     const user = await this.usersRepository.findOne({ where: { id_usuario: userId } });
@@ -67,6 +102,16 @@ export class UsersService {
     return { success: true };
   }
 
+    /**
+   * Configura o actualiza la clave Be Pass del usuario 
+   *
+   * @param userId - ID del usuario que quiere configurar su Be Pass.
+   * @param setBepassDto - contiene las nuevas claves Be Pass
+   * @returns retorna con un mensaje de éxito.
+   * @throws BadRequestException si las claves nuevas no coinciden o si el modo es inválido.
+   * @throws NotFoundException si el usuario no existe.
+   * @throws UnauthorizedException si la contraseña actual es incorrecta.
+   */
   async setBepass(userId: number, setBepassDto: SetBepassDto): Promise<{ message: string }> {
     const { newBepass, confirmBepass, currentPassword } = setBepassDto;
 
@@ -105,6 +150,13 @@ export class UsersService {
     return { message: user.bepass ? 'Clave Be Pass actualizada con éxito.' : 'Clave Be Pass creada con éxito.' };
   }
 
+  /**
+   * Guarda un usuario directamente en la base de datos.
+   * Usado generalmente para persistir cambios en la entidad User.
+   *
+   * @param user - Objeto usuario con cambios a guardar.
+   * @returns retorna al usuario actualizado.
+   */
   async save(user: User) {
     return this.usersRepository.save(user);
   }

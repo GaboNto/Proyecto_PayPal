@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SetBepassDto = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class SetBepassDto {
     newBepass;
     confirmBepass;
@@ -19,17 +20,36 @@ class SetBepassDto {
 }
 exports.SetBepassDto = SetBepassDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Nueva clave Be Pass (6 dígitos numéricos)',
+        example: '123456',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Length)(6, 6, { message: 'La clave Be Pass debe tener exactamente 6 dígitos.' }),
     (0, class_validator_1.Matches)(/^[0-9]+$/, { message: 'La clave Be Pass solo debe contener números.' }),
     __metadata("design:type", String)
 ], SetBepassDto.prototype, "newBepass", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Confirmación de la nueva clave Be Pass',
+        example: '123456',
+    }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], SetBepassDto.prototype, "confirmBepass", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Contraseña actual del usuario',
+        example: 'miContrasenaSegura123',
+    }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], SetBepassDto.prototype, "currentPassword", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Indica si se está cambiando la clave (opcional)',
+        example: true,
+    }),
+    __metadata("design:type", Boolean)
+], SetBepassDto.prototype, "isChange", void 0);
 //# sourceMappingURL=set-bepass.dto.js.map

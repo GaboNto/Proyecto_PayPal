@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateInternalTransferDto = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class CreateInternalTransferDto {
     cuentaOrigenId;
     cuentaDestinoId;
@@ -19,21 +20,25 @@ class CreateInternalTransferDto {
 }
 exports.CreateInternalTransferDto = CreateInternalTransferDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'ID de la cuenta origen' }),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
 ], CreateInternalTransferDto.prototype, "cuentaOrigenId", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'ID de la cuenta destino' }),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
 ], CreateInternalTransferDto.prototype, "cuentaDestinoId", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Monto a transferir (positivo)' }),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsPositive)(),
     __metadata("design:type", Number)
 ], CreateInternalTransferDto.prototype, "monto", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Clave BePass del usuario' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
