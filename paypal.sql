@@ -2,14 +2,15 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.3
--- Dumped by pg_dump version 15.3
+-- Dumped from database version 17.2
+-- Dumped by pg_dump version 17.2
 
--- Started on 2025-07-06 14:41:20
+-- Started on 2025-07-19 21:03:14
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -19,7 +20,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 2 (class 3079 OID 16643)
+-- TOC entry 2 (class 3079 OID 49819)
 -- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -27,7 +28,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 
 
 --
--- TOC entry 3417 (class 0 OID 0)
+-- TOC entry 4902 (class 0 OID 0)
 -- Dependencies: 2
 -- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: 
 --
@@ -40,7 +41,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 217 (class 1259 OID 16664)
+-- TOC entry 218 (class 1259 OID 49830)
 -- Name: card; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -57,7 +58,7 @@ CREATE TABLE public.card (
 ALTER TABLE public.card OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 16674)
+-- TOC entry 219 (class 1259 OID 49837)
 -- Name: cuentas; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -74,7 +75,7 @@ CREATE TABLE public.cuentas (
 ALTER TABLE public.cuentas OWNER TO postgres;
 
 --
--- TOC entry 218 (class 1259 OID 16673)
+-- TOC entry 220 (class 1259 OID 49843)
 -- Name: cuentas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -87,11 +88,11 @@ CREATE SEQUENCE public.cuentas_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.cuentas_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.cuentas_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3418 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 4903 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: cuentas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -99,7 +100,7 @@ ALTER SEQUENCE public.cuentas_id_seq OWNED BY public.cuentas.id;
 
 
 --
--- TOC entry 227 (class 1259 OID 16717)
+-- TOC entry 221 (class 1259 OID 49844)
 -- Name: destinatarios; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -120,7 +121,7 @@ CREATE TABLE public.destinatarios (
 ALTER TABLE public.destinatarios OWNER TO postgres;
 
 --
--- TOC entry 226 (class 1259 OID 16716)
+-- TOC entry 222 (class 1259 OID 49850)
 -- Name: destinatarios_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -133,11 +134,11 @@ CREATE SEQUENCE public.destinatarios_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.destinatarios_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.destinatarios_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3419 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 4904 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: destinatarios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -145,7 +146,7 @@ ALTER SEQUENCE public.destinatarios_id_seq OWNED BY public.destinatarios.id;
 
 
 --
--- TOC entry 216 (class 1259 OID 16655)
+-- TOC entry 223 (class 1259 OID 49851)
 -- Name: movimientos; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -161,7 +162,7 @@ CREATE TABLE public.movimientos (
 ALTER TABLE public.movimientos OWNER TO postgres;
 
 --
--- TOC entry 215 (class 1259 OID 16654)
+-- TOC entry 224 (class 1259 OID 49857)
 -- Name: movimientos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -174,11 +175,11 @@ CREATE SEQUENCE public.movimientos_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.movimientos_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.movimientos_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3420 (class 0 OID 0)
--- Dependencies: 215
+-- TOC entry 4905 (class 0 OID 0)
+-- Dependencies: 224
 -- Name: movimientos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -186,7 +187,49 @@ ALTER SEQUENCE public.movimientos_id_seq OWNED BY public.movimientos.id;
 
 
 --
--- TOC entry 225 (class 1259 OID 16708)
+-- TOC entry 232 (class 1259 OID 58330)
+-- Name: pagos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pagos (
+    id integer NOT NULL,
+    idusuario integer NOT NULL,
+    monto integer NOT NULL,
+    descripcion text NOT NULL,
+    categoria character varying(100) NOT NULL,
+    fecha timestamp without time zone DEFAULT now() NOT NULL
+);
+
+
+ALTER TABLE public.pagos OWNER TO postgres;
+
+--
+-- TOC entry 231 (class 1259 OID 58329)
+-- Name: pagos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.pagos_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.pagos_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4906 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: pagos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.pagos_id_seq OWNED BY public.pagos.id;
+
+
+--
+-- TOC entry 225 (class 1259 OID 49858)
 -- Name: transferencias; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -204,7 +247,7 @@ CREATE TABLE public.transferencias (
 ALTER TABLE public.transferencias OWNER TO postgres;
 
 --
--- TOC entry 224 (class 1259 OID 16707)
+-- TOC entry 226 (class 1259 OID 49863)
 -- Name: transferencias_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -217,11 +260,11 @@ CREATE SEQUENCE public.transferencias_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.transferencias_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.transferencias_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3421 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 4907 (class 0 OID 0)
+-- Dependencies: 226
 -- Name: transferencias_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -229,7 +272,7 @@ ALTER SEQUENCE public.transferencias_id_seq OWNED BY public.transferencias.id;
 
 
 --
--- TOC entry 221 (class 1259 OID 16686)
+-- TOC entry 227 (class 1259 OID 49864)
 -- Name: usuarios; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -245,14 +288,18 @@ CREATE TABLE public.usuarios (
     rut character varying,
     banco character varying(50) DEFAULT 'Paypal'::character varying NOT NULL,
     bepass character varying,
-    totp_secret character varying
+    totp_secret character varying,
+    email_verificado boolean DEFAULT false NOT NULL,
+    direccion character varying,
+    facturacion character varying,
+    "2fa_enabled" boolean DEFAULT false NOT NULL
 );
 
 
 ALTER TABLE public.usuarios OWNER TO postgres;
 
 --
--- TOC entry 223 (class 1259 OID 16698)
+-- TOC entry 228 (class 1259 OID 49870)
 -- Name: usuarios_externos; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -270,7 +317,7 @@ CREATE TABLE public.usuarios_externos (
 ALTER TABLE public.usuarios_externos OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 16697)
+-- TOC entry 229 (class 1259 OID 49874)
 -- Name: usuarios_externos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -283,11 +330,11 @@ CREATE SEQUENCE public.usuarios_externos_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.usuarios_externos_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.usuarios_externos_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3422 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 4908 (class 0 OID 0)
+-- Dependencies: 229
 -- Name: usuarios_externos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -295,7 +342,7 @@ ALTER SEQUENCE public.usuarios_externos_id_seq OWNED BY public.usuarios_externos
 
 
 --
--- TOC entry 220 (class 1259 OID 16685)
+-- TOC entry 230 (class 1259 OID 49875)
 -- Name: usuarios_id_usuario_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -308,11 +355,11 @@ CREATE SEQUENCE public.usuarios_id_usuario_seq
     CACHE 1;
 
 
-ALTER TABLE public.usuarios_id_usuario_seq OWNER TO postgres;
+ALTER SEQUENCE public.usuarios_id_usuario_seq OWNER TO postgres;
 
 --
--- TOC entry 3423 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 4909 (class 0 OID 0)
+-- Dependencies: 230
 -- Name: usuarios_id_usuario_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -320,7 +367,7 @@ ALTER SEQUENCE public.usuarios_id_usuario_seq OWNED BY public.usuarios.id_usuari
 
 
 --
--- TOC entry 3217 (class 2604 OID 16677)
+-- TOC entry 4688 (class 2604 OID 49876)
 -- Name: cuentas id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -328,7 +375,7 @@ ALTER TABLE ONLY public.cuentas ALTER COLUMN id SET DEFAULT nextval('public.cuen
 
 
 --
--- TOC entry 3228 (class 2604 OID 16720)
+-- TOC entry 4692 (class 2604 OID 49877)
 -- Name: destinatarios id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -336,7 +383,7 @@ ALTER TABLE ONLY public.destinatarios ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 3213 (class 2604 OID 16658)
+-- TOC entry 4694 (class 2604 OID 49878)
 -- Name: movimientos id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -344,7 +391,15 @@ ALTER TABLE ONLY public.movimientos ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 3225 (class 2604 OID 16711)
+-- TOC entry 4705 (class 2604 OID 58333)
+-- Name: pagos id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pagos ALTER COLUMN id SET DEFAULT nextval('public.pagos_id_seq'::regclass);
+
+
+--
+-- TOC entry 4696 (class 2604 OID 49879)
 -- Name: transferencias id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -352,7 +407,7 @@ ALTER TABLE ONLY public.transferencias ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 3221 (class 2604 OID 16689)
+-- TOC entry 4699 (class 2604 OID 49880)
 -- Name: usuarios id_usuario; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -360,7 +415,7 @@ ALTER TABLE ONLY public.usuarios ALTER COLUMN id_usuario SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 3223 (class 2604 OID 16701)
+-- TOC entry 4703 (class 2604 OID 49881)
 -- Name: usuarios_externos id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -368,8 +423,8 @@ ALTER TABLE ONLY public.usuarios_externos ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 3401 (class 0 OID 16664)
--- Dependencies: 217
+-- TOC entry 4882 (class 0 OID 49830)
+-- Dependencies: 218
 -- Data for Name: card; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -379,13 +434,14 @@ a415e9e2-f5f7-4f35-af02-84fe666617d1	2527817277755137	597	7/29	f	1
 e93ebdcd-536c-4ffd-a96e-0aa0513e9407	2874795022043235	659	7/29	f	3
 8dc4bf76-989a-45a5-aa13-a7f3e2f973ee	6773792190074583	753	7/29	f	4
 a9c9f6e1-e4a6-4b91-9760-9940ffd3e9e4	6950186224256716	149	7/29	f	5
-a71af13d-2ec7-46a8-a041-5876797b0508	3317179885879563	857	7/29	f	6
-83447ec5-c566-4b23-a259-762e248ee80d	3286289763542758	352	7/29	f	7
+011d4aab-b71a-42f5-bd45-00e751fa7b91	5232773742621035	897	7/29	f	9
+16809571-884a-4c66-9183-56685fdb7d9d	1426548096288356	240	7/29	f	10
+323bb3ff-c23f-4ae8-aee7-4ec2e363bedd	9862887232753048	190	7/29	f	14
 \.
 
 
 --
--- TOC entry 3403 (class 0 OID 16674)
+-- TOC entry 4883 (class 0 OID 49837)
 -- Dependencies: 219
 -- Data for Name: cuentas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -396,14 +452,15 @@ COPY public.cuentas (id, numero_cuenta, tipo_cuenta, saldo, fecha_apertura, id_u
 1	322305441	Cuenta Vista	3000.00	2025-07-04 18:25:11.334713	1
 4	131583002	Cuenta de Ahorro	4000.00	2025-07-05 10:38:12.299791	1
 5	109160078	Cuenta Vista	0.00	2025-07-05 18:46:03.520218	3
-6	499413976	Cuenta Vista	0.00	2025-07-06 11:49:13.141585	4
-7	78968784	Cuenta Vista	0.00	2025-07-06 14:27:38.800981	5
+9	361305890	Cuenta Vista	0.00	2025-07-18 00:53:40.74815	7
+10	393510564	Cuenta Vista	0.00	2025-07-18 18:33:56.547364	8
+14	573895775	Cuenta Vista	0.00	2025-07-18 23:36:19.287737	12
 \.
 
 
 --
--- TOC entry 3411 (class 0 OID 16717)
--- Dependencies: 227
+-- TOC entry 4885 (class 0 OID 49844)
+-- Dependencies: 221
 -- Data for Name: destinatarios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -412,8 +469,8 @@ COPY public.destinatarios (id, nombre, rut, alias, correo_electronico, banco, ti
 
 
 --
--- TOC entry 3400 (class 0 OID 16655)
--- Dependencies: 216
+-- TOC entry 4887 (class 0 OID 49851)
+-- Dependencies: 223
 -- Data for Name: movimientos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -422,7 +479,17 @@ COPY public.movimientos (id, amount, type, date, "cuentaId") FROM stdin;
 
 
 --
--- TOC entry 3409 (class 0 OID 16708)
+-- TOC entry 4896 (class 0 OID 58330)
+-- Dependencies: 232
+-- Data for Name: pagos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.pagos (id, idusuario, monto, descripcion, categoria, fecha) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4889 (class 0 OID 49858)
 -- Dependencies: 225
 -- Data for Name: transferencias; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -442,23 +509,24 @@ COPY public.transferencias (id, usuario_id_origen, id_usuario_destino, id_usuari
 
 
 --
--- TOC entry 3405 (class 0 OID 16686)
--- Dependencies: 221
+-- TOC entry 4891 (class 0 OID 49864)
+-- Dependencies: 227
 -- Data for Name: usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.usuarios (id_usuario, nombre, apellido, correo_electronico, contrasena, fecha_nacimiento, pais, ciudad, rut, banco, bepass, totp_secret) FROM stdin;
-3	ignacio	lopez	jettie.mills56@ethereal.email	$2b$10$9OkZcHTJH3/vaDG/YMr9QOihcxvJDCjuQqVrIC2WGd/w1tpVBYY3m	2000-07-19	chile	arica	10353408-9	Paypal	\N	\N
-2	felipe	guzman	elbalazomaximo@gmail.com	$2b$10$/zzb.yD9bjPFJ/PK33n6K.AoZVArlOI3iLS/lH5QiAj2l0LQfTW.2	2000-07-19	chile	arica	20788117-1	Paypal	$2b$10$1p8ezCzBRkcyrJ3gzg69nezfFrXzF/AMUCKnqAPZyix7uKebfMsX6	\N
-1	bastian	sucso	elbalazoo@gmail.com	$2b$10$SW9coffiouNvYz05vk3WJeu2IQ.UkbhEwDe8pOLw3NIqCnQwtUBYa	2000-07-19	chile	arica	12610490-1	Paypal	$2b$10$usp6uwIVqJ2ibepOc5D5UeZHq10zvS/HvNDgrg0uEvlMktOpJcLEW	\N
-4	kathia	arias	elbalazomaxi@gmail.com	$2b$10$pVyB6zlSp85iKZOwpJmFw.MAgtr9vPlZMS9IlKSOG8p1fCgSU.kJS	2000-07-19	chile	arica	21369340-9	Paypal	$2b$10$4JwMwBLaNndVX1WzOR71NuRxS84k1fkt5TNoKco8bp5wcoB.WJ4Ru	IN4EUJJGIFIEEJTTJE3EONTRNQ4C6XRUN4WHIJLOGB4FI4JGNNVQ
-5	cristian	gutierrez	paypal@prueba.com	$2b$10$j1SjPUERsq.gPjNzfq1DluucolsZaDxkv4j/N.p.G/DvwbclENl4.	2000-07-19	chile	arica	15749165-2	Paypal	$2b$10$MXzjzaS73ZfkL/fwCOfxru3R/KLgh9vbkUBwB6PvMyCbGa1MaPds6	PMWDSRSQNNITCRSQIY3EMVR4IB4FC52UJIYEE2ZMHJZDQKKUJVEQ
+COPY public.usuarios (id_usuario, nombre, apellido, correo_electronico, contrasena, fecha_nacimiento, pais, ciudad, rut, banco, bepass, totp_secret, email_verificado, direccion, facturacion, "2fa_enabled") FROM stdin;
+3	ignacio	lopez	jettie.mills56@ethereal.email	$2b$10$9OkZcHTJH3/vaDG/YMr9QOihcxvJDCjuQqVrIC2WGd/w1tpVBYY3m	2000-07-19	chile	arica	10353408-9	Paypal	\N	\N	f	\N	\N	f
+2	felipe	guzman	elbalazomaximo@gmail.com	$2b$10$/zzb.yD9bjPFJ/PK33n6K.AoZVArlOI3iLS/lH5QiAj2l0LQfTW.2	2000-07-19	chile	arica	20788117-1	Paypal	$2b$10$1p8ezCzBRkcyrJ3gzg69nezfFrXzF/AMUCKnqAPZyix7uKebfMsX6	\N	f	\N	\N	f
+7	jorge	nitales	admin@hotel.com	$2b$10$ogyqLdP2sB84CjIMq7QH2O4ATWDwGyIzXve0auyGADTz0ByTqRNTa	2000-07-19	chile	arica	21369340-9	Paypal	$2b$10$tFkkU5tRpy4HnP97qleiHuv5ifvoJdV9JJ2Fs0maMFDlBpV3BKQFK	OVMFMIZEPIYH2RKXJQVDCW2BHY7F2SZGPFTF422CNBTGW3TFLYSQ	t	\N	\N	t
+12	felipe	guzman	locaculia@gmail.com	$2b$10$zfPCPtjpfSKmckosDUa7N.8YVqYtOp/fan73pugH2F39WtqnoacxG	2000-07-19	chile	arica	20546510-3	Paypal	$2b$10$Q3MuZ9YDd3QlJZBwb09aHeHkaeG136QXGLHuY81bAHeOwsef6e/oe	HI4U25DDLJFTQYJPHBDHWNKBLNVXIXKOF5CTYU2XO5HFOI3QOVHA	f	a	a	f
+1	bastian	sucso	elbalazoo@gmail.com	$2b$10$SW9coffiouNvYz05vk3WJeu2IQ.UkbhEwDe8pOLw3NIqCnQwtUBYa	2000-07-19	chile	arica	12610490-1	Paypal	$2b$10$usp6uwIVqJ2ibepOc5D5UeZHq10zvS/HvNDgrg0uEvlMktOpJcLEW	GIRTUTSLKRGHMXRQPBQTMNZSJVZVMKBSGY3USTSWGVEFARR7NA5A	t	Curiñanco	aaa	f
+8	casino	arica	elsapo@gmail.com	$2b$10$ob4TT88iVQ6szaeTtI5ibeJL9o4IJhhVr4emcEN204b6N5o4uIY9u	2000-07-19	chile	arica	21201516-4	Paypal	$2b$10$jCJnYOfxwnAJJXJ8JZYN4uU6ZgW0khGkju3s4F4FLakT6.OHeXF8m	JY2UCNRGMZVW26SXMZFXGRBEIRICIVJ6F5KHAVBBIBADK53GEE7A	t	aaa	aaaa	f
 \.
 
 
 --
--- TOC entry 3407 (class 0 OID 16698)
--- Dependencies: 223
+-- TOC entry 4892 (class 0 OID 49870)
+-- Dependencies: 228
 -- Data for Name: usuarios_externos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -476,17 +544,17 @@ COPY public.usuarios_externos (id, nombre, rut, banco, tipo_cuenta, numero_cuent
 
 
 --
--- TOC entry 3424 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 4910 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: cuentas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.cuentas_id_seq', 7, true);
+SELECT pg_catalog.setval('public.cuentas_id_seq', 14, true);
 
 
 --
--- TOC entry 3425 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 4911 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: destinatarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -494,8 +562,8 @@ SELECT pg_catalog.setval('public.destinatarios_id_seq', 1, false);
 
 
 --
--- TOC entry 3426 (class 0 OID 0)
--- Dependencies: 215
+-- TOC entry 4912 (class 0 OID 0)
+-- Dependencies: 224
 -- Name: movimientos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -503,8 +571,17 @@ SELECT pg_catalog.setval('public.movimientos_id_seq', 1, false);
 
 
 --
--- TOC entry 3427 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 4913 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: pagos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.pagos_id_seq', 1, false);
+
+
+--
+-- TOC entry 4914 (class 0 OID 0)
+-- Dependencies: 226
 -- Name: transferencias_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -512,8 +589,8 @@ SELECT pg_catalog.setval('public.transferencias_id_seq', 10, true);
 
 
 --
--- TOC entry 3428 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 4915 (class 0 OID 0)
+-- Dependencies: 229
 -- Name: usuarios_externos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -521,16 +598,16 @@ SELECT pg_catalog.setval('public.usuarios_externos_id_seq', 1, false);
 
 
 --
--- TOC entry 3429 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 4916 (class 0 OID 0)
+-- Dependencies: 230
 -- Name: usuarios_id_usuario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuarios_id_usuario_seq', 5, true);
+SELECT pg_catalog.setval('public.usuarios_id_usuario_seq', 12, true);
 
 
 --
--- TOC entry 3235 (class 2606 OID 16682)
+-- TOC entry 4710 (class 2606 OID 49883)
 -- Name: cuentas PK_1176afa6e483a49bee4ad8d543e; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -539,7 +616,7 @@ ALTER TABLE ONLY public.cuentas
 
 
 --
--- TOC entry 3243 (class 2606 OID 16704)
+-- TOC entry 4724 (class 2606 OID 49885)
 -- Name: usuarios_externos PK_3560c810a4c58466f4c7a327de7; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -548,7 +625,16 @@ ALTER TABLE ONLY public.usuarios_externos
 
 
 --
--- TOC entry 3231 (class 2606 OID 16663)
+-- TOC entry 4728 (class 2606 OID 58338)
+-- Name: pagos PK_37321ca70a2ed50885dc205beb2; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pagos
+    ADD CONSTRAINT "PK_37321ca70a2ed50885dc205beb2" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4716 (class 2606 OID 49887)
 -- Name: movimientos PK_519702aa97def3e7c1b6cc5e2f9; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -557,7 +643,7 @@ ALTER TABLE ONLY public.movimientos
 
 
 --
--- TOC entry 3247 (class 2606 OID 16715)
+-- TOC entry 4718 (class 2606 OID 49889)
 -- Name: transferencias PK_68d981495936b6bdcfe66cf9047; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -566,7 +652,7 @@ ALTER TABLE ONLY public.transferencias
 
 
 --
--- TOC entry 3233 (class 2606 OID 16672)
+-- TOC entry 4708 (class 2606 OID 49891)
 -- Name: card PK_9451069b6f1199730791a7f4ae4; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -575,7 +661,7 @@ ALTER TABLE ONLY public.card
 
 
 --
--- TOC entry 3249 (class 2606 OID 16725)
+-- TOC entry 4714 (class 2606 OID 49893)
 -- Name: destinatarios PK_a1e5d383309545d198cd3acf43c; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -584,7 +670,7 @@ ALTER TABLE ONLY public.destinatarios
 
 
 --
--- TOC entry 3239 (class 2606 OID 16694)
+-- TOC entry 4720 (class 2606 OID 49895)
 -- Name: usuarios PK_dfe59db369749f9042499fd8107; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -593,7 +679,7 @@ ALTER TABLE ONLY public.usuarios
 
 
 --
--- TOC entry 3237 (class 2606 OID 16684)
+-- TOC entry 4712 (class 2606 OID 49897)
 -- Name: cuentas UQ_41dcb0a39fab182940867a6e2bc; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -602,7 +688,7 @@ ALTER TABLE ONLY public.cuentas
 
 
 --
--- TOC entry 3245 (class 2606 OID 16706)
+-- TOC entry 4726 (class 2606 OID 49899)
 -- Name: usuarios_externos UQ_5f109e5f88ad2c055326f7b20ea; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -611,7 +697,7 @@ ALTER TABLE ONLY public.usuarios_externos
 
 
 --
--- TOC entry 3241 (class 2606 OID 16696)
+-- TOC entry 4722 (class 2606 OID 49901)
 -- Name: usuarios UQ_e871b7157e4b74290df9baa9c93; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -620,7 +706,7 @@ ALTER TABLE ONLY public.usuarios
 
 
 --
--- TOC entry 3250 (class 2606 OID 16726)
+-- TOC entry 4732 (class 2606 OID 49902)
 -- Name: movimientos FK_0ca96c1a49110c0ea36585dd7e0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -629,7 +715,7 @@ ALTER TABLE ONLY public.movimientos
 
 
 --
--- TOC entry 3253 (class 2606 OID 16751)
+-- TOC entry 4733 (class 2606 OID 49907)
 -- Name: transferencias FK_15638af0df4257e6238d86baf68; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -638,7 +724,7 @@ ALTER TABLE ONLY public.transferencias
 
 
 --
--- TOC entry 3252 (class 2606 OID 16736)
+-- TOC entry 4730 (class 2606 OID 49912)
 -- Name: cuentas FK_17f4fb7b576f6c740d28b884245; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -647,7 +733,7 @@ ALTER TABLE ONLY public.cuentas
 
 
 --
--- TOC entry 3256 (class 2606 OID 16756)
+-- TOC entry 4731 (class 2606 OID 49917)
 -- Name: destinatarios FK_4a8796ce6fee1f5e1a0cc9f8df1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -656,7 +742,7 @@ ALTER TABLE ONLY public.destinatarios
 
 
 --
--- TOC entry 3251 (class 2606 OID 16731)
+-- TOC entry 4729 (class 2606 OID 49922)
 -- Name: card FK_737d020f66e05a35b57376e85fc; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -665,7 +751,16 @@ ALTER TABLE ONLY public.card
 
 
 --
--- TOC entry 3254 (class 2606 OID 16741)
+-- TOC entry 4736 (class 2606 OID 58339)
+-- Name: pagos FK_7c71a684ac01c476a6c2fa31863; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pagos
+    ADD CONSTRAINT "FK_7c71a684ac01c476a6c2fa31863" FOREIGN KEY (idusuario) REFERENCES public.usuarios(id_usuario);
+
+
+--
+-- TOC entry 4734 (class 2606 OID 49927)
 -- Name: transferencias FK_c2e7fdb0a2f41139136c6685943; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -674,7 +769,7 @@ ALTER TABLE ONLY public.transferencias
 
 
 --
--- TOC entry 3255 (class 2606 OID 16746)
+-- TOC entry 4735 (class 2606 OID 49932)
 -- Name: transferencias FK_c6fb361b271501646fcc1b3506c; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -682,7 +777,7 @@ ALTER TABLE ONLY public.transferencias
     ADD CONSTRAINT "FK_c6fb361b271501646fcc1b3506c" FOREIGN KEY (id_usuario_destino) REFERENCES public.usuarios(id_usuario);
 
 
--- Completed on 2025-07-06 14:41:20
+-- Completed on 2025-07-19 21:03:14
 
 --
 -- PostgreSQL database dump complete

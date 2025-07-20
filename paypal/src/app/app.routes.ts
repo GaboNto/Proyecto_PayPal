@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ConfiguracionComponent } from './configuracion/configuracion.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { FinancialGoalsComponent } from './components/financial-goals/financial-goals.component';
@@ -16,6 +17,11 @@ import { SeguridadPublicaComponent } from './components/seguridad-publica/seguri
 import { TarjetasPublicaComponent } from './components/tarjetas/tarjetas-publica.component';
 import { VentajasComponent } from './components/ventajas/ventajas.component';
 import { authGuard } from './auth.guard';
+import { MovimientosComponent } from './components/movimientos/movimientos.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { VerifyEmailComponent } from './components/verify-email.component';
+import { VerifyDisable2faComponent } from './components/verify-disable-2fa.component';
+import { PreRegistroComponent } from './components/pre-registro/pre-registro.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,6 +30,7 @@ export const routes: Routes = [
   { path: 'pay', component: PayComponent },
   { path: 'tarjetas', component: TarjetasComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent },
+  { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'security', component: SecurityComponent, canActivate: [authGuard] },
@@ -31,8 +38,12 @@ export const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'donde-comprar', component: DondeComprarComponent },
   { path: 'seguridad-publica', component: SeguridadPublicaComponent },
-  { path: 'ventajas', component: VentajasComponent },
-  { path: 'tarjetas-publica', component: TarjetasPublicaComponent }
+  { path: 'tarjetas-publica', component: TarjetasPublicaComponent },
+  { path: 'movimientos', component: MovimientosComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'configuracion', component: ConfiguracionComponent },
+  { path: 'verify-email', component: VerifyEmailComponent },
+  { path: 'verify-disable-2fa', component: VerifyDisable2faComponent }
 ];
 
 export const appImports = [

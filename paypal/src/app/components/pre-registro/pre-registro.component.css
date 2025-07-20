@@ -1,0 +1,94 @@
+
+
+
+a {
+    text-decoration: none; 
+  }
+  
+  
+  .footer a:hover {
+    color: #007bff !important; /* Cambia el color de los enlaces del footer al pasar el ratón */
+  }
+  
+  .footer img {
+    filter: none; /* Hace que las imágenes de métodos de pago sean monocromáticas */
+    opacity: 1; /* Reduce un poco la opacidad de las imágenes del footer */
+  }
+  
+  /* Estilos para el Enlace Telefónico en el encabezado */
+  .text-muted a {
+    color: #007bff; /* Color azul para el enlace telefónico */
+    text-decoration: underline; /* Subrayado para el enlace telefónico */
+  }
+  
+  .text-muted a:hover {
+    color: #0056b3; /* Color azul más oscuro al pasar el ratón por el enlace telefónico */
+  }
+  
+  
+  .list-unstyled li i {
+    width: 1.25em; 
+    text-align: center; 
+  }
+  
+  
+  .card .list-unstyled li {
+    line-height: 1.5; 
+  }
+  
+  .card .list-unstyled strong {
+    font-weight: 600; /* Hace que el texto clave de cada punto sea más negrito */
+  }
+  
+  .custom-card-img {
+    width: 100%;
+    height: 180px; /* Altura uniforme */
+    object-fit: cover; /* Recorta para llenar el contenedor */
+    border-radius: 0.5rem;
+    display: block;
+    margin: 0 auto 1rem auto;
+  }
+  
+  .card.custom-card-left {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.3s ease-out, border-width 0.3s ease-out;
+    border: 1px solid #e0e0e0; /* Un borde inicial muy sutil o casi invisible */
+  }
+  
+  .card.custom-card-left:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    border-color: #007bff !important; /* Color azul de Bootstrap al pasar el cursor */
+    border-width: 2px !important; /* Grosor del borde al pasar el cursor */
+  }
+  
+  .card.custom-card-right {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.3s ease-out, border-width 0.3s ease-out;
+    border: 1px solid #e0e0e0; /* O border: 1px solid transparent; */
+  }
+  
+  .card.custom-card-right:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    border-color: #dc3545 !important; /* Color rojo de Bootstrap al pasar el cursor */
+    border-width: 2px !important;
+  }
+  
+  /* Ajustes Responsive para Pantallas Pequeñas */
+  @media (max-width: 768px) {
+    .custom-card-img {
+      max-height: 100px; 
+    }
+  }
+  .animated-register-button {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+  }
+  
+  .animated-register-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 123, 255, 0.4);
+  }
+  

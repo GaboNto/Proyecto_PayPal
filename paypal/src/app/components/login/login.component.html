@@ -11,7 +11,11 @@
         <label for="password">Contraseña</label>
         <input id="password" type="password" formControlName="password" />
       </div>
-      <button type="submit" class="auth-button" [disabled]="!loginForm.valid">Iniciar sesión</button>
+      <button type="submit" class="auth-button" [disabled]="!loginForm.valid || isLoading">
+        <span *ngIf="!isLoading">Iniciar sesión</span>
+        <span *ngIf="isLoading" class="spinner"></span>
+      </button>
+
     </form>
     <div *ngIf="error" class="error-message">{{ error }}</div>
     <p class="auth-link">

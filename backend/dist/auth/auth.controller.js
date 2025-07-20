@@ -35,6 +35,12 @@ let AuthController = class AuthController {
     async forgotPassword(forgotPasswordDto) {
         return this.authService.forgotPassword(forgotPasswordDto);
     }
+    async sendVerificationEmail(email) {
+        return this.authService.sendEmailVerification(email);
+    }
+    async verifyEmail(token) {
+        return this.authService.verifyEmailToken(token);
+    }
 };
 exports.AuthController = AuthController;
 __decorate([
@@ -66,6 +72,20 @@ __decorate([
     __metadata("design:paramtypes", [forgot_password_dto_1.ForgotPasswordDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "forgotPassword", null);
+__decorate([
+    (0, common_1.Post)('send-verification-email'),
+    __param(0, (0, common_1.Body)('email')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "sendVerificationEmail", null);
+__decorate([
+    (0, common_1.Get)('verify-email'),
+    __param(0, (0, common_1.Query)('token')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "verifyEmail", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

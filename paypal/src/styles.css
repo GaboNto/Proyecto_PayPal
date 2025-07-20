@@ -3,3 +3,34 @@ body.modal-open {
   overflow: inherit !important;
   padding-right: 0 !important;
 }
+
+/* Sidebar fijo a la izquierda */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #1f1f1f;
+  color: white;
+  z-index: 1000;
+}
+
+/* Contenedor principal que se desplaza */
+.main-content {
+  margin-left: 250px; /* Espacio para el sidebar */
+  padding: 1rem;
+  transition: margin-left 0.3s ease;
+}
+
+/* Opcional: responsivo para móviles */
+@media (max-width: 768px) {
+  .sidebar {
+    position: absolute;
+    width: 200px;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}

@@ -20,7 +20,7 @@ interface Comercio {
   styleUrl: './donde-comprar.component.scss'
 })
 export class DondeComprarComponent {
-  
+
   categorias = [
     { id: 'todos', nombre: 'Todos', icono: '🛒' },
     { id: 'streaming', nombre: 'Streaming', icono: '📺' },
@@ -207,29 +207,29 @@ export class DondeComprarComponent {
     }
   ];
 
- 
+
   get comerciosFiltrados(): Comercio[] {
     let comercios = this.comercios;
-    
-   
+
+
     if (this.categoriaSeleccionada !== 'todos') {
       comercios = comercios.filter(comercio => comercio.categoria === this.categoriaSeleccionada);
     }
-    
-   
+
+
     if (this.terminoBusqueda.trim() !== '') {
       const termino = this.terminoBusqueda.toLowerCase().trim();
-      comercios = comercios.filter(comercio => 
+      comercios = comercios.filter(comercio =>
         comercio.nombre.toLowerCase().includes(termino) ||
         comercio.descripcion.toLowerCase().includes(termino) ||
         comercio.categoria.toLowerCase().includes(termino)
       );
     }
-    
+
     return comercios;
   }
 
- 
+
   get comerciosPopulares(): Comercio[] {
     if (this.terminoBusqueda.trim() !== '') {
       return []; // No mostrar populares si hay búsqueda activa
@@ -237,28 +237,28 @@ export class DondeComprarComponent {
     return this.comercios.filter(comercio => comercio.popular);
   }
 
-  
+
   get nombreCategoriaSeleccionada(): string {
     const categoria = this.categorias.find(c => c.id === this.categoriaSeleccionada);
     return categoria ? categoria.nombre : 'Todos';
   }
 
-  
+
   cambiarCategoria(categoria: string) {
     this.categoriaSeleccionada = categoria;
   }
 
-  
+
   buscarComercios(termino: string) {
     this.terminoBusqueda = termino;
   }
 
- 
+
   limpiarBusqueda() {
     this.terminoBusqueda = '';
   }
 
-  
+
   visitarComercio(comercio: Comercio) {
     window.open(comercio.url, '_blank');
   }
