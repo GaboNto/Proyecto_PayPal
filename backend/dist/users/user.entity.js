@@ -22,11 +22,15 @@ let User = class User {
     pais;
     ciudad;
     rut;
+    direccion;
+    facturacion;
     banco;
     cuentas;
     destinatarios;
     bepass;
     totpSecret;
+    emailVerificado;
+    twoFAEnabled;
 };
 exports.User = User;
 __decorate([
@@ -66,6 +70,14 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "rut", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], User.prototype, "direccion", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], User.prototype, "facturacion", void 0);
+__decorate([
     (0, typeorm_1.Column)({ length: 50, default: 'Paypal' }),
     __metadata("design:type", String)
 ], User.prototype, "banco", void 0);
@@ -85,6 +97,14 @@ __decorate([
     (0, typeorm_1.Column)({ name: 'totp_secret', nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "totpSecret", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'email_verificado', type: 'boolean', default: false }),
+    __metadata("design:type", Boolean)
+], User.prototype, "emailVerificado", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: '2fa_enabled', type: 'boolean', default: false }),
+    __metadata("design:type", Boolean)
+], User.prototype, "twoFAEnabled", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)('usuarios')
 ], User);

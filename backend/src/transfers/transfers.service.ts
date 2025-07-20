@@ -22,7 +22,7 @@ export class TransfersService {
     @InjectRepository(Cuenta)
     private cuentasRepository: Repository<Cuenta>,
     private dataSource: DataSource,
-  ) {}
+  ) { }
 
   async transferBetweenOwnAccounts(createDto: CreateInternalTransferDto, userId: number): Promise<{ message: string }> {
     const { cuentaOrigenId, cuentaDestinoId, monto, bepass } = createDto;
@@ -136,9 +136,9 @@ export class TransfersService {
         const cuentaDestino = await queryRunner.manager.findOne(Cuenta, {
           where: { usuario: { id_usuario: usuarioDestino.id_usuario }, numero_cuenta: numero_cuenta },
         });
-        
+
         if (!cuentaDestino) {
-            throw new NotFoundException('El usuario de destino no tiene una cuenta compatible.');
+          throw new NotFoundException('El usuario de destino no tiene una cuenta compatible.');
         }
 
         if (cuentaOrigen.saldo < monto) {
@@ -171,11 +171,11 @@ export class TransfersService {
         let usuarioExterno = await queryRunner.manager.findOne(UsuarioExterno, { where: { rut: rut_destinatario } });
 
         if (!usuarioExterno) {
-          usuarioExterno = this.usuariosExternosRepository.create({ 
-            rut: rut_destinatario, 
-            nombre: nombre_destinatario, 
-            banco: banco_destino, 
-            tipo_cuenta, 
+          usuarioExterno = this.usuariosExternosRepository.create({
+            rut: rut_destinatario,
+            nombre: nombre_destinatario,
+            banco: banco_destino,
+            tipo_cuenta,
             numero_cuenta,
             saldo: 0 // Saldo inicial
           });
@@ -190,7 +190,7 @@ export class TransfersService {
         // Actualizamos saldos
         cuentaOrigen.saldo = Number(cuentaOrigen.saldo) - montoTotal;
         usuarioExterno.saldo = Number(usuarioExterno.saldo) + monto;
-        
+
         await queryRunner.manager.save(cuentaOrigen);
         await queryRunner.manager.save(usuarioExterno);
 
@@ -202,7 +202,7 @@ export class TransfersService {
         });
         await queryRunner.manager.save(transferencia);
       }
-      
+
       await queryRunner.commitTransaction();
       return { message: 'Transferencia realizada con éxito' };
     } catch (error) {
@@ -231,7 +231,6 @@ export class TransfersService {
     }
     query.orderBy('t.fecha', 'DESC');
     const transfers = await query.getMany();
-
     // Mapear la respuesta para el frontend
     return transfers.map(t => {
       // Determinar tipo de transferencia

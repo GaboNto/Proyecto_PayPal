@@ -1,0 +1,428 @@
+<div class="config-container">
+  <ul class="tabs">
+    <li [class.active]="selectedTab === 'personales'" (click)="selectedTab = 'personales'; onTabChange()">Datos Personales</li>
+    <li [class.active]="selectedTab === 'seguridad'" (click)="selectedTab = 'seguridad'; onTabChange()">Seguridad</li>
+    <li [class.active]="selectedTab === 'preferencias'" (click)="selectedTab = 'preferencias'; onTabChange()">Preferencias</li>
+    <li [class.active]="selectedTab === 'soporte'" (click)="selectedTab = 'soporte'; onTabChange()">Soporte y Ayuda</li>
+  </ul>
+
+  <div *ngIf="selectedTab === 'personales'">
+    <h2>Datos Personales</h2>
+    <form [formGroup]="configForm" (ngSubmit)="onSubmit()" class="config-form">
+      <div class="form-group">
+        <label for="nombre">Nombre completo</label>
+        <input id="nombre" formControlName="nombre" type="text" readonly />
+      </div>
+      <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input id="apellido" formControlName="apellido" type="text" readonly />
+      </div>
+      <div class="form-group">
+        <label for="fecha_nacimiento">Fecha de nacimiento</label>
+        <input id="fecha_nacimiento" formControlName="fecha_nacimiento" type="date" readonly />
+      </div>
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input id="email" formControlName="email" type="email" readonly />
+        <button type="button" (click)="verificarEmail()" [disabled]="emailVerificado || emailVerificadoLoading">
+          <ng-container *ngIf="emailVerificado">Verificado</ng-container>
+          <ng-container *ngIf="!emailVerificado && emailVerificadoLoading">
+            <span class="spinner"></span>
+          </ng-container>
+          <ng-container *ngIf="!emailVerificado && !emailVerificadoLoading">Verificar</ng-container>
+        </button>
+        <div *ngIf="!emailVerificado && emailVerificadoMsg" class="success">{{ emailVerificadoMsg }}</div>
+        <div *ngIf="emailVerificadoError" class="error">{{ emailVerificadoError }}</div>
+      </div>
+      <!-- Eliminar campo de verificación de teléfono -->
+      <div class="form-group">
+        <label for="direccion">Dirección de envío</label>
+        <input id="direccion" formControlName="direccion" type="text" />
+      </div>
+      <div class="form-group">
+        <label for="facturacion">Dirección de facturación</label>
+        <input id="facturacion" formControlName="facturacion" type="text" />
+      </div>
+      <div class="form-actions">
+        <div *ngIf="successMsg" class="alert-success-float">{{ successMsg }}</div>
+        <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+        <button type="submit" [disabled]="configForm.invalid">Guardar cambios</button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="selectedTab === 'seguridad'">
+    <h2>Seguridad</h2>
+    <!-- Eliminar el formulario de cambio de contraseña -->
+    <hr />
+    <div class="recover-password-form">
+      <h3>Recuperar contraseña de la cuenta</h3>
+      <p>Se enviará un correo a tu email registrado para restablecer tu contraseña.</p>
+      <form (ngSubmit)="onRecoverPasswordSubmit()">
+        <div class="form-group">
+          <label for="recoverEmail">Correo electrónico</label>
+          <input type="email" id="recoverEmail" name="recoverEmail" class="form-control" 
+                 [(ngModel)]="recoverEmail" [readonly]="true" required />
+          <small class="form-text text-muted">Tu correo registrado</small>
+        </div>
+        <div *ngIf="recoverMessage" class="success">{{ recoverMessage }}</div>
+        <div *ngIf="recoverError" class="error">{{ recoverError }}</div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" [disabled]="recoverLoading || recoverCooldown > 0 || !recoverEmail">
+            <ng-container *ngIf="recoverLoading">
+              <span class="spinner"></span>
+            </ng-container>
+            <ng-container *ngIf="!recoverLoading && recoverCooldown === 0">Enviar correo</ng-container>
+            <ng-container *ngIf="!recoverLoading && recoverCooldown > 0">
+              Reintentar en {{ Math.floor(recoverCooldown / 60) }}:{{ (recoverCooldown % 60).toString().padStart(2, '0') }}
+            </ng-container>
+          </button>
+        </div>
+      </form>
+    </div>
+    <hr />
+    <!-- 2FA/BePass -->
+    <div class="bepass-2fa-section">
+      <ng-container *ngIf="!hasBePass">
+        <h3>Crear Clave Be Pass</h3>
+        <p class="text-muted mb-3">Debes crear tu clave Be Pass antes de poder activar la autenticación en dos pasos (2FA).</p>
+        <form (ngSubmit)="crearBepass()">
+          <div class="form-group">
+            <label for="newBepass">Nueva Clave Be Pass</label>
+            <input type="password" id="newBepass" name="newBepass" class="form-control"
+                   [(ngModel)]="bepassData.newBepass" required minlength="6" maxlength="6"
+                   pattern="[0-9]{6}" inputmode="numeric" (input)="onBepassInput($event)">
+            <small class="form-text text-muted">Debe contener exactamente 6 números.</small>
+          </div>
+          <div class="form-group">
+            <label for="confirmBepass">Confirmar nueva Clave</label>
+            <input type="password" id="confirmBepass" name="confirmBepass" class="form-control"
+                   [(ngModel)]="bepassData.confirmBepass" required (input)="onBepassInput($event)" maxlength="6">
+          </div>
+          <div class="form-group">
+            <label for="currentPassword">Contraseña de tu cuenta</label>
+            <input type="password" id="currentPassword" name="currentPassword" class="form-control"
+                   [(ngModel)]="bepassData.currentPassword" required>
+            <small class="form-text text-muted">Por tu seguridad, ingresa tu contraseña actual para confirmar el cambio.</small>
+          </div>
+          <div *ngIf="bepassMsg" class="success">{{ bepassMsg }}</div>
+          <div *ngIf="bepassError" class="error">{{ bepassError }}</div>
+          <button type="submit" class="btn btn-primary">Crear Clave Be Pass</button>
+        </form>
+      </ng-container>
+      <ng-container *ngIf="hasBePass">
+        <h3>Autenticación en dos pasos (2FA)</h3>
+        
+        <!-- Si 2FA está desactivado, mostrar opción para activar -->
+        <div *ngIf="!is2FAVerified" class="twofa-disabled">
+          <div class="status-disabled">
+            <div class="status-icon">🔒</div>
+            <div class="status-text">
+              <strong>2FA desactivado</strong><br>
+              <small>Tu cuenta no tiene autenticación en dos pasos activada</small>
+            </div>
+          </div>
+          <div class="twofa-actions">
+            <button type="button" class="btn btn-success" (click)="activar2FA()">
+              <i class="fas fa-shield-alt"></i> Activar 2FA
+            </button>
+          </div>
+        </div>
+        
+        <!-- Si 2FA está activado, mostrar opciones -->
+        <div *ngIf="is2FAVerified" class="twofa-enabled">
+          <div class="status-enabled">
+            <div class="status-icon">✅</div>
+            <div class="status-text">
+              <strong>2FA activado</strong><br>
+              <small>Tu cuenta está protegida con autenticación en dos pasos</small>
+            </div>
+          </div>
+          <div class="twofa-actions">
+            <button type="button" class="btn btn-warning" (click)="desactivar2FA()">
+              <i class="fas fa-times"></i> Desactivar 2FA
+            </button>
+            <button type="button" class="btn btn-info" (click)="mostrarQR2FA()">
+              <i class="fas fa-qrcode"></i> Mostrar QR
+            </button>
+            <button type="button" class="btn btn-primary" (click)="cambiarBePass()">
+              <i class="fas fa-key"></i> Cambiar Be Pass
+            </button>
+          </div>
+        </div>
+
+        <!-- Formulario de cambio de Be Pass (requiere 2FA) -->
+        <div *ngIf="showChangeBepassForm" class="change-bepass-form">
+          <h4>Cambiar Clave Be Pass</h4>
+          <p class="text-muted">Por seguridad, debes verificar tu código 2FA antes de cambiar tu Be Pass.</p>
+          
+          <form (ngSubmit)="onSubmitChangeBePass()">
+            <div class="form-group">
+              <label for="changeNewBepass">Nueva Clave Be Pass</label>
+              <input type="password" id="changeNewBepass" name="newBepass" class="form-control"
+                     [(ngModel)]="changeBepassData.newBepass" required minlength="6" maxlength="6"
+                     pattern="[0-9]{6}" inputmode="numeric" (input)="onBepassInput($event)">
+              <small class="form-text text-muted">Debe contener exactamente 6 números.</small>
+            </div>
+            <div class="form-group">
+              <label for="changeConfirmBepass">Confirmar nueva Clave</label>
+              <input type="password" id="changeConfirmBepass" name="confirmBepass" class="form-control"
+                     [(ngModel)]="changeBepassData.confirmBepass" required (input)="onBepassInput($event)" maxlength="6">
+            </div>
+            <div class="form-group">
+              <label for="changeCurrentPassword">Contraseña de tu cuenta</label>
+              <input type="password" id="changeCurrentPassword" name="currentPassword" class="form-control"
+                     [(ngModel)]="changeBepassData.currentPassword" required>
+              <small class="form-text text-muted">Por tu seguridad, ingresa tu contraseña actual para confirmar el cambio.</small>
+            </div>
+            <div *ngIf="changeBepassMsg" class="success">{{ changeBepassMsg }}</div>
+            <div *ngIf="changeBepassError" class="error">{{ changeBepassError }}</div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Cambiar Be Pass</button>
+              <button type="button" class="btn btn-secondary" (click)="cancelarCambioBePass()">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </ng-container>
+      <div *ngIf="show2FAQr" class="modal-backdrop show"></div>
+      <div *ngIf="show2FAQr" class="modal d-block" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Configura Google Authenticator</h5>
+              <button type="button" class="btn-close" aria-label="Cerrar" (click)="close2FAQr()"></button>
+            </div>
+            <div class="modal-body text-center">
+              <p>Escanea este código QR con Google Authenticator para activar la verificación en dos pasos.</p>
+              <img [src]="qrData" alt="QR 2FA" />
+              <p class="mt-3"><strong>¿Ya lo escaneaste?</strong></p>
+              
+              <!-- Formulario de verificación -->
+              <div *ngIf="showVerificationForm" class="verification-form mt-3">
+                <p class="text-muted">Ingresa el código de 6 dígitos de Google Authenticator para confirmar la configuración:</p>
+                <div class="form-group">
+                  <input type="text" 
+                         class="form-control" 
+                         [(ngModel)]="verificationCode" 
+                         maxlength="6" 
+                         minlength="6"
+                         pattern="[0-9]{6}" 
+                         inputmode="numeric" 
+                         (input)="onVerificationInput($event)"
+                         placeholder="000000"
+                         [disabled]="isVerifying">
+                  <small class="form-text text-muted">Código de 6 dígitos</small>
+                </div>
+                <div *ngIf="verificationError" class="alert alert-danger mt-2">{{ verificationError }}</div>
+                <div *ngIf="verificationSuccess" class="alert alert-success mt-2">{{ verificationSuccess }}</div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button *ngIf="!showVerificationForm" type="button" class="btn btn-primary" (click)="showVerificationStep()">
+                Ya escaneé el código
+              </button>
+              <button *ngIf="showVerificationForm" type="button" class="btn btn-success" (click)="verifyAndClose()" [disabled]="!verificationCode || verificationCode.length !== 6 || isVerifying">
+                <span *ngIf="isVerifying" class="spinner-border spinner-border-sm me-2"></span>
+                {{ isVerifying ? 'Verificando...' : 'Verificar y cerrar' }}
+              </button>
+              <button type="button" class="btn btn-secondary" (click)="close2FAQr()">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Verificación 2FA requerida -->
+    <div *ngIf="show2FA" class="twofa-verification">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h4 class="card-title">Verificación de Seguridad</h4>
+          <p class="card-subtitle mb-4 text-muted">Ingresa tu código de Google Authenticator para continuar.</p>
+          <app-google-2fa (verified)="on2FAAuthenticated($event)"></app-google-2fa>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de confirmación para desactivar 2FA -->
+  <div *ngIf="showDisable2FAModal" class="modal-backdrop show"></div>
+  <div *ngIf="showDisable2FAModal" class="modal d-block" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar desactivación de 2FA</h5>
+          <button type="button" class="btn-close" aria-label="Cerrar" (click)="closeDisable2FAModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="!disable2FAMessage" class="confirmation-message">
+            <div class="warning-icon">⚠️</div>
+            <p><strong>¿Estás seguro de que quieres desactivar la autenticación en dos pasos?</strong></p>
+            <p>Se enviará un correo de confirmación a tu dirección de email.</p>
+            <div class="warning-box">
+              <strong>Advertencia:</strong> Desactivar 2FA reducirá la seguridad de tu cuenta.
+            </div>
+          </div>
+          
+          <div *ngIf="disable2FAMessage" class="result-message">
+            <div [class]="disable2FAMessage.includes('✅') ? 'success-icon' : 'error-icon'">
+              {{ disable2FAMessage.includes('✅') ? '✅' : '❌' }}
+            </div>
+            <p [innerHTML]="disable2FAMessage.replace('✅ ', '').replace('❌ ', '')"></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button *ngIf="!disable2FAMessage" type="button" class="btn btn-secondary" (click)="closeDisable2FAModal()">
+            Cancelar
+          </button>
+          <button *ngIf="!disable2FAMessage" type="button" class="btn btn-danger" (click)="confirmDisable2FA()" [disabled]="disable2FALoading">
+            <span *ngIf="disable2FALoading" class="spinner-border spinner-border-sm me-2"></span>
+            {{ disable2FALoading ? 'Enviando...' : 'Confirmar desactivación' }}
+          </button>
+          <button *ngIf="disable2FAMessage" type="button" class="btn btn-primary" (click)="closeDisable2FAModal()">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedTab === 'preferencias'">
+    <h2>Preferencias</h2>
+    
+    <!-- Configuración de Notificaciones -->
+    <div class="preferences-section">
+      <h3>🔔 Configuración de Notificaciones</h3>
+      <div class="preferences-grid">
+        <div class="preference-item">
+          <div class="preference-header">
+            <h4>Notificaciones por Email</h4>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="preferences.emailNotifications" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <p class="preference-description">Recibe notificaciones por email sobre transferencias, pagos y cambios de seguridad.</p>
+        </div>
+        
+        <div class="preference-item">
+          <div class="preference-header">
+            <h4>Notificaciones Push</h4>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="preferences.pushNotifications" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <p class="preference-description">Alertas en tiempo real en tu dispositivo.</p>
+        </div>
+        
+        <div class="preference-item">
+          <div class="preference-header">
+            <h4>Reportes Automáticos</h4>
+            <select [(ngModel)]="preferences.reportFrequency" class="form-control">
+              <option value="none">No recibir reportes</option>
+              <option value="daily">Diario</option>
+              <option value="weekly">Semanal</option>
+              <option value="monthly">Mensual</option>
+            </select>
+          </div>
+          <p class="preference-description">Frecuencia de reportes de actividad de tu cuenta.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Configuración de Seguridad -->
+    <div class="preferences-section">
+      <h3>🔒 Configuración de Seguridad</h3>
+      <div class="preferences-grid">
+        <div class="preference-item">
+          <div class="preference-header">
+            <h4>Límite de Transacciones Diarias</h4>
+            <select [(ngModel)]="preferences.dailyLimit" class="form-control">
+              <option value="100000">$100.000 CLP</option>
+              <option value="500000">$500.000 CLP</option>
+              <option value="1000000">$1.000.000 CLP</option>
+              <option value="unlimited">Sin límite</option>
+            </select>
+          </div>
+          <p class="preference-description">Límite máximo de transferencias por día.</p>
+        </div>
+        
+        <div class="preference-item">
+          <div class="preference-header">
+            <h4>Verificación de Dispositivos</h4>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="preferences.deviceVerification" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <p class="preference-description">Solicitar verificación en dispositivos nuevos.</p>
+        </div>
+        
+        <div class="preference-item">
+          <div class="preference-header">
+            <h4>Gestionar Sesiones</h4>
+            <button type="button" class="btn btn-outline-primary" (click)="showActiveSessions()">
+              Ver Sesiones
+            </button>
+          </div>
+          <p class="preference-description">Ver y cerrar sesiones activas en otros dispositivos.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Configuración de Comunicaciones -->
+    <div class="preferences-section">
+      <h3>📧 Configuración de Comunicaciones</h3>
+      <div class="preferences-grid">
+        <div class="preference-item">
+          <div class="preference-header">
+            <h4>Newsletter</h4>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="preferences.newsletter" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <p class="preference-description">Recibe ofertas especiales y novedades de PayPal.</p>
+        </div>
+        
+        <div class="preference-item">
+          <div class="preference-header">
+            <h4>Comunicaciones Promocionales</h4>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="preferences.promotionalEmails" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <p class="preference-description">Ofertas especiales y descuentos exclusivos.</p>
+        </div>
+        
+        <div class="preference-item">
+          <div class="preference-header">
+            <h4>Alertas de Seguridad</h4>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="preferences.securityAlerts" [disabled]="true" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <p class="preference-description">Alertas importantes sobre la seguridad de tu cuenta (siempre activo).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensaje de guardado -->
+    <div *ngIf="preferencesSaved" class="alert alert-success preferences-saved">
+      ✅ Preferencias guardadas correctamente
+    </div>
+  </div>
+
+  <div *ngIf="selectedTab === 'soporte'">
+    <h2>Soporte y Ayuda</h2>
+    <p>¿Tienes algún problema o consulta? Escríbenos a nuestro correo de soporte y te ayudaremos lo antes posible.</p>
+    <a href="mailto:soporte@tuapp.com" class="btn btn-primary">Contactar Soporte</a>
+  </div>
+</div>
+
+
+

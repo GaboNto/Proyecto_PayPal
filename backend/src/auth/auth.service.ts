@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable prettier/prettier */
 // src/auth/auth.service.ts
 import { Injectable, UnauthorizedException } from '@nestjs/common';
@@ -21,6 +24,7 @@ export class AuthService {
   private transporter: nodemailer.Transporter;
   // Almacenamiento temporal de tokens: { token: { email, expires } }
   private recoveryTokens: Record<string, { email: string; expires: number }> = {};
+  private emailVerificationTokens: Record<string, { email: string; expires: number }> = {};
 
   constructor(
     private usersService: UsersService,
@@ -60,21 +64,26 @@ export class AuthService {
   // Iniciar sesión y generar un JWT
   async login(user: any) {
     const payload = { username: user.email, sub: user.id_usuario };
+
+    // Enviar notificación por correo
+    await this.sendLoginNotification(user.email, user.nombre);
+
     return {
       accessToken: this.jwtService.sign(payload),
     };
   }
 
+
   async register(createUserDto: CreateUserDto) {
     const { password, ...userData } = createUserDto;
     const hashedPassword = await bcrypt.hash(password, 10);
-    
+
     const newUser = this.usersRepository.create({
       ...userData,
-        password: hashedPassword,
+      password: hashedPassword,
       banco: 'Paypal',
     });
-    
+
     const savedUser = await this.usersRepository.save(newUser);
 
     // Crear cuenta para el nuevo usuario
@@ -86,11 +95,11 @@ export class AuthService {
       saldo: 0,
     });
     await this.cuentasRepository.save(newCuenta);
-    
+
     // --- Creación automática de tarjeta ---
     const expirationDate = new Date();
     expirationDate.setFullYear(expirationDate.getFullYear() + 4);
-    
+
     const newCard = this.cardRepository.create({
       cardNumber: Math.floor(1000000000000000 + Math.random() * 9000000000000000).toString(),
       cvv: Math.floor(100 + Math.random() * 900).toString(),
@@ -147,6 +156,19 @@ export class AuthService {
     return { message: 'Contraseña restablecida correctamente.' };
   }
 
+  async sendEmailVerification(email: string) {
+    // Generar token aleatorio
+    const token = randomBytes(32).toString('hex');
+    // Guardar token con expiración (ej: 1 hora)
+    this.emailVerificationTokens[token] = {
+      email,
+      expires: Date.now() + 60 * 60 * 1000,
+    };
+    // Enviar correo
+    await this.sendVerificationEmail(email, token);
+    return { message: 'Se ha enviado un correo de verificación.' };
+  }
+
   private async sendRecoveryEmail(to: string, token: string) {
     const info = await this.transporter.sendMail({
       from: 'no-reply@paypal-clone.com',
@@ -158,4 +180,49 @@ export class AuthService {
     // Solo para pruebas: mostrar la URL de vista previa de Ethereal
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   }
+
+  private async sendLoginNotification(to: string, nombre: string) {
+    let cambioContraeña = 'http://localhost:4200/forgot-password'
+    const info = await this.transporter.sendMail({
+      from: 'no-reply@paypal-clone.com',
+      to,
+      subject: 'Notificación de inicio de sesión',
+      text: `Hola ${nombre}, se ha iniciado sesión en tu cuenta.`,
+      html: `
+      <p>Hola <strong>${nombre}</strong>,</p>
+      <p>Se ha iniciado sesión en tu cuenta de PayPal.</p>
+      <p>Si no fuiste tú, por favor cambia tu contraseña de inmediato en: <strong>${cambioContraeña}</strong>.</p>
+      <p><small>Fecha y hora: ${new Date().toLocaleString()}</small></p>
+    `
+    });
+
+    console.log('Login email enviado. Vista previa: %s', nodemailer.getTestMessageUrl(info));
+  }
+
+  private async sendVerificationEmail(to: string, token: string) {
+    const info = await this.transporter.sendMail({
+      from: 'no-reply@paypal-clone.com',
+      to,
+      subject: 'Verificación de correo electrónico',
+      text: `Para verificar tu correo, haz clic en el siguiente enlace: http://localhost:3000/verify-email?token=${token}`,
+      html: `<p>Para verificar tu correo, haz clic en el siguiente enlace:</p><a href="http://localhost:3000/verify-email?token=${token}">Verificar correo</a>`
+    });
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+  }
+
+  async verifyEmailToken(token: string) {
+    const tokenData = this.emailVerificationTokens[token];
+    if (!tokenData || tokenData.expires < Date.now()) {
+      return { success: false, message: 'Token inválido o expirado.' };
+    }
+    const user = await this.usersRepository.findOne({ where: { email: tokenData.email } });
+    if (!user) {
+      return { success: false, message: 'Usuario no encontrado.' };
+    }
+    user.emailVerificado = true;
+    await this.usersRepository.save(user);
+    delete this.emailVerificationTokens[token];
+    return { success: true, message: 'Correo verificado correctamente.' };
+  }
+
 }

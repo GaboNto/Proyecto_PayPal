@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 // src/auth/auth.controller.ts
-import { Controller, Request, Post, UseGuards, Body, Get, Param, ValidationPipe } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Body, Get, Param, ValidationPipe, Query } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -29,5 +29,15 @@ export class AuthController {
   @Post('forgot-password')
   async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
     return this.authService.forgotPassword(forgotPasswordDto);
+  }
+
+  @Post('send-verification-email')
+  async sendVerificationEmail(@Body('email') email: string) {
+    return this.authService.sendEmailVerification(email);
+  }
+
+  @Get('verify-email')
+  async verifyEmail(@Query('token') token: string) {
+    return this.authService.verifyEmailToken(token);
   }
 }
