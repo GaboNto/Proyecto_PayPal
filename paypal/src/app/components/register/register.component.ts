@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, catchError, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +14,7 @@ import { of } from 'rxjs';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
+
   user = {
     nombre: '',
     apellido: '',
@@ -23,8 +23,11 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
     pais: '',
     email: '',
     password: '',
-    rut: ''
+    rut: '',
+    privacidad: false,          // 🔹 AGREGADO
+    condiciones: false          // 🔹 AGREGADO
   };
+
   rutError: string = '';
   rutExistsError: string = '';
   private rutSubject = new Subject<string>();
@@ -36,11 +39,11 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
     this.rutSubscription = this.rutSubject.pipe(
       debounceTime(500),
       distinctUntilChanged(),
-      tap(() => this.rutExistsError = ''), // Limpia el error anterior
+      tap(() => this.rutExistsError = ''),
       switchMap(rut => {
         if (this.validateRut(rut)) {
           return this.http.get<{ exists: boolean }>(`http://localhost:3000/api/auth/check-rut/${rut}`).pipe(
-            catchError(() => of({ exists: false })) // En caso de error, no bloquear el registro
+            catchError(() => of({ exists: false }))
           );
         }
         return of({ exists: false });
@@ -65,16 +68,16 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
     let dv = rut.slice(-1);
 
     if (!/^[0-9]+[0-9kK]{1}$/.test(rut)) return false;
-    
+
     let sum = 0;
     let M = 2;
     for (let i = body.length - 1; i >= 0; i--) {
-        sum += parseInt(body.charAt(i), 10) * M;
-        if (M < 7) { M++; } else { M = 2; }
+      sum += parseInt(body.charAt(i), 10) * M;
+      M = M < 7 ? M + 1 : 2;
     }
-    
+
     const VCalc = 11 - (sum % 11);
-    const dvCalc = (VCalc === 11) ? '0' : (VCalc === 10) ? 'k' : VCalc.toString();
+    const dvCalc = VCalc === 11 ? '0' : VCalc === 10 ? 'k' : VCalc.toString();
 
     return dvCalc === dv;
   }
@@ -88,13 +91,11 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     return rut;
   }
-  
+
   onRutChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     const formattedValue = this.formatRut(input.value);
     this.user.rut = formattedValue;
-    
-    // Limpiar errores para la nueva validación
     this.rutError = '';
     this.rutExistsError = '';
 
@@ -106,15 +107,21 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(registerForm: NgForm) {
-    if (registerForm.invalid || this.rutError || this.rutExistsError) {
-      alert('Por favor, completa todos los campos correctamente.');
+    if (
+      registerForm.invalid ||
+      this.rutError ||
+      this.rutExistsError ||
+      !this.user.privacidad ||
+      !this.user.condiciones
+    ) {
+      alert('Por favor, completa todos los campos correctamente y acepta las condiciones.');
       return;
     }
+
     this.http.post('http://localhost:3000/api/auth/register', this.user)
       .subscribe({
         next: (response) => {
-          console.log('Registration successful', response);
-          // Mostrar modal de éxito
+          console.log('Registro exitoso', response);
           const modal = new (window as any).bootstrap.Modal(document.getElementById('successModal'));
           modal.show();
         },
@@ -126,7 +133,7 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
           } else if (Array.isArray(errorMessage)) {
             alert(errorMessage.join('\n'));
           } else {
-          alert('Hubo un error durante el registro. Por favor, inténtalo de nuevo.');
+            alert('Hubo un error durante el registro. Por favor, inténtalo de nuevo.');
           }
         }
       });
@@ -135,4 +142,4 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
   goToLogin() {
     this.router.navigate(['/login']);
   }
-} 
+}

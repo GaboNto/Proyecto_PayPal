@@ -38,8 +38,38 @@
         <label for="fecha_nacimiento">Fecha de Nacimiento</label>
         <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control" [(ngModel)]="user.fecha_nacimiento" required>
       </div>
-      <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerForm.form.valid || rutError || rutExistsError">Crear cuenta</button>
+
+      <!-- ✅ CHECKBOXES AÑADIDOS -->
+      <div class="form-group">
+        <label>
+          <input type="checkbox" name="privacidad" [(ngModel)]="user.privacidad" required>
+          Acepto el uso de mis datos de acuerdo con las políticas de privacidad.
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" name="condiciones" [(ngModel)]="user.condiciones" required>
+          Acepto los términos y condiciones de evaluación crediticia.
+        </label>
+      </div>
+
+      <p style="font-size: 12px; color: #555;">
+        Al presionar "Crear cuenta" estás de acuerdo con nuestros 
+        <a href="assets/terminos_y_condiciones.pdf" target="_blank">Términos y condiciones</a>
+        <a href="assets/politica_de_datos.pdf" target="_blank">Utilización de datos</a>
+
+      </p>
+
+      <button 
+        type="submit" 
+        class="btn btn-primary btn-block" 
+        [disabled]="!registerForm.form.valid || rutError || rutExistsError || !user.privacidad || !user.condiciones"
+      >
+        Crear cuenta
+      </button>
     </form>
+
     <div class="auth-link">
       <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>
     </div>
@@ -63,4 +93,4 @@
       </div>
     </div>
   </div>
-</div> 
+</div>
