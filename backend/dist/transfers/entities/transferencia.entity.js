@@ -21,6 +21,8 @@ let Transferencia = class Transferencia {
     id_usuario_destino;
     usuario_externo;
     id_usuario_externo;
+    cuenta_origen;
+    cuenta_destino;
     monto;
     comision;
     fecha;
@@ -57,6 +59,14 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Object)
 ], Transferencia.prototype, "id_usuario_externo", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'varchar', length: 50, nullable: true }),
+    __metadata("design:type", Object)
+], Transferencia.prototype, "cuenta_origen", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'varchar', length: 50, nullable: true }),
+    __metadata("design:type", Object)
+], Transferencia.prototype, "cuenta_destino", void 0);
 __decorate([
     (0, typeorm_1.Column)('int'),
     __metadata("design:type", Number)

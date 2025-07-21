@@ -8,7 +8,9 @@ import { UsuarioExterno } from './entities/usuario-externo.entity';
 import { CreateTransferDto } from './dto/create-transfer.dto';
 import { CreateInternalTransferDto } from './dto/create-internal-transfer.dto';
 import { Cuenta } from '../cuentas/entities/cuenta.entity';
+import { In } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { HistorialSaldos } from './entities/historial-saldos';
 
 @Injectable()
 export class TransfersService {
@@ -21,6 +23,8 @@ export class TransfersService {
     private usuariosExternosRepository: Repository<UsuarioExterno>,
     @InjectRepository(Cuenta)
     private cuentasRepository: Repository<Cuenta>,
+    @InjectRepository(HistorialSaldos)
+    private historialRepository: Repository<HistorialSaldos>,
     private dataSource: DataSource,
   ) { }
 
@@ -50,6 +54,7 @@ export class TransfersService {
       const cuentaOrigen = await queryRunner.manager.findOne(Cuenta, { where: { id: cuentaOrigenId }, relations: ['usuario'] });
       const cuentaDestino = await queryRunner.manager.findOne(Cuenta, { where: { id: cuentaDestinoId }, relations: ['usuario'] });
 
+
       if (!cuentaOrigen || !cuentaDestino) {
         throw new NotFoundException('Una de las cuentas no fue encontrada.');
       }
@@ -76,10 +81,26 @@ export class TransfersService {
         usuario_id_origen: userId,
         id_usuario_destino: userId, // El mismo usuario
         id_usuario_externo: null,
+        cuenta_destino: cuentaDestino.numero_cuenta,
+        cuenta_origen: cuentaOrigen.numero_cuenta,
         monto,
         comision: 0, // Sin comisión para transferencias internas
       });
       await queryRunner.manager.save(transferencia);
+
+      const historialOrigen = this.historialRepository.create({
+        numero_cuenta: cuentaOrigen.numero_cuenta,
+        saldo: cuentaOrigen.saldo,
+      });
+
+      const historialDestino = this.historialRepository.create({
+        numero_cuenta: cuentaDestino.numero_cuenta,
+        saldo: cuentaDestino.saldo,
+      });
+
+      await queryRunner.manager.save([historialOrigen, historialDestino]);
+
+
 
       await queryRunner.commitTransaction();
       return { message: 'Transferencia entre tus cuentas realizada con éxito.' };
@@ -148,16 +169,32 @@ export class TransfersService {
         cuentaOrigen.saldo = Number(cuentaOrigen.saldo) - monto;
         cuentaDestino.saldo = Number(cuentaDestino.saldo) + monto;
 
+        const cuenta_destino = cuentaDestino.numero_cuenta
+
         await queryRunner.manager.save(cuentaOrigen);
         await queryRunner.manager.save(cuentaDestino);
 
         const transferencia = this.transferenciasRepository.create({
           usuario_id_origen: usuarioOrigenId,
           id_usuario_destino: usuarioDestino.id_usuario,
+          cuenta_destino,
+          cuenta_origen: cuentaOrigen.numero_cuenta,
           monto,
           comision: 0,
         });
         await queryRunner.manager.save(transferencia);
+
+        const historialOrigen = this.historialRepository.create({
+          numero_cuenta: cuentaOrigen.numero_cuenta,
+          saldo: cuentaOrigen.saldo,
+        });
+
+        const historialDestino = this.historialRepository.create({
+          numero_cuenta: cuentaDestino.numero_cuenta,
+          saldo: cuentaDestino.saldo,
+        });
+
+        await queryRunner.manager.save([historialOrigen, historialDestino]);
 
       } else {
         // Transferencia externa
@@ -201,6 +238,13 @@ export class TransfersService {
           comision,
         });
         await queryRunner.manager.save(transferencia);
+
+        const historialOrigen = this.historialRepository.create({
+          numero_cuenta: cuentaOrigen.numero_cuenta,
+          saldo: cuentaOrigen.saldo,
+        });
+
+        await queryRunner.manager.save([historialOrigen]);
       }
 
       await queryRunner.commitTransaction();
@@ -273,4 +317,45 @@ export class TransfersService {
       };
     });
   }
+
+  async obtenerHistorialPorUsuario(usuarioId: number) {
+    // 1. Obtener todas las cuentas del usuario
+    const cuentas = await this.cuentasRepository.find({
+      where: { usuario: { id_usuario: usuarioId } },
+      select: ['numero_cuenta'],
+    });
+
+    if (cuentas.length === 0) {
+      return []; // usuario sin cuentas, no hay historial
+    }
+
+    // Extraemos solo los números de cuenta en un array
+    const numerosCuenta = cuentas.map(c => c.numero_cuenta);
+
+    // 2. Buscar historial para esas cuentas
+    const historial = await this.historialRepository.find({
+      where: { numero_cuenta: In(numerosCuenta) },
+      order: { fecha: 'DESC' },
+    });
+    return historial;
+  }
+
+  async obtenerTipoYSaldoPorNumeroCuenta(numeroCuenta: string): Promise<{ tipoCuenta: string | null; saldo: number | null }> {
+    // Buscar la cuenta por número de cuenta
+    const cuenta = await this.cuentasRepository.findOne({ where: { numero_cuenta: numeroCuenta } });
+
+    if (!cuenta) {
+      // Si no existe la cuenta, devuelve nulls o lanza excepción si prefieres
+      return { tipoCuenta: null, saldo: null };
+    }
+
+    // Retorna tipo y saldo (ajusta 'tipo' si tu campo tiene otro nombre)
+    return {
+      tipoCuenta: (cuenta as any).tipo_cuenta || null,
+      saldo: Number(cuenta.saldo)
+    };
+  }
+
+
+
 } 

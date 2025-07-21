@@ -5,13 +5,15 @@ import { UsuarioExterno } from './entities/usuario-externo.entity';
 import { CreateTransferDto } from './dto/create-transfer.dto';
 import { CreateInternalTransferDto } from './dto/create-internal-transfer.dto';
 import { Cuenta } from '../cuentas/entities/cuenta.entity';
+import { HistorialSaldos } from './entities/historial-saldos';
 export declare class TransfersService {
     private usersRepository;
     private transferenciasRepository;
     private usuariosExternosRepository;
     private cuentasRepository;
+    private historialRepository;
     private dataSource;
-    constructor(usersRepository: Repository<User>, transferenciasRepository: Repository<Transferencia>, usuariosExternosRepository: Repository<UsuarioExterno>, cuentasRepository: Repository<Cuenta>, dataSource: DataSource);
+    constructor(usersRepository: Repository<User>, transferenciasRepository: Repository<Transferencia>, usuariosExternosRepository: Repository<UsuarioExterno>, cuentasRepository: Repository<Cuenta>, historialRepository: Repository<HistorialSaldos>, dataSource: DataSource);
     transferBetweenOwnAccounts(createDto: CreateInternalTransferDto, userId: number): Promise<{
         message: string;
     }>;
@@ -32,4 +34,9 @@ export declare class TransfersService {
         destino: any;
         hora: string | null;
     }[]>;
+    obtenerHistorialPorUsuario(usuarioId: number): Promise<HistorialSaldos[]>;
+    obtenerTipoYSaldoPorNumeroCuenta(numeroCuenta: string): Promise<{
+        tipoCuenta: string | null;
+        saldo: number | null;
+    }>;
 }

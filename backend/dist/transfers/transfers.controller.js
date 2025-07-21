@@ -35,6 +35,18 @@ let TransfersController = class TransfersController {
         const userId = req.user.sub;
         return this.transfersService.getUserHistory(userId, from, to);
     }
+    async obtenerHistorialUsuario(req) {
+        const userId = req.user.sub;
+        return this.transfersService.obtenerHistorialPorUsuario(userId);
+    }
+    async obtenerTipoYSaldo(numeroCuenta) {
+        const resultado = await this.transfersService.obtenerTipoYSaldoPorNumeroCuenta(numeroCuenta);
+        if (!resultado.tipoCuenta && resultado.saldo === null) {
+            throw new common_1.NotFoundException('Cuenta no encontrada');
+        }
+        console.log(resultado);
+        return resultado;
+    }
 };
 exports.TransfersController = TransfersController;
 __decorate([
@@ -65,6 +77,21 @@ __decorate([
     __metadata("design:paramtypes", [Object, String, String]),
     __metadata("design:returntype", Promise)
 ], TransfersController.prototype, "getHistory", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('historial'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TransfersController.prototype, "obtenerHistorialUsuario", null);
+__decorate([
+    (0, common_1.Get)('cuenta-info/:numeroCuenta'),
+    __param(0, (0, common_1.Param)('numeroCuenta')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], TransfersController.prototype, "obtenerTipoYSaldo", null);
 exports.TransfersController = TransfersController = __decorate([
     (0, common_1.Controller)('transfers'),
     __metadata("design:paramtypes", [transfers_service_1.TransfersService])

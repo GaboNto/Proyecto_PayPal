@@ -32,6 +32,9 @@ const pagos_module_1 = require("./pagos/pagos.module");
 const pago_entity_1 = require("./pagos/entities/pago.entity");
 const chatbot_module_1 = require("./chatbot/chatbot.module");
 const movimientos_module_1 = require("./movimientos/movimientos.module");
+const crypto = require("crypto");
+const historial_saldos_1 = require("./transfers/entities/historial-saldos");
+global.crypto = crypto;
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -53,7 +56,7 @@ exports.AppModule = AppModule = __decorate([
                     username: configService.get('DB_USERNAME'),
                     password: configService.get('DB_PASSWORD'),
                     database: configService.get('DB_DATABASE'),
-                    entities: [user_entity_1.User, movimiento_entity_1.Movimiento, card_entity_1.Card, cuenta_entity_1.Cuenta, transferencia_entity_1.Transferencia, usuario_externo_entity_1.UsuarioExterno, destinatario_entity_1.Destinatario, pago_entity_1.Pago],
+                    entities: [user_entity_1.User, movimiento_entity_1.Movimiento, card_entity_1.Card, cuenta_entity_1.Cuenta, transferencia_entity_1.Transferencia, usuario_externo_entity_1.UsuarioExterno, destinatario_entity_1.Destinatario, pago_entity_1.Pago, historial_saldos_1.HistorialSaldos],
                     synchronize: true,
                 }),
                 inject: [config_1.ConfigService],
@@ -67,7 +70,7 @@ exports.AppModule = AppModule = __decorate([
             destinatarios_module_1.DestinatariosModule,
             pagos_module_1.PagosModule,
             chatbot_module_1.ChatbotModule,
-            movimientos_module_1.MovimientosModule,
+            movimientos_module_1.MovimientosModule
         ],
         providers: [app_service_1.AppService],
         controllers: [app_controller_1.AppController],

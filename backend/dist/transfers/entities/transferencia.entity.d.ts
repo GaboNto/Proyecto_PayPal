@@ -8,6 +8,8 @@ export declare class Transferencia {
     id_usuario_destino: number | null;
     usuario_externo: UsuarioExterno;
     id_usuario_externo: number | null;
+    cuenta_origen: string | null;
+    cuenta_destino: string | null;
     monto: number;
     comision: number;
     fecha: Date;

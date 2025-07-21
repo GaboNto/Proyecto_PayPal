@@ -8,10 +8,11 @@ import { UsuarioExterno } from './entities/usuario-externo.entity';
 import { User } from '../users/user.entity';
 import { AuthModule } from 'src/auth/auth.module';
 import { Cuenta } from 'src/cuentas/entities/cuenta.entity';
+import { HistorialSaldos } from './entities/historial-saldos';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Transferencia, UsuarioExterno, User, Cuenta]),
+    TypeOrmModule.forFeature([Transferencia, UsuarioExterno, User, Cuenta, HistorialSaldos]),
     AuthModule,
   ],
   controllers: [TransfersController],

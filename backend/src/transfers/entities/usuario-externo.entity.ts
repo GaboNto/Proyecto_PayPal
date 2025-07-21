@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('usuarios_externos')
@@ -21,5 +22,6 @@ export class UsuarioExterno {
   numero_cuenta: string;
 
   @Column({ type: 'numeric', precision: 10, scale: 2, default: 0 })
+  // eslint-disable-next-line prettier/prettier
   saldo: number;
 } 

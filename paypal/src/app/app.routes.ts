@@ -38,12 +38,14 @@ export const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'donde-comprar', component: DondeComprarComponent },
   { path: 'seguridad-publica', component: SeguridadPublicaComponent },
+
   { path: 'tarjetas-publica', component: TarjetasPublicaComponent },
   { path: 'movimientos', component: MovimientosComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'configuracion', component: ConfiguracionComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
-  { path: 'verify-disable-2fa', component: VerifyDisable2faComponent }
+  { path: 'verify-disable-2fa', component: VerifyDisable2faComponent },
+  { path: 'ventajas', component: VentajasComponent }
 ];
 
 export const appImports = [
