@@ -101,6 +101,8 @@ export class SecurityComponent implements OnInit {
       next: (response) => {
         this.message = response.message;
         this.bepassData = { newBepass: '', confirmBepass: '', currentPassword: '' };
+        this.hasBePass = true; // Actualizar estado inmediatamente
+        
         // Consultar setup2FA tras crear el Be Pass
         this.authService.setup2FA().subscribe({
           next: (res) => {
@@ -124,6 +126,8 @@ export class SecurityComponent implements OnInit {
   close2FAQr() {
     this.show2FAQr = false;
     this.qrData = '';
+    // Redirigir a configuración después de cerrar el QR
+    window.location.href = '/configuracion?tab=seguridad';
   }
 
   onChangeBepassInput(event: Event): void {

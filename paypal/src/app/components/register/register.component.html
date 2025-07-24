@@ -14,7 +14,8 @@
       </div>
       <div class="form-group">
         <label for="rut">RUT</label>
-        <input type="text" id="rut" name="rut" class="form-control" [(ngModel)]="user.rut" (input)="onRutChange($event)" required>
+        <input type="text" id="rut" name="rut" class="form-control" [(ngModel)]="user.rut" (input)="onRutChange($event)"
+          required>
         <small *ngIf="rutError" class="form-text text-danger">{{ rutError }}</small>
         <small *ngIf="rutExistsError" class="form-text text-danger">{{ rutExistsError }}</small>
       </div>
@@ -32,14 +33,43 @@
       </div>
       <div class="form-group">
         <label for="password">Contraseña</label>
-        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="user.password" required minlength="6">
+        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="user.password" required
+          minlength="6">
       </div>
       <div class="form-group">
         <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control" [(ngModel)]="user.fecha_nacimiento" required>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control"
+          [(ngModel)]="user.fecha_nacimiento" required>
       </div>
-      <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerForm.form.valid || rutError || rutExistsError">Crear cuenta</button>
+
+      <!-- ✅ CHECKBOXES AÑADIDOS -->
+      <div class="form-group">
+        <label>
+          <input type="checkbox" name="privacidad">
+          Acepto el uso de mis datos de acuerdo con las políticas de privacidad.
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" name="condiciones">
+          Acepto los términos y condiciones de evaluación crediticia.
+        </label>
+      </div>
+
+      <p style="font-size: 12px; color: #555;">
+        Al presionar "Crear cuenta" estás de acuerdo con nuestros
+        <a href="assets/terminos_y_condiciones.pdf" target="_blank">Términos y condiciones</a>
+        <a href="assets/politica_de_datos.pdf" target="_blank">Utilización de datos</a>
+
+      </p>
+
+      <button type="submit" class="btn btn-primary btn-block"
+        [disabled]="!registerForm.form.valid || rutError || rutExistsError ">
+        Crear cuenta
+      </button>
     </form>
+
     <div class="auth-link">
       <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>
     </div>
@@ -59,8 +89,9 @@
         <p class="fs-5">¡Tu cuenta ha sido creada exitosamente! Ahora puedes iniciar sesión.</p>
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-primary w-50" (click)="goToLogin()" data-bs-dismiss="modal">Iniciar sesión</button>
+        <button type="button" class="btn btn-primary w-50" (click)="goToLogin()" data-bs-dismiss="modal">Iniciar
+          sesión</button>
       </div>
     </div>
   </div>
-</div> 
+</div>

@@ -1,6 +1,6 @@
 <aside class="sidebar" *ngIf="(isLoggedIn$ | async) && mostrarSidebar">
 
-    <div class="sidebar-logo">
+    <div class="sidebar-logo" routerLink="/">
         <img src="assets/logo3.webp" alt="Logo" />
     </div>
     <nav class="sidebar-nav">
@@ -9,7 +9,6 @@
         <a routerLink="/tarjetas">Tarjetas</a>
         <a routerLink="/transactions" routerLinkActive="active">Transferencias</a>
         <a routerLink="/movimientos" routerLinkActive="active">Movimientos</a>
-        <a routerLink="/security" routerLinkActive="active">Seguridad</a>
         <a routerLink="/configuracion" routerLinkActive="active">Configuración</a>
         <a (click)="logout()">Cerrar sesión</a>
     </nav>

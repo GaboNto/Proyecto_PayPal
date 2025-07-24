@@ -50,4 +50,8 @@ export class AuthService {
   verify2FA(code: string): Observable<{ success: boolean }> {
     return this.http.post<{ success: boolean }>('/api/users/2fa/verify', { code });
   }
+
+  sendEmailVerification(email: string): Observable<any> {
+    return this.http.post('/api/auth/send-verification-email', { email });
+  }
 } 
