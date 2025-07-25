@@ -18,6 +18,7 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import * as nodemailer from 'nodemailer';
 import { randomBytes } from 'crypto';
+import { EmailService } from 'src/email/email.service';
 
 @Injectable()
 export class AuthService {
@@ -34,6 +35,7 @@ export class AuthService {
     private cuentasRepository: Repository<Cuenta>,
     @InjectRepository(Card)
     private cardRepository: Repository<Card>,
+    private readonly emailService: EmailService
   ) {
     // Configuración de Ethereal
     nodemailer.createTestAccount().then((testAccount) => {
@@ -65,7 +67,7 @@ export class AuthService {
     const payload = { username: user.email, sub: user.id_usuario };
 
     // Enviar notificación por correo
-    await this.sendLoginNotification(user.email, user.nombre);
+    await this.emailService.sendLoginNotification(user.email, user.nombre);
 
     return {
       accessToken: this.jwtService.sign(payload),
@@ -167,22 +169,6 @@ export class AuthService {
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   }
 
-  private async sendLoginNotification(to: string, nombre: string) {
-    let cambioContraeña = 'http://localhost:4200/forgot-password'
-    const info = await this.transporter.sendMail({
-      from: 'no-reply@paypal-clone.com',
-      to,
-      subject: 'Notificación de inicio de sesión',
-      text: `Hola ${nombre}, se ha iniciado sesión en tu cuenta.`,
-      html: `
-      <p>Hola <strong>${nombre}</strong>,</p>
-      <p>Se ha iniciado sesión en tu cuenta de PayPal.</p>
-      <p>Si no fuiste tú, por favor cambia tu contraseña de inmediato en: <strong>${cambioContraeña}</strong>.</p>
-      <p><small>Fecha y hora: ${new Date().toLocaleString()}</small></p>
-    `
-    });
 
-    console.log('Login email enviado. Vista previa: %s', nodemailer.getTestMessageUrl(info));
-  }
 
 }

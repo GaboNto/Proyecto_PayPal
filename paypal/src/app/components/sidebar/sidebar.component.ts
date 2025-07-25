@@ -40,7 +40,7 @@ export class SidebarComponent {
         '/register',
         '/pre-registro',
         '/login',
-        '/', '/#features'
+        '/', '/#features', '/forgot-password'
       ];
 
       if (rutasSinSidebar.includes(urlActual) || urlActual.startsWith('/otra-ruta')) {

@@ -24,20 +24,23 @@ const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
 const card_entity_1 = require("../card/card.entity");
 const nodemailer = require("nodemailer");
 const crypto_1 = require("crypto");
+const email_service_1 = require("../email/email.service");
 let AuthService = class AuthService {
     usersService;
     jwtService;
     usersRepository;
     cuentasRepository;
     cardRepository;
+    emailService;
     transporter;
     recoveryTokens = {};
-    constructor(usersService, jwtService, usersRepository, cuentasRepository, cardRepository) {
+    constructor(usersService, jwtService, usersRepository, cuentasRepository, cardRepository, emailService) {
         this.usersService = usersService;
         this.jwtService = jwtService;
         this.usersRepository = usersRepository;
         this.cuentasRepository = cuentasRepository;
         this.cardRepository = cardRepository;
+        this.emailService = emailService;
         nodemailer.createTestAccount().then((testAccount) => {
             this.transporter = nodemailer.createTransport({
                 host: 'smtp.ethereal.email',
@@ -60,7 +63,7 @@ let AuthService = class AuthService {
     }
     async login(user) {
         const payload = { username: user.email, sub: user.id_usuario };
-        await this.sendLoginNotification(user.email, user.nombre);
+        await this.emailService.sendLoginNotification(user.email, user.nombre);
         return {
             accessToken: this.jwtService.sign(payload),
         };
@@ -137,22 +140,6 @@ let AuthService = class AuthService {
         });
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     }
-    async sendLoginNotification(to, nombre) {
-        let cambioContraeña = 'http://localhost:4200/forgot-password';
-        const info = await this.transporter.sendMail({
-            from: 'no-reply@paypal-clone.com',
-            to,
-            subject: 'Notificación de inicio de sesión',
-            text: `Hola ${nombre}, se ha iniciado sesión en tu cuenta.`,
-            html: `
-      <p>Hola <strong>${nombre}</strong>,</p>
-      <p>Se ha iniciado sesión en tu cuenta de PayPal.</p>
-      <p>Si no fuiste tú, por favor cambia tu contraseña de inmediato en: <strong>${cambioContraeña}</strong>.</p>
-      <p><small>Fecha y hora: ${new Date().toLocaleString()}</small></p>
-    `
-        });
-        console.log('Login email enviado. Vista previa: %s', nodemailer.getTestMessageUrl(info));
-    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
@@ -164,6 +151,7 @@ exports.AuthService = AuthService = __decorate([
         jwt_1.JwtService,
         typeorm_2.Repository,
         typeorm_2.Repository,
-        typeorm_2.Repository])
+        typeorm_2.Repository,
+        email_service_1.EmailService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

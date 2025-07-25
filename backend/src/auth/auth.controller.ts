@@ -8,7 +8,7 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @UseGuards(AuthGuard('local'))
   @Post('login')

@@ -13,6 +13,8 @@ import { LocalStrategy } from './local.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Cuenta } from 'src/cuentas/entities/cuenta.entity';
 import { Card } from 'src/card/card.entity';
+import { EmailModule } from 'src/email/auth.module';
+import { EmailService } from 'src/email/email.service';
 
 @Module({
   imports: [
@@ -20,7 +22,7 @@ import { Card } from 'src/card/card.entity';
     PassportModule,
     ConfigModule,
     JwtModule.registerAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule, EmailModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET'),
@@ -29,8 +31,8 @@ import { Card } from 'src/card/card.entity';
     }),
     TypeOrmModule.forFeature([User, Cuenta, Card]),
   ],
-  providers: [AuthService, JwtStrategy, LocalStrategy],
+  providers: [AuthService, JwtStrategy, LocalStrategy, EmailService],
   controllers: [AuthController],
   exports: [AuthService, JwtModule],
 })
-export class AuthModule {}
+export class AuthModule { }

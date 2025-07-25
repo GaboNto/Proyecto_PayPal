@@ -7,15 +7,17 @@ import { Cuenta } from 'src/cuentas/entities/cuenta.entity';
 import { Card } from 'src/card/card.entity';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { EmailService } from 'src/email/email.service';
 export declare class AuthService {
     private usersService;
     private jwtService;
     private usersRepository;
     private cuentasRepository;
     private cardRepository;
+    private readonly emailService;
     private transporter;
     private recoveryTokens;
-    constructor(usersService: UsersService, jwtService: JwtService, usersRepository: Repository<User>, cuentasRepository: Repository<Cuenta>, cardRepository: Repository<Card>);
+    constructor(usersService: UsersService, jwtService: JwtService, usersRepository: Repository<User>, cuentasRepository: Repository<Cuenta>, cardRepository: Repository<Card>, emailService: EmailService);
     validateUser(email: string, pass: string): Promise<any>;
     login(user: any): Promise<{
         accessToken: string;
@@ -41,5 +43,4 @@ export declare class AuthService {
     forgotPassword(forgotPasswordDto: ForgotPasswordDto): Promise<any>;
     resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
     private sendRecoveryEmail;
-    private sendLoginNotification;
 }
