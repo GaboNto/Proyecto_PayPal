@@ -5,11 +5,16 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject, Subscription, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, catchError, tap } from 'rxjs/operators';
+import { AuthService } from '../../services/auth.service';
+import { Observable, map } from 'rxjs';
+import { RouterModule } from '@angular/router';
+import { EmailValidatorService } from '../../services/email-validator.service';
+
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
@@ -25,13 +30,17 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
     password: '',
     rut: ''
   };
+  emailValid: boolean | null = null;
+  emailExistsError: string = '';
+  checkingEmail: boolean = false;
+  confirmPassword: string = '';
 
   rutError: string = '';
   rutExistsError: string = '';
   private rutSubject = new Subject<string>();
   private rutSubscription: Subscription | undefined;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private emailValidatorService: EmailValidatorService, private authService: AuthService, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     this.rutSubscription = this.rutSubject.pipe(
@@ -40,7 +49,7 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
       tap(() => this.rutExistsError = ''),
       switchMap(rut => {
         if (this.validateRut(rut)) {
-          return this.http.get<{ exists: boolean }>(`http://localhost:3000/api/auth/check-rut/${rut}`).pipe(
+          return this.http.get<{ exists: boolean }>(`http://190.45.118.42:3000/api/auth/check-rut/${rut}`).pipe(
             catchError(() => of({ exists: false }))
           );
         }
@@ -55,6 +64,10 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     this.rutSubscription?.unsubscribe();
+  }
+
+  get passwordMismatch(): boolean {
+    return this.user.password !== this.confirmPassword;
   }
 
   ngAfterViewInit(): void { }
@@ -114,7 +127,7 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
-    this.http.post('http://localhost:3000/api/auth/register', this.user)
+    this.http.post('http://190.45.118.42:3000/api/auth/register', this.user)
       .subscribe({
         next: (response) => {
           console.log('Registro exitoso', response);
@@ -138,4 +151,42 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
   goToLogin() {
     this.router.navigate(['/login']);
   }
+
+  canActivate(): Observable<boolean> {
+    return this.authService.isLoggedIn$.pipe(
+      map(isLoggedIn => {
+        if (isLoggedIn) {
+          this.router.navigate(['/profile']);  // Redirigir si está logueado
+          return false;
+        }
+        return true; // Permitir acceso si no está logueado
+      })
+    );
+  }
+
+
+  validarEmail(email: string): void {
+    this.emailExistsError = '';
+    this.checkingEmail = true;
+
+    this.emailValidatorService.validarEmail(email).subscribe({
+      next: (response) => {
+        this.checkingEmail = false;
+        console.log(response)
+        // ✅ La lógica correcta de validación
+        if (!response.format_valid || !response.mx_found || !response.smtp_check) {
+          this.emailExistsError = 'El correo electrónico no es válido o no existe.';
+        } else {
+          this.emailExistsError = ''; // Limpia el mensaje si todo está bien
+        }
+      },
+      error: (err) => {
+        console.error('Error al validar email:', err);
+        this.checkingEmail = false;
+        this.emailExistsError = 'Error al validar el correo.';
+      }
+    });
+  }
+
+
 }

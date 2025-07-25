@@ -38,7 +38,7 @@ export class LoginComponent {
       this.isLoading = true;
       this.error = null;
 
-      this.http.post<{ accessToken: string }>('http://localhost:3000/api/auth/login', this.loginForm.value)
+      this.http.post<{ accessToken: string }>('http://190.45.118.42:3000/api/auth/login', this.loginForm.value)
         .subscribe({
           next: (response) => {
             this.isLoading = false;

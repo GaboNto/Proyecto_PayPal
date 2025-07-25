@@ -11,6 +11,7 @@ export interface UserProfile {
   fecha_nacimiento: string;
   pais: string;
   ciudad: string;
+  rut: string;
   cuentas: {
     saldo: number;
   }[];
@@ -27,7 +28,7 @@ export class ProfileComponent implements OnInit {
   userProfile$: Observable<UserProfile | null> = of(null);
   saldoDisponible: number = 0;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.userProfile$ = this.http.get<UserProfile>('http://localhost:3000/api/users/profile').pipe(

@@ -13,7 +13,7 @@ export interface MovimientoHistorialDto {
     providedIn: 'root'
 })
 export class MovimientosService {
-    private baseUrl = 'http://localhost:3000/api/movimientos/historial';
+    private baseUrl = 'http://190.45.118.42:3000/api/movimientos/historial';
 
     constructor(private http: HttpClient) { }
 

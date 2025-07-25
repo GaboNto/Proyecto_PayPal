@@ -37,7 +37,7 @@ export class ChatBubbleComponent {
     this.scrollToBottom();
 
     this.http
-      .post<{ respuesta: string }>('http://localhost:3000/api/chatbot', {
+      .post<{ respuesta: string }>('http://190.45.118.42:3000/api/chatbot', {
         texto: message,
       })
       .subscribe({

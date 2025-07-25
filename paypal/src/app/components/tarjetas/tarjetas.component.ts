@@ -59,7 +59,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private cdr: ChangeDetectorRef,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadInitialData();
@@ -127,7 +127,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
       }
     });
   }
-  
+
   solicitarCuentaDeAhorro(): void {
     // Mostrar el modal Bootstrap
     const modal = new (window as any).bootstrap.Modal(document.getElementById('cuentaAhorroModal'));
@@ -169,9 +169,9 @@ export class TarjetasComponent implements OnInit, OnDestroy {
 
     // Si la tarjeta está bloqueada, necesitamos la clave para desbloquear
     if (this.currentCard.is_blocked && !isVerified) {
-       // El modal debe ser abierto por otro método que pase la plantilla.
-       // Esta lógica se moverá al manejador del botón.
-      return; 
+      // El modal debe ser abierto por otro método que pase la plantilla.
+      // Esta lógica se moverá al manejador del botón.
+      return;
     }
 
     const newStatus = !this.currentCard.is_blocked;
@@ -213,7 +213,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
       this.error = "La clave Be Pass debe tener 6 dígitos.";
       return;
     }
-    
+
     this.userService.verifyBepass(bepass).subscribe({
       next: (response: { success: boolean }) => {
         if (response.success) {
@@ -234,7 +234,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
       }
     });
   }
-  
+
   revealCardDetails(): void {
     this.showCardDetails = true;
     this.cdr.detectChanges();

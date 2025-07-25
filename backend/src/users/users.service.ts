@@ -14,12 +14,12 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-  ) {}
+  ) { }
 
   async findUserProfile(userId: number): Promise<User | null> {
     const user = await this.usersRepository.findOne({
       where: { id_usuario: userId },
-      relations: ['cuentas'], 
+      relations: ['cuentas'],
     });
     if (!user) {
       throw new NotFoundException(`User profile with ID ${userId} not found`);

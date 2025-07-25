@@ -16,7 +16,7 @@ export declare class UsersController {
     }>;
     setup2FA(req: any): Promise<{
         secret: string;
-        qr: string;
+        qr: any;
     }>;
     verify2FA(req: any, code: string): Promise<{
         success: boolean;

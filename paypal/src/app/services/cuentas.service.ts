@@ -22,7 +22,7 @@ export interface Cuenta {
   providedIn: 'root'
 })
 export class CuentasService {
-  private apiUrl = 'http://localhost:3000/api/cuentas';
+  private apiUrl = 'http://190.45.118.42:3000/api/cuentas';
 
   constructor(private http: HttpClient) { }
 
