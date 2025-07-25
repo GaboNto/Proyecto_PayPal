@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ENDPOINTS } from '../config/api-config';
 
 export interface Card {
   id: string;
@@ -22,9 +23,10 @@ export interface Cuenta {
   providedIn: 'root'
 })
 export class CuentasService {
-  private apiUrl = 'http://190.45.118.42:3000/api/cuentas';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private baseUrl = ENDPOINTS.base) { }
+
+  private apiUrl = `${this.baseUrl}/cuentas`
 
   getCuentas(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);

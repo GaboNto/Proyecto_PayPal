@@ -5,6 +5,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ENDPOINTS } from '../../config/api-config';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent {
   loginForm: FormGroup;
 
   constructor(
+    private baseUrl = ENDPOINTS.base,
     private http: HttpClient,
     private router: Router,
     private authService: AuthService
@@ -37,8 +39,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.isLoading = true;
       this.error = null;
-
-      this.http.post<{ accessToken: string }>('http://190.45.118.42:3000/api/auth/login', this.loginForm.value)
+      this.http.post<{ accessToken: string }>(`${this.baseUrl}/auth/login`, this.loginForm.value)
         .subscribe({
           next: (response) => {
             this.isLoading = false;

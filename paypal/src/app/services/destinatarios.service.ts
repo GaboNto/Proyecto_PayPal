@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ENDPOINTS } from '../config/api-config';
 
 export interface Destinatario {
   id: number;
@@ -21,9 +22,10 @@ export type UpdateDestinatario = Partial<CreateDestinatario>;
   providedIn: 'root'
 })
 export class DestinatariosService {
-  private apiUrl = 'http://190.45.118.42:3000/api/destinatarios';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private baseUrl = ENDPOINTS.base) { }
+
+  private apiUrl = `${this.baseUrl}/destinatarios`
 
   getDestinatarios(): Observable<Destinatario[]> {
     return this.http.get<Destinatario[]>(this.apiUrl);

@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { Observable, map } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { EmailValidatorService } from '../../services/email-validator.service';
+import { ENDPOINTS } from '../../config/api-config';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
   private rutSubject = new Subject<string>();
   private rutSubscription: Subscription | undefined;
 
-  constructor(private emailValidatorService: EmailValidatorService, private authService: AuthService, private http: HttpClient, private router: Router) { }
+  constructor(private baseUrl = ENDPOINTS.base, private emailValidatorService: EmailValidatorService, private authService: AuthService, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     this.rutSubscription = this.rutSubject.pipe(
@@ -49,7 +50,7 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
       tap(() => this.rutExistsError = ''),
       switchMap(rut => {
         if (this.validateRut(rut)) {
-          return this.http.get<{ exists: boolean }>(`http://190.45.118.42:3000/api/auth/check-rut/${rut}`).pipe(
+          return this.http.get<{ exists: boolean }>(`${this.baseUrl}/auth/check-rut/${rut}`).pipe(
             catchError(() => of({ exists: false }))
           );
         }
@@ -127,7 +128,7 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
-    this.http.post('http://190.45.118.42:3000/api/auth/register', this.user)
+    this.http.post(`${this.baseUrl}/auth/register`, this.user)
       .subscribe({
         next: (response) => {
           console.log('Registro exitoso', response);
