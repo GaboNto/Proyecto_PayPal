@@ -17,6 +17,7 @@ const user_entity_1 = require("../users/user.entity");
 const auth_module_1 = require("../auth/auth.module");
 const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
 const historial_saldos_1 = require("./entities/historial-saldos");
+const email_service_1 = require("../email/email.service");
 let TransfersModule = class TransfersModule {
 };
 exports.TransfersModule = TransfersModule;
@@ -27,7 +28,7 @@ exports.TransfersModule = TransfersModule = __decorate([
             auth_module_1.AuthModule,
         ],
         controllers: [transfers_controller_1.TransfersController],
-        providers: [transfers_service_1.TransfersService],
+        providers: [transfers_service_1.TransfersService, email_service_1.EmailService],
     })
 ], TransfersModule);
 //# sourceMappingURL=transfers.module.js.map

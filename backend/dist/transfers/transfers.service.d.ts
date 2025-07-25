@@ -6,6 +6,7 @@ import { CreateTransferDto } from './dto/create-transfer.dto';
 import { CreateInternalTransferDto } from './dto/create-internal-transfer.dto';
 import { Cuenta } from '../cuentas/entities/cuenta.entity';
 import { HistorialSaldos } from './entities/historial-saldos';
+import { EmailService } from 'src/email/email.service';
 export declare class TransfersService {
     private usersRepository;
     private transferenciasRepository;
@@ -13,7 +14,8 @@ export declare class TransfersService {
     private cuentasRepository;
     private historialRepository;
     private dataSource;
-    constructor(usersRepository: Repository<User>, transferenciasRepository: Repository<Transferencia>, usuariosExternosRepository: Repository<UsuarioExterno>, cuentasRepository: Repository<Cuenta>, historialRepository: Repository<HistorialSaldos>, dataSource: DataSource);
+    private readonly emailService;
+    constructor(usersRepository: Repository<User>, transferenciasRepository: Repository<Transferencia>, usuariosExternosRepository: Repository<UsuarioExterno>, cuentasRepository: Repository<Cuenta>, historialRepository: Repository<HistorialSaldos>, dataSource: DataSource, emailService: EmailService);
     transferBetweenOwnAccounts(createDto: CreateInternalTransferDto, userId: number): Promise<{
         message: string;
     }>;

@@ -13,8 +13,8 @@ let EmailService = class EmailService {
     transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'bryan.vidaurre28@gmail.com',
-            pass: 'iokh vtxa xaud wynq',
+            user: 'bankpaypai70@gmail.com',
+            pass: 'pbrx octh gnuf hpgi',
         },
     });
     async sendLoginNotification(to, nombre) {
@@ -49,7 +49,30 @@ let EmailService = class EmailService {
       </div>
     `,
         });
-        console.log('Correo enviado:', info.messageId);
+    }
+    async sendTransferNotification(to, nombre, destinatario, monto, fecha) {
+        const fechaStr = fecha.toLocaleString('es-CL', { timeZone: 'America/Santiago' });
+        const info = await this.transporter.sendMail({
+            from: '"PayPal Clon" <no-reply@paypal-clone.com>',
+            to,
+            subject: 'Confirmación de transferencia realizada',
+            html: `
+      <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px;">
+        <h2 style="color: #0070ba;">Transferencia realizada</h2>
+        <p>Hola <strong>${nombre}</strong>,</p>
+        <p>Te informamos que realizaste una transferencia por <strong>$${monto.toLocaleString('es-CL')}</strong> desde tu cuenta de PayPal a</p> <strong>${destinatario}</strong>
+        <p>Fecha y hora: <strong>${fechaStr}</strong></p>
+        <hr style="border-top: 1px solid #ddd;">
+        <p style="font-size: 12px; color: #777;">
+          Si no reconoces esta transacción, contáctanos inmediatamente.
+        </p>
+        <footer style="text-align: center; font-size: 10px; color: #aaa; margin-top: 30px;">
+          &copy; 2025 PayPal Clon. Todos los derechos reservados.
+        </footer>
+      </div>
+    `
+        });
+        console.log('Correo de transferencia enviado:', info.messageId);
     }
 };
 exports.EmailService = EmailService;

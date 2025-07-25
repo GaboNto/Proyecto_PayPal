@@ -9,6 +9,7 @@ import { User } from '../users/user.entity';
 import { AuthModule } from 'src/auth/auth.module';
 import { Cuenta } from 'src/cuentas/entities/cuenta.entity';
 import { HistorialSaldos } from './entities/historial-saldos';
+import { EmailService } from 'src/email/email.service';
 
 @Module({
   imports: [
@@ -16,6 +17,6 @@ import { HistorialSaldos } from './entities/historial-saldos';
     AuthModule,
   ],
   controllers: [TransfersController],
-  providers: [TransfersService],
+  providers: [TransfersService, EmailService],
 })
 export class TransfersModule { } 

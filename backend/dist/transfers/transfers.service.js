@@ -23,6 +23,7 @@ const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
 const typeorm_3 = require("typeorm");
 const bcrypt = require("bcrypt");
 const historial_saldos_1 = require("./entities/historial-saldos");
+const email_service_1 = require("../email/email.service");
 let TransfersService = class TransfersService {
     usersRepository;
     transferenciasRepository;
@@ -30,13 +31,15 @@ let TransfersService = class TransfersService {
     cuentasRepository;
     historialRepository;
     dataSource;
-    constructor(usersRepository, transferenciasRepository, usuariosExternosRepository, cuentasRepository, historialRepository, dataSource) {
+    emailService;
+    constructor(usersRepository, transferenciasRepository, usuariosExternosRepository, cuentasRepository, historialRepository, dataSource, emailService) {
         this.usersRepository = usersRepository;
         this.transferenciasRepository = transferenciasRepository;
         this.usuariosExternosRepository = usuariosExternosRepository;
         this.cuentasRepository = cuentasRepository;
         this.historialRepository = historialRepository;
         this.dataSource = dataSource;
+        this.emailService = emailService;
     }
     async transferBetweenOwnAccounts(createDto, userId) {
         const { cuentaOrigenId, cuentaDestinoId, monto, bepass } = createDto;
@@ -160,6 +163,7 @@ let TransfersService = class TransfersService {
                     saldo: cuentaDestino.saldo,
                 });
                 await queryRunner.manager.save([historialOrigen, historialDestino]);
+                await this.emailService.sendTransferNotification(usuarioOrigen.email, usuarioOrigen.nombre, usuarioDestino.nombre, monto, new Date());
             }
             else {
                 const comision = 300;
@@ -308,6 +312,7 @@ exports.TransfersService = TransfersService = __decorate([
         typeorm_2.Repository,
         typeorm_2.Repository,
         typeorm_2.Repository,
-        typeorm_2.DataSource])
+        typeorm_2.DataSource,
+        email_service_1.EmailService])
 ], TransfersService);
 //# sourceMappingURL=transfers.service.js.map

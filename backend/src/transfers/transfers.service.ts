@@ -11,6 +11,7 @@ import { Cuenta } from '../cuentas/entities/cuenta.entity';
 import { In } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { HistorialSaldos } from './entities/historial-saldos';
+import { EmailService } from 'src/email/email.service';
 
 @Injectable()
 export class TransfersService {
@@ -26,6 +27,7 @@ export class TransfersService {
     @InjectRepository(HistorialSaldos)
     private historialRepository: Repository<HistorialSaldos>,
     private dataSource: DataSource,
+    private readonly emailService: EmailService
   ) { }
 
   async transferBetweenOwnAccounts(createDto: CreateInternalTransferDto, userId: number): Promise<{ message: string }> {
@@ -99,7 +101,6 @@ export class TransfersService {
       });
 
       await queryRunner.manager.save([historialOrigen, historialDestino]);
-
 
 
       await queryRunner.commitTransaction();
@@ -196,6 +197,14 @@ export class TransfersService {
 
         await queryRunner.manager.save([historialOrigen, historialDestino]);
 
+        await this.emailService.sendTransferNotification(
+          usuarioOrigen.email,
+          usuarioOrigen.nombre,
+          usuarioDestino.nombre,
+          monto,
+          new Date()
+        );
+
       } else {
         // Transferencia externa
         const comision = 300;
@@ -246,7 +255,6 @@ export class TransfersService {
 
         await queryRunner.manager.save([historialOrigen]);
       }
-
       await queryRunner.commitTransaction();
       return { message: 'Transferencia realizada con éxito' };
     } catch (error) {
