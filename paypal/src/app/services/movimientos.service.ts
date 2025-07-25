@@ -15,8 +15,8 @@ export interface MovimientoHistorialDto {
 })
 export class MovimientosService {
 
-    constructor(private http: HttpClient, private baseUrl = ENDPOINTS.base) { }
-
+    constructor(private http: HttpClient) { }
+    private baseUrl = ENDPOINTS.base;
     obtenerMovimientosPorUsuario(): Observable<MovimientoHistorialDto[]> {
         const token = localStorage.getItem('token');
         const headers = new HttpHeaders({

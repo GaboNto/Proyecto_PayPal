@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ENDPOINTS } from '../../config/api-config';
 
 @Component({
@@ -19,9 +18,10 @@ export class LoginComponent {
   password = '';
   error: string | null = null;
   loginForm: FormGroup;
+  isLoading = false;
+  private baseUrl = ENDPOINTS.base;  // 👈 Declaración fuera del constructor
 
   constructor(
-    private baseUrl = ENDPOINTS.base,
     private http: HttpClient,
     private router: Router,
     private authService: AuthService
@@ -32,9 +32,6 @@ export class LoginComponent {
     });
   }
 
-  isLoading = false; // Declara esta propiedad en tu componente
-
-
   onSubmit() {
     if (this.loginForm.valid) {
       this.isLoading = true;
@@ -43,11 +40,11 @@ export class LoginComponent {
         .subscribe({
           next: (response) => {
             this.isLoading = false;
-            if (response && response.accessToken) {
+            if (response?.accessToken) {
               this.authService.login(response.accessToken);
               this.router.navigate(['/profile']);
             } else {
-              this.error = 'No se recibió el token de acceso';
+              this.error = 'No se recibió el token de acceso.';
             }
           },
           error: (err) => {
@@ -58,6 +55,4 @@ export class LoginComponent {
         });
     }
   }
-
-
 }

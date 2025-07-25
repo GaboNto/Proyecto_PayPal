@@ -8,8 +8,9 @@ import { ENDPOINTS } from '../config/api-config';
 })
 export class SaldoService {
 
-  constructor(private http: HttpClient, private baseUrl = ENDPOINTS.base) { }
+  constructor(private http: HttpClient) { }
 
+  private baseUrl = ENDPOINTS.base;
   getCurrentSaldo(): Observable<any> {
     return this.http.get(`${this.baseUrl}/saldos/current`);
   }

@@ -8,8 +8,9 @@ import { ENDPOINTS } from '../config/api-config';
 })
 export class TransferService {
 
-  constructor(private http: HttpClient, private baseUrl = ENDPOINTS.base) { }
+  constructor(private http: HttpClient) { }
 
+  private baseUrl = ENDPOINTS.base;
   private apiUrl = `${this.baseUrl}/transfers`
 
   transferBetweenOwnAccounts(data: any): Observable<any> {

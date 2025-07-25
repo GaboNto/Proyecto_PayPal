@@ -23,8 +23,8 @@ export type UpdateDestinatario = Partial<CreateDestinatario>;
 })
 export class DestinatariosService {
 
-  constructor(private http: HttpClient, private baseUrl = ENDPOINTS.base) { }
-
+  constructor(private http: HttpClient) { }
+  private baseUrl = ENDPOINTS.base;
   private apiUrl = `${this.baseUrl}/destinatarios`
 
   getDestinatarios(): Observable<Destinatario[]> {

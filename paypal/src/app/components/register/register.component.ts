@@ -40,8 +40,10 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
   rutExistsError: string = '';
   private rutSubject = new Subject<string>();
   private rutSubscription: Subscription | undefined;
+  private baseUrl = ENDPOINTS.base;  // 👈 Declaración fuera del constructor
 
-  constructor(private baseUrl = ENDPOINTS.base, private emailValidatorService: EmailValidatorService, private authService: AuthService, private http: HttpClient, private router: Router) { }
+
+  constructor(private emailValidatorService: EmailValidatorService, private authService: AuthService, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     this.rutSubscription = this.rutSubject.pipe(

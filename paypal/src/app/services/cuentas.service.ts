@@ -24,8 +24,8 @@ export interface Cuenta {
 })
 export class CuentasService {
 
-  constructor(private http: HttpClient, private baseUrl = ENDPOINTS.base) { }
-
+  constructor(private http: HttpClient) { }
+  private baseUrl = ENDPOINTS.base;
   private apiUrl = `${this.baseUrl}/cuentas`
 
   getCuentas(): Observable<any[]> {
