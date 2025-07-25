@@ -20,6 +20,149 @@ const create_user_dto_1 = require("./dto/create-user.dto");
 const forgot_password_dto_1 = require("./dto/forgot-password.dto");
 let AuthController = class AuthController {
     authService;
+    async verifyEmail(token, res) {
+        try {
+            console.log('Token recibido:', token);
+            if (!token) {
+                throw new common_1.BadRequestException('Token no proporcionado');
+            }
+            const result = await this.authService.verifyEmail(token);
+            const htmlResponse = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>${result.message === '¡Correo verificado correctamente!' ? 'Verificación Exitosa' : 'Error de Verificación'}</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background-color: #f5f5f5;
+              }
+              .container {
+                background-color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                text-align: center;
+                max-width: 400px;
+                width: 90%;
+              }
+              .icon {
+                font-size: 48px;
+                margin-bottom: 1rem;
+              }
+              .success {
+                color: #00a65a;
+              }
+              .error {
+                color: #dc3545;
+              }
+              .message {
+                margin: 1rem 0;
+                color: #333;
+              }
+              .button {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #0070ba;
+                color: white;
+                text-decoration: none;
+                border-radius: 4px;
+                margin-top: 1rem;
+                transition: background-color 0.3s;
+              }
+              .button:hover {
+                background-color: #005ea6;
+              }
+              .logo {
+                max-width: 100px;
+                margin-bottom: 1rem;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal Logo" class="logo">
+              ${result.message === '¡Correo verificado correctamente!'
+                ? `<div class="icon success">✓</div>
+                   <h1>¡Email Verificado!</h1>
+                   <p class="message">Tu correo electrónico ha sido verificado correctamente.</p>`
+                : `<div class="icon error">✕</div>
+                   <h1>Error de Verificación</h1>
+                   <p class="message">${result.message}</p>`}
+              <a href="/login" class="button">Ir al inicio de sesión</a>
+            </div>
+            <script>
+              // Redirigir después de 5 segundos
+              setTimeout(() => {
+                window.location.href = '/login';
+              }, 5000);
+            </script>
+          </body>
+        </html>
+      `;
+            return res.send(htmlResponse);
+        }
+        catch (error) {
+            console.error('Error en la verificación:', error);
+            return res.status(500).send(`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Error Inesperado</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background-color: #f5f5f5;
+              }
+              .container {
+                background-color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                text-align: center;
+                max-width: 400px;
+                width: 90%;
+              }
+              .icon {
+                font-size: 48px;
+                margin-bottom: 1rem;
+                color: #dc3545;
+              }
+              .button {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #0070ba;
+                color: white;
+                text-decoration: none;
+                border-radius: 4px;
+                margin-top: 1rem;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <div class="icon">✕</div>
+              <h1>Error Inesperado</h1>
+              <p>Ha ocurrido un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.</p>
+              <a href="/login" class="button">Volver al inicio</a>
+            </div>
+          </body>
+        </html>
+      `);
+        }
+    }
     constructor(authService) {
         this.authService = authService;
     }
@@ -36,13 +179,18 @@ let AuthController = class AuthController {
         return this.authService.forgotPassword(forgotPasswordDto);
     }
     async sendVerificationEmail(email) {
-        return this.authService.sendEmailVerification(email);
-    }
-    async verifyEmail(token) {
-        return this.authService.verifyEmailToken(token);
+        return this.authService.sendVerificationEmail(email);
     }
 };
 exports.AuthController = AuthController;
+__decorate([
+    (0, common_1.Get)('verify-email/:token'),
+    __param(0, (0, common_1.Param)('token')),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "verifyEmail", null);
 __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('local')),
     (0, common_1.Post)('login'),
@@ -79,13 +227,6 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "sendVerificationEmail", null);
-__decorate([
-    (0, common_1.Get)('verify-email'),
-    __param(0, (0, common_1.Query)('token')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "verifyEmail", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

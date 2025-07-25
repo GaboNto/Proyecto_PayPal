@@ -18,13 +18,14 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import * as nodemailer from 'nodemailer';
 import { randomBytes } from 'crypto';
-
-@Injectable()
+import { EmailService } from 'src/email/email.service';
+  
 export class AuthService {
   private transporter: nodemailer.Transporter;
   // Almacenamiento temporal de tokens: { token: { email, expires } }
   private recoveryTokens: Record<string, { email: string; expires: number }> = {};
-  private emailVerificationTokens: Record<string, { email: string; expires: number }> = {};
+  // Almacenamiento temporal de tokens de verificación de email
+  private verificationTokens: Record<string, { email: string; expires: number }> = {};
 
   constructor(
     private usersService: UsersService,
@@ -35,6 +36,7 @@ export class AuthService {
     private cuentasRepository: Repository<Cuenta>,
     @InjectRepository(Card)
     private cardRepository: Repository<Card>,
+    private readonly emailService: EmailService
   ) {
     // Configuración de Ethereal
     nodemailer.createTestAccount().then((testAccount) => {
@@ -66,7 +68,7 @@ export class AuthService {
     const payload = { username: user.email, sub: user.id_usuario };
 
     // Enviar notificación por correo
-    await this.sendLoginNotification(user.email, user.nombre);
+    await this.emailService.sendLoginNotification(user.email, user.nombre);
 
     return {
       accessToken: this.jwtService.sign(payload),
@@ -156,17 +158,49 @@ export class AuthService {
     return { message: 'Contraseña restablecida correctamente.' };
   }
 
-  async sendEmailVerification(email: string) {
-    // Generar token aleatorio
-    const token = randomBytes(32).toString('hex');
-    // Guardar token con expiración (ej: 1 hora)
-    this.emailVerificationTokens[token] = {
+  async sendVerificationEmail(email: string) {
+    // Generar token único
+    const { v4: uuidv4 } = require('uuid');
+    const token = uuidv4();
+    // Guardar token con expiración (ej: 24 horas)
+    this.verificationTokens[token] = {
       email,
-      expires: Date.now() + 60 * 60 * 1000,
+      expires: Date.now() + 24 * 60 * 60 * 1000,
     };
-    // Enviar correo
-    await this.sendVerificationEmail(email, token);
-    return { message: 'Se ha enviado un correo de verificación.' };
+    // Enviar correo con el token
+    await this.emailService.sendVerificationEmail(email, token);
+    return { message: 'Correo de verificación enviado' };
+  }
+
+  async verifyEmail(token: string): Promise<{ message: string }> {
+    console.log('Verificando token:', token); // Para debugging
+    console.log('Tokens almacenados:', this.verificationTokens); // Para debugging
+    
+    const tokenData = this.verificationTokens[token];
+    if (!tokenData || tokenData.expires < Date.now()) {
+      console.log('Token inválido o expirado:', { tokenData, now: Date.now() }); // Para debugging
+      return { message: 'Token inválido o expirado.' };
+    }
+    
+    const user = await this.usersRepository.findOne({ where: { email: tokenData.email } });
+    if (!user) {
+      console.log('Usuario no encontrado para el email:', tokenData.email); // Para debugging
+      return { message: 'Usuario no encontrado.' };
+    }
+    
+    try {
+      user.email_verificado = true;
+      await this.usersRepository.save(user);
+      console.log('Usuario verificado correctamente:', user.email); // Para debugging
+      
+      // Eliminar el token usado
+      delete this.verificationTokens[token];
+      
+      return { message: '¡Correo verificado correctamente!' };
+    } catch (error) {
+      console.error('Error al guardar la verificación:', error); // Para debugging
+      return { message: 'Error al verificar el correo.' };
+    }
   }
 
   private async sendRecoveryEmail(to: string, token: string) {
@@ -181,48 +215,5 @@ export class AuthService {
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   }
 
-  private async sendLoginNotification(to: string, nombre: string) {
-    let cambioContraeña = 'http://localhost:4200/forgot-password'
-    const info = await this.transporter.sendMail({
-      from: 'no-reply@paypal-clone.com',
-      to,
-      subject: 'Notificación de inicio de sesión',
-      text: `Hola ${nombre}, se ha iniciado sesión en tu cuenta.`,
-      html: `
-      <p>Hola <strong>${nombre}</strong>,</p>
-      <p>Se ha iniciado sesión en tu cuenta de PayPal.</p>
-      <p>Si no fuiste tú, por favor cambia tu contraseña de inmediato en: <strong>${cambioContraeña}</strong>.</p>
-      <p><small>Fecha y hora: ${new Date().toLocaleString()}</small></p>
-    `
-    });
-
-    console.log('Login email enviado. Vista previa: %s', nodemailer.getTestMessageUrl(info));
-  }
-
-  private async sendVerificationEmail(to: string, token: string) {
-    const info = await this.transporter.sendMail({
-      from: 'no-reply@paypal-clone.com',
-      to,
-      subject: 'Verificación de correo electrónico',
-      text: `Para verificar tu correo, haz clic en el siguiente enlace: http://localhost:3000/verify-email?token=${token}`,
-      html: `<p>Para verificar tu correo, haz clic en el siguiente enlace:</p><a href="http://localhost:3000/verify-email?token=${token}">Verificar correo</a>`
-    });
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-  }
-
-  async verifyEmailToken(token: string) {
-    const tokenData = this.emailVerificationTokens[token];
-    if (!tokenData || tokenData.expires < Date.now()) {
-      return { success: false, message: 'Token inválido o expirado.' };
-    }
-    const user = await this.usersRepository.findOne({ where: { email: tokenData.email } });
-    if (!user) {
-      return { success: false, message: 'Usuario no encontrado.' };
-    }
-    user.emailVerificado = true;
-    await this.usersRepository.save(user);
-    delete this.emailVerificationTokens[token];
-    return { success: true, message: 'Correo verificado correctamente.' };
-  }
 
 }

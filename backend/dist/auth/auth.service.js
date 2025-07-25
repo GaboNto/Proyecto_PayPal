@@ -13,7 +13,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
-const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const users_service_1 = require("../users/users.service");
 const bcrypt = require("bcrypt");
@@ -24,21 +23,24 @@ const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
 const card_entity_1 = require("../card/card.entity");
 const nodemailer = require("nodemailer");
 const crypto_1 = require("crypto");
+const email_service_1 = require("../email/email.service");
 let AuthService = class AuthService {
     usersService;
     jwtService;
     usersRepository;
     cuentasRepository;
     cardRepository;
+    emailService;
     transporter;
     recoveryTokens = {};
-    emailVerificationTokens = {};
-    constructor(usersService, jwtService, usersRepository, cuentasRepository, cardRepository) {
+    verificationTokens = {};
+    constructor(usersService, jwtService, usersRepository, cuentasRepository, cardRepository, emailService) {
         this.usersService = usersService;
         this.jwtService = jwtService;
         this.usersRepository = usersRepository;
         this.cuentasRepository = cuentasRepository;
         this.cardRepository = cardRepository;
+        this.emailService = emailService;
         nodemailer.createTestAccount().then((testAccount) => {
             this.transporter = nodemailer.createTransport({
                 host: 'smtp.ethereal.email',
@@ -61,7 +63,7 @@ let AuthService = class AuthService {
     }
     async login(user) {
         const payload = { username: user.email, sub: user.id_usuario };
-        await this.sendLoginNotification(user.email, user.nombre);
+        await this.emailService.sendLoginNotification(user.email, user.nombre);
         return {
             accessToken: this.jwtService.sign(payload),
         };
@@ -128,14 +130,40 @@ let AuthService = class AuthService {
         delete this.recoveryTokens[token];
         return { message: 'Contraseña restablecida correctamente.' };
     }
-    async sendEmailVerification(email) {
-        const token = (0, crypto_1.randomBytes)(32).toString('hex');
-        this.emailVerificationTokens[token] = {
+    async sendVerificationEmail(email) {
+        const { v4: uuidv4 } = require('uuid');
+        const token = uuidv4();
+        this.verificationTokens[token] = {
             email,
-            expires: Date.now() + 60 * 60 * 1000,
+            expires: Date.now() + 24 * 60 * 60 * 1000,
         };
-        await this.sendVerificationEmail(email, token);
-        return { message: 'Se ha enviado un correo de verificación.' };
+        await this.emailService.sendVerificationEmail(email, token);
+        return { message: 'Correo de verificación enviado' };
+    }
+    async verifyEmail(token) {
+        console.log('Verificando token:', token);
+        console.log('Tokens almacenados:', this.verificationTokens);
+        const tokenData = this.verificationTokens[token];
+        if (!tokenData || tokenData.expires < Date.now()) {
+            console.log('Token inválido o expirado:', { tokenData, now: Date.now() });
+            return { message: 'Token inválido o expirado.' };
+        }
+        const user = await this.usersRepository.findOne({ where: { email: tokenData.email } });
+        if (!user) {
+            console.log('Usuario no encontrado para el email:', tokenData.email);
+            return { message: 'Usuario no encontrado.' };
+        }
+        try {
+            user.email_verificado = true;
+            await this.usersRepository.save(user);
+            console.log('Usuario verificado correctamente:', user.email);
+            delete this.verificationTokens[token];
+            return { message: '¡Correo verificado correctamente!' };
+        }
+        catch (error) {
+            console.error('Error al guardar la verificación:', error);
+            return { message: 'Error al verificar el correo.' };
+        }
     }
     async sendRecoveryEmail(to, token) {
         const info = await this.transporter.sendMail({
@@ -147,50 +175,9 @@ let AuthService = class AuthService {
         });
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     }
-    async sendLoginNotification(to, nombre) {
-        let cambioContraeña = 'http://localhost:4200/forgot-password';
-        const info = await this.transporter.sendMail({
-            from: 'no-reply@paypal-clone.com',
-            to,
-            subject: 'Notificación de inicio de sesión',
-            text: `Hola ${nombre}, se ha iniciado sesión en tu cuenta.`,
-            html: `
-      <p>Hola <strong>${nombre}</strong>,</p>
-      <p>Se ha iniciado sesión en tu cuenta de PayPal.</p>
-      <p>Si no fuiste tú, por favor cambia tu contraseña de inmediato en: <strong>${cambioContraeña}</strong>.</p>
-      <p><small>Fecha y hora: ${new Date().toLocaleString()}</small></p>
-    `
-        });
-        console.log('Login email enviado. Vista previa: %s', nodemailer.getTestMessageUrl(info));
-    }
-    async sendVerificationEmail(to, token) {
-        const info = await this.transporter.sendMail({
-            from: 'no-reply@paypal-clone.com',
-            to,
-            subject: 'Verificación de correo electrónico',
-            text: `Para verificar tu correo, haz clic en el siguiente enlace: http://localhost:3000/verify-email?token=${token}`,
-            html: `<p>Para verificar tu correo, haz clic en el siguiente enlace:</p><a href="http://localhost:3000/verify-email?token=${token}">Verificar correo</a>`
-        });
-        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-    }
-    async verifyEmailToken(token) {
-        const tokenData = this.emailVerificationTokens[token];
-        if (!tokenData || tokenData.expires < Date.now()) {
-            return { success: false, message: 'Token inválido o expirado.' };
-        }
-        const user = await this.usersRepository.findOne({ where: { email: tokenData.email } });
-        if (!user) {
-            return { success: false, message: 'Usuario no encontrado.' };
-        }
-        user.emailVerificado = true;
-        await this.usersRepository.save(user);
-        delete this.emailVerificationTokens[token];
-        return { success: true, message: 'Correo verificado correctamente.' };
-    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
-    (0, common_1.Injectable)(),
     __param(2, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
     __param(3, (0, typeorm_1.InjectRepository)(cuenta_entity_1.Cuenta)),
     __param(4, (0, typeorm_1.InjectRepository)(card_entity_1.Card)),
@@ -198,6 +185,7 @@ exports.AuthService = AuthService = __decorate([
         jwt_1.JwtService,
         typeorm_2.Repository,
         typeorm_2.Repository,
-        typeorm_2.Repository])
+        typeorm_2.Repository,
+        email_service_1.EmailService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

@@ -22,15 +22,15 @@ let User = class User {
     pais;
     ciudad;
     rut;
-    direccion;
-    facturacion;
     banco;
     cuentas;
     destinatarios;
+    email_verificado;
     bepass;
     totpSecret;
-    emailVerificado;
-    twoFAEnabled;
+    direccion;
+    facturacion;
+    twoFactorEnabled;
 };
 exports.User = User;
 __decorate([
@@ -70,14 +70,6 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "rut", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], User.prototype, "direccion", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], User.prototype, "facturacion", void 0);
-__decorate([
     (0, typeorm_1.Column)({ length: 50, default: 'Paypal' }),
     __metadata("design:type", String)
 ], User.prototype, "banco", void 0);
@@ -90,6 +82,10 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "destinatarios", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ type: 'boolean', name: 'email_verificado', default: false }),
+    __metadata("design:type", Boolean)
+], User.prototype, "email_verificado", void 0);
+__decorate([
     (0, typeorm_1.Column)({ name: 'bepass', nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "bepass", void 0);
@@ -98,13 +94,17 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "totpSecret", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'email_verificado', type: 'boolean', default: false }),
-    __metadata("design:type", Boolean)
-], User.prototype, "emailVerificado", void 0);
+    (0, typeorm_1.Column)({ name: 'direccion', nullable: true }),
+    __metadata("design:type", String)
+], User.prototype, "direccion", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'facturacion', nullable: true }),
+    __metadata("design:type", String)
+], User.prototype, "facturacion", void 0);
 __decorate([
     (0, typeorm_1.Column)({ name: '2fa_enabled', type: 'boolean', default: false }),
     __metadata("design:type", Boolean)
-], User.prototype, "twoFAEnabled", void 0);
+], User.prototype, "twoFactorEnabled", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)('usuarios')
 ], User);

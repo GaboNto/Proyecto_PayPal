@@ -3,9 +3,10 @@
     <section class="hero-section">
         <div class="hero-content">
             <h1>La forma más segura y fácil de mover tu dinero</h1>
-            <p class="hero-subtitle">Gestiona tus finanzas de manera inteligente con nuestra plataforma segura y confiable</p>
+            <p class="hero-subtitle">Gestiona tus finanzas de manera inteligente con nuestra plataforma segura y
+                confiable</p>
             <div class="cta-buttons">
-                <a routerLink="/register" class="btn btn-primary">Comenzar ahora</a>
+                <a *ngIf="!(isLoggedIn$ | async)" routerLink="/pre-registro" class="btn btn-primary">Comenzar ahora</a>
                 <a href="#features" class="btn btn-secondary">Conoce más</a>
             </div>
         </div>
@@ -35,7 +36,8 @@
                 </div>
                 <h3>Transacciones seguras</h3>
                 <p>Realiza y monitorea todas tus transferencias con la máxima seguridad y protección.</p>
-                <a routerLink="/transactions" class="feature-link">Ver transacciones <i class="fas fa-arrow-right"></i></a>
+                <a routerLink="/transactions" class="feature-link">Ver transacciones <i
+                        class="fas fa-arrow-right"></i></a>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
@@ -74,4 +76,4 @@
             </ul>
         </div>
     </section>
-</div> 
+</div>

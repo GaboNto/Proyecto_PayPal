@@ -49,6 +49,87 @@
   outline: none;
 }
 
+.verification-status {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.verification-status button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #0070ba;
+  color: white;
+}
+
+.email-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.email-container input {
+  flex: 1;
+}
+
+.verification-status {
+  min-width: 120px;
+}
+
+.verification-status button {
+  width: 100%;
+  justify-content: center;
+}
+
+.verification-status button.verified {
+  background-color: #00a65a;
+  cursor: default;
+  pointer-events: none;
+}
+
+.verification-status button.unverified {
+  background-color: #0070ba;
+}
+
+.verification-status button.verified i {
+  color: white;
+}
+
+.verification-status button span {
+  white-space: nowrap;
+}
+
+.verification-status button:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.verification-status button i {
+  font-size: 16px;
+}
+
+.verification-status .spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .form-actions {
   display: flex;
   justify-content: flex-end;

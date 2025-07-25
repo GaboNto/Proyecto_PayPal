@@ -1,14 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BASE_URL } from '../config/api-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransferService {
-  private apiUrl = 'http://localhost:3000/api/transfers';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, @Inject(BASE_URL) private baseUrl: string) { }
+
+  private apiUrl = `${this.baseUrl}/transfers`;
 
   transferBetweenOwnAccounts(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/between-accounts`, data);
@@ -26,7 +28,6 @@ export class TransferService {
     return this.http.get(url);
   }
 
-
   obtenerHistorialUsuario(): Observable<any> {
     return this.http.get(`${this.apiUrl}/historial`);
   }
@@ -35,8 +36,4 @@ export class TransferService {
   obtenerTipoYSaldoPorCuenta(numeroCuenta: string) {
     return this.http.get<{ tipoCuenta: string, saldo: number }>(`${this.apiUrl}/cuenta-info/${numeroCuenta}`);
   }
-
-
-
-
 }

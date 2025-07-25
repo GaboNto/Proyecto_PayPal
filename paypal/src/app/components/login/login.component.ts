@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { BASE_URL } from '../../config/api-config';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent {
   loginForm: FormGroup;
 
   constructor(
+    @Inject(BASE_URL) private baseUrl: string,
     private http: HttpClient,
     private router: Router,
     private authService: AuthService
@@ -32,13 +34,11 @@ export class LoginComponent {
 
   isLoading = false; // Declara esta propiedad en tu componente
 
-
   onSubmit() {
     if (this.loginForm.valid) {
       this.isLoading = true;
       this.error = null;
-
-      this.http.post<{ accessToken: string }>('http://localhost:3000/api/auth/login', this.loginForm.value)
+      this.http.post<{ accessToken: string }>(`${this.baseUrl}/auth/login`, this.loginForm.value)
         .subscribe({
           next: (response) => {
             this.isLoading = false;
@@ -57,6 +57,4 @@ export class LoginComponent {
         });
     }
   }
-
-
 }

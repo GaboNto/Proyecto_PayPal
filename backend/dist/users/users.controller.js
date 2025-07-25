@@ -14,7 +14,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
-const update_user_dto_1 = require("./dto/update-user.dto");
 const users_service_1 = require("./users.service");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const set_bepass_dto_1 = require("./dto/set-bepass.dto");
@@ -29,8 +28,18 @@ let UsersController = class UsersController {
     getProfile(req) {
         return this.usersService.findById(req.user.sub);
     }
-    async updateProfile(req, updateUserDto) {
-        return this.usersService.updateUserProfile(req.user.sub, updateUserDto);
+    async getCurrentUser(req) {
+        const user = await this.usersService.findById(req.user.sub);
+        return {
+            id_usuario: user.id_usuario,
+            nombre: user.nombre,
+            apellido: user.apellido,
+            email: user.email,
+            fecha_nacimiento: user.fecha_nacimiento,
+            direccion: user.direccion,
+            facturacion: user.facturacion,
+            email_verificado: user.email_verificado
+        };
     }
     verifyBepass(req, verifyBepassDto) {
         const userId = req.user.sub;
@@ -74,24 +83,7 @@ let UsersController = class UsersController {
         });
         if (!verified)
             throw new common_1.UnauthorizedException('Código 2FA incorrecto');
-        user.twoFAEnabled = true;
-        await this.usersService.save(user);
         return { success: true };
-    }
-    async requestDisable2FA(req) {
-        const userId = req.user.sub;
-        return this.usersService.requestDisable2FA(userId);
-    }
-    async confirmDisable2FA(req, token) {
-        const userId = req.user.sub;
-        return this.usersService.confirmDisable2FA(userId, token);
-    }
-    async get2FAStatus(req) {
-        const user = await this.usersService.findById(req.user.sub);
-        return {
-            isEnabled: !!user.twoFAEnabled,
-            hasBepass: !!user.bepass
-        };
     }
 };
 exports.UsersController = UsersController;
@@ -105,13 +97,12 @@ __decorate([
 ], UsersController.prototype, "getProfile", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Patch)('profile'),
+    (0, common_1.Get)('me'),
     __param(0, (0, common_1.Request)()),
-    __param(1, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, update_user_dto_1.UpdateUserDto]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "updateProfile", null);
+], UsersController.prototype, "getCurrentUser", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('verify-bepass'),
@@ -155,31 +146,6 @@ __decorate([
     __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "verify2FA", null);
-__decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Post)('2fa/disable-request'),
-    __param(0, (0, common_1.Request)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "requestDisable2FA", null);
-__decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Post)('2fa/disable-confirm'),
-    __param(0, (0, common_1.Request)()),
-    __param(1, (0, common_1.Body)('token')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "confirmDisable2FA", null);
-__decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Get)('2fa/status'),
-    __param(0, (0, common_1.Request)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "get2FAStatus", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

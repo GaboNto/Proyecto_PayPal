@@ -1,18 +1,18 @@
-<header *ngIf="!(isLoggedIn$ | async)">
+<header *ngIf="mostrarNavbar">
   <nav class="navbar">
     <div class="navbar-logo">
       <a routerLink="/"><img src="assets/paypal-logo.svg" alt="PayPal Logo"></a>
     </div>
     <div class="navbar-links">
-      <a (click)="handleTransferClick()" class="transfer-link">Transferir</a>
-      <a *ngIf="isLoggedIn$ | async" routerLink="/tarjetas">Tarjetas</a>
-      <a *ngIf="!(isLoggedIn$ | async)" routerLink="/tarjetas-publica">Tarjetas</a>
-      <a href="#features" *ngIf="!(isLoggedIn$ | async)">Característica</a>
-      <a routerLink="/donde-comprar" *ngIf="!(isLoggedIn$ | async)">¿Dónde comprar?</a>
+      <a routerLink="/ventajas">¿Por Qué Paypal?</a>
+      <a routerLink="/tarjetas-publica">Tarjetas</a>
+      <a href="#features">Característica</a>
+      <a routerLink="/donde-comprar">¿Dónde comprar?</a>
     </div>
     <div class="navbar-actions">
       <ng-container *ngIf="isLoggedIn$ | async; else showLogin">
-        <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+        <button class="btn-logout" routerLink="/profile">Perfil</button>
+
       </ng-container>
       <ng-template #showLogin>
         <a routerLink="/login" class="btn-login">Iniciar Sesión</a>

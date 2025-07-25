@@ -1,5 +1,5 @@
 <div class="donde-comprar-container">
-
+ 
   <div class="header">
     <div class="header-content">
       <h1>🛒 ¿Dónde comprar con PayPal?</h1>
@@ -7,45 +7,64 @@
     </div>
   </div>
 
-
+  
   <div class="search-section">
     <div class="search-container">
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" placeholder="Buscar comercios, categorías o productos..." class="search-input"
-          [(ngModel)]="terminoBusqueda" (input)="buscarComercios(terminoBusqueda)">
-        <button class="search-button" *ngIf="terminoBusqueda.trim() !== ''" (click)="limpiarBusqueda()">
+        <input 
+          type="text" 
+          placeholder="Buscar comercios, categorías o productos..."
+          class="search-input"
+          [(ngModel)]="terminoBusqueda"
+          (input)="buscarComercios(terminoBusqueda)"
+        >
+        <button 
+          class="search-button" 
+          *ngIf="terminoBusqueda.trim() !== ''"
+          (click)="limpiarBusqueda()"
+        >
           Limpiar
         </button>
-        <button class="search-button" *ngIf="terminoBusqueda.trim() === ''">
+        <button 
+          class="search-button" 
+          *ngIf="terminoBusqueda.trim() === ''"
+        >
           Buscar
         </button>
       </div>
     </div>
   </div>
 
-
+  
   <div class="categories-section">
     <h2>Categorías populares</h2>
     <div class="categories-grid">
-      <button *ngFor="let categoria of categorias" class="category-card"
-        [class.active]="categoriaSeleccionada === categoria.id" (click)="cambiarCategoria(categoria.id)">
+      <button 
+        *ngFor="let categoria of categorias" 
+        class="category-card"
+        [class.active]="categoriaSeleccionada === categoria.id"
+        (click)="cambiarCategoria(categoria.id)"
+      >
         <span class="category-icon">{{ categoria.icono }}</span>
         <span class="category-name">{{ categoria.nombre }}</span>
       </button>
     </div>
   </div>
 
-
+ 
   <div class="popular-section" *ngIf="categoriaSeleccionada === 'todos' && comerciosPopulares.length > 0">
     <h2>🔥 Comercios más populares</h2>
     <div class="comercios-grid">
-      <div *ngFor="let comercio of comerciosPopulares" class="comercio-card popular"
-        (click)="visitarComercio(comercio)">
+      <div 
+        *ngFor="let comercio of comerciosPopulares" 
+        class="comercio-card popular"
+        (click)="visitarComercio(comercio)"
+      >
         <div class="comercio-header">
-          <span class="comercio-logo">{{ comercio.logo }}</span>
-          <span class="popular-badge">🔥 Popular</span>
+          <img class="comercio-logo" [src]="comercio.logo" [alt]="comercio.nombre + ' logo'" />
         </div>
+        <span class="popular-badge" *ngIf="comercio.popular">🔥 Popular</span>
         <h3 class="comercio-nombre">{{ comercio.nombre }}</h3>
         <p class="comercio-descripcion">{{ comercio.descripcion }}</p>
         <div class="comercio-footer">
@@ -56,7 +75,7 @@
     </div>
   </div>
 
-
+  
   <div class="comercios-section">
     <div class="section-header">
       <h2>
@@ -72,12 +91,16 @@
     </div>
 
     <div class="comercios-grid">
-      <div *ngFor="let comercio of comerciosFiltrados" class="comercio-card" [class.popular]="comercio.popular"
-        (click)="visitarComercio(comercio)">
+      <div 
+        *ngFor="let comercio of comerciosFiltrados" 
+        class="comercio-card"
+        [class.popular]="comercio.popular"
+        (click)="visitarComercio(comercio)"
+      >
         <div class="comercio-header">
-          <span class="comercio-logo">{{ comercio.logo }}</span>
-          <span class="popular-badge" *ngIf="comercio.popular">🔥 Popular</span>
+          <img class="comercio-logo" [src]="comercio.logo" [alt]="comercio.nombre + ' logo'" />
         </div>
+        <span class="popular-badge" *ngIf="comercio.popular">🔥 Popular</span>
         <h3 class="comercio-nombre">{{ comercio.nombre }}</h3>
         <p class="comercio-descripcion">{{ comercio.descripcion }}</p>
         <div class="comercio-footer">
@@ -87,7 +110,7 @@
       </div>
     </div>
 
-
+    
     <div class="no-comercios" *ngIf="comerciosFiltrados.length === 0">
       <div class="no-comercios-content">
         <span class="no-comercios-icon">🔍</span>
@@ -98,14 +121,18 @@
         <p *ngIf="terminoBusqueda.trim() === ''">
           Intenta con otra categoría o busca con diferentes términos.
         </p>
-        <button class="btn-secondary" *ngIf="terminoBusqueda.trim() !== ''" (click)="limpiarBusqueda()">
+        <button 
+          class="btn-secondary" 
+          *ngIf="terminoBusqueda.trim() !== ''"
+          (click)="limpiarBusqueda()"
+        >
           Limpiar búsqueda
         </button>
       </div>
     </div>
   </div>
 
-
+  
   <div class="info-section">
     <div class="info-grid">
       <div class="info-card">
@@ -130,4 +157,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> 

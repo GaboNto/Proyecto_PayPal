@@ -1,14 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BASE_URL } from '../config/api-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/api/users';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, @Inject(BASE_URL) private baseUrl: string) { }
+
+  private apiUrl = `${this.baseUrl}/users`;
 
   setBepass(data: any): Observable<any> {
     return this.http.patch(`${this.apiUrl}/set-bepass`, data);
@@ -24,5 +26,13 @@ export class UserService {
 
   getProfile(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/profile`);
+  }
+
+  getCurrentUser(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/me`);
+  }
+
+  updateProfile(data: any): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/profile`, data);
   }
 } 

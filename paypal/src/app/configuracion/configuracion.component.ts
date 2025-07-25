@@ -15,41 +15,69 @@ import { LanguageService } from '../services/language.service';
   styleUrl: './configuracion.component.css'
 })
 export class ConfiguracionComponent implements OnInit {
+  // Formularios
   configForm: FormGroup;
+  passwordForm: FormGroup;
+  
+  // Variables de usuario y estado
   user: any = null;
   loading = false;
   successMsg = '';
   errorMsg = '';
   selectedTab = 'personales';
+  
+  // Variables de verificación de email
   emailVerificado = false;
+  emailVerificadoLoading = false;
+  emailVerificadoMsg = '';
+  emailVerificadoError = '';
   telefonoVerificado = false;
-  passwordForm: FormGroup;
+  
+  // Variables de contraseña
   passwordMsg = '';
   passwordError = '';
+  
+  // Variables de recuperación
   recoverEmail: string = '';
   recoverMessage: string = '';
   recoverError: string = '';
+  recoverLoading = false;
+  recoverCooldown = 0;
+  recoverTimer: any;
+  
+  // Variables de 2FA
   show2FA: boolean = false;
   is2FAVerified: boolean = false;
-  emailVerificadoMsg = '';
-  emailVerificadoError = '';
-  emailVerificadoLoading = false;
+  is2FAAuthenticated = false;
+  showQR2FA = false;
+  qrCode2FA = '';
+  secret2FA = '';
+  codigo2FA = '';
   hasBePass = false;
   show2FAQr = false;
   qrData = '';
-
-  // Variables para verificación del código 2FA
+  showDisable2FAModal = false;
+  disable2FAToken = '';
+  disable2FAMessage = '';
+  disable2FALoading = false;
+  
+  // Variables de verificación
   showVerificationForm = false;
   verificationCode = '';
   verificationError = '';
   verificationSuccess = '';
   isVerifying = false;
-
+  
+  // Variables de BePass
   bepassData = { newBepass: '', confirmBepass: '', currentPassword: '' };
   bepassMsg = '';
   bepassError = '';
-
-  // Variables para preferencias
+  showChangeBepassForm = false;
+  changeBepassData = { newBepass: '', confirmBepass: '', currentPassword: '' };
+  changeBepassMsg = '';
+  changeBepassError = '';
+  
+  // Variables de preferencias
   preferences = {
     emailNotifications: true,
     pushNotifications: true,
@@ -61,41 +89,18 @@ export class ConfiguracionComponent implements OnInit {
     securityAlerts: true
   };
   preferencesSaved = false;
-
-  // Variables para recuperación de contraseña
-  recoverLoading = false;
-  recoverCooldown = 0;
-  recoverTimer: any;
-  Math = Math; // Para usar Math en el template
-
-  // Variables para 2FA
-  is2FAAuthenticated = false; // Solo para verificación temporal
-  showQR2FA = false;
-  qrCode2FA = '';
-  secret2FA = '';
-  codigo2FA = '';
-  showDisable2FAModal = false;
-  disable2FAToken = '';
-  disable2FAMessage = '';
-  disable2FALoading = false;
-
-  // Variables para el flujo de cambio de Be Pass
-  showChangeBepassForm = false;
-  changeBepassData = { newBepass: '', confirmBepass: '', currentPassword: '' };
-  changeBepassMsg = '';
-  changeBepassError = '';
-
-  // Eliminar: variables, métodos y lógica de configuración regional y preferencias regionales
-  // Eliminar: languageOptions, timezoneOptions, currencyOptions, currentLanguage, currentTimezone, currentCurrency, regionalSettingsChanged, currentTime, loadPreferences, savePreferences, onLanguageChange, onTimezoneChange, onCurrencyChange, applyLanguageChange, applyTimezoneChange, applyCurrencyChange, showRegionalChangeMessage, saveRegionalSettings, detectUserTimezone, getCurrentTimeInTimezone y cualquier referencia a preferencias regionales.
+  
+  // Variables de sistema
+  Math = Math;
 
   constructor(
-    private fb: FormBuilder, 
-    private http: HttpClient, 
-    private authService: AuthService, 
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private authService: AuthService,
     private userService: UserService,
     public languageService: LanguageService
   ) {
-    this.configForm = this.fb.group({
+    this.configForm = this.formBuilder.group({
       nombre: [{ value: '', disabled: true }, Validators.required],
       apellido: [{ value: '', disabled: true }, Validators.required],
       fecha_nacimiento: [{ value: '', disabled: true }],
@@ -103,12 +108,12 @@ export class ConfiguracionComponent implements OnInit {
       direccion: [''],
       facturacion: ['']
     });
-    this.passwordForm = this.fb.group({
+
+    this.passwordForm = this.formBuilder.group({
       actual: ['', Validators.required],
       nueva: ['', [Validators.required, Validators.minLength(8)]],
       confirmar: ['', Validators.required]
     }, { validators: this.passwordsMatchValidator });
-    this.recoverEmail = '';
   }
 
   passwordsMatchValidator(form: FormGroup) {
@@ -116,12 +121,32 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cargarDatosUsuario();
+    this.loadUserData();
     this.checkBePassStatus();
     this.check2FAStatus();
-    this.loadRecoverCooldown(); // Load cooldown from localStorage
-    this.load2FAAuthState(); // Load 2FA auth state from localStorage
-    // Eliminar cualquier llamada a loadPreferences o savePreferences, y referencias a currentTime, currentTimezone y regionalSettingsChanged.
+    this.loadRecoverCooldown();
+    this.load2FAAuthState();
+  }
+
+  loadUserData() {
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        this.user = user;
+        this.emailVerificado = user.email_verificado;
+        this.configForm.patchValue({
+          nombre: user.nombre,
+          apellido: user.apellido,
+          email: user.email,
+          fecha_nacimiento: user.fecha_nacimiento,
+          direccion: user.direccion,
+          facturacion: user.facturacion
+        });
+      },
+      error: (error) => {
+        console.error('Error al cargar los datos del usuario:', error);
+        this.errorMsg = 'Error al cargar los datos del usuario';
+      }
+    });
   }
 
   // Cargar estado de autenticación 2FA desde localStorage

@@ -43,8 +43,7 @@ let PagosService = class PagosService {
             const response = await axios_1.default.post('http://127.0.0.1:8000/predecir', {
                 texto: descripcion,
             });
-            const data = response.data;
-            categoria = data.categoria;
+            categoria = response.data.categoria;
         }
         catch (error) {
             console.error('Error al conectar con FastAPI:', error.message);

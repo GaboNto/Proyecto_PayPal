@@ -42,9 +42,7 @@ export class ChatbotService {
         },
       );
 
-      // Se asume la estructura esperada de response.data
-      const data = response.data as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
-      const output = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      const output = response.data.candidates?.[0]?.content?.parts?.[0]?.text;
       return output || 'Sin respuesta del modelo.';
     } catch (error) {
       console.error('Error al usar Gemini:', error.response?.data || error.message);

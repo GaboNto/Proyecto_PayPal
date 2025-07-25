@@ -20,6 +20,8 @@ const local_strategy_1 = require("./local.strategy");
 const config_1 = require("@nestjs/config");
 const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
 const card_entity_1 = require("../card/card.entity");
+const auth_module_1 = require("../email/auth.module");
+const email_service_1 = require("../email/email.service");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -30,7 +32,7 @@ exports.AuthModule = AuthModule = __decorate([
             passport_1.PassportModule,
             config_1.ConfigModule,
             jwt_1.JwtModule.registerAsync({
-                imports: [config_1.ConfigModule],
+                imports: [config_1.ConfigModule, auth_module_1.EmailModule],
                 inject: [config_1.ConfigService],
                 useFactory: async (configService) => ({
                     secret: configService.get('JWT_SECRET'),
@@ -39,7 +41,7 @@ exports.AuthModule = AuthModule = __decorate([
             }),
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, cuenta_entity_1.Cuenta, card_entity_1.Card]),
         ],
-        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy, local_strategy_1.LocalStrategy],
+        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy, local_strategy_1.LocalStrategy, email_service_1.EmailService],
         controllers: [auth_controller_1.AuthController],
         exports: [auth_service_1.AuthService, jwt_1.JwtModule],
     })

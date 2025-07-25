@@ -32,12 +32,6 @@ export class User {
   @Column({ nullable: true })
   rut: string;
 
-  @Column({ nullable: true })
-  direccion: string;
-
-  @Column({ nullable: true })
-  facturacion: string;
-
   @Column({ length: 50, default: 'Paypal' })
   banco: string;
 
@@ -47,15 +41,21 @@ export class User {
   @OneToMany('Destinatario', (destinatario: Destinatario) => destinatario.propietario)
   destinatarios: Destinatario[];
 
+  @Column({ type: 'boolean', name: 'email_verificado', default: false })
+  email_verificado: boolean;
+
   @Column({ name: 'bepass', nullable: true })
   bepass: string;
 
   @Column({ name: 'totp_secret', nullable: true })
-  totpSecret?: string;
+  totpSecret: string;
 
-  @Column({ name: 'email_verificado', type: 'boolean', default: false })
-  emailVerificado: boolean;
+  @Column({ name: 'direccion', nullable: true })
+  direccion: string;
+
+  @Column({ name: 'facturacion', nullable: true })
+  facturacion: string;
 
   @Column({ name: '2fa_enabled', type: 'boolean', default: false })
-  twoFAEnabled: boolean;
+  twoFactorEnabled: boolean;
 }

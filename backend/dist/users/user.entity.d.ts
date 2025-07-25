@@ -10,13 +10,13 @@ export declare class User {
     pais: string;
     ciudad: string;
     rut: string;
-    direccion: string;
-    facturacion: string;
     banco: string;
     cuentas: Cuenta[];
     destinatarios: Destinatario[];
+    email_verificado: boolean;
     bepass: string;
-    totpSecret?: string;
-    emailVerificado: boolean;
-    twoFAEnabled: boolean;
+    totpSecret: string;
+    direccion: string;
+    facturacion: string;
+    twoFactorEnabled: boolean;
 }

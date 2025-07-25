@@ -27,6 +27,7 @@ import { MovimientosModule } from './movimientos/movimientos.module';
 import * as crypto from 'crypto';
 import { HistorialSaldos } from './transfers/entities/historial-saldos';
 
+//(global as any).crypto = crypto;
 
 
 @Module({

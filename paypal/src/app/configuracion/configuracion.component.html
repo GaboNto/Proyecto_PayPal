@@ -23,14 +23,29 @@
       </div>
       <div class="form-group">
         <label for="email">Correo electrónico</label>
-        <input id="email" formControlName="email" type="email" readonly />
-        <button type="button" (click)="verificarEmail()" [disabled]="emailVerificado || emailVerificadoLoading">
-          <ng-container *ngIf="emailVerificado">Verificado</ng-container>
-          <ng-container *ngIf="!emailVerificado && emailVerificadoLoading">
-            <span class="spinner"></span>
-          </ng-container>
-          <ng-container *ngIf="!emailVerificado && !emailVerificadoLoading">Verificar</ng-container>
-        </button>
+        <div class="email-container">
+          <input id="email" formControlName="email" type="email" readonly />
+          <div class="verification-status">
+            <button type="button" 
+                    (click)="verificarEmail()" 
+                    [disabled]="emailVerificado" 
+                    [class.verified]="emailVerificado"
+                    [class.unverified]="!emailVerificado">
+              <ng-container *ngIf="emailVerificado">
+                <i class="fas fa-check-circle"></i>
+                <span>Verificado</span>
+              </ng-container>
+              <ng-container *ngIf="!emailVerificado && emailVerificadoLoading">
+                <span class="spinner"></span>
+                <span>Verificando...</span>
+              </ng-container>
+              <ng-container *ngIf="!emailVerificado && !emailVerificadoLoading">
+                <i class="fas fa-envelope"></i>
+                <span>Verificar</span>
+              </ng-container>
+            </button>
+          </div>
+        </div>
         <div *ngIf="!emailVerificado && emailVerificadoMsg" class="success">{{ emailVerificadoMsg }}</div>
         <div *ngIf="emailVerificadoError" class="error">{{ emailVerificadoError }}</div>
       </div>
