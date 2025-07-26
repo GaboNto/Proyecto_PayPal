@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ConfiguracionComponent } from './configuracion/configuracion.component';
+import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { FinancialGoalsComponent } from './components/financial-goals/financial-goals.component';

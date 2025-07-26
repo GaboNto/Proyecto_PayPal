@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../services/auth.service';
-import { Google2faComponent } from '../components/security/google-2fa.component';
-import { UserService } from '../services/user.service';
-import { LanguageService } from '../services/language.service';
+import { AuthService } from '../../services/auth.service';
+import { Google2faComponent } from '../security/google-2fa.component';
+import { UserService } from '../../services/user.service';
+import { LanguageService } from '../../services/language.service';
+import { ENDPOINTS } from '../../config/api-config';
 
 @Component({
   selector: 'app-configuracion',
@@ -15,6 +16,8 @@ import { LanguageService } from '../services/language.service';
   styleUrl: './configuracion.component.css'
 })
 export class ConfiguracionComponent implements OnInit {
+  private baseUrl = ENDPOINTS.base;
+
   configForm: FormGroup;
   user: any = null;
   loading = false;
@@ -174,9 +177,9 @@ export class ConfiguracionComponent implements OnInit {
       }
     });
   }
-
   check2FAStatus() {
-    this.http.get<{ isEnabled: boolean, hasBepass: boolean }>('/api/users/2fa/status').subscribe({
+
+    this.http.get<{ isEnabled: boolean, hasBepass: boolean }>(`${this.baseUrl}/users/2fa/status`).subscribe({
       next: (res) => {
         this.is2FAVerified = res.isEnabled;
         this.hasBePass = res.hasBepass;
@@ -222,7 +225,7 @@ export class ConfiguracionComponent implements OnInit {
 
   cargarDatosUsuario() {
     this.loading = true;
-    this.http.get<any>('/api/users/profile').subscribe({
+    this.http.get<any>(`${this.baseUrl}/users/profile`).subscribe({
       next: (data) => {
         this.user = data;
         this.configForm.patchValue({
@@ -253,8 +256,8 @@ export class ConfiguracionComponent implements OnInit {
     this.loading = true;
     let data = this.configForm.getRawValue();
     delete data.email; // Siempre eliminar email
-    delete data.emailVerificado; // Eliminar este campo también
-    this.http.patch<any>('/api/users/profile', data).subscribe({
+    delete data.emailVerificado; // Eliminar este campo también             
+    this.http.patch<any>(`${this.baseUrl}/users/profile`, data).subscribe({
       next: (res) => {
         this.successMsg = 'Datos actualizados correctamente.';
         this.loading = false;
@@ -283,7 +286,7 @@ export class ConfiguracionComponent implements OnInit {
     if (this.passwordForm.invalid) return;
     this.passwordMsg = '';
     this.passwordError = '';
-    this.http.post<any>('/api/users/change-password', this.passwordForm.value).subscribe({
+    this.http.post<any>(`${this.baseUrl}/users/change-password`, this.passwordForm.value).subscribe({
       next: (res) => {
         this.passwordMsg = 'Contraseña actualizada correctamente.';
         this.passwordForm.reset();
@@ -532,7 +535,7 @@ export class ConfiguracionComponent implements OnInit {
 
   confirmDisable2FA() {
     this.disable2FALoading = true;
-    this.http.post<any>('/api/users/2fa/disable-request', {}).subscribe({
+    this.http.post<any>(`${this.baseUrl}/users/2fa/disable-request`, {}).subscribe({
       next: (res) => {
         this.disable2FAMessage = '✅ ' + res.message;
         this.disable2FALoading = false;

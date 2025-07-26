@@ -16,11 +16,15 @@ export declare class AuthController {
         pais: string;
         ciudad: string;
         rut: string;
+        direccion: string;
+        facturacion: string;
         banco: string;
         cuentas: import("../cuentas/entities/cuenta.entity").Cuenta[];
         destinatarios: import("../destinatarios/entities/destinatario.entity").Destinatario[];
         bepass: string;
-        totpSecret: string;
+        totpSecret?: string;
+        emailVerificado: boolean;
+        twoFAEnabled: boolean;
     }>;
     checkRut(rut: string): Promise<{
         exists: boolean;

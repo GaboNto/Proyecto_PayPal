@@ -31,11 +31,15 @@ export declare class AuthService {
         pais: string;
         ciudad: string;
         rut: string;
+        direccion: string;
+        facturacion: string;
         banco: string;
         cuentas: Cuenta[];
         destinatarios: import("../destinatarios/entities/destinatario.entity").Destinatario[];
         bepass: string;
-        totpSecret: string;
+        totpSecret?: string;
+        emailVerificado: boolean;
+        twoFAEnabled: boolean;
     }>;
     checkRutExists(rut: string): Promise<{
         exists: boolean;

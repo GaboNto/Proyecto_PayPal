@@ -20,7 +20,7 @@ const local_strategy_1 = require("./local.strategy");
 const config_1 = require("@nestjs/config");
 const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
 const card_entity_1 = require("../card/card.entity");
-const auth_module_1 = require("../email/auth.module");
+const auth_module_1 = require("src/email/auth.module");
 const email_service_1 = require("../email/email.service");
 let AuthModule = class AuthModule {
 };
