@@ -17,7 +17,7 @@ import { ENDPOINTS } from '../../config/api-config';
 })
 export class ConfiguracionComponent implements OnInit {
   private baseUrl = ENDPOINTS.base;
-
+  nombreUser = '';
   configForm: FormGroup;
   user: any = null;
   loading = false;
@@ -228,6 +228,7 @@ export class ConfiguracionComponent implements OnInit {
     this.http.get<any>(`${this.baseUrl}/users/profile`).subscribe({
       next: (data) => {
         this.user = data;
+        this.nombreUser = data.nombre
         this.configForm.patchValue({
           nombre: data.nombre,
           apellido: data.apellido,
@@ -308,7 +309,8 @@ export class ConfiguracionComponent implements OnInit {
     }
 
     this.recoverLoading = true;
-    this.authService.forgotPassword(this.recoverEmail).subscribe({
+    this.authService.forgotPassword(this.recoverEmail, this.nombreUser).subscribe({
+
       next: (res) => {
         this.recoverMessage = res.message || 'Si el correo es válido, recibirás instrucciones para restablecer tu contraseña.';
         this.recoverLoading = false;
@@ -326,7 +328,7 @@ export class ConfiguracionComponent implements OnInit {
     this.emailVerificadoLoading = true;
     this.emailVerificadoMsg = '';
     this.emailVerificadoError = '';
-    this.authService.sendEmailVerification(this.user.email).subscribe({
+    this.authService.sendEmailVerification(this.user.email, this.nombreUser).subscribe({
       next: (res) => {
         this.emailVerificadoMsg = 'Se ha enviado un correo de verificación a tu dirección de email.';
         this.emailVerificadoLoading = false;

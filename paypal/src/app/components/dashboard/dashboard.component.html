@@ -1,32 +1,31 @@
 <h1 class="dashboard-title">Dashboard de Finanzas Personales</h1>
 
-<div class="filters">
-    <label>
-        Desde:
-        <input type="date" [(ngModel)]="fechaInicio" (change)="aplicarFiltros()" />
-    </label>
-
-    <label>
-        Hasta:
-        <input type="date" [(ngModel)]="fechaFin" (change)="aplicarFiltros()" />
-    </label>
-</div>
-
 <div class="charts-container">
-    <div class="chart pie-chart">
+    <!-- Gráfico de Gastos -->
+    <div *ngIf="pieChartData && pieChartData.length > 0" class="chart pie-chart">
         <h3>Gráfico de Gastos</h3>
         <ngx-charts-pie-chart [view]="view" [results]="pieChartData" [scheme]="colorScheme" [legend]="true"
             [labels]="true" [doughnut]="false" [explodeSlices]="false" [arcWidth]="0.25">
         </ngx-charts-pie-chart>
     </div>
-
-    <div *ngFor="let cuentaData of lineChartsDataPorCuenta" class="chart line-chart">
-        <div class="cuenta-header">
-            <h4>{{ cuentaData.tipoCuenta }}</h4>
-            <h4>Saldo actual: {{ cuentaData.saldoActual | currency:'CLP':'symbol' }}</h4>
-        </div>
-        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="cuentaData.data" [xAxis]="true"
-            [yAxis]="true" [xAxisLabel]="lineChartXAxisLabel" [yAxisLabel]="lineChartYAxisLabel" [autoScale]="true"
-            [timeline]="true" [showGridLines]="true" [roundDomains]="true" [animations]="true">
-        </ngx-charts-line-chart>
+    <div *ngIf="pieChartData && pieChartData.length === 0" class="no-data-message">
+        <p>No hay datos para mostrar en el gráfico de Gastos.</p>
     </div>
+
+    <!-- Gráficos por Cuenta -->
+    <div *ngIf="lineChartsDataPorCuenta.length > 0" class="charts-container">
+        <div *ngFor="let cuentaData of lineChartsDataPorCuenta" class="chart line-chart">
+            <div class="cuenta-header">
+                <h4>{{ cuentaData.tipoCuenta }}</h4>
+                <h4>Saldo actual: {{ cuentaData.saldoActual | currency:'CLP':'symbol' }}</h4>
+            </div>
+            <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="cuentaData.data" [xAxis]="true"
+                [yAxis]="true" [xAxisLabel]="lineChartXAxisLabel" [yAxisLabel]="lineChartYAxisLabel" [autoScale]="true"
+                [timeline]="true" [showGridLines]="true" [roundDomains]="true" [animations]="true">
+            </ngx-charts-line-chart>
+        </div>
+    </div>
+    <div *ngIf="lineChartsDataPorCuenta.length === 0" class="no-data-message">
+        <p>No hay datos para mostrar en los gráficos de las cuentas.</p>
+    </div>
+</div>

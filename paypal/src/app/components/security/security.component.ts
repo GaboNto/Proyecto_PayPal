@@ -44,7 +44,7 @@ export class SecurityComponent implements OnInit {
   // Asumimos que el email está en el perfil del usuario
   userEmail: string = '';
 
-  constructor(private userService: UserService, private authService: AuthService) {}
+  constructor(private userService: UserService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.userService.hasBepass().subscribe({
@@ -74,7 +74,7 @@ export class SecurityComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     // Reemplaza cualquier caracter que no sea un número
     input.value = input.value.replace(/[^0-9]/g, '');
-    
+
     // Asigna el valor limpio al modelo correcto
     if (input.name === 'newBepass') {
       this.bepassData.newBepass = input.value;
@@ -102,7 +102,7 @@ export class SecurityComponent implements OnInit {
         this.message = response.message;
         this.bepassData = { newBepass: '', confirmBepass: '', currentPassword: '' };
         this.hasBePass = true; // Actualizar estado inmediatamente
-        
+
         // Consultar setup2FA tras crear el Be Pass
         this.authService.setup2FA().subscribe({
           next: (res) => {
@@ -172,15 +172,6 @@ export class SecurityComponent implements OnInit {
     this.showRecoverPassword = false;
   }
   onRecoverPasswordSubmit() {
-    this.recoverMessage = '';
-    this.recoverError = '';
-    this.authService.forgotPassword(this.recoverEmail).subscribe({
-      next: (res) => {
-        this.recoverMessage = res.message || 'Si el correo es válido, recibirás instrucciones para restablecer tu contraseña.';
-      },
-      error: (err) => {
-        this.recoverError = err.error?.message || 'Ocurrió un error al enviar el correo.';
-      }
-    });
+
   }
 }

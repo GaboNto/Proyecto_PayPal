@@ -38,8 +38,6 @@ export class ForgotPasswordComponent implements OnInit {
     this.showSuccess = false;
     if (this.forgotForm.invalid) return;
     try {
-      const res = await this.authService.forgotPassword(this.forgotForm.value.email).toPromise();
-      this.message = res.message || 'Revisa tu bandeja de entrada. Si la cuenta existe, te llegará un enlace de recuperación.';
       this.showSuccess = true;
       this.forgotForm.reset();
     } catch (err: any) {

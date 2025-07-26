@@ -1,9 +1,11 @@
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { EmailService } from 'src/email/email.service';
 export declare class AuthController {
     private authService;
-    constructor(authService: AuthService);
+    private readonly emailService;
+    constructor(authService: AuthService, emailService: EmailService);
     login(req: any): Promise<{
         accessToken: string;
     }>;
@@ -29,5 +31,10 @@ export declare class AuthController {
     checkRut(rut: string): Promise<{
         exists: boolean;
     }>;
-    forgotPassword(forgotPasswordDto: ForgotPasswordDto): Promise<any>;
+    forgotPassword(forgotPasswordDto: ForgotPasswordDto): Promise<{
+        message: string;
+    }>;
+    sendEmailVerification(forgotPasswordDto: ForgotPasswordDto): Promise<{
+        message: string;
+    }>;
 }

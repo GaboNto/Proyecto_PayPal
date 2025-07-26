@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ENDPOINTS } from '../config/api-config';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class AuthService {
   // Un observable para que los componentes sepan si el estado de login cambió.
   private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
   isLoggedIn$ = this.loggedIn.asObservable();
+  private baseUrl = ENDPOINTS.base;
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -35,23 +37,24 @@ export class AuthService {
     this.router.navigate(['/login']); // Redirige al login.
   }
 
-  forgotPassword(email: string): Observable<any> {
-    return this.http.post('/api/auth/forgot-password', { email });
+  forgotPassword(email: string, nombre: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/auth/forgot-password`, { email, nombre });
   }
 
   resetPassword(token: string, newPassword: string): Observable<any> {
-    return this.http.post('/api/auth/reset-password', { token, newPassword });
+    return this.http.post(`${this.baseUrl}/auth/reset-password'`, { token, newPassword });
   }
 
   setup2FA(): Observable<{ secret: string, qr: string }> {
-    return this.http.get<{ secret: string, qr: string }>('/api/users/2fa/setup');
+    return this.http.get<{ secret: string, qr: string }>(`${this.baseUrl}/users/2fa/setup`);
   }
 
   verify2FA(code: string): Observable<{ success: boolean }> {
-    return this.http.post<{ success: boolean }>('/api/users/2fa/verify', { code });
+    return this.http.post<{ success: boolean }>(`${this.baseUrl}/users/2fa/verify`, { code });
+
   }
 
-  sendEmailVerification(email: string): Observable<any> {
-    return this.http.post('/api/auth/send-verification-email', { email });
+  sendEmailVerification(email: string, nombre: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/auth/send-verification-email`, { email, nombre });
   }
 } 

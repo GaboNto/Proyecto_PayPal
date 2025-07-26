@@ -133,23 +133,6 @@
           <div class="d-flex justify-content-center mb-3">
             <a routerLink="/transactions" class="btn btn-primary w-50" style="max-width: 220px;">Transferir</a>
           </div>
-
-          <!-- Acciones rápidas -->
-          <div class="card shadow-sm border-0 mb-4">
-            <div class="card-body text-center">
-              <div class="dropdown">
-                <button class="btn btn-light border-0 p-0" type="button" data-bs-toggle="dropdown">
-                  <i class="bi bi-three-dots fs-4 text-primary"></i>
-                </button>
-                <p class="small mt-1 mb-0">Más</p>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a routerLink="/tarjetas" class="dropdown-item">Administrar tarjetas</a></li>
-                  <li><a routerLink="/transactions" class="dropdown-item">Transferir</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
           <!-- Cuentas bancarias -->
           <div class="card shadow-sm border-0 mb-3" *ngIf="cuentas.length > 0">
             <div class="card-body">

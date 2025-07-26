@@ -13,7 +13,6 @@ exports.ForgotPasswordDto = void 0;
 const class_validator_1 = require("class-validator");
 class ForgotPasswordDto {
     email;
-    nombre;
 }
 exports.ForgotPasswordDto = ForgotPasswordDto;
 __decorate([
@@ -21,10 +20,4 @@ __decorate([
     (0, class_validator_1.IsEmail)({}, { message: 'El formato del correo electrónico es inválido.' }),
     __metadata("design:type", String)
 ], ForgotPasswordDto.prototype, "email", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'El nombre no puede estar vacío.' }),
-    (0, class_validator_1.IsString)({ message: 'El nombre debe ser una cadena de texto.' }),
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], ForgotPasswordDto.prototype, "nombre", void 0);
-//# sourceMappingURL=forgot-password.dto.js.map
+//# sourceMappingURL=verification.email.dto.js.map

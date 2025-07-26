@@ -13,7 +13,7 @@ import { LocalStrategy } from './local.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Cuenta } from 'src/cuentas/entities/cuenta.entity';
 import { Card } from 'src/card/card.entity';
-import { EmailModule } from 'src/email/auth.module';
+import { EmailModule } from 'src/email/email.module';
 import { EmailService } from 'src/email/email.service';
 
 @Module({
