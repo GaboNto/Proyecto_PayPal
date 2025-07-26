@@ -89,9 +89,9 @@ export class ConfiguracionComponent implements OnInit {
   // Eliminar: languageOptions, timezoneOptions, currencyOptions, currentLanguage, currentTimezone, currentCurrency, regionalSettingsChanged, currentTime, loadPreferences, savePreferences, onLanguageChange, onTimezoneChange, onCurrencyChange, applyLanguageChange, applyTimezoneChange, applyCurrencyChange, showRegionalChangeMessage, saveRegionalSettings, detectUserTimezone, getCurrentTimeInTimezone y cualquier referencia a preferencias regionales.
 
   constructor(
-    private fb: FormBuilder, 
-    private http: HttpClient, 
-    private authService: AuthService, 
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private authService: AuthService,
     private userService: UserService,
     public languageService: LanguageService
   ) {
@@ -166,17 +166,17 @@ export class ConfiguracionComponent implements OnInit {
 
   checkBePassStatus() {
     this.userService.hasBepass().subscribe({
-      next: (res) => { 
-        this.hasBePass = res.hasBepass; 
+      next: (res) => {
+        this.hasBePass = res.hasBepass;
       },
-      error: () => { 
-        this.hasBePass = false; 
+      error: () => {
+        this.hasBePass = false;
       }
     });
   }
 
   check2FAStatus() {
-    this.http.get<{isEnabled: boolean, hasBepass: boolean}>('/api/users/2fa/status').subscribe({
+    this.http.get<{ isEnabled: boolean, hasBepass: boolean }>('/api/users/2fa/status').subscribe({
       next: (res) => {
         this.is2FAVerified = res.isEnabled;
         this.hasBePass = res.hasBepass;
@@ -297,13 +297,13 @@ export class ConfiguracionComponent implements OnInit {
   onRecoverPasswordSubmit() {
     this.recoverMessage = '';
     this.recoverError = '';
-    
+
     // Validar que el email esté presente
     if (!this.recoverEmail || !this.recoverEmail.trim()) {
       this.recoverError = 'No se pudo obtener tu correo electrónico.';
       return;
     }
-    
+
     this.recoverLoading = true;
     this.authService.forgotPassword(this.recoverEmail).subscribe({
       next: (res) => {
@@ -396,11 +396,11 @@ export class ConfiguracionComponent implements OnInit {
         this.bepassMsg = response.message;
         this.bepassData = { newBepass: '', confirmBepass: '', currentPassword: '' };
         this.hasBePass = true; // Actualizar estado inmediatamente
-        
+
         // Refrescar el estado de Be Pass y 2FA
         this.checkBePassStatus();
         this.check2FAStatus();
-        
+
         // Mostrar mensaje de éxito y sugerir activar 2FA
         setTimeout(() => {
           this.bepassMsg = '';
@@ -454,7 +454,7 @@ export class ConfiguracionComponent implements OnInit {
         if (res.success) {
           this.verificationSuccess = '¡2FA configurado correctamente!';
           this.is2FAVerified = true;
-          
+
           // Cerrar modal después de 2 segundos
           setTimeout(() => {
             this.close2FAQr();
@@ -491,17 +491,17 @@ export class ConfiguracionComponent implements OnInit {
   onSubmitChangeBePass() {
     this.changeBepassMsg = '';
     this.changeBepassError = '';
-    
+
     if (this.changeBepassData.newBepass !== this.changeBepassData.confirmBepass) {
       this.changeBepassError = 'Las claves Be Pass no coinciden.';
       return;
     }
-    
+
     if (!/^[0-9]{6}$/.test(this.changeBepassData.newBepass)) {
       this.changeBepassError = 'La clave Be Pass debe contener exactamente 6 números.';
       return;
     }
-    
+
     this.userService.setBepass({ ...this.changeBepassData, isChange: true }).subscribe({
       next: (response) => {
         this.changeBepassMsg = response.message;
@@ -597,9 +597,9 @@ export class ConfiguracionComponent implements OnInit {
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
       animation: slideIn 0.3s ease-out;
     `;
-    
+
     document.body.appendChild(toast);
-    
+
     // Remover después de 3 segundos
     setTimeout(() => {
       toast.style.animation = 'slideOut 0.3s ease-in';
@@ -633,7 +633,7 @@ export class ConfiguracionComponent implements OnInit {
       if (timezone === 'auto') {
         timezone = this.detectUserTimezone();
       }
-      
+
       const now = new Date();
       const options: Intl.DateTimeFormatOptions = {
         timeZone: timezone,
@@ -642,7 +642,7 @@ export class ConfiguracionComponent implements OnInit {
         minute: '2-digit',
         second: '2-digit'
       };
-      
+
       return new Intl.DateTimeFormat('es-CL', options).format(now);
     } catch (error) {
       return new Date().toLocaleTimeString('es-CL');
