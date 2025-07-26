@@ -20,7 +20,7 @@ interface Comercio {
   styleUrl: './donde-comprar.component.scss'
 })
 export class DondeComprarComponent {
-
+  
   categorias = [
     { id: 'todos', nombre: 'Todos', icono: '🛒' },
     { id: 'streaming', nombre: 'Streaming', icono: '📺' },
@@ -34,12 +34,11 @@ export class DondeComprarComponent {
   terminoBusqueda = '';
 
   comercios: Comercio[] = [
-    // Streaming
     {
       id: 1,
       nombre: 'Netflix',
       categoria: 'streaming',
-      logo: '📺',
+      logo: 'assets/logos/netflix_sin_fondo.png',
       descripcion: 'Películas y series en streaming',
       popular: true,
       url: 'https://netflix.com'
@@ -48,7 +47,7 @@ export class DondeComprarComponent {
       id: 2,
       nombre: 'Spotify',
       categoria: 'streaming',
-      logo: '🎵',
+      logo: 'assets/logos/spotify_sin_fondo.png',
       descripcion: 'Música y podcasts',
       popular: true,
       url: 'https://spotify.com'
@@ -57,7 +56,7 @@ export class DondeComprarComponent {
       id: 3,
       nombre: 'Disney+',
       categoria: 'streaming',
-      logo: '🏰',
+      logo: 'assets/logos/disneyplus_sin_fondo.png',
       descripcion: 'Contenido de Disney, Marvel y Star Wars',
       popular: false,
       url: 'https://disneyplus.com'
@@ -66,7 +65,7 @@ export class DondeComprarComponent {
       id: 4,
       nombre: 'HBO Max',
       categoria: 'streaming',
-      logo: '📺',
+      logo: 'assets/logos/hbomax_sin_fondo.png',
       descripcion: 'Series y películas premium',
       popular: false,
       url: 'https://hbomax.com'
@@ -75,7 +74,7 @@ export class DondeComprarComponent {
       id: 5,
       nombre: 'Amazon Prime',
       categoria: 'streaming',
-      logo: '📦',
+      logo: 'assets/logos/amazon prime_sin_fondo.png',
       descripcion: 'Streaming y envíos gratis',
       popular: false,
       url: 'https://amazon.com/prime'
@@ -86,7 +85,7 @@ export class DondeComprarComponent {
       id: 6,
       nombre: 'Steam',
       categoria: 'gaming',
-      logo: '🎮',
+      logo: 'assets/logos/steam_sin_fondo.png',
       descripcion: 'Plataforma de juegos digitales',
       popular: true,
       url: 'https://store.steampowered.com'
@@ -95,25 +94,16 @@ export class DondeComprarComponent {
       id: 7,
       nombre: 'PlayStation Store',
       categoria: 'gaming',
-      logo: '🎮',
+      logo: 'assets/logos/play_sin_fondo.png',
       descripcion: 'Juegos para PlayStation',
       popular: true,
       url: 'https://store.playstation.com'
     },
     {
-      id: 8,
-      nombre: 'Xbox Store',
-      categoria: 'gaming',
-      logo: '🎮',
-      descripcion: 'Juegos para Xbox',
-      popular: false,
-      url: 'https://xbox.com/games'
-    },
-    {
       id: 9,
       nombre: 'Nintendo eShop',
       categoria: 'gaming',
-      logo: '🎮',
+      logo: 'assets/logos/nintendo_sin_fondo.png',
       descripcion: 'Juegos para Nintendo Switch',
       popular: false,
       url: 'https://nintendo.com/eshop'
@@ -124,7 +114,7 @@ export class DondeComprarComponent {
       id: 10,
       nombre: 'Zara',
       categoria: 'moda',
-      logo: '👕',
+      logo: 'assets/logos/zara_sin_fondo.png',
       descripcion: 'Ropa y accesorios de moda',
       popular: false,
       url: 'https://zara.com'
@@ -133,7 +123,7 @@ export class DondeComprarComponent {
       id: 11,
       nombre: 'H&M',
       categoria: 'moda',
-      logo: '👕',
+      logo: 'assets/logos/hm_sin_fondo.png',
       descripcion: 'Ropa casual y accesorios',
       popular: false,
       url: 'https://hm.com'
@@ -142,7 +132,7 @@ export class DondeComprarComponent {
       id: 12,
       nombre: 'Nike',
       categoria: 'moda',
-      logo: '👟',
+      logo: 'assets/logos/nike_sin_fondo.png',
       descripcion: 'Ropa deportiva y calzado',
       popular: true,
       url: 'https://nike.com'
@@ -151,7 +141,7 @@ export class DondeComprarComponent {
       id: 13,
       nombre: 'Adidas',
       categoria: 'moda',
-      logo: '👟',
+      logo: 'assets/logos/adidas_sin_fondo.png',
       descripcion: 'Ropa y calzado deportivo',
       popular: false,
       url: 'https://adidas.com'
@@ -162,7 +152,7 @@ export class DondeComprarComponent {
       id: 14,
       nombre: 'Apple Store',
       categoria: 'tecnologia',
-      logo: '🍎',
+      logo: 'assets/logos/apple_sin_fondo.png',
       descripcion: 'Productos Apple y accesorios',
       popular: false,
       url: 'https://apple.com'
@@ -171,7 +161,7 @@ export class DondeComprarComponent {
       id: 15,
       nombre: 'Samsung',
       categoria: 'tecnologia',
-      logo: '📱',
+      logo: 'assets/logos/samsung_sin_fondo.png',
       descripcion: 'Smartphones y electrónicos',
       popular: true,
       url: 'https://samsung.com'
@@ -180,7 +170,7 @@ export class DondeComprarComponent {
       id: 16,
       nombre: 'Microsoft Store',
       categoria: 'tecnologia',
-      logo: '💻',
+      logo: 'assets/logos/micrisoft_sin_fondo.png',
       descripcion: 'Software y hardware Microsoft',
       popular: false,
       url: 'https://microsoft.com/store'
@@ -191,7 +181,7 @@ export class DondeComprarComponent {
       id: 17,
       nombre: 'Booking.com',
       categoria: 'viajes',
-      logo: '🏨',
+      logo: 'assets/logos/booking_sin_fondo.png',
       descripcion: 'Reservas de hoteles y alojamientos',
       popular: true,
       url: 'https://booking.com'
@@ -200,36 +190,36 @@ export class DondeComprarComponent {
       id: 18,
       nombre: 'Airbnb',
       categoria: 'viajes',
-      logo: '🏠',
+      logo: 'assets/logos/airbnb_sin_fondo.png',
       descripcion: 'Alojamientos únicos y experiencias',
       popular: false,
       url: 'https://airbnb.com'
     }
   ];
 
-
+ 
   get comerciosFiltrados(): Comercio[] {
     let comercios = this.comercios;
-
-
+    
+   
     if (this.categoriaSeleccionada !== 'todos') {
       comercios = comercios.filter(comercio => comercio.categoria === this.categoriaSeleccionada);
     }
-
-
+    
+   
     if (this.terminoBusqueda.trim() !== '') {
       const termino = this.terminoBusqueda.toLowerCase().trim();
-      comercios = comercios.filter(comercio =>
+      comercios = comercios.filter(comercio => 
         comercio.nombre.toLowerCase().includes(termino) ||
         comercio.descripcion.toLowerCase().includes(termino) ||
         comercio.categoria.toLowerCase().includes(termino)
       );
     }
-
+    
     return comercios;
   }
 
-
+ 
   get comerciosPopulares(): Comercio[] {
     if (this.terminoBusqueda.trim() !== '') {
       return []; // No mostrar populares si hay búsqueda activa
@@ -237,28 +227,28 @@ export class DondeComprarComponent {
     return this.comercios.filter(comercio => comercio.popular);
   }
 
-
+  
   get nombreCategoriaSeleccionada(): string {
     const categoria = this.categorias.find(c => c.id === this.categoriaSeleccionada);
     return categoria ? categoria.nombre : 'Todos';
   }
 
-
+  
   cambiarCategoria(categoria: string) {
     this.categoriaSeleccionada = categoria;
   }
 
-
+  
   buscarComercios(termino: string) {
     this.terminoBusqueda = termino;
   }
 
-
+ 
   limpiarBusqueda() {
     this.terminoBusqueda = '';
   }
 
-
+  
   visitarComercio(comercio: Comercio) {
     window.open(comercio.url, '_blank');
   }

@@ -1,0 +1,159 @@
+// Variables para colores y tamaños
+$sidebar-width: 220px;
+$sidebar-collapsed-width: 60px;
+$sidebar-bg: #003087;          // Azul PayPal oscuro
+$sidebar-logo-bg: #002060;
+$sidebar-logo-hover-bg: #001844;
+$sidebar-text-color: #e0e7ff;
+$sidebar-hover-bg: #0052cc;
+$sidebar-shadow: rgba(0, 0, 0, 0.25);
+$scrollbar-thumb-bg: rgba(255, 255, 255, 0.2);
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: $sidebar-width;
+  background-color: $sidebar-bg;
+  color: #fff;
+  padding-top: 80px; // espacio para logo
+  box-shadow: 2px 0 12px $sidebar-shadow;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+
+  &-logo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: $sidebar-width;
+    height: 80px;
+    background-color: $sidebar-logo-bg;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    box-sizing: border-box;
+    z-index: 1010;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    &:hover {
+      background-color: $sidebar-logo-hover-bg;
+    }
+  }
+
+  &-nav {
+    flex: 1;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    gap: 1rem;
+    overflow-y: auto;
+
+    // Scrollbar estilizado para WebKit
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $scrollbar-thumb-bg;
+      border-radius: 3px;
+    }
+
+    a {
+      color: $sidebar-text-color;
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+
+      &:hover,
+      &.active {
+        background-color: $sidebar-hover-bg;
+        color: #fff;
+        box-shadow: 0 0 8px rgba(0, 82, 204, 0.6);
+      }
+
+      &:focus {
+        outline: 2px solid #fff;
+        outline-offset: 2px;
+      }
+    }
+  }
+}
+
+// Para el container principal que no quede tapado por el sidebar
+.container-fluid {
+  margin-left: $sidebar-width;
+  padding: 1.5rem 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #343a40;
+  transition: margin-left 0.3s ease;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .sidebar,
+  .sidebar-logo {
+    width: $sidebar-collapsed-width;
+    padding-top: 20px;
+  }
+
+  .sidebar-logo {
+    img {
+      max-width: 40px;
+    }
+  }
+
+  .sidebar-nav {
+    margin-top: 60px;
+    padding: 0.5rem 0.25rem;
+
+    a {
+      padding: 0.5rem 0.25rem;
+      font-size: 0;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover,
+      &.active {
+        box-shadow: none;
+        background-color: $sidebar-hover-bg;
+      }
+    }
+  }
+
+  .container-fluid {
+    margin-left: $sidebar-collapsed-width;
+  }
+
+  :host {
+    display: block;
+    width: 250px;
+    height: 100vh;
+    background-color: #1f1f1f;
+    color: white;
+  }
+}

@@ -1,15 +1,43 @@
-<aside class="sidebar" *ngIf="(isLoggedIn$ | async) && mostrarSidebar">
+<aside class="sidebar" *ngIf="(isLoggedIn$ | async) && mostrarSidebar" role="navigation" aria-label="Sidebar principal">
 
-    <div class="sidebar-logo" routerLink="/">
+    <div class="sidebar-logo" routerLink="/" role="link" aria-label="Ir a página principal">
         <img src="assets/logo3.webp" alt="Logo" />
     </div>
+
     <nav class="sidebar-nav">
-        <a routerLink="/profile" routerLinkActive="active">Perfil</a>
-        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-        <a routerLink="/tarjetas">Tarjetas</a>
-        <a routerLink="/transactions" routerLinkActive="active">Transferencias</a>
-        <a routerLink="/movimientos" routerLinkActive="active">Movimientos</a>
-        <a routerLink="/configuracion" routerLinkActive="active">Configuración</a>
-        <a (click)="logout()">Cerrar sesión</a>
+        <a routerLink="/profile" routerLinkActive="active" data-tooltip="Perfil" role="link" tabindex="0">
+            <span class="icon icon-user" aria-hidden="true"></span>
+            Perfil
+        </a>
+
+        <a routerLink="/dashboard" routerLinkActive="active" data-tooltip="Dashboard" role="link" tabindex="0">
+            <span class="icon icon-dashboard" aria-hidden="true"></span>
+            Dashboard
+        </a>
+
+        <a routerLink="/tarjetas" data-tooltip="Tarjetas" role="link" tabindex="0">
+            <span class="icon icon-card" aria-hidden="true"></span>
+            Tarjetas
+        </a>
+
+        <a routerLink="/transactions" routerLinkActive="active" data-tooltip="Transferencias" role="link" tabindex="0">
+            <span class="icon icon-transfer" aria-hidden="true"></span>
+            Transferencias
+        </a>
+
+        <a routerLink="/movimientos" routerLinkActive="active" data-tooltip="Movimientos" role="link" tabindex="0">
+            <span class="icon icon-movements" aria-hidden="true"></span>
+            Movimientos
+        </a>
+
+        <a routerLink="/configuracion" routerLinkActive="active" data-tooltip="Configuración" role="link" tabindex="0">
+            <span class="icon icon-settings" aria-hidden="true"></span>
+            Configuración
+        </a>
+
+        <a (click)="logout()" data-tooltip="Cerrar sesión" role="button" tabindex="0">
+            <span class="icon icon-logout" aria-hidden="true"></span>
+            Cerrar sesión
+        </a>
     </nav>
 </aside>

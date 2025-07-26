@@ -43,9 +43,9 @@
       <div *ngFor="let comercio of comerciosPopulares" class="comercio-card popular"
         (click)="visitarComercio(comercio)">
         <div class="comercio-header">
-          <span class="comercio-logo">{{ comercio.logo }}</span>
-          <span class="popular-badge">🔥 Popular</span>
+          <img class="comercio-logo" [src]="comercio.logo" [alt]="comercio.nombre + ' logo'" />
         </div>
+        <span class="popular-badge" *ngIf="comercio.popular">🔥 Popular</span>
         <h3 class="comercio-nombre">{{ comercio.nombre }}</h3>
         <p class="comercio-descripcion">{{ comercio.descripcion }}</p>
         <div class="comercio-footer">
@@ -75,9 +75,9 @@
       <div *ngFor="let comercio of comerciosFiltrados" class="comercio-card" [class.popular]="comercio.popular"
         (click)="visitarComercio(comercio)">
         <div class="comercio-header">
-          <span class="comercio-logo">{{ comercio.logo }}</span>
-          <span class="popular-badge" *ngIf="comercio.popular">🔥 Popular</span>
+          <img class="comercio-logo" [src]="comercio.logo" [alt]="comercio.nombre + ' logo'" />
         </div>
+        <span class="popular-badge" *ngIf="comercio.popular">🔥 Popular</span>
         <h3 class="comercio-nombre">{{ comercio.nombre }}</h3>
         <p class="comercio-descripcion">{{ comercio.descripcion }}</p>
         <div class="comercio-footer">

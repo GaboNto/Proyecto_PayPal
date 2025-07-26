@@ -476,4 +476,12 @@
       flex-direction: column;
     }
   }
-} 
+}
+
+  .comercio-logo {
+    width: 124px;      
+    height: 124px;       
+    object-fit: contain; 
+    border-radius: 12px;
+    padding: 2px;
+  }
