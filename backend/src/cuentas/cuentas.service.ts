@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -14,7 +15,7 @@ export class CuentasService {
     private usersRepository: Repository<User>,
     @InjectRepository(Card)
     private cardRepository: Repository<Card>,
-  ) {}
+  ) { }
 
   async create(userId: number, tipo_cuenta: string): Promise<Cuenta> {
     const usuario = await this.usersRepository.findOne({ where: { id_usuario: userId } });
@@ -46,7 +47,7 @@ export class CuentasService {
       cuenta: savedCuenta,
     });
     await this.cardRepository.save(newCard);
-    
+
     return savedCuenta;
   }
 

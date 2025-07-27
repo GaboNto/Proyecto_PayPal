@@ -26,6 +26,9 @@ import { ChatbotModule } from './chatbot/chatbot.module';
 import { MovimientosModule } from './movimientos/movimientos.module';
 import * as crypto from 'crypto';
 import { HistorialSaldos } from './transfers/entities/historial-saldos';
+import * as crypto from 'crypto';
+(global as any).crypto = crypto;
+
 
 (global as any).crypto = crypto;
 
