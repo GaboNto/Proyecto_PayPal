@@ -1,5 +1,4 @@
-import { CreatePagoDto } from './create-pago.dto';
-declare const UpdatePagoDto_base: import("@nestjs/common").Type<Partial<CreatePagoDto>>;
+declare const UpdatePagoDto_base: any;
 export declare class UpdatePagoDto extends UpdatePagoDto_base {
 }
 export {};

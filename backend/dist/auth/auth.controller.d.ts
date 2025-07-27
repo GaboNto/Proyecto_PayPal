@@ -5,27 +5,9 @@ export declare class AuthController {
     private authService;
     constructor(authService: AuthService);
     login(req: any): Promise<{
-        accessToken: string;
+        accessToken: any;
     }>;
-    register(createUserDto: CreateUserDto): Promise<{
-        id_usuario: number;
-        nombre: string;
-        apellido: string;
-        email: string;
-        fecha_nacimiento: string;
-        pais: string;
-        ciudad: string;
-        rut: string;
-        direccion: string;
-        facturacion: string;
-        banco: string;
-        cuentas: import("../cuentas/entities/cuenta.entity").Cuenta[];
-        destinatarios: import("../destinatarios/entities/destinatario.entity").Destinatario[];
-        bepass: string;
-        totpSecret?: string;
-        emailVerificado: boolean;
-        twoFAEnabled: boolean;
-    }>;
+    register(createUserDto: CreateUserDto): Promise<any>;
     checkRut(rut: string): Promise<{
         exists: boolean;
     }>;

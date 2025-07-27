@@ -7,18 +7,18 @@ export declare class UsersService {
     private usersRepository;
     private disable2FATokens;
     constructor(usersRepository: Repository<User>);
-    updateUserProfile(userId: number, updateUserDto: Partial<User>): Promise<User>;
+    updateUserProfile(userId: number, updateUserDto: Partial<User>): Promise<any>;
     findUserProfile(userId: number): Promise<User | null>;
-    findUserByEmail(email: string): Promise<User | null>;
-    create(createUserDto: CreateUserDto): Promise<User>;
-    findById(id: number): Promise<User>;
+    findUserByEmail(email: string): any;
+    create(createUserDto: CreateUserDto): Promise<any>;
+    findById(id: number): Promise<any>;
     verifyBepass(userId: number, verifyBepassDto: VerifyBepassDto): Promise<{
         success: boolean;
     }>;
     setBepass(userId: number, setBepassDto: SetBepassDto): Promise<{
         message: string;
     }>;
-    save(user: User): Promise<User>;
+    save(user: User): Promise<any>;
     requestDisable2FA(userId: number): Promise<{
         message: string;
     }>;

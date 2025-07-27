@@ -5,7 +5,7 @@ export declare class PagosController {
     constructor(pagosService: PagosService);
     create(createPagoDto: CreatePagoDto): Promise<{
         message: string;
-        pago: import("./entities/pago.entity").Pago;
-        nuevoSaldo: number;
+        pago: any;
+        nuevoSaldo: any;
     }>;
 }

@@ -5,8 +5,8 @@ import { VerifyBepassDto } from './dto/verify-bepass.dto';
 export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
-    getProfile(req: any): Promise<import("./user.entity").User>;
-    updateProfile(req: any, updateUserDto: UpdateUserDto): Promise<import("./user.entity").User>;
+    getProfile(req: any): Promise<any>;
+    updateProfile(req: any, updateUserDto: UpdateUserDto): Promise<any>;
     verifyBepass(req: any, verifyBepassDto: VerifyBepassDto): Promise<{
         success: boolean;
     }>;
@@ -17,8 +17,8 @@ export declare class UsersController {
         hasBepass: boolean;
     }>;
     setup2FA(req: any): Promise<{
-        secret: string;
-        qr: string;
+        secret: any;
+        qr: any;
     }>;
     verify2FA(req: any, code: string): Promise<{
         success: boolean;

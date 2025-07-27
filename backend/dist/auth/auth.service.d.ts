@@ -19,27 +19,9 @@ export declare class AuthService {
     constructor(usersService: UsersService, jwtService: JwtService, usersRepository: Repository<User>, cuentasRepository: Repository<Cuenta>, cardRepository: Repository<Card>);
     validateUser(email: string, pass: string): Promise<any>;
     login(user: any): Promise<{
-        accessToken: string;
+        accessToken: any;
     }>;
-    register(createUserDto: CreateUserDto): Promise<{
-        id_usuario: number;
-        nombre: string;
-        apellido: string;
-        email: string;
-        fecha_nacimiento: string;
-        pais: string;
-        ciudad: string;
-        rut: string;
-        direccion: string;
-        facturacion: string;
-        banco: string;
-        cuentas: Cuenta[];
-        destinatarios: import("../destinatarios/entities/destinatario.entity").Destinatario[];
-        bepass: string;
-        totpSecret?: string;
-        emailVerificado: boolean;
-        twoFAEnabled: boolean;
-    }>;
+    register(createUserDto: CreateUserDto): Promise<any>;
     checkRutExists(rut: string): Promise<{
         exists: boolean;
     }>;

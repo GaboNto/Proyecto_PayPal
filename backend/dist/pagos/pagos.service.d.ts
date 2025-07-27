@@ -8,7 +8,7 @@ export declare class PagosService {
     constructor(pagosRepository: Repository<Pago>, cuentaRepository: Repository<Cuenta>);
     create(createPagoDto: CreatePagoDto): Promise<{
         message: string;
-        pago: Pago;
-        nuevoSaldo: number;
+        pago: any;
+        nuevoSaldo: any;
     }>;
 }
