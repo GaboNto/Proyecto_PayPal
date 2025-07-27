@@ -15,10 +15,16 @@ export class PagosService {
     @InjectRepository(Cuenta)
     private readonly cuentaRepository: Repository<Cuenta>,
   ) { }
-
+  /**
+   * Crea un nuevo pago, asigna una categoría usando FastAPI
+   * y descuenta el monto del saldo de la cuenta correspondiente.
+   * 
+   * @param createPagoDto Datos del pago (monto, descripción, cuenta)
+   * @returns Detalles del pago creado y saldo actualizado
+   */
   async create(createPagoDto: CreatePagoDto) {
     const { monto, descripcion, numeroCuenta } = createPagoDto;
-
+    // Buscar cuenta con usuario relacionado
     const cuenta = await this.cuentaRepository.findOne({
       where: { numero_cuenta: numeroCuenta },
       relations: ['usuario'],
@@ -33,7 +39,7 @@ export class PagosService {
     }
 
     let categoria: string;
-
+    // Llamada al microservicio en FastAPI para clasificar categoría
     try {
       const response = await axios.post('http://127.0.0.1:8000/predecir', {
         texto: descripcion,
@@ -59,7 +65,7 @@ export class PagosService {
     // Actualizar saldo
     cuenta.saldo -= monto;
     await this.cuentaRepository.save(cuenta);
-
+    // Respuesta para frontend o cliente
     return {
       message: 'Pago creado correctamente',
       pago: pagoGuardado,

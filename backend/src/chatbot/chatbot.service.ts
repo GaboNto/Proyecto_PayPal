@@ -27,7 +27,12 @@ export class ChatbotService {
   private readonly API_KEY = 'AIzaSyBc3sUrI2LB5458o0qOQwluHKP1O4dU5HY';
   private readonly MODEL = 'gemini-2.0-flash-lite';
   private readonly API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${this.MODEL}:generateContent?key=${this.API_KEY}`;
-
+  /**
+   * Envía un mensaje (prompt) al modelo de lenguaje Gemini y retorna la respuesta generada.
+   *
+   * @param prompt - Texto enviado como entrada al modelo.
+   * @returns Respuesta generada por el modelo o mensaje por defecto.
+   */
   async enviarMensaje(prompt: string): Promise<string> {
     try {
       const response = await axios.post(
@@ -51,7 +56,12 @@ export class ChatbotService {
       throw new InternalServerErrorException('Error al comunicarse con Gemini');
     }
   }
-
+  /**
+   * Obtiene los pagos registrados por el usuario y los formatea como texto.
+   *
+   * @param userId - ID del usuario autenticado.
+   * @returns Texto con el historial de pagos o mensaje si no existen.
+   */
   async getPagos(userId: string): Promise<string> {
     const pagos = await this.pagoRepo.find({
       where: { idusuario: Number(userId) }
@@ -72,7 +82,12 @@ export class ChatbotService {
     return `Historial de pagos del usuario:\n${lista}`;
   }
 
-
+  /**
+   * Obtiene las cuentas asociadas al usuario.
+   *
+   * @param idUsuario - ID del usuario.
+   * @returns Lista de cuentas pertenecientes al usuario.
+   */
   async obtenerCuentasPorUsuario(id_usuario: number): Promise<Cuenta[]> {
     return this.cuentasRepo.find({
       where: {
@@ -81,6 +96,12 @@ export class ChatbotService {
     });
   }
 
+  /**
+   * Limpia las propiedades sensibles de las cuentas y sus relaciones.
+   *
+   * @param cuentas - Arreglo de cuentas a limpiar.
+   * @returns Arreglo con propiedades sensibles eliminadas.
+   */
   public limpiarCuentas(cuentas: any[]) {
     return cuentas.map(cuenta => {
       const { movimientos, cards, usuario, ...restCuenta } = cuenta;
@@ -92,7 +113,12 @@ export class ChatbotService {
       };
     });
   }
-
+  /**
+   * Formatea las cuentas del usuario en una cadena de texto legible.
+   *
+   * @param cuentas - Arreglo de cuentas a formatear.
+   * @returns Texto con los datos relevantes de cada cuenta.
+   */
   public formatearCuentas(cuentas: any[]): string {
     return cuentas.map(cuenta => {
       const { usuario, movimientos, cards, ...restCuenta } = cuenta;

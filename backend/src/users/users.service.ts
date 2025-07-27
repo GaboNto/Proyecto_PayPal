@@ -12,13 +12,20 @@ import * as nodemailer from 'nodemailer';
 
 @Injectable()
 export class UsersService {
+  /**
+   * Tokens temporales para confirmar la desactivación de 2FA.
+   * Clave = token, Valor = { userId, expires }
+   */
   private disable2FATokens: Record<string, { userId: number; expires: number }> = {};
 
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
   ) {}
-
+  /**
+   * Actualiza los datos de perfil de un usuario.
+   * Solo se permiten campos específicos para edición.
+   */
   async updateUserProfile(userId: number, updateUserDto: Partial<User>) {
     const user = await this.usersRepository.findOne({ where: { id_usuario: userId } });
     if (!user) {
@@ -34,6 +41,9 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
+  /**
+   * Obtiene el perfil de un usuario, incluyendo sus cuentas asociadas.
+   */
   async findUserProfile(userId: number): Promise<User | null> {
     const user = await this.usersRepository.findOne({
       where: { id_usuario: userId },
@@ -44,16 +54,23 @@ export class UsersService {
     }
     return user;
   }
-
+    /**
+   * Busca un usuario por su correo electrónico.
+   */
   findUserByEmail(email: string) {
     return this.usersRepository.findOne({ where: { email }, relations: ['cuentas'] });
   }
-
+  /**
+   * Crea un nuevo usuario con los datos enviados desde el AuthService.
+   */
   async create(createUserDto: CreateUserDto) {
     const newUser = this.usersRepository.create(createUserDto);
     return this.usersRepository.save(newUser);
   }
 
+  /**
+   * Busca un usuario por su ID, incluyendo sus cuentas.
+   */
   async findById(id: number) {
     const user = await this.usersRepository.findOne({
       where: { id_usuario: id },
@@ -64,7 +81,9 @@ export class UsersService {
     }
     return user;
   }
-
+  /**
+   * Verifica que la clave secundaria (Be Pass) ingresada sea válida para el usuario.
+   */
   async verifyBepass(userId: number, verifyBepassDto: VerifyBepassDto): Promise<{ success: boolean }> {
     const { bepass } = verifyBepassDto;
     const user = await this.usersRepository.findOne({ where: { id_usuario: userId } });
@@ -84,7 +103,9 @@ export class UsersService {
 
     return { success: true };
   }
-
+ /**
+   * Establece o cambia la clave secundaria (Be Pass) de un usuario.
+   */
   async setBepass(userId: number, setBepassDto: SetBepassDto): Promise<{ message: string }> {
     const { newBepass, confirmBepass, currentPassword } = setBepassDto;
 

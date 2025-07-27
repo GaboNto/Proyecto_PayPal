@@ -28,6 +28,10 @@ export class TransfersService {
     private dataSource: DataSource,
   ) { }
 
+    /**
+   * Realiza una transferencia entre dos cuentas propias del mismo usuario.
+   * Valida Be Pass, saldo, pertenencia de cuentas y registra historial.
+   */
   async transferBetweenOwnAccounts(createDto: CreateInternalTransferDto, userId: number): Promise<{ message: string }> {
     const { cuentaOrigenId, cuentaDestinoId, monto, bepass } = createDto;
 
@@ -115,7 +119,10 @@ export class TransfersService {
       await queryRunner.release();
     }
   }
-
+  /**
+   * Realiza una transferencia externa o interna a otro usuario.
+   * Se valida la clave Be Pass, saldo, y se registra el historial de movimientos.
+   */
   async create(createTransferDto: CreateTransferDto, usuarioOrigenId: number) {
     const { monto, banco_destino, rut_destinatario, nombre_destinatario, tipo_cuenta, numero_cuenta, bepass } = createTransferDto;
 
@@ -259,7 +266,10 @@ export class TransfersService {
       await queryRunner.release();
     }
   }
-
+  /**
+   * Retorna el historial de transferencias (internas y externas) de un usuario,
+   * con opción de filtrar por fechas (from / to).
+   */
   async getUserHistory(userId: number, from?: string, to?: string) {
     const query = this.transferenciasRepository.createQueryBuilder('t')
       .leftJoinAndSelect('t.usuario_origen', 'origen')
@@ -317,7 +327,9 @@ export class TransfersService {
       };
     });
   }
-
+  /**
+   * Retorna el historial de saldos de todas las cuentas de un usuario.
+   */
   async obtenerHistorialPorUsuario(usuarioId: number) {
     // 1. Obtener todas las cuentas del usuario
     const cuentas = await this.cuentasRepository.find({
@@ -339,7 +351,9 @@ export class TransfersService {
     });
     return historial;
   }
-
+  /**
+   * Consulta tipo de cuenta y saldo por número de cuenta.
+   */
   async obtenerTipoYSaldoPorNumeroCuenta(numeroCuenta: string): Promise<{ tipoCuenta: string | null; saldo: number | null }> {
     // Buscar la cuenta por número de cuenta
     const cuenta = await this.cuentasRepository.findOne({ where: { numero_cuenta: numeroCuenta } });

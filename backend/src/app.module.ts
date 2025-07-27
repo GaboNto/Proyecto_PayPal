@@ -28,7 +28,22 @@ import * as crypto from 'crypto';
 import { HistorialSaldos } from './transfers/entities/historial-saldos';
 
 
-
+/**
+ * Módulo principal de la aplicación (AppModule).
+ * 
+ * Este módulo agrupa y configura todos los módulos funcionales del sistema, como:
+ * - Gestión de usuarios
+ * - Autenticación
+ * - Tarjetas
+ * - Movimientos
+ * - Transferencias (internas y externas)
+ * - Cuentas
+ * - Destinatarios
+ * 
+ * También configura:
+ * - Variables de entorno (env) con ConfigModule
+ * - Conexión a la base de datos con TypeORM
+ */
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -37,6 +52,10 @@ import { HistorialSaldos } from './transfers/entities/historial-saldos';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    /**
+     * Conexión a la base de datos PostgreSQL utilizando variables del entorno.
+     * Las entidades registradas son los modelos principales del sistema.
+     */
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({

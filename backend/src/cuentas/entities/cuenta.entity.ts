@@ -12,11 +12,22 @@ import { User } from '../../users/user.entity';
 import { Movimiento } from '../../movimiento/movimiento/movimiento.entity';
 import { Card } from '../../card/card.entity';
 
+
+/**
+ * Representa una cuenta bancaria asociada a un usuario.
+ * Puede tener múltiples movimientos y tarjetas asociadas.
+ */
 @Entity('cuentas')
 export class Cuenta {
+  /**
+   * Identificador único de la cuenta.
+   */
   @PrimaryGeneratedColumn()
   id: number;
 
+    /**
+   * Usuario propietario de la cuenta.
+   */
   @ManyToOne(() => User, user => user.cuentas, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'id_usuario' })
   usuario: User;
