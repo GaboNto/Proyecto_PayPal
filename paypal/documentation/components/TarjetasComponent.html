@@ -1,0 +1,2496 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>paypal documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">paypal documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TarjetasComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/tarjetas/tarjetas.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                                <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                <code><a href="../injectables/CardService.html" target="_self" >CardService</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-tarjetas</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>CurrencyPipe</code>
+                            <code>HttpClientModule</code>
+                            <code>FormatCardNumberPipe</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./tarjetas.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./tarjetas.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#actionToConfirm" >actionToConfirm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#cardDetailsTimeout" >cardDetailsTimeout</a>
+                            </li>
+                            <li>
+                                <a href="#cuentas" >cuentas</a>
+                            </li>
+                            <li>
+                                <a href="#currentCard" >currentCard</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#detailsTimerSubscription" >detailsTimerSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#error" >error</a>
+                            </li>
+                            <li>
+                                <a href="#hasCuentaDeAhorro" >hasCuentaDeAhorro</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#selectedCuenta" >selectedCuenta</a>
+                            </li>
+                            <li>
+                                <a href="#showCardDetails" >showCardDetails</a>
+                            </li>
+                            <li>
+                                <a href="#showFullCardDetails" >showFullCardDetails</a>
+                            </li>
+                            <li>
+                                <a href="#showSelectionPanel" >showSelectionPanel</a>
+                            </li>
+                            <li>
+                                <a href="#titular" >titular</a>
+                            </li>
+                            <li>
+                                <a href="#userName" >userName</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#confirmarCuentaAhorro" >confirmarCuentaAhorro</a>
+                            </li>
+                            <li>
+                                <a href="#goToSecurity" >goToSecurity</a>
+                            </li>
+                            <li>
+                                <a href="#handleBePassConfirmation" >handleBePassConfirmation</a>
+                            </li>
+                            <li>
+                                <a href="#loadCuentas" >loadCuentas</a>
+                            </li>
+                            <li>
+                                <a href="#loadInitialData" >loadInitialData</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#promptForBePass" >promptForBePass</a>
+                            </li>
+                            <li>
+                                <a href="#revealCardDetails" >revealCardDetails</a>
+                            </li>
+                            <li>
+                                <a href="#selectCuenta" >selectCuenta</a>
+                            </li>
+                            <li>
+                                <a href="#solicitarCuentaDeAhorro" >solicitarCuentaDeAhorro</a>
+                            </li>
+                            <li>
+                                <a href="#toggleBlockCard" >toggleBlockCard</a>
+                            </li>
+                            <li>
+                                <a href="#toggleSelectionPanel" >toggleSelectionPanel</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#isMastercard" >isMastercard</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">function Object() { [native code] }</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(cuentasService: <a href="../injectables/CuentasService.html" target="_self">CuentasService</a>, userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, cardService: <a href="../injectables/CardService.html" target="_self">CardService</a>, http: HttpClient, modalService: NgbModal, cdr: ChangeDetectorRef, router: Router)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:67</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>cuentasService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CuentasService.html" target="_self" >CuentasService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cardService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CardService.html" target="_self" >CardService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>http</td>
+                                                  
+                                                        <td>
+                                                                    <code>HttpClient</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>modalService</td>
+                                                  
+                                                        <td>
+                                                                    <code>NgbModal</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cdr</td>
+                                                  
+                                                        <td>
+                                                                    <code>ChangeDetectorRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmarCuentaAhorro"></a>
+                    <span class="name">
+                        <span ><b>confirmarCuentaAhorro</b></span>
+                        <a href="#confirmarCuentaAhorro"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>confirmarCuentaAhorro()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="159"
+                                    class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:159</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goToSecurity"></a>
+                    <span class="name">
+                        <span ><b>goToSecurity</b></span>
+                        <a href="#goToSecurity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goToSecurity()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="279"
+                                    class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:279</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleBePassConfirmation"></a>
+                    <span class="name">
+                        <span ><b>handleBePassConfirmation</b></span>
+                        <a href="#handleBePassConfirmation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleBePassConfirmation(bepass: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, modal: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="233"
+                                    class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:233</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>bepass</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>modal</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadCuentas"></a>
+                    <span class="name">
+                        <span ><b>loadCuentas</b></span>
+                        <a href="#loadCuentas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadCuentas()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="120"
+                                    class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:120</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadInitialData"></a>
+                    <span class="name">
+                        <span ><b>loadInitialData</b></span>
+                        <a href="#loadInitialData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadInitialData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="101"
+                                    class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:101</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Carga el perfil del usuario desde el backend y luego sus cuentas.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="83"
+                                    class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Inicializa los datos al cargar el componente, incluyendo nombre del usuario
+y sus cuentas asociadas.
+También intenta restaurar la cuenta seleccionada previamente desde localStorage.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="promptForBePass"></a>
+                    <span class="name">
+                        <span ><b>promptForBePass</b></span>
+                        <a href="#promptForBePass"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>promptForBePass(action: "viewDetails" | "toggleBlock", bepassModal: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="212"
+                                    class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:212</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>action</td>
+                                            <td>
+                                                        <code>&quot;viewDetails&quot; | &quot;toggleBlock&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>bepassModal</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="revealCardDetails"></a>
+                    <span class="name">
+                        <span ><b>revealCardDetails</b></span>
+                        <a href="#revealCardDetails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>revealCardDetails()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="260"
+                                    class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:260</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectCuenta"></a>
+                    <span class="name">
+                        <span ><b>selectCuenta</b></span>
+                        <a href="#selectCuenta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectCuenta(cuenta: <a href="../interfaces/Cuenta.html" target="_self">Cuenta</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="173"
+                                    class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:173</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cuenta</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Cuenta.html" target="_self" >Cuenta</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="solicitarCuentaDeAhorro"></a>
+                    <span class="name">
+                        <span ><b>solicitarCuentaDeAhorro</b></span>
+                        <a href="#solicitarCuentaDeAhorro"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>solicitarCuentaDeAhorro()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="153"
+                                    class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:153</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleBlockCard"></a>
+                    <span class="name">
+                        <span ><b>toggleBlockCard</b></span>
+                        <a href="#toggleBlockCard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleBlockCard(isVerified: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="189"
+                                    class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:189</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>isVerified</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>false</code>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleSelectionPanel"></a>
+                    <span class="name">
+                        <span ><b>toggleSelectionPanel</b></span>
+                        <a href="#toggleSelectionPanel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleSelectionPanel()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="275"
+                                    class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:275</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actionToConfirm"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>actionToConfirm</b></span>
+                        <a href="#actionToConfirm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;viewDetails&quot; | &quot;toggleBlock&quot; | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cardDetailsTimeout"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>cardDetailsTimeout</b></span>
+                        <a href="#cardDetailsTimeout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cuentas"></a>
+                    <span class="name">
+                        <span ><b>cuentas</b></span>
+                        <a href="#cuentas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Cuenta[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentCard"></a>
+                    <span class="name">
+                        <span ><b>currentCard</b></span>
+                        <a href="#currentCard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Card | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="detailsTimerSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>detailsTimerSubscription</b></span>
+                        <a href="#detailsTimerSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="error"></a>
+                    <span class="name">
+                        <span ><b>error</b></span>
+                        <a href="#error"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasCuentaDeAhorro"></a>
+                    <span class="name">
+                        <span ><b>hasCuentaDeAhorro</b></span>
+                        <a href="#hasCuentaDeAhorro"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedCuenta"></a>
+                    <span class="name">
+                        <span ><b>selectedCuenta</b></span>
+                        <a href="#selectedCuenta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Cuenta | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showCardDetails"></a>
+                    <span class="name">
+                        <span ><b>showCardDetails</b></span>
+                        <a href="#showCardDetails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showFullCardDetails"></a>
+                    <span class="name">
+                        <span ><b>showFullCardDetails</b></span>
+                        <a href="#showFullCardDetails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showSelectionPanel"></a>
+                    <span class="name">
+                        <span ><b>showSelectionPanel</b></span>
+                        <a href="#showSelectionPanel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="titular"></a>
+                    <span class="name">
+                        <span ><b>titular</b></span>
+                        <a href="#titular"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Nombre Apellido&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userName"></a>
+                    <span class="name">
+                        <span ><b>userName</b></span>
+                        <a href="#userName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Usuario&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isMastercard"></a>
+                        <span class="name"><b>isMastercard</b><a href="#isMastercard"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>isMastercard()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="271" class="link-to-prism">src/app/components/tarjetas/tarjetas.component.ts:271</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ChangeDetectorRef, OnDestroy } from &#x27;@angular/core&#x27;;
+import { CommonModule, CurrencyPipe } from &#x27;@angular/common&#x27;;
+import { HttpClient, HttpClientModule, HttpHeaders } from &#x27;@angular/common/http&#x27;;
+import { CuentasService, Cuenta } from &#x27;../../services/cuentas.service&#x27;;
+import { catchError, tap } from &#x27;rxjs/operators&#x27;;
+import { of } from &#x27;rxjs&#x27;;
+import { UserService } from &#x27;../../services/user.service&#x27;;
+import { CardService } from &#x27;../../services/card.service&#x27;;
+import { NgbModal } from &#x27;@ng-bootstrap/ng-bootstrap&#x27;;
+import { Subscription, timer } from &#x27;rxjs&#x27;;
+import { FormatCardNumberPipe } from &#x27;../../utils/format-card-number.pipe&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+
+// Interfaces para tipar los datos del backend
+export interface Card {
+  id: string;
+  cardNumber: string;
+  cvv: string;
+  expirationDate: string;
+  is_blocked: boolean;
+}
+
+export interface CuentaConTarjeta extends Cuenta {
+  cards: Card[];
+}
+
+@Component({
+  selector: &#x27;app-tarjetas&#x27;,
+  standalone: true,
+  imports: [CommonModule, CurrencyPipe, HttpClientModule, FormatCardNumberPipe],
+  providers: [UserService, CardService],
+  templateUrl: &#x27;./tarjetas.component.html&#x27;,
+  styleUrls: [&#x27;./tarjetas.component.scss&#x27;]
+})
+export class TarjetasComponent implements OnInit, OnDestroy {
+  isLoading: boolean &#x3D; true;
+  cuentas: Cuenta[] &#x3D; [];
+  selectedCuenta: Cuenta | null &#x3D; null;
+  currentCard: Card | null &#x3D; null;
+  userName: string &#x3D; &#x27;Usuario&#x27;;
+  titular: string &#x3D; &#x27;Nombre Apellido&#x27;;
+  showCardDetails: boolean &#x3D; false;
+  showSelectionPanel: boolean &#x3D; false;
+  error: string | null &#x3D; null;
+  hasCuentaDeAhorro: boolean &#x3D; false;
+
+  // El estado de la tarjeta ya no se guarda aquí
+  showFullCardDetails: boolean &#x3D; false;
+  private cardDetailsTimeout: any;
+
+  private detailsTimerSubscription: Subscription | null &#x3D; null;
+  private actionToConfirm: &#x27;viewDetails&#x27; | &#x27;toggleBlock&#x27; | null &#x3D; null;
+
+  constructor(
+    private cuentasService: CuentasService,
+    private userService: UserService,
+    private cardService: CardService,
+    private http: HttpClient,
+    private modalService: NgbModal,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) {}
+/**
+ * Inicializa los datos al cargar el componente, incluyendo nombre del usuario
+ * y sus cuentas asociadas.
+ * También intenta restaurar la cuenta seleccionada previamente desde localStorage.
+ */
+  ngOnInit(): void {
+    this.loadInitialData();
+    // Restaurar selección de cuenta si existe
+    const savedCuentaId &#x3D; localStorage.getItem(&#x27;selectedCuentaId&#x27;);
+    if (savedCuentaId) {
+      this.selectedCuenta &#x3D; null; // Se asignará correctamente tras cargar cuentas
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.detailsTimerSubscription) {
+      this.detailsTimerSubscription.unsubscribe();
+    }
+  }
+
+/**
+ * Carga el perfil del usuario desde el backend y luego sus cuentas.
+ */
+  loadInitialData(): void {
+    this.isLoading &#x3D; true;
+    // Obtener nombre del usuario
+    this.http.get&lt;any&gt;(&#x27;http://localhost:3000/api/users/profile&#x27;).pipe(
+      tap(profile &#x3D;&gt; {
+        this.userName &#x3D; &#x60;${profile.nombre} ${profile.apellido}&#x60;.toUpperCase();
+        this.titular &#x3D; this.userName; // Actualizar titular aquí
+      }),
+      catchError(() &#x3D;&gt; {
+        this.userName &#x3D; &#x27;USUARIO&#x27;; // Valor por defecto en caso de error
+        this.titular &#x3D; this.userName;
+        return of(null);
+      })
+    ).subscribe(() &#x3D;&gt; {
+      // Una vez tenemos el nombre, cargamos las cuentas
+      this.loadCuentas();
+    });
+  }
+
+  loadCuentas(): void {
+    this.cuentasService.getCuentas().subscribe({
+      next: (cuentasData) &#x3D;&gt; {
+        this.cuentas &#x3D; cuentasData;
+        // Restaurar selección si existe en localStorage
+        const savedCuentaId &#x3D; localStorage.getItem(&#x27;selectedCuentaId&#x27;);
+        if (savedCuentaId) {
+          const cuentaGuardada &#x3D; this.cuentas.find(c &#x3D;&gt; c.id.toString() &#x3D;&#x3D;&#x3D; savedCuentaId);
+          if (cuentaGuardada) {
+            this.selectedCuenta &#x3D; cuentaGuardada;
+          } else {
+            this.selectedCuenta &#x3D; this.cuentas[0];
+          }
+        } else if (this.cuentas.length &gt; 0 &amp;&amp; !this.selectedCuenta) {
+          this.selectedCuenta &#x3D; this.cuentas[0];
+        }
+        // Asignar la tarjeta actual si existe
+        if (this.selectedCuenta &amp;&amp; this.selectedCuenta.cards &amp;&amp; this.selectedCuenta.cards.length &gt; 0) {
+          this.currentCard &#x3D; this.selectedCuenta.cards[0];
+        } else {
+          this.currentCard &#x3D; null;
+        }
+        this.hasCuentaDeAhorro &#x3D; this.cuentas.some(c &#x3D;&gt; c.tipo_cuenta &#x3D;&#x3D;&#x3D; &#x27;Cuenta de Ahorro&#x27;);
+        this.isLoading &#x3D; false;
+      },
+      error: (err) &#x3D;&gt; {
+        this.error &#x3D; &#x27;Error al cargar tus cuentas y tarjetas.&#x27;;
+        this.isLoading &#x3D; false;
+        console.error(err);
+      }
+    });
+  }
+  
+  solicitarCuentaDeAhorro(): void {
+    // Mostrar el modal Bootstrap
+    const modal &#x3D; new (window as any).bootstrap.Modal(document.getElementById(&#x27;cuentaAhorroModal&#x27;));
+    modal.show();
+  }
+
+  confirmarCuentaAhorro(): void {
+    this.cuentasService.createCuenta(&#x27;Cuenta de Ahorro&#x27;).subscribe({
+      next: () &#x3D;&gt; {
+        // Mostrar modal de éxito
+        const modal &#x3D; new (window as any).bootstrap.Modal(document.getElementById(&#x27;ahorroSuccessModal&#x27;));
+        modal.show();
+        this.loadCuentas(); // Recargar los datos
+      },
+      error: (err) &#x3D;&gt; {
+        this.error &#x3D; err.error.message || &#x27;No se pudo crear la cuenta de ahorro.&#x27;;
+      }
+    });
+  }
+
+  selectCuenta(cuenta: Cuenta): void {
+    this.selectedCuenta &#x3D; cuenta;
+    localStorage.setItem(&#x27;selectedCuentaId&#x27;, cuenta.id.toString()); // Guardar selección
+    this.showSelectionPanel &#x3D; false;
+    this.showFullCardDetails &#x3D; false;
+    if (this.cardDetailsTimeout) {
+      clearTimeout(this.cardDetailsTimeout);
+    }
+    // Asignar la tarjeta actual si existe
+    if (this.selectedCuenta &amp;&amp; this.selectedCuenta.cards &amp;&amp; this.selectedCuenta.cards.length &gt; 0) {
+      this.currentCard &#x3D; this.selectedCuenta.cards[0];
+    } else {
+      this.currentCard &#x3D; null;
+    }
+  }
+
+  toggleBlockCard(isVerified: boolean &#x3D; false): void {
+    if (!this.currentCard) return;
+
+    // Si la tarjeta está bloqueada, necesitamos la clave para desbloquear
+    if (this.currentCard.is_blocked &amp;&amp; !isVerified) {
+       // El modal debe ser abierto por otro método que pase la plantilla.
+       // Esta lógica se moverá al manejador del botón.
+      return; 
+    }
+
+    const newStatus &#x3D; !this.currentCard.is_blocked;
+    this.cardService.toggleBlock(this.currentCard.id).subscribe({
+      next: (updatedCard: Card) &#x3D;&gt; {
+        this.currentCard &#x3D; updatedCard;
+        this.cdr.detectChanges();
+      },
+      error: (err: any) &#x3D;&gt; {
+        this.error &#x3D; err.error.message || &#x60;Error al ${newStatus ? &#x27;bloquear&#x27; : &#x27;desbloquear&#x27;} la tarjeta.&#x60;;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  promptForBePass(action: &#x27;viewDetails&#x27; | &#x27;toggleBlock&#x27;, bepassModal: any): void {
+    // Verificar si el usuario tiene Be Pass antes de mostrar el modal
+    this.userService.hasBepass().subscribe({
+      next: (res) &#x3D;&gt; {
+        if (res.hasBepass) {
+          this.actionToConfirm &#x3D; action;
+          this.modalService.open(bepassModal, { centered: true, ariaLabelledBy: &#x27;modal-title&#x27; });
+        } else {
+          // Mostrar modal de advertencia
+          const modal &#x3D; new (window as any).bootstrap.Modal(document.getElementById(&#x27;bepassRequiredModal&#x27;));
+          modal.show();
+        }
+      },
+      error: () &#x3D;&gt; {
+        // En caso de error, asumir que no tiene Be Pass
+        const modal &#x3D; new (window as any).bootstrap.Modal(document.getElementById(&#x27;bepassRequiredModal&#x27;));
+        modal.show();
+      }
+    });
+  }
+
+  handleBePassConfirmation(bepass: string, modal: any): void {
+    if (!bepass || bepass.length !&#x3D;&#x3D; 6) {
+      this.error &#x3D; &quot;La clave Be Pass debe tener 6 dígitos.&quot;;
+      return;
+    }
+    
+    this.userService.verifyBepass(bepass).subscribe({
+      next: (response: { success: boolean }) &#x3D;&gt; {
+        if (response.success) {
+          modal.close();
+          if (this.actionToConfirm &#x3D;&#x3D;&#x3D; &#x27;viewDetails&#x27;) {
+            this.revealCardDetails();
+          } else if (this.actionToConfirm &#x3D;&#x3D;&#x3D; &#x27;toggleBlock&#x27;) {
+            this.toggleBlockCard(true);
+          }
+        } else {
+          this.error &#x3D; &quot;Clave Be Pass incorrecta.&quot;;
+          this.cdr.detectChanges();
+        }
+      },
+      error: (err: any) &#x3D;&gt; {
+        this.error &#x3D; err.error.message || &quot;Error al verificar la clave Be Pass.&quot;;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+  
+  revealCardDetails(): void {
+    this.showCardDetails &#x3D; true;
+    this.cdr.detectChanges();
+
+    // Ocultar detalles después de 30 segundos
+    this.detailsTimerSubscription &#x3D; timer(30000).subscribe(() &#x3D;&gt; {
+      this.showCardDetails &#x3D; false;
+      this.cdr.detectChanges();
+    });
+  }
+
+  get isMastercard(): boolean {
+    return this.selectedCuenta?.tipo_cuenta !&#x3D;&#x3D; &#x27;Cuenta Vista&#x27;;
+  }
+
+  toggleSelectionPanel(): void {
+    this.showSelectionPanel &#x3D; !this.showSelectionPanel;
+  }
+
+  goToSecurity() {
+    this.router.navigate([&#x27;/security&#x27;]);
+  }
+} </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;tarjetas-container&quot; *ngIf&#x3D;&quot;!isLoading; else loadingTemplate&quot;&gt;
+  
+  &lt;!-- Saldo de la cuenta seleccionada --&gt;
+  &lt;div class&#x3D;&quot;saldo-header&quot; *ngIf&#x3D;&quot;selectedCuenta&quot;&gt;
+    &lt;h2&gt;Saldo de {{ selectedCuenta.tipo_cuenta }}&lt;/h2&gt;
+    &lt;p&gt;{{ selectedCuenta.saldo | currency:&#x27;CLP&#x27;:&#x27;symbol-narrow&#x27;:&#x27;1.0-0&#x27; }}&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Contenedor principal de la tarjeta --&gt;
+  &lt;div class&#x3D;&quot;card-display-area&quot;&gt;
+    &lt;ng-container *ngIf&#x3D;&quot;currentCard; else noCardsTemplate&quot;&gt;
+      &lt;div class&#x3D;&quot;credit-card&quot; [ngClass]&#x3D;&quot;{
+        &#x27;visa&#x27;: !isMastercard, 
+        &#x27;mastercard&#x27;: isMastercard, 
+        &#x27;blocked&#x27;: currentCard.is_blocked 
+      }&quot;&gt;
+        &lt;!-- Capa de bloqueo --&gt;
+        &lt;div *ngIf&#x3D;&quot;currentCard.is_blocked&quot; class&#x3D;&quot;blocked-overlay&quot;&gt;
+          &lt;i class&#x3D;&quot;fas fa-lock&quot;&gt;&lt;/i&gt;
+          &lt;span&gt;Tarjeta Bloqueada&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Contenido de la tarjeta --&gt;
+        &lt;div class&#x3D;&quot;card-header&quot;&gt;
+          &lt;div class&#x3D;&quot;chip&quot;&gt;&lt;/div&gt;
+          &lt;div class&#x3D;&quot;card-logo&quot; [class.visa-logo]&#x3D;&quot;!isMastercard&quot; [class.mastercard-logo]&#x3D;&quot;isMastercard&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;card-number&quot;&gt;
+          &lt;span *ngIf&#x3D;&quot;showCardDetails&quot;&gt;{{ currentCard.cardNumber | formatCardNumber }}&lt;/span&gt;
+          &lt;span *ngIf&#x3D;&quot;!showCardDetails&quot;&gt;**** **** **** {{ currentCard.cardNumber.slice(-4) }}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;card-footer&quot;&gt;
+          &lt;div class&#x3D;&quot;card-holder&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Titular&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ titular }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;card-expiry&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;Expira&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ currentCard.expirationDate }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;card-cvv&quot;&gt;
+            &lt;span class&#x3D;&quot;label&quot;&gt;CVV&lt;/span&gt;
+            &lt;span class&#x3D;&quot;value&quot;&gt;{{ showCardDetails ? currentCard.cvv : &#x27;***&#x27; }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/ng-container&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Botones de Acción --&gt;
+  &lt;div class&#x3D;&quot;action-buttons&quot; *ngIf&#x3D;&quot;currentCard&quot;&gt;
+    &lt;button (click)&#x3D;&quot;toggleSelectionPanel()&quot; [disabled]&#x3D;&quot;currentCard.is_blocked&quot;&gt;
+      &lt;i class&#x3D;&quot;fas fa-exchange-alt&quot;&gt;&lt;/i&gt;
+      &lt;span&gt;Cambiar Cuenta&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button (click)&#x3D;&quot;promptForBePass(&#x27;viewDetails&#x27;, bepassModal)&quot; [disabled]&#x3D;&quot;currentCard.is_blocked&quot;&gt;
+      &lt;i class&#x3D;&quot;fas fa-eye&quot;&gt;&lt;/i&gt;
+      &lt;span&gt;Ver Números&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button (click)&#x3D;&quot;promptForBePass(&#x27;toggleBlock&#x27;, bepassModal)&quot;
+            [class.danger]&#x3D;&quot;!currentCard.is_blocked&quot; 
+            [class.success]&#x3D;&quot;currentCard.is_blocked&quot;&gt;
+      &lt;i [ngClass]&#x3D;&quot;currentCard.is_blocked ? &#x27;fas fa-unlock&#x27; : &#x27;fas fa-lock&#x27;&quot;&gt;&lt;/i&gt;
+      &lt;span&gt;{{ currentCard.is_blocked ? &#x27;Desbloquear&#x27; : &#x27;Bloquear&#x27; }}&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button (click)&#x3D;&quot;solicitarCuentaDeAhorro()&quot; [disabled]&#x3D;&quot;hasCuentaDeAhorro || currentCard.is_blocked&quot;&gt;
+      &lt;i class&#x3D;&quot;fas fa-piggy-bank&quot;&gt;&lt;/i&gt;
+      &lt;span&gt;Abrir Cta. Ahorro&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+  
+  &lt;!-- Panel de Selección de Cuentas --&gt;
+  &lt;div class&#x3D;&quot;selection-panel&quot; *ngIf&#x3D;&quot;showSelectionPanel&quot;&gt;
+    &lt;h3&gt;Selecciona una cuenta para ver su tarjeta&lt;/h3&gt;
+    &lt;ul&gt;
+      &lt;li *ngFor&#x3D;&quot;let cuenta of cuentas&quot; (click)&#x3D;&quot;selectCuenta(cuenta)&quot; [class.active]&#x3D;&quot;cuenta.id &#x3D;&#x3D;&#x3D; selectedCuenta?.id&quot;&gt;
+        &lt;div class&#x3D;&quot;cuenta-info&quot;&gt;
+          &lt;strong&gt;{{ cuenta.tipo_cuenta }}&lt;/strong&gt;
+          &lt;span&gt;N°: ...{{ cuenta.numero_cuenta.slice(-4) }}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;cuenta-saldo&quot;&gt;
+          {{ cuenta.saldo | currency:&#x27;CLP&#x27;:&#x27;symbol-narrow&#x27;:&#x27;1.0-0&#x27; }}
+        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button class&#x3D;&quot;btn-close-panel&quot; (click)&#x3D;&quot;showSelectionPanel &#x3D; false&quot;&gt;Cerrar&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Mensaje de Error --&gt;
+  &lt;div *ngIf&#x3D;&quot;error&quot; class&#x3D;&quot;alert alert-danger mt-4&quot;&gt;
+    &lt;i class&#x3D;&quot;fas fa-exclamation-triangle&quot;&gt;&lt;/i&gt; {{ error }}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Plantillas para estados de carga y sin tarjetas --&gt;
+&lt;ng-template #loadingTemplate&gt;
+  &lt;div class&#x3D;&quot;loading-container&quot;&gt;
+    &lt;p&gt;Cargando tus tarjetas...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;
+
+&lt;ng-template #noCardsTemplate&gt;
+  &lt;div class&#x3D;&quot;no-cards-message&quot;&gt;
+    &lt;p&gt;No tienes tarjetas asociadas a esta cuenta.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;
+
+&lt;!-- Modal para la Clave Be Pass --&gt;
+&lt;ng-template #bepassModal let-modal&gt;
+  &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+    &lt;h4 class&#x3D;&quot;modal-title&quot; id&#x3D;&quot;modal-title&quot;&gt;Confirmación de Seguridad&lt;/h4&gt;
+    &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn-close&quot; aria-label&#x3D;&quot;Close&quot; (click)&#x3D;&quot;modal.dismiss()&quot;&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+    &lt;p&gt;Por tu seguridad, ingresa tu &lt;strong&gt;Clave Be Pass&lt;/strong&gt; de 6 dígitos para continuar.&lt;/p&gt;
+    &lt;div class&#x3D;&quot;form-group&quot;&gt;
+      &lt;label for&#x3D;&quot;bepass-input&quot;&gt;Clave Be Pass&lt;/label&gt;
+      &lt;input #bepassInput type&#x3D;&quot;password&quot; id&#x3D;&quot;bepass-input&quot; class&#x3D;&quot;form-control text-center&quot; maxlength&#x3D;&quot;6&quot; autofocus&gt;
+    &lt;/div&gt;
+    &lt;div *ngIf&#x3D;&quot;error&quot; class&#x3D;&quot;alert alert-danger p-2 mt-3&quot;&gt;{{ error }}&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+    &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-outline-secondary&quot; (click)&#x3D;&quot;modal.dismiss()&quot;&gt;Cancelar&lt;/button&gt;
+    &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;handleBePassConfirmation(bepassInput.value, modal)&quot;&gt;Aceptar&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;
+
+&lt;!-- Modal de confirmación para abrir cuenta de ahorro --&gt;
+&lt;div class&#x3D;&quot;modal fade&quot; id&#x3D;&quot;cuentaAhorroModal&quot; tabindex&#x3D;&quot;-1&quot; aria-labelledby&#x3D;&quot;cuentaAhorroModalLabel&quot; aria-hidden&#x3D;&quot;true&quot;&gt;
+  &lt;div class&#x3D;&quot;modal-dialog modal-dialog-centered&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-content&quot;&gt;
+      &lt;div class&#x3D;&quot;modal-header bg-info text-white&quot;&gt;
+        &lt;h5 class&#x3D;&quot;modal-title&quot; id&#x3D;&quot;cuentaAhorroModalLabel&quot;&gt;Abrir Cuenta de Ahorro&lt;/h5&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn-close&quot; data-bs-dismiss&#x3D;&quot;modal&quot; aria-label&#x3D;&quot;Cerrar&quot;&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-body text-center&quot;&gt;
+        &lt;i class&#x3D;&quot;bi bi-piggy-bank display-3 text-info mb-3&quot;&gt;&lt;/i&gt;
+        &lt;p class&#x3D;&quot;fs-5&quot;&gt;¿Deseas abrir una cuenta de ahorro? &lt;br&gt;Costo &lt;b&gt;$0&lt;/b&gt;. Incluye una nueva tarjeta digital.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-footer justify-content-center&quot;&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-secondary&quot; data-bs-dismiss&#x3D;&quot;modal&quot;&gt;Cancelar&lt;/button&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-primary w-50&quot; (click)&#x3D;&quot;confirmarCuentaAhorro()&quot; data-bs-dismiss&#x3D;&quot;modal&quot;&gt;Aceptar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Modal de éxito de cuenta de ahorro --&gt;
+&lt;div class&#x3D;&quot;modal fade&quot; id&#x3D;&quot;ahorroSuccessModal&quot; tabindex&#x3D;&quot;-1&quot; aria-labelledby&#x3D;&quot;ahorroSuccessModalLabel&quot; aria-hidden&#x3D;&quot;true&quot;&gt;
+  &lt;div class&#x3D;&quot;modal-dialog modal-dialog-centered&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-content&quot;&gt;
+      &lt;div class&#x3D;&quot;modal-header bg-success text-white&quot;&gt;
+        &lt;h5 class&#x3D;&quot;modal-title&quot; id&#x3D;&quot;ahorroSuccessModalLabel&quot;&gt;¡Cuenta de Ahorro Creada!&lt;/h5&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn-close&quot; data-bs-dismiss&#x3D;&quot;modal&quot; aria-label&#x3D;&quot;Cerrar&quot;&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-body text-center&quot;&gt;
+        &lt;i class&#x3D;&quot;bi bi-piggy-bank display-3 text-success mb-3&quot;&gt;&lt;/i&gt;
+        &lt;p class&#x3D;&quot;fs-5&quot;&gt;¡Tu Cuenta de Ahorro ha sido creada con éxito!&lt;br&gt;Incluye una nueva tarjeta digital.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-footer justify-content-center&quot;&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-primary w-50&quot; data-bs-dismiss&#x3D;&quot;modal&quot;&gt;Aceptar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Modal de advertencia: Be Pass requerido --&gt;
+&lt;div class&#x3D;&quot;modal fade&quot; id&#x3D;&quot;bepassRequiredModal&quot; tabindex&#x3D;&quot;-1&quot; aria-labelledby&#x3D;&quot;bepassRequiredModalLabel&quot; aria-hidden&#x3D;&quot;true&quot;&gt;
+  &lt;div class&#x3D;&quot;modal-dialog modal-dialog-centered&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-content&quot;&gt;
+      &lt;div class&#x3D;&quot;modal-header bg-warning text-dark&quot;&gt;
+        &lt;h5 class&#x3D;&quot;modal-title&quot; id&#x3D;&quot;bepassRequiredModalLabel&quot;&gt;Clave Be Pass requerida&lt;/h5&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn-close&quot; data-bs-dismiss&#x3D;&quot;modal&quot; aria-label&#x3D;&quot;Cerrar&quot;&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-body text-center&quot;&gt;
+        &lt;i class&#x3D;&quot;bi bi-shield-lock display-3 text-warning mb-3&quot;&gt;&lt;/i&gt;
+        &lt;p class&#x3D;&quot;fs-5&quot;&gt;Debes crear una clave Be Pass antes de poder bloquear o desbloquear tu tarjeta.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-footer justify-content-center&quot;&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-primary w-50&quot; (click)&#x3D;&quot;goToSecurity()&quot; data-bs-dismiss&#x3D;&quot;modal&quot;&gt;Ir a Seguridad&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt; </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./tarjetas.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import url(&#x27;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css&#x27;);
+@import url(&#x27;https://fonts.googleapis.com/css2?family&#x3D;Poppins:wght@400;500;600;700&amp;display&#x3D;swap&#x27;);
+@import url(&#x27;https://fonts.googleapis.com/css2?family&#x3D;Roboto+Mono:wght@500&amp;display&#x3D;swap&#x27;);
+
+:host {
+  display: block;
+  padding: 2rem;
+  background-color: #f4f7f9;
+  font-family: &#x27;Poppins&#x27;, sans-serif;
+}
+
+.tarjetas-container {
+  max-width: 420px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.saldo-header {
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 83, 224, 0.07);
+  border: 1px solid #e6e9ee;
+
+  h2 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  p {
+    margin: 0.25rem 0 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #003087;
+  }
+}
+
+.card-display-area {
+  perspective: 1000px;
+  margin-bottom: 2rem;
+  min-height: 230px;
+}
+
+.credit-card {
+  padding: 24px;
+  border-radius: 16px;
+  color: white;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(0, 48, 135, 0.2);
+  font-family: &#x27;Roboto Mono&#x27;, monospace;
+  transition: all 0.4s ease-in-out;
+  transform-style: preserve-3d;
+
+  &amp;::before {
+    content: &#x27;&#x27;;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 60%);
+    z-index: 1;
+  }
+
+  &amp;.blocked {
+    filter: grayscale(1) blur(2px);
+    pointer-events: none;
+  }
+
+  &amp;.visa {
+    background: linear-gradient(135deg, #1a438d, #0055a4);
+  }
+  &amp;.mastercard {
+    background: linear-gradient(135deg, #333, #1a1a1a);
+  }
+
+  &gt; * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .blocked-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(40, 40, 40, 0.7);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    border-radius: 16px;
+    backdrop-filter: blur(4px);
+    font-family: &#x27;Poppins&#x27;, sans-serif;
+
+    .fa-lock {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    span {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    .chip {
+      width: 50px;
+      height: 38px;
+      background: linear-gradient(135deg, #ddc49f, #bfab8a);
+      border-radius: 6px;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .card-logo {
+      height: 40px;
+      width: 65px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center right;
+      filter: invert(1) brightness(1.5);
+      
+      &amp;.visa-logo {
+        background-image: url(&#x27;https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg&#x27;);
+      }
+      &amp;.mastercard-logo {
+        background-image: url(&#x27;https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg&#x27;);
+      }
+    }
+  }
+
+  .card-number {
+    font-size: 1.6rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: 3px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+    font-family: &#x27;Poppins&#x27;, sans-serif;
+    text-transform: uppercase;
+
+    .label {
+      display: block;
+      font-size: 0.6rem;
+      opacity: 0.7;
+      margin-bottom: 2px;
+    }
+    .value {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+  }
+}
+
+.action-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+
+  button {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #dbe1e8;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-family: &#x27;Poppins&#x27;, sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 83, 224, 0.05);
+
+    &amp;:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 83, 224, 0.1);
+      border-color: #c0cde0;
+    }
+
+    &amp;:disabled {
+      background-color: #e9ecef;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+      opacity: 0.7;
+    }
+
+    &amp;.danger {
+      background-color: #fceeee;
+      color: #c93434;
+      border-color: #f7dada;
+    }
+    &amp;.success {
+      background-color: #eaf6ec;
+      color: #2a7f40;
+      border-color: #d2edd9;
+    }
+
+    i {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.selection-panel {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    text-align: center;
+    color: #333;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border: 1px solid #eee;
+    margin-bottom: 0.5rem;
+
+    &amp;:hover {
+      background-color: #f5f7fa;
+    }
+
+    &amp;.active {
+      background-color: #e6f0ff;
+      border-color: #007bff;
+      font-weight: 600;
+    }
+  }
+  .btn-close-panel {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: #003087;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &amp;:hover {
+      background-color: #002261;
+    }
+  }
+}
+
+.loading-container, .no-cards-message {
+  text-align: center;
+  padding: 3rem;
+  color: #6c757d;
+}
+
+.no-cards-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e9ecef;
+  color: #6c757d;
+  min-height: 230px;
+  border-radius: 16px;
+  font-weight: 500;
+}
+
+// Re-using Bootstrap alert styles for simplicity
+.alert {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+}
+
+// Estilos para el nuevo modal de Be Pass
+// Se aplican globalmente a los modales abiertos por este componente
+:host ::ng-deep .modal-content {
+  border-radius: 12px !important;
+  border: none !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15) !important;
+}
+
+:host ::ng-deep .modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  .modal-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #343a40;
+  }
+}
+
+:host ::ng-deep .modal-body {
+  p {
+    margin-bottom: 1.5rem;
+    color: #495057;
+  }
+  .form-group label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  #bepass-input {
+    letter-spacing: 5px;
+    font-size: 1.5rem;
+    font-family: &#x27;Roboto Mono&#x27;, monospace;
+  }
+} </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="tarjetas-container" *ngIf="!isLoading; else loadingTemplate">    <!-- Saldo de la cuenta seleccionada -->  <div class="saldo-header" *ngIf="selectedCuenta">    <h2>Saldo de {{ selectedCuenta.tipo_cuenta }}</h2>    <p>{{ selectedCuenta.saldo | currency:\'CLP\':\'symbol-narrow\':\'1.0-0\' }}</p>  </div>  <!-- Contenedor principal de la tarjeta -->  <div class="card-display-area">    <ng-container *ngIf="currentCard; else noCardsTemplate">      <div class="credit-card" [ngClass]="{        \'visa\': !isMastercard,         \'mastercard\': isMastercard,         \'blocked\': currentCard.is_blocked       }">        <!-- Capa de bloqueo -->        <div *ngIf="currentCard.is_blocked" class="blocked-overlay">          <i class="fas fa-lock"></i>          <span>Tarjeta Bloqueada</span>        </div>        <!-- Contenido de la tarjeta -->        <div class="card-header">          <div class="chip"></div>          <div class="card-logo" [class.visa-logo]="!isMastercard" [class.mastercard-logo]="isMastercard"></div>        </div>        <div class="card-number">          <span *ngIf="showCardDetails">{{ currentCard.cardNumber | formatCardNumber }}</span>          <span *ngIf="!showCardDetails">**** **** **** {{ currentCard.cardNumber.slice(-4) }}</span>        </div>        <div class="card-footer">          <div class="card-holder">            <span class="label">Titular</span>            <span class="value">{{ titular }}</span>          </div>          <div class="card-expiry">            <span class="label">Expira</span>            <span class="value">{{ currentCard.expirationDate }}</span>          </div>          <div class="card-cvv">            <span class="label">CVV</span>            <span class="value">{{ showCardDetails ? currentCard.cvv : \'***\' }}</span>          </div>        </div>      </div>    </ng-container>  </div>  <!-- Botones de Acción -->  <div class="action-buttons" *ngIf="currentCard">    <button (click)="toggleSelectionPanel()" [disabled]="currentCard.is_blocked">      <i class="fas fa-exchange-alt"></i>      <span>Cambiar Cuenta</span>    </button>    <button (click)="promptForBePass(\'viewDetails\', bepassModal)" [disabled]="currentCard.is_blocked">      <i class="fas fa-eye"></i>      <span>Ver Números</span>    </button>    <button (click)="promptForBePass(\'toggleBlock\', bepassModal)"            [class.danger]="!currentCard.is_blocked"             [class.success]="currentCard.is_blocked">      <i [ngClass]="currentCard.is_blocked ? \'fas fa-unlock\' : \'fas fa-lock\'"></i>      <span>{{ currentCard.is_blocked ? \'Desbloquear\' : \'Bloquear\' }}</span>    </button>    <button (click)="solicitarCuentaDeAhorro()" [disabled]="hasCuentaDeAhorro || currentCard.is_blocked">      <i class="fas fa-piggy-bank"></i>      <span>Abrir Cta. Ahorro</span>    </button>  </div>    <!-- Panel de Selección de Cuentas -->  <div class="selection-panel" *ngIf="showSelectionPanel">    <h3>Selecciona una cuenta para ver su tarjeta</h3>    <ul>      <li *ngFor="let cuenta of cuentas" (click)="selectCuenta(cuenta)" [class.active]="cuenta.id === selectedCuenta?.id">        <div class="cuenta-info">          <strong>{{ cuenta.tipo_cuenta }}</strong>          <span>N°: ...{{ cuenta.numero_cuenta.slice(-4) }}</span>        </div>        <div class="cuenta-saldo">          {{ cuenta.saldo | currency:\'CLP\':\'symbol-narrow\':\'1.0-0\' }}        </div>      </li>    </ul>    <button class="btn-close-panel" (click)="showSelectionPanel = false">Cerrar</button>  </div>  <!-- Mensaje de Error -->  <div *ngIf="error" class="alert alert-danger mt-4">    <i class="fas fa-exclamation-triangle"></i> {{ error }}  </div></div><!-- Plantillas para estados de carga y sin tarjetas --><ng-template #loadingTemplate>  <div class="loading-container">    <p>Cargando tus tarjetas...</p>  </div></ng-template><ng-template #noCardsTemplate>  <div class="no-cards-message">    <p>No tienes tarjetas asociadas a esta cuenta.</p>  </div></ng-template><!-- Modal para la Clave Be Pass --><ng-template #bepassModal let-modal>  <div class="modal-header">    <h4 class="modal-title" id="modal-title">Confirmación de Seguridad</h4>    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>  </div>  <div class="modal-body">    <p>Por tu seguridad, ingresa tu <strong>Clave Be Pass</strong> de 6 dígitos para continuar.</p>    <div class="form-group">      <label for="bepass-input">Clave Be Pass</label>      <input #bepassInput type="password" id="bepass-input" class="form-control text-center" maxlength="6" autofocus>    </div>    <div *ngIf="error" class="alert alert-danger p-2 mt-3">{{ error }}</div>  </div>  <div class="modal-footer">    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancelar</button>    <button type="button" class="btn btn-primary" (click)="handleBePassConfirmation(bepassInput.value, modal)">Aceptar</button>  </div></ng-template><!-- Modal de confirmación para abrir cuenta de ahorro --><div class="modal fade" id="cuentaAhorroModal" tabindex="-1" aria-labelledby="cuentaAhorroModalLabel" aria-hidden="true">  <div class="modal-dialog modal-dialog-centered">    <div class="modal-content">      <div class="modal-header bg-info text-white">        <h5 class="modal-title" id="cuentaAhorroModalLabel">Abrir Cuenta de Ahorro</h5>        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>      </div>      <div class="modal-body text-center">        <i class="bi bi-piggy-bank display-3 text-info mb-3"></i>        <p class="fs-5">¿Deseas abrir una cuenta de ahorro? <br>Costo <b>$0</b>. Incluye una nueva tarjeta digital.</p>      </div>      <div class="modal-footer justify-content-center">        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>        <button type="button" class="btn btn-primary w-50" (click)="confirmarCuentaAhorro()" data-bs-dismiss="modal">Aceptar</button>      </div>    </div>  </div></div><!-- Modal de éxito de cuenta de ahorro --><div class="modal fade" id="ahorroSuccessModal" tabindex="-1" aria-labelledby="ahorroSuccessModalLabel" aria-hidden="true">  <div class="modal-dialog modal-dialog-centered">    <div class="modal-content">      <div class="modal-header bg-success text-white">        <h5 class="modal-title" id="ahorroSuccessModalLabel">¡Cuenta de Ahorro Creada!</h5>        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>      </div>      <div class="modal-body text-center">        <i class="bi bi-piggy-bank display-3 text-success mb-3"></i>        <p class="fs-5">¡Tu Cuenta de Ahorro ha sido creada con éxito!<br>Incluye una nueva tarjeta digital.</p>      </div>      <div class="modal-footer justify-content-center">        <button type="button" class="btn btn-primary w-50" data-bs-dismiss="modal">Aceptar</button>      </div>    </div>  </div></div><!-- Modal de advertencia: Be Pass requerido --><div class="modal fade" id="bepassRequiredModal" tabindex="-1" aria-labelledby="bepassRequiredModalLabel" aria-hidden="true">  <div class="modal-dialog modal-dialog-centered">    <div class="modal-content">      <div class="modal-header bg-warning text-dark">        <h5 class="modal-title" id="bepassRequiredModalLabel">Clave Be Pass requerida</h5>        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>      </div>      <div class="modal-body text-center">        <i class="bi bi-shield-lock display-3 text-warning mb-3"></i>        <p class="fs-5">Debes crear una clave Be Pass antes de poder bloquear o desbloquear tu tarjeta.</p>      </div>      <div class="modal-footer justify-content-center">        <button type="button" class="btn btn-primary w-50" (click)="goToSecurity()" data-bs-dismiss="modal">Ir a Seguridad</button>      </div>    </div>  </div></div> </div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BalanceComponent', 'selector': 'app-balance'},{'name': 'ChatBubbleComponent', 'selector': 'app-chat-bubble'},{'name': 'ConfiguracionComponent', 'selector': 'app-configuracion'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DondeComprarComponent', 'selector': 'app-donde-comprar'},{'name': 'FinancialGoalsComponent', 'selector': 'app-financial-goals'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'Google2faComponent', 'selector': 'app-google-2fa'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MovimientosComponent', 'selector': 'app-movimientos'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PayComponent', 'selector': 'app-pay'},{'name': 'PreRegistroComponent', 'selector': 'app-pre-registro'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'SeguridadPublicaComponent', 'selector': 'app-seguridad-publica'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TarjetasComponent', 'selector': 'app-tarjetas'},{'name': 'TarjetasPublicaComponent', 'selector': 'app-tarjetas-publica'},{'name': 'TransactionsComponent', 'selector': 'app-transactions'},{'name': 'VentajasComponent', 'selector': 'app-ventajas'},{'name': 'VerifyDisable2faComponent', 'selector': 'app-verify-disable-2fa'},{'name': 'VerifyEmailComponent', 'selector': 'app-verify-email'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'TarjetasComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TarjetasComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,3 +1,8 @@
+/**
+ * Componente de inicio de sesión (`LoginComponent`).
+ * Permite a los usuarios autenticarse ingresando su correo electrónico y contraseña.
+ * Si las credenciales son válidas, se guarda el token de acceso y se redirige al perfil.
+ */
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,11 +19,31 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+    /**
+   * Campo de entrada para el correo electrónico (utilizado solo en caso de binding directo).
+   */
   email = '';
+  
+  /**
+   * Campo de entrada para la contraseña (utilizado solo en caso de binding directo).
+   */
   password = '';
+    /**
+   * Mensaje de error si la autenticación falla.
+   */
   error: string | null = null;
+    /**
+   * Formulario reactivo que contiene los campos de login.
+   */
   loginForm: FormGroup;
 
+
+    /**
+   * Constructor que inyecta dependencias necesarias.
+   * @param http Cliente HTTP para enviar la solicitud de login.
+   * @param router Permite redireccionar al perfil tras el login.
+   * @param authService Servicio para gestionar la autenticación.
+   */
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -32,7 +57,10 @@ export class LoginComponent {
 
   isLoading = false; // Declara esta propiedad en tu componente
 
-
+  /**
+   * Maneja el envío del formulario de inicio de sesión.
+   * Verifica si el formulario es válido, envía la solicitud y gestiona la respuesta.
+   */
   onSubmit() {
     if (this.loginForm.valid) {
       this.isLoading = true;

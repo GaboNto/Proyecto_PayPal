@@ -1,11 +1,15 @@
+/* eslint-disable */
+
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from '../../users/user.entity';
 /**
  * Entidad que representa a un destinatario de transferencias externas,
  * vinculado a un usuario (propietario).
- */@Entity('destinatarios')
-export class Destinatario {}
+ */
+@Entity('destinatarios')
+export class Destinatario {
   /** Identificador único del destinatario */
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -17,9 +21,11 @@ export class Destinatario {}
   @ManyToOne(() => User, { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'propietario_id' }) // El usuario que es dueño de este contacto
   propietario: User;
+
   /** Nombre completo del destinatario */
   @Column()
   nombre: string;
+
   /** RUT del destinatario, debe tener formato chileno */
   @Column()
   rut: string;

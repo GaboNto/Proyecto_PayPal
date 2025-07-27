@@ -1,3 +1,8 @@
+/**
+ * Componente responsable del formulario de registro de nuevos usuarios.
+ * Incluye validación de RUT chileno, verificación de duplicados, y aceptación de términos y condiciones.
+ * Al registrar exitosamente, muestra un modal de confirmación.
+ */
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -14,7 +19,9 @@ import { debounceTime, distinctUntilChanged, switchMap, catchError, tap } from '
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
-
+  /**
+   * Objeto que contiene los datos del formulario de registro.
+   */
   user = {
     nombre: '',
     apellido: '',
@@ -32,9 +39,16 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
   rutExistsError: string = '';
   private rutSubject = new Subject<string>();
   private rutSubscription: Subscription | undefined;
-
+  /**
+   * Inyección de dependencias para HTTP y navegación.
+   * @param http Cliente HTTP para comunicar con el backend.
+   * @param router Servicio de enrutamiento para redirigir al login.
+   */
   constructor(private http: HttpClient, private router: Router) {}
 
+  /**
+   * Inicializa la suscripción para verificar el RUT en backend con debounce.
+   */
   ngOnInit(): void {
     this.rutSubscription = this.rutSubject.pipe(
       debounceTime(500),
@@ -54,13 +68,19 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
-
+  /**
+   * Limpia la suscripción al destruir el componente.
+   */
   ngOnDestroy(): void {
     this.rutSubscription?.unsubscribe();
   }
 
   ngAfterViewInit(): void {}
-
+  /**
+   * Valida el RUT chileno (con dígito verificador).
+   * @param rut RUT ingresado por el usuario.
+   * @returns `true` si es válido, `false` si no.
+   */
   validateRut(rut: string): boolean {
     if (!rut) return false;
     rut = rut.replace(/\./g, '').replace('-', '').trim().toLowerCase();
@@ -81,7 +101,11 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
 
     return dvCalc === dv;
   }
-
+  /**
+   * Da formato visual al RUT ingresado, separando cuerpo y dígito verificador con `-`.
+   * @param rut RUT sin formato.
+   * @returns RUT con formato (`XXXXXXXX-X`)
+   */
   formatRut(rut: string): string {
     rut = rut.replace(/[^0-9kK]/g, '');
     if (rut.length > 1) {
@@ -91,7 +115,11 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     return rut;
   }
-
+  /**
+   * Se ejecuta al cambiar el valor del input de RUT.
+   * Formatea, valida y dispara la verificación en backend.
+   * @param event Evento de cambio del input.
+   */
   onRutChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     const formattedValue = this.formatRut(input.value);
@@ -105,7 +133,11 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
       this.rutSubject.next(formattedValue);
     }
   }
-
+  /**
+   * Envia el formulario de registro si los campos son válidos.
+   * Muestra un modal de éxito o errores según la respuesta.
+   * @param registerForm Formulario de registro (template-driven).
+   */
   onSubmit(registerForm: NgForm) {
     if (
       registerForm.invalid ||
@@ -138,7 +170,9 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       });
   }
-
+  /**
+   * Redirige al usuario a la vista de login.
+   */
   goToLogin() {
     this.router.navigate(['/login']);
   }

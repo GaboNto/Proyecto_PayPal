@@ -14,6 +14,11 @@ import { LanguageService } from '../services/language.service';
   templateUrl: './configuracion.component.html',
   styleUrl: './configuracion.component.css'
 })
+/**
+ * Componente de configuración del usuario.
+ * Permite gestionar datos personales, cambio de contraseña, preferencias de seguridad,
+ * activación de 2FA, configuración de clave Be Pass y más.
+ */
 export class ConfiguracionComponent implements OnInit {
   configForm: FormGroup;
   user: any = null;
@@ -87,7 +92,14 @@ export class ConfiguracionComponent implements OnInit {
 
   // Eliminar: variables, métodos y lógica de configuración regional y preferencias regionales
   // Eliminar: languageOptions, timezoneOptions, currencyOptions, currentLanguage, currentTimezone, currentCurrency, regionalSettingsChanged, currentTime, loadPreferences, savePreferences, onLanguageChange, onTimezoneChange, onCurrencyChange, applyLanguageChange, applyTimezoneChange, applyCurrencyChange, showRegionalChangeMessage, saveRegionalSettings, detectUserTimezone, getCurrentTimeInTimezone y cualquier referencia a preferencias regionales.
-
+/**
+ * Constructor del componente de configuración.
+ * @param fb FormBuilder para formularios reactivos.
+ * @param http Cliente HTTP para peticiones al backend.
+ * @param authService Servicio de autenticación.
+ * @param userService Servicio de usuario.
+ * @param languageService Servicio de idioma.
+ */
   constructor(
     private fb: FormBuilder, 
     private http: HttpClient, 
@@ -110,7 +122,12 @@ export class ConfiguracionComponent implements OnInit {
     }, { validators: this.passwordsMatchValidator });
     this.recoverEmail = '';
   }
-
+/**
+ * Verifica si las contraseñas nuevas coinciden.
+ * Usado como validador personalizado.
+ * @param form Formulario de contraseña
+ * @returns null si coinciden, objeto `mismatch` si no.
+ */
   passwordsMatchValidator(form: FormGroup) {
     return form.get('nueva')!.value === form.get('confirmar')!.value ? null : { mismatch: true };
   }
@@ -219,7 +236,10 @@ export class ConfiguracionComponent implements OnInit {
       }
     }, 1000);
   }
-
+/**
+ * Carga los datos del perfil del usuario desde el backend
+ * y los actualiza en el formulario reactivo.
+ */
   cargarDatosUsuario() {
     this.loading = true;
     this.http.get<any>('/api/users/profile').subscribe({
@@ -245,7 +265,9 @@ export class ConfiguracionComponent implements OnInit {
       }
     });
   }
-
+/**
+ * Envía los datos del formulario de configuración al servidor.
+ */
   onSubmit() {
     if (this.configForm.invalid) return;
     this.successMsg = '';

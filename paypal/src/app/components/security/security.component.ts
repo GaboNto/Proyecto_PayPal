@@ -1,3 +1,9 @@
+/**
+ * Componente encargado de la gestión de seguridad del usuario.
+ * Permite establecer o cambiar la clave secundaria Be Pass,
+ * gestionar la autenticación en dos pasos (2FA) con Google Authenticator
+ * y enviar correos de recuperación de contraseña.
+ */
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +19,9 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './security.component.css'
 })
 export class SecurityComponent implements OnInit {
+   /**
+   * Datos del formulario para crear clave Be Pass.
+   */
   bepassData = {
     newBepass: '',
     confirmBepass: '',
@@ -43,9 +52,16 @@ export class SecurityComponent implements OnInit {
 
   // Asumimos que el email está en el perfil del usuario
   userEmail: string = '';
-
+  /**
+   * Constructor con servicios inyectados.
+   * @param userService Servicio para operaciones de usuario.
+   * @param authService Servicio para autenticación y 2FA.
+   */
   constructor(private userService: UserService, private authService: AuthService) {}
-
+  /**
+   * Inicializa el componente consultando si el usuario tiene Be Pass
+   * y obtiene su email para futuras operaciones como recuperación.
+   */
   ngOnInit(): void {
     this.userService.hasBepass().subscribe({
       next: (res) => {
@@ -63,13 +79,18 @@ export class SecurityComponent implements OnInit {
       }
     });
   }
-
+  /**
+   * Evento que se activa cuando el usuario verifica el 2FA con éxito.
+   * @param success Resultado del evento de verificación.
+   */
   on2FAVerified(success: boolean) {
     if (success) {
       this.is2FAVerified = true;
     }
   }
-
+  /**
+   * Filtra entrada para que solo se ingresen números en los campos Be Pass.
+   */
   onBepassInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     // Reemplaza cualquier caracter que no sea un número
@@ -82,7 +103,9 @@ export class SecurityComponent implements OnInit {
       this.bepassData.confirmBepass = input.value;
     }
   }
-
+  /**
+   * Envío del formulario para crear Be Pass y configurar 2FA.
+   */
   onSubmit(): void {
     this.message = '';
     this.error = '';
@@ -122,14 +145,18 @@ export class SecurityComponent implements OnInit {
       }
     });
   }
-
+  /**
+   * Cierra el modal de QR 2FA.
+   */
   close2FAQr() {
     this.show2FAQr = false;
     this.qrData = '';
     // Redirigir a configuración después de cerrar el QR
     window.location.href = '/configuracion?tab=seguridad';
   }
-
+ /**
+   * Maneja entradas numéricas para cambio de Be Pass.
+   */
   onChangeBepassInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     input.value = input.value.replace(/[^0-9]/g, '');
@@ -139,7 +166,9 @@ export class SecurityComponent implements OnInit {
       this.changeBepassData.confirmBepass = input.value;
     }
   }
-
+  /**
+   * Envío del formulario para cambiar Be Pass.
+   */
   onChangeBepassSubmit(): void {
     this.changeMessage = '';
     this.changeError = '';
@@ -161,16 +190,24 @@ export class SecurityComponent implements OnInit {
       }
     });
   }
-
+  /**
+   * Abre el formulario de recuperación de contraseña.
+   */
   openRecoverPassword() {
     this.showRecoverPassword = true;
     this.recoverMessage = '';
     this.recoverError = '';
     this.recoverEmail = this.userEmail;
   }
+  /**
+   * Cierra el modal de recuperación de contraseña.
+   */
   closeRecoverPassword() {
     this.showRecoverPassword = false;
   }
+  /**
+   * Envío del formulario para solicitar recuperación de contraseña por email.
+   */
   onRecoverPasswordSubmit() {
     this.recoverMessage = '';
     this.recoverError = '';

@@ -1,0 +1,1536 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>paypal documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">paypal documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  DashboardComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/dashboard/dashboard.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-dashboard</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>NgxChartsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./dashboard.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./dashboard.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#categorias" >categorias</a>
+                            </li>
+                            <li>
+                                <a href="#categoriaSeleccionada" >categoriaSeleccionada</a>
+                            </li>
+                            <li>
+                                <a href="#colorScheme" >colorScheme</a>
+                            </li>
+                            <li>
+                                <a href="#fechaFin" >fechaFin</a>
+                            </li>
+                            <li>
+                                <a href="#fechaInicio" >fechaInicio</a>
+                            </li>
+                            <li>
+                                <a href="#filteredMovimientos" >filteredMovimientos</a>
+                            </li>
+                            <li>
+                                <a href="#historial" >historial</a>
+                            </li>
+                            <li>
+                                <a href="#lineChartLegend" >lineChartLegend</a>
+                            </li>
+                            <li>
+                                <a href="#lineChartsDataPorCuenta" >lineChartsDataPorCuenta</a>
+                            </li>
+                            <li>
+                                <a href="#lineChartXAxisLabel" >lineChartXAxisLabel</a>
+                            </li>
+                            <li>
+                                <a href="#lineChartYAxisLabel" >lineChartYAxisLabel</a>
+                            </li>
+                            <li>
+                                <a href="#movimientos" >movimientos</a>
+                            </li>
+                            <li>
+                                <a href="#pieChartData" >pieChartData</a>
+                            </li>
+                            <li>
+                                <a href="#view" >view</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#actualizarLineChartsPorCuenta" >actualizarLineChartsPorCuenta</a>
+                            </li>
+                            <li>
+                                <a href="#actualizarPieChart" >actualizarPieChart</a>
+                            </li>
+                            <li>
+                                <a href="#aplicarFiltros" >aplicarFiltros</a>
+                            </li>
+                            <li>
+                                <a href="#cargarHistorial" >cargarHistorial</a>
+                            </li>
+                            <li>
+                                <a href="#cargarMovimientos" >cargarMovimientos</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">function Object() { [native code] }</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(movimientosService: <a href="../injectables/MovimientosService.html" target="_self">MovimientosService</a>, transferService: <a href="../injectables/TransferService.html" target="_self">TransferService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:63</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor que inyecta los servicios necesarios.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>movimientosService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/MovimientosService.html" target="_self" >MovimientosService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Servicio para obtener movimientos del usuario.</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>transferService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TransferService.html" target="_self" >TransferService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Servicio para obtener historial y datos de cuentas.</p>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actualizarLineChartsPorCuenta"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>actualizarLineChartsPorCuenta</b></span>
+                        <a href="#actualizarLineChartsPorCuenta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>actualizarLineChartsPorCuenta()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="143"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:143</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Construye los datos necesarios para mostrar gráficos de línea,
+uno por cada cuenta en el historial del usuario.</p>
+<p>Obtiene el tipo de cuenta y saldo actual llamando al backend.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actualizarPieChart"></a>
+                    <span class="name">
+                        <span ><b>actualizarPieChart</b></span>
+                        <a href="#actualizarPieChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>actualizarPieChart()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:127</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Procesa los movimientos filtrados para construir el gráfico de torta.
+Agrupa por categoría y suma los abonos.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="aplicarFiltros"></a>
+                    <span class="name">
+                        <span ><b>aplicarFiltros</b></span>
+                        <a href="#aplicarFiltros"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>aplicarFiltros()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="112"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:112</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Filtra los movimientos por fecha y categoría seleccionada.
+Luego actualiza el gráfico de torta.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarHistorial"></a>
+                    <span class="name">
+                        <span ><b>cargarHistorial</b></span>
+                        <a href="#cargarHistorial"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarHistorial()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="81"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene el historial de transferencias del usuario y lo guarda.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarMovimientos"></a>
+                    <span class="name">
+                        <span ><b>cargarMovimientos</b></span>
+                        <a href="#cargarMovimientos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarMovimientos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene los movimientos financieros del usuario.
+También construye las categorías únicas para filtrar.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categorias"></a>
+                    <span class="name">
+                        <span ><b>categorias</b></span>
+                        <a href="#categorias"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;Todas&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Lista de categorías disponibles para filtrar movimientos.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categoriaSeleccionada"></a>
+                    <span class="name">
+                        <span ><b>categoriaSeleccionada</b></span>
+                        <a href="#categoriaSeleccionada"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Todas&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Categoría actualmente seleccionada para el filtro.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="colorScheme"></a>
+                    <span class="name">
+                        <span ><b>colorScheme</b></span>
+                        <a href="#colorScheme"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;vivid&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fechaFin"></a>
+                    <span class="name">
+                        <span ><b>fechaFin</b></span>
+                        <a href="#fechaFin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Fecha de término del filtro.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fechaInicio"></a>
+                    <span class="name">
+                        <span ><b>fechaInicio</b></span>
+                        <a href="#fechaInicio"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Fecha de inicio del filtro.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredMovimientos"></a>
+                    <span class="name">
+                        <span ><b>filteredMovimientos</b></span>
+                        <a href="#filteredMovimientos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/MovimientoHistorialDto.html" target="_self" >MovimientoHistorialDto[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Movimientos filtrados según fecha y categoría.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="historial"></a>
+                    <span class="name">
+                        <span ><b>historial</b></span>
+                        <a href="#historial"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Historial de transferencias obtenidas del servicio.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lineChartLegend"></a>
+                    <span class="name">
+                        <span ><b>lineChartLegend</b></span>
+                        <a href="#lineChartLegend"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lineChartsDataPorCuenta"></a>
+                    <span class="name">
+                        <span ><b>lineChartsDataPorCuenta</b></span>
+                        <a href="#lineChartsDataPorCuenta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Datos organizados para múltiples gráficos de línea,
+cada uno correspondiente a una cuenta diferente.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lineChartXAxisLabel"></a>
+                    <span class="name">
+                        <span ><b>lineChartXAxisLabel</b></span>
+                        <a href="#lineChartXAxisLabel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Fecha y Hora&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lineChartYAxisLabel"></a>
+                    <span class="name">
+                        <span ><b>lineChartYAxisLabel</b></span>
+                        <a href="#lineChartYAxisLabel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Saldo&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="movimientos"></a>
+                    <span class="name">
+                        <span ><b>movimientos</b></span>
+                        <a href="#movimientos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/MovimientoHistorialDto.html" target="_self" >MovimientoHistorialDto[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Lista completa de movimientos del usuario.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="pieChartData"></a>
+                    <span class="name">
+                        <span ><b>pieChartData</b></span>
+                        <a href="#pieChartData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Datos procesados para el gráfico de torta.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="view"></a>
+                    <span class="name">
+                        <span ><b>view</b></span>
+                        <a href="#view"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[number, number]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[700, 400]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/components/dashboard/dashboard.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { NgxChartsModule } from &#x27;@swimlane/ngx-charts&#x27;;
+import { firstValueFrom } from &#x27;rxjs&#x27;;
+
+import { MovimientosService, MovimientoHistorialDto } from &#x27;../../services/movimientos.service&#x27;;
+import { TransferService } from &#x27;../../services/transfer.service&#x27;;
+
+@Component({
+  selector: &#x27;app-dashboard&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, NgxChartsModule],
+  templateUrl: &#x27;./dashboard.component.html&#x27;,
+  styleUrls: [&#x27;./dashboard.component.css&#x27;]
+})
+export class DashboardComponent implements OnInit {
+/** Lista completa de movimientos del usuario. */
+  movimientos: MovimientoHistorialDto[] &#x3D; [];
+   /** Movimientos filtrados según fecha y categoría. */
+  filteredMovimientos: MovimientoHistorialDto[] &#x3D; [];
+  
+  /** Historial de transferencias obtenidas del servicio. */
+  historial: any[] &#x3D; [];
+ /** Fecha de inicio del filtro. */
+  fechaInicio: string &#x3D; &#x27;&#x27;;
+  /** Fecha de término del filtro. */
+  fechaFin: string &#x3D; &#x27;&#x27;;
+  /** Categoría actualmente seleccionada para el filtro. */
+  categoriaSeleccionada: string &#x3D; &#x27;Todas&#x27;;
+  /** Lista de categorías disponibles para filtrar movimientos. */
+  categorias: string[] &#x3D; [&#x27;Todas&#x27;];
+/** Datos procesados para el gráfico de torta. */
+  pieChartData: any[] &#x3D; [];
+
+    /**
+   * Datos organizados para múltiples gráficos de línea,
+   * cada uno correspondiente a una cuenta diferente.
+   */
+  lineChartsDataPorCuenta: {
+    cuenta: string;
+    tipoCuenta: string;
+    saldoActual: number;
+    data: any[];
+  }[] &#x3D; [];
+
+
+  view: [number, number] &#x3D; [700, 400];
+  colorScheme &#x3D; &#x27;vivid&#x27;;
+
+  lineChartLegend &#x3D; true;
+  lineChartXAxisLabel &#x3D; &#x27;Fecha y Hora&#x27;;
+  lineChartYAxisLabel &#x3D; &#x27;Saldo&#x27;;
+  /**
+   * Constructor que inyecta los servicios necesarios.
+   * @param movimientosService Servicio para obtener movimientos del usuario.
+   * @param transferService Servicio para obtener historial y datos de cuentas.
+   */
+  constructor(
+    private movimientosService: MovimientosService,
+    private transferService: TransferService
+  ) { }
+
+  ngOnInit(): void {
+    this.cargarHistorial();
+    this.cargarMovimientos();
+  }
+  /**
+   * Obtiene el historial de transferencias del usuario y lo guarda.
+   */
+  cargarHistorial() {
+    this.transferService.obtenerHistorialUsuario().subscribe({
+      next: data &#x3D;&gt; {
+        this.historial &#x3D; data;
+        this.actualizarLineChartsPorCuenta();
+      },
+      error: err &#x3D;&gt; {
+        console.error(&#x27;Error al cargar historial:&#x27;, err);
+      }
+    });
+  }
+  /**
+   * Obtiene los movimientos financieros del usuario.
+   * También construye las categorías únicas para filtrar.
+   */
+  cargarMovimientos(): void {
+    this.movimientosService.obtenerMovimientosPorUsuario().subscribe({
+      next: data &#x3D;&gt; {
+        this.movimientos &#x3D; data;
+        this.categorias &#x3D; [&#x27;Todas&#x27;, ...Array.from(new Set(data.map(m &#x3D;&gt; m.categoria)))].filter(c &#x3D;&gt; c !&#x3D;&#x3D; &#x27;Transferencia&#x27;);
+        this.aplicarFiltros();
+      },
+      error: () &#x3D;&gt; {
+        this.movimientos &#x3D; [];
+      }
+    });
+  }
+  /**
+   * Filtra los movimientos por fecha y categoría seleccionada.
+   * Luego actualiza el gráfico de torta.
+   */
+  aplicarFiltros(): void {
+    this.filteredMovimientos &#x3D; this.movimientos.filter(m &#x3D;&gt; {
+      const fecha &#x3D; new Date(m.fecha);
+      const desdeOk &#x3D; this.fechaInicio ? fecha &gt;&#x3D; new Date(this.fechaInicio) : true;
+      const hastaOk &#x3D; this.fechaFin ? fecha &lt;&#x3D; new Date(this.fechaFin) : true;
+      const categoriaOk &#x3D; this.categoriaSeleccionada &#x3D;&#x3D;&#x3D; &#x27;Todas&#x27; || m.categoria &#x3D;&#x3D;&#x3D; this.categoriaSeleccionada;
+      return desdeOk &amp;&amp; hastaOk &amp;&amp; categoriaOk;
+    });
+
+    this.actualizarPieChart();
+  }
+ /**
+   * Procesa los movimientos filtrados para construir el gráfico de torta.
+   * Agrupa por categoría y suma los abonos.
+   */
+  actualizarPieChart(): void {
+    const movimientosFiltrados &#x3D; this.filteredMovimientos.filter(m &#x3D;&gt; m.categoria !&#x3D;&#x3D; &#x27;Transferencia&#x27;);
+
+    const agrupado &#x3D; movimientosFiltrados.reduce((acc, m) &#x3D;&gt; {
+      acc[m.categoria] &#x3D; (acc[m.categoria] || 0) + Math.abs(m.abono);
+      return acc;
+    }, {} as Record&lt;string, number&gt;);
+
+    this.pieChartData &#x3D; Object.entries(agrupado).map(([name, value]) &#x3D;&gt; ({ name, value }));
+  }
+  /**
+   * Construye los datos necesarios para mostrar gráficos de línea,
+   * uno por cada cuenta en el historial del usuario.
+   * 
+   * Obtiene el tipo de cuenta y saldo actual llamando al backend.
+   */
+  async actualizarLineChartsPorCuenta(): Promise&lt;void&gt; {
+    const cuentasMap &#x3D; new Map&lt;string, { name: string; series: { name: string; value: number }[] }&gt;();
+
+    this.historial.forEach(item &#x3D;&gt; {
+      const cuenta &#x3D; item.numero_cuenta;
+      const fecha &#x3D; new Date(item.fecha);
+      const fechaISO &#x3D; fecha.toISOString().substring(0, 19);
+
+      if (!cuentasMap.has(cuenta)) {
+        cuentasMap.set(cuenta, {
+          name: &#x60;Cuenta ${cuenta}&#x60;,
+          series: []
+        });
+      }
+
+      cuentasMap.get(cuenta)!.series.push({
+        name: fechaISO,
+        value: parseFloat(item.saldo)
+      });
+    });
+
+    // Ordenar cada serie por fecha ascendente
+    cuentasMap.forEach(cuentaData &#x3D;&gt; {
+      cuentaData.series.sort((a, b) &#x3D;&gt; a.name.localeCompare(b.name));
+    });
+
+    // Obtener array de cuentas para consulta
+    const cuentasArray &#x3D; Array.from(cuentasMap.entries());
+
+    // Para cada cuenta, llamar al servicio para obtener tipoCuenta y saldo
+    const lineChartsDataPromises &#x3D; cuentasArray.map(async ([cuenta, data]) &#x3D;&gt; {
+      try {
+        // Cambia aquí
+        console.log(&#x27;Llamando a obtenerTipoYSaldoPorCuenta para:&#x27;, cuenta);
+        const info &#x3D; await firstValueFrom(this.transferService.obtenerTipoYSaldoPorCuenta(cuenta));
+        return {
+          cuenta,
+          tipoCuenta: info?.tipoCuenta || &#x27;Desconocido&#x27;,
+          saldoActual: info?.saldo ?? 0,
+          data: [data] // ngx-charts espera un array de series, aquí uno por gráfico
+        };
+      } catch (error) {
+        console.error(&#x60;Error al obtener tipo y saldo para cuenta ${cuenta}:&#x60;, error);
+        return {
+          cuenta,
+          tipoCuenta: &#x27;Desconocido&#x27;,
+          saldoActual: 0,
+          data: [data]
+        };
+      }
+    });
+
+    this.lineChartsDataPorCuenta &#x3D; await Promise.all(lineChartsDataPromises);
+    console.log(this.lineChartsDataPorCuenta);
+
+
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h1 class&#x3D;&quot;dashboard-title&quot;&gt;Dashboard de Finanzas Personales&lt;/h1&gt;
+
+&lt;div class&#x3D;&quot;filters&quot;&gt;
+    &lt;label&gt;
+        Desde:
+        &lt;input type&#x3D;&quot;date&quot; [(ngModel)]&#x3D;&quot;fechaInicio&quot; (change)&#x3D;&quot;aplicarFiltros()&quot; /&gt;
+    &lt;/label&gt;
+
+    &lt;label&gt;
+        Hasta:
+        &lt;input type&#x3D;&quot;date&quot; [(ngModel)]&#x3D;&quot;fechaFin&quot; (change)&#x3D;&quot;aplicarFiltros()&quot; /&gt;
+    &lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class&#x3D;&quot;charts-container&quot;&gt;
+    &lt;div class&#x3D;&quot;chart pie-chart&quot;&gt;
+        &lt;h3&gt;Gráfico de Gastos&lt;/h3&gt;
+        &lt;ngx-charts-pie-chart [view]&#x3D;&quot;view&quot; [results]&#x3D;&quot;pieChartData&quot; [scheme]&#x3D;&quot;colorScheme&quot; [legend]&#x3D;&quot;true&quot;
+            [labels]&#x3D;&quot;true&quot; [doughnut]&#x3D;&quot;false&quot; [explodeSlices]&#x3D;&quot;false&quot; [arcWidth]&#x3D;&quot;0.25&quot;&gt;
+        &lt;/ngx-charts-pie-chart&gt;
+    &lt;/div&gt;
+
+    &lt;div *ngFor&#x3D;&quot;let cuentaData of lineChartsDataPorCuenta&quot; class&#x3D;&quot;chart line-chart&quot;&gt;
+        &lt;div class&#x3D;&quot;cuenta-header&quot;&gt;
+            &lt;h4&gt;{{ cuentaData.tipoCuenta }}&lt;/h4&gt;
+            &lt;h4&gt;Saldo actual: {{ cuentaData.saldoActual | currency:&#x27;CLP&#x27;:&#x27;symbol&#x27; }}&lt;/h4&gt;
+        &lt;/div&gt;
+        &lt;ngx-charts-line-chart [view]&#x3D;&quot;view&quot; [scheme]&#x3D;&quot;colorScheme&quot; [results]&#x3D;&quot;cuentaData.data&quot; [xAxis]&#x3D;&quot;true&quot;
+            [yAxis]&#x3D;&quot;true&quot; [xAxisLabel]&#x3D;&quot;lineChartXAxisLabel&quot; [yAxisLabel]&#x3D;&quot;lineChartYAxisLabel&quot; [autoScale]&#x3D;&quot;true&quot;
+            [timeline]&#x3D;&quot;true&quot; [showGridLines]&#x3D;&quot;true&quot; [roundDomains]&#x3D;&quot;true&quot; [animations]&#x3D;&quot;true&quot;&gt;
+        &lt;/ngx-charts-line-chart&gt;
+    &lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./dashboard.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.dashboard-title {
+  text-align: center;
+  font-size: 2rem;
+  margin: 20px 0;
+  color: #333;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.filters label {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.filters input,
+.filters select {
+  margin-top: 5px;
+  padding: 5px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 0 10px 30px 10px;
+}
+
+.chart {
+  width: 100%;
+  max-width: 900px;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.chart h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #444;
+}
+
+.line-charts-container {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.line-chart {
+  width: 100%;
+  height: 400px; /* asegura altura consistente para los gráficos */
+}
+.cuenta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.cuenta-header h4, .cuenta-header h5 {
+  margin: 0;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h1 class="dashboard-title">Dashboard de Finanzas Personales</h1><div class="filters">    <label>        Desde:        <input type="date" [(ngModel)]="fechaInicio" (change)="aplicarFiltros()" />    </label>    <label>        Hasta:        <input type="date" [(ngModel)]="fechaFin" (change)="aplicarFiltros()" />    </label></div><div class="charts-container">    <div class="chart pie-chart">        <h3>Gráfico de Gastos</h3>        <ngx-charts-pie-chart [view]="view" [results]="pieChartData" [scheme]="colorScheme" [legend]="true"            [labels]="true" [doughnut]="false" [explodeSlices]="false" [arcWidth]="0.25">        </ngx-charts-pie-chart>    </div>    <div *ngFor="let cuentaData of lineChartsDataPorCuenta" class="chart line-chart">        <div class="cuenta-header">            <h4>{{ cuentaData.tipoCuenta }}</h4>            <h4>Saldo actual: {{ cuentaData.saldoActual | currency:\'CLP\':\'symbol\' }}</h4>        </div>        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="cuentaData.data" [xAxis]="true"            [yAxis]="true" [xAxisLabel]="lineChartXAxisLabel" [yAxisLabel]="lineChartYAxisLabel" [autoScale]="true"            [timeline]="true" [showGridLines]="true" [roundDomains]="true" [animations]="true">        </ngx-charts-line-chart>    </div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BalanceComponent', 'selector': 'app-balance'},{'name': 'ChatBubbleComponent', 'selector': 'app-chat-bubble'},{'name': 'ConfiguracionComponent', 'selector': 'app-configuracion'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DondeComprarComponent', 'selector': 'app-donde-comprar'},{'name': 'FinancialGoalsComponent', 'selector': 'app-financial-goals'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'Google2faComponent', 'selector': 'app-google-2fa'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MovimientosComponent', 'selector': 'app-movimientos'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PayComponent', 'selector': 'app-pay'},{'name': 'PreRegistroComponent', 'selector': 'app-pre-registro'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'SeguridadPublicaComponent', 'selector': 'app-seguridad-publica'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TarjetasComponent', 'selector': 'app-tarjetas'},{'name': 'TarjetasPublicaComponent', 'selector': 'app-tarjetas-publica'},{'name': 'TransactionsComponent', 'selector': 'app-transactions'},{'name': 'VentajasComponent', 'selector': 'app-ventajas'},{'name': 'VerifyDisable2faComponent', 'selector': 'app-verify-disable-2fa'},{'name': 'VerifyEmailComponent', 'selector': 'app-verify-email'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'DashboardComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DashboardComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

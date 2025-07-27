@@ -1,0 +1,880 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>paypal documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">paypal documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  MovimientosComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/movimientos/movimientos.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-movimientos</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./movimientos.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./movimientos.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#error" >error</a>
+                            </li>
+                            <li>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                <a href="#movimientos" >movimientos</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cargarMovimientos" >cargarMovimientos</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">function Object() { [native code] }</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(movimientosService: <a href="../injectables/MovimientosService.html" target="_self">MovimientosService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/components/movimientos/movimientos.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Inyecta el servicio de movimientos para obtener el historial.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>movimientosService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/MovimientosService.html" target="_self" >MovimientosService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Servicio que gestiona la obtención de movimientos.</p>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarMovimientos"></a>
+                    <span class="name">
+                        <span ><b>cargarMovimientos</b></span>
+                        <a href="#cargarMovimientos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarMovimientos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">src/app/components/movimientos/movimientos.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Solicita al servicio los movimientos financieros del usuario.
+Maneja estados de carga y errores.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">src/app/components/movimientos/movimientos.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Al inicializar el componente, se cargan los movimientos del usuario.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="error"></a>
+                    <span class="name">
+                        <span ><b>error</b></span>
+                        <a href="#error"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/components/movimientos/movimientos.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Mensaje de error en caso de que la carga falle.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/components/movimientos/movimientos.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Indica si la información se está cargando actualmente.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="movimientos"></a>
+                    <span class="name">
+                        <span ><b>movimientos</b></span>
+                        <a href="#movimientos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/MovimientoHistorialDto.html" target="_self" >MovimientoHistorialDto[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/components/movimientos/movimientos.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Lista de movimientos financieros obtenidos desde el backend.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { MovimientosService, MovimientoHistorialDto } from &#x27;../../services/movimientos.service&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+
+@Component({
+  selector: &#x27;app-movimientos&#x27;,
+  templateUrl: &#x27;./movimientos.component.html&#x27;,
+  styleUrls: [&#x27;./movimientos.component.css&#x27;],
+  imports: [
+    CommonModule,
+  ], standalone: true
+})
+export class MovimientosComponent implements OnInit {
+ /**
+   * Lista de movimientos financieros obtenidos desde el backend.
+   */
+  movimientos: MovimientoHistorialDto[] &#x3D; [];
+  
+  /**
+   * Indica si la información se está cargando actualmente.
+   */
+  loading &#x3D; false;
+  
+  /**
+   * Mensaje de error en caso de que la carga falle.
+   */
+  error: string | null &#x3D; null;
+
+    /**
+   * Inyecta el servicio de movimientos para obtener el historial.
+   * @param movimientosService Servicio que gestiona la obtención de movimientos.
+   */
+  constructor(private movimientosService: MovimientosService) { }
+
+    /**
+   * Al inicializar el componente, se cargan los movimientos del usuario.
+   */
+  ngOnInit(): void {
+    this.cargarMovimientos();
+  }
+  /**
+   * Solicita al servicio los movimientos financieros del usuario.
+   * Maneja estados de carga y errores.
+   */
+  cargarMovimientos(): void {
+    this.loading &#x3D; true;
+    this.movimientosService.obtenerMovimientosPorUsuario().subscribe({
+      next: (data) &#x3D;&gt; {
+        this.movimientos &#x3D; data;
+        this.loading &#x3D; false;
+      },
+      error: (err) &#x3D;&gt; {
+        this.error &#x3D; &#x27;Error al cargar movimientos&#x27;;
+        this.loading &#x3D; false;
+      }
+    });
+  }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div *ngIf&#x3D;&quot;loading&quot; class&#x3D;&quot;loading&quot;&gt;Cargando movimientos...&lt;/div&gt;
+&lt;div *ngIf&#x3D;&quot;error&quot; class&#x3D;&quot;error&quot;&gt;{{ error }}&lt;/div&gt;
+
+&lt;div class&#x3D;&quot;table-container&quot; *ngIf&#x3D;&quot;!loading &amp;&amp; !error &amp;&amp; movimientos.length &gt; 0&quot;&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Fecha&lt;/th&gt;
+                &lt;th&gt;Descripción&lt;/th&gt;
+                &lt;th&gt;Categoría&lt;/th&gt;
+                &lt;th&gt;Monto&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr *ngFor&#x3D;&quot;let movimiento of movimientos&quot;&gt;
+                &lt;td&gt;{{ movimiento.fecha | date:&#x27;short&#x27; }}&lt;/td&gt;
+                &lt;td&gt;{{ movimiento.descripcion }}&lt;/td&gt;
+                &lt;td&gt;{{ movimiento.categoria }}&lt;/td&gt;
+                &lt;td [ngClass]&#x3D;&quot;{&#x27;positivo&#x27;: movimiento.abono &gt; 0, &#x27;negativo&#x27;: movimiento.abono &lt; 0}&quot;&gt;
+                    {{ movimiento.abono | currency:&#x27;USD&#x27;:&#x27;symbol&#x27;:&#x27;1.2-2&#x27; }}
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;div *ngIf&#x3D;&quot;!loading &amp;&amp; movimientos.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;empty-state&quot;&gt;
+    &lt;h3&gt;No hay movimientos&lt;/h3&gt;
+    &lt;p&gt;Cuando los haya, aparecerán aquí.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./movimientos.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  font-family: &#x27;Segoe UI&#x27;, Roboto, &#x27;Helvetica Neue&#x27;, Arial, sans-serif;
+  background-color: #f5f7fb;
+  min-height: 100vh;
+}
+
+/* Mensajes de estado */
+.loading, .error {
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 650px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.loading {
+  background-color: #e7f0ff;
+  color: #1a2b4c;
+  border-left: 4px solid #5b9dff;
+}
+
+.error {
+  background-color: #ffecec;
+  color: #c0392b;
+  border-left: 4px solid #e74c3c;
+}
+
+/* Contenedor más ancho y centrado */
+.table-container {
+  width: 100%;
+  max-width: 820px; /* Aumentado */
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 10px;
+  overflow-x: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border: 1px solid #dde3ec;
+}
+
+/* Tabla espaciosa */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.98rem;
+  color: #2d2d2d;
+  table-layout: fixed;
+}
+
+thead {
+  background-color: #0052cc;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+th, td {
+  padding: 1rem 1.4rem;
+  text-align: left;
+  border-bottom: 1px solid #f0f2f5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: unset;
+}
+
+
+
+
+/* Column widths ajustadas */
+th:first-child, td:first-child {
+  width: 140px;
+}
+
+th:nth-child(2), td:nth-child(2) {
+  width: 300px;
+}
+
+th:nth-child(3), td:nth-child(3) {
+  width: 130px;
+}
+
+th:last-child, td:last-child {
+  width: 140px; /* más espacio para montos largos */
+}
+
+/* Alternancia y hover */
+tr:nth-child(even) {
+  background-color: #f8f9fc;
+}
+
+/* Valores positivos/negativos */
+.positivo {
+  color: #2e7d32;
+  font-weight: 600;
+  font-family: &#x27;Roboto Mono&#x27;, monospace;
+}
+.positivo::before {
+  content: &quot;+&quot;;
+  margin-right: 2px;
+}
+
+.negativo {
+  color: #c62828;
+  font-weight: 600;
+  font-family: &#x27;Roboto Mono&#x27;, monospace;
+}
+
+/* Estado vacío */
+.empty-state {
+  padding: 2rem;
+  background-color: white;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  max-width: 500px;
+  width: 90%;
+  margin-top: 2rem;
+}
+
+.empty-state h3 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+.empty-state p {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .table-container {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  table {
+    font-size: 0.88rem;
+    min-width: 650px; /* permite scroll horizontal si es necesario */
+  }
+
+  th, td {
+    padding: 0.8rem 1rem;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div *ngIf="loading" class="loading">Cargando movimientos...</div><div *ngIf="error" class="error">{{ error }}</div><div class="table-container" *ngIf="!loading && !error && movimientos.length > 0">    <table>        <thead>            <tr>                <th>Fecha</th>                <th>Descripción</th>                <th>Categoría</th>                <th>Monto</th>            </tr>        </thead>        <tbody>            <tr *ngFor="let movimiento of movimientos">                <td>{{ movimiento.fecha | date:\'short\' }}</td>                <td>{{ movimiento.descripcion }}</td>                <td>{{ movimiento.categoria }}</td>                <td [ngClass]="{\'positivo\': movimiento.abono > 0, \'negativo\': movimiento.abono < 0}">                    {{ movimiento.abono | currency:\'USD\':\'symbol\':\'1.2-2\' }}                </td>            </tr>        </tbody>    </table></div><div *ngIf="!loading && movimientos.length === 0" class="empty-state">    <h3>No hay movimientos</h3>    <p>Cuando los haya, aparecerán aquí.</p></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BalanceComponent', 'selector': 'app-balance'},{'name': 'ChatBubbleComponent', 'selector': 'app-chat-bubble'},{'name': 'ConfiguracionComponent', 'selector': 'app-configuracion'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DondeComprarComponent', 'selector': 'app-donde-comprar'},{'name': 'FinancialGoalsComponent', 'selector': 'app-financial-goals'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'Google2faComponent', 'selector': 'app-google-2fa'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MovimientosComponent', 'selector': 'app-movimientos'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PayComponent', 'selector': 'app-pay'},{'name': 'PreRegistroComponent', 'selector': 'app-pre-registro'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'SeguridadPublicaComponent', 'selector': 'app-seguridad-publica'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TarjetasComponent', 'selector': 'app-tarjetas'},{'name': 'TarjetasPublicaComponent', 'selector': 'app-tarjetas-publica'},{'name': 'TransactionsComponent', 'selector': 'app-transactions'},{'name': 'VentajasComponent', 'selector': 'app-ventajas'},{'name': 'VerifyDisable2faComponent', 'selector': 'app-verify-disable-2fa'},{'name': 'VerifyEmailComponent', 'selector': 'app-verify-email'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'MovimientosComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MovimientosComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

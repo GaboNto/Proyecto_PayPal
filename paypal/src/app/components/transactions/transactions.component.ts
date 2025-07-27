@@ -1,3 +1,13 @@
+/**
+ * Componente que permite realizar transferencias externas e internas entre cuentas,
+ * gestionar destinatarios, validar clave Be Pass y consultar historial de movimientos.
+ *
+ * @component
+ * @selector app-transactions
+ * @standalone true
+ * @imports CommonModule, FormsModule, NgbModalModule
+ * @animations slideInOut (para paneles desplegables)
+ */
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';

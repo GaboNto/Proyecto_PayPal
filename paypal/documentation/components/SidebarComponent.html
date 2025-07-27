@@ -1,0 +1,826 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>paypal documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">paypal documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SidebarComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/sidebar/sidebar.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-sidebar</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>RouterModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./sidebar.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./sidebar.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#isLoggedIn$" >isLoggedIn$</a>
+                            </li>
+                            <li>
+                                <a href="#mostrarSidebar" >mostrarSidebar</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#logout" >logout</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">function Object() { [native code] }</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, router: Router)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/components/sidebar/sidebar.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Inyecta los servicios necesarios.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Servicio de autenticación</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Servicio de navegación Angular</p>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logout"></a>
+                    <span class="name">
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">src/app/components/sidebar/sidebar.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cierra la sesión del usuario.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="53"
+                                    class="link-to-prism">src/app/components/sidebar/sidebar.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Escucha eventos de navegación para mostrar u ocultar el sidebar
+dependiendo de la URL activa.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoggedIn$"></a>
+                    <span class="name">
+                        <span ><b>isLoggedIn$</b></span>
+                        <a href="#isLoggedIn$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Observable&lt;boolean&gt;</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/components/sidebar/sidebar.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Observable que indica si el usuario está autenticado.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mostrarSidebar"></a>
+                    <span class="name">
+                        <span ><b>mostrarSidebar</b></span>
+                        <a href="#mostrarSidebar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/components/sidebar/sidebar.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Controla si el sidebar se muestra o se oculta.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import { filter } from &#x27;rxjs/operators&#x27;;
+import { AuthService } from &#x27;../../services/auth.service&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
+import { Router, NavigationEnd, Event } from &#x27;@angular/router&#x27;;
+
+@Component({
+  standalone: true,
+  selector: &#x27;app-sidebar&#x27;,
+  imports: [CommonModule, RouterModule],
+  templateUrl: &#x27;./sidebar.component.html&#x27;,
+  styleUrls: [&#x27;./sidebar.component.css&#x27;]
+})
+export class SidebarComponent {
+    /**
+   * Observable que indica si el usuario está autenticado.
+   */
+  isLoggedIn$: Observable&lt;boolean&gt;;
+   /**
+   * Controla si el sidebar se muestra o se oculta.
+   */
+  mostrarSidebar &#x3D; true;
+
+    /**
+   * Inyecta los servicios necesarios.
+   * @param authService Servicio de autenticación
+   * @param router Servicio de navegación Angular
+   */
+  constructor(private authService: AuthService, private router: Router) {
+    this.isLoggedIn$ &#x3D; this.authService.isLoggedIn$;
+  }
+  /**
+   * Cierra la sesión del usuario.
+   */
+  logout(): void {
+    this.authService.logout();
+  }
+
+  /**
+   * Escucha eventos de navegación para mostrar u ocultar el sidebar
+   * dependiendo de la URL activa.
+   */
+  ngOnInit() {
+    this.router.events.pipe(
+      filter(event &#x3D;&gt; event instanceof NavigationEnd)
+    ).subscribe(event &#x3D;&gt; {
+      const navEnd &#x3D; event as NavigationEnd;
+      const urlActual &#x3D; navEnd.urlAfterRedirects;
+
+      if (urlActual &#x3D;&#x3D;&#x3D; &#x27;/donde-comprar&#x27; || urlActual.startsWith(&#x27;/otra-ruta&#x27;)) {
+        this.mostrarSidebar &#x3D; false;
+      } else {
+        this.mostrarSidebar &#x3D; true;
+      }
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;aside class&#x3D;&quot;sidebar&quot; *ngIf&#x3D;&quot;(isLoggedIn$ | async) &amp;&amp; mostrarSidebar&quot;&gt;
+
+    &lt;div class&#x3D;&quot;sidebar-logo&quot;&gt;
+        &lt;img src&#x3D;&quot;assets/logo3.webp&quot; alt&#x3D;&quot;Logo&quot; /&gt;
+    &lt;/div&gt;
+    &lt;nav class&#x3D;&quot;sidebar-nav&quot;&gt;
+        &lt;a routerLink&#x3D;&quot;/profile&quot; routerLinkActive&#x3D;&quot;active&quot;&gt;Perfil&lt;/a&gt;
+        &lt;a routerLink&#x3D;&quot;/dashboard&quot; routerLinkActive&#x3D;&quot;active&quot;&gt;Dashboard&lt;/a&gt;
+        &lt;a routerLink&#x3D;&quot;/tarjetas&quot;&gt;Tarjetas&lt;/a&gt;
+        &lt;a routerLink&#x3D;&quot;/transactions&quot; routerLinkActive&#x3D;&quot;active&quot;&gt;Transferencias&lt;/a&gt;
+        &lt;a routerLink&#x3D;&quot;/movimientos&quot; routerLinkActive&#x3D;&quot;active&quot;&gt;Movimientos&lt;/a&gt;
+        &lt;a routerLink&#x3D;&quot;/configuracion&quot; routerLinkActive&#x3D;&quot;active&quot;&gt;Configuración&lt;/a&gt;
+        &lt;a (click)&#x3D;&quot;logout()&quot;&gt;Cerrar sesión&lt;/a&gt;
+    &lt;/nav&gt;
+&lt;/aside&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./sidebar.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 220px;
+  background-color: #003087; /* Azul PayPal oscuro */
+  color: #fff;
+  padding-top: 80px; /* Más espacio para el logo */
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 80px; /* Altura del logo */
+  background-color: #002060;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  box-sizing: border-box;
+  z-index: 1010;
+}
+
+.sidebar-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+
+.sidebar-logo:hover {
+  background-color: #001844;
+}
+
+.sidebar-nav {
+  flex: 1;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.sidebar-nav a {
+  color: #e0e7ff;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+  background-color: #0052cc;
+  color: #fff;
+  box-shadow: 0 0 8px rgba(0, 82, 204, 0.6);
+}
+
+.sidebar-nav a:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+/* AQUI: margen para que el container no quede tapado */
+.container-fluid {
+  margin-left: 220px;  /* deja espacio para sidebar */
+  padding: 1.5rem 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: &#x27;Segoe UI&#x27;, Tahoma, Geneva, Verdana, sans-serif;
+  color: #343a40;
+  transition: margin-left 0.3s ease;
+}
+
+/* Responsive: Ocultar sidebar en pantallas pequeñas */
+@media (max-width: 768px) {
+  .sidebar,
+  .sidebar-logo {
+    position: fixed;
+    width: 60px;
+    padding-top: 20px;
+  }
+
+  .sidebar-logo img {
+    max-width: 40px;
+  }
+
+  .sidebar-nav {
+    margin-top: 60px;
+    padding: 0.5rem 0.25rem;
+  }
+
+  .sidebar-nav a {
+    padding: 0.5rem 0.25rem;
+    font-size: 0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sidebar-nav a:hover,
+  .sidebar-nav a.active {
+    box-shadow: none;
+    background-color: #0052cc;
+  }
+
+  /* Para pantallas pequeñas, container sin margen */
+  .container-fluid {
+    margin-left: 60px;
+  }
+
+  :host {
+  display: block;
+  width: 250px;
+  height: 100vh;
+  background-color: #1f1f1f;
+  color: white;
+}
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><aside class="sidebar" *ngIf="(isLoggedIn$ | async) && mostrarSidebar">    <div class="sidebar-logo">        <img src="assets/logo3.webp" alt="Logo" />    </div>    <nav class="sidebar-nav">        <a routerLink="/profile" routerLinkActive="active">Perfil</a>        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>        <a routerLink="/tarjetas">Tarjetas</a>        <a routerLink="/transactions" routerLinkActive="active">Transferencias</a>        <a routerLink="/movimientos" routerLinkActive="active">Movimientos</a>        <a routerLink="/configuracion" routerLinkActive="active">Configuración</a>        <a (click)="logout()">Cerrar sesión</a>    </nav></aside></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BalanceComponent', 'selector': 'app-balance'},{'name': 'ChatBubbleComponent', 'selector': 'app-chat-bubble'},{'name': 'ConfiguracionComponent', 'selector': 'app-configuracion'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DondeComprarComponent', 'selector': 'app-donde-comprar'},{'name': 'FinancialGoalsComponent', 'selector': 'app-financial-goals'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'Google2faComponent', 'selector': 'app-google-2fa'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MovimientosComponent', 'selector': 'app-movimientos'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PayComponent', 'selector': 'app-pay'},{'name': 'PreRegistroComponent', 'selector': 'app-pre-registro'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'SeguridadPublicaComponent', 'selector': 'app-seguridad-publica'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TarjetasComponent', 'selector': 'app-tarjetas'},{'name': 'TarjetasPublicaComponent', 'selector': 'app-tarjetas-publica'},{'name': 'TransactionsComponent', 'selector': 'app-transactions'},{'name': 'VentajasComponent', 'selector': 'app-ventajas'},{'name': 'VerifyDisable2faComponent', 'selector': 'app-verify-disable-2fa'},{'name': 'VerifyEmailComponent', 'selector': 'app-verify-email'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SidebarComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SidebarComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

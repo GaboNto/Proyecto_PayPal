@@ -10,6 +10,9 @@ export interface Card {
   is_blocked: boolean;
 }
 
+/**
+ * Representa una tarjeta bancaria asociada a una cuenta.
+ */
 export interface Cuenta {
   id: number;
   numero_cuenta: string;
@@ -23,13 +26,27 @@ export interface Cuenta {
 })
 export class CuentasService {
   private apiUrl = 'http://localhost:3000/api/cuentas';
-
+  /**
+   * Constructor del servicio.
+   * 
+   * @param http Cliente HTTP para realizar solicitudes al backend.
+   */
   constructor(private http: HttpClient) { }
 
+    /**
+   * Obtiene todas las cuentas asociadas al usuario autenticado.
+   * 
+   * @returns Observable que emite un arreglo de cuentas.
+   */
   getCuentas(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
-
+  /**
+   * Crea una nueva cuenta bancaria para el usuario.
+   * 
+   * @param tipo_cuenta Tipo de cuenta a crear (por ejemplo, "corriente").
+   * @returns Observable con la respuesta del backend.
+   */
   createCuenta(tipo_cuenta: string): Observable<any> {
     return this.http.post(this.apiUrl, { tipo_cuenta });
   }

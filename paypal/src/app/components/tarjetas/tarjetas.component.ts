@@ -1,3 +1,18 @@
+
+/**
+ * Componente encargado de mostrar y gestionar las cuentas y tarjetas del usuario.
+ * Permite ver información de las tarjetas, bloquear/desbloquear con verificación Be Pass,
+ * y solicitar nuevas cuentas de ahorro. También integra modales de confirmación y 
+ * validaciones de seguridad.
+ *
+ * @component
+ * @selector app-tarjetas
+ * @templateUrl ./tarjetas.component.html
+ * @styleUrls ['./tarjetas.component.scss']
+ * @standalone true
+ * @imports CommonModule, CurrencyPipe, HttpClientModule, FormatCardNumberPipe
+ * @providers UserService, CardService
+ */
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
@@ -60,7 +75,11 @@ export class TarjetasComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private router: Router
   ) {}
-
+/**
+ * Inicializa los datos al cargar el componente, incluyendo nombre del usuario
+ * y sus cuentas asociadas.
+ * También intenta restaurar la cuenta seleccionada previamente desde localStorage.
+ */
   ngOnInit(): void {
     this.loadInitialData();
     // Restaurar selección de cuenta si existe
@@ -76,6 +95,9 @@ export class TarjetasComponent implements OnInit, OnDestroy {
     }
   }
 
+/**
+ * Carga el perfil del usuario desde el backend y luego sus cuentas.
+ */
   loadInitialData(): void {
     this.isLoading = true;
     // Obtener nombre del usuario

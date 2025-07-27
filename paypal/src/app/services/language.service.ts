@@ -1,25 +1,35 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+/**
+ * Representa un idioma disponible en la aplicación.
+ */
 export interface Language {
   code: string;
   name: string;
   flag: string;
 }
-
+/**
+ * Diccionario de traducciones. Cada clave se asocia a múltiples idiomas.
+ */
 export interface Translations {
   [key: string]: {
     [languageCode: string]: string;
   };
 }
-
+/**
+ * Servicio que gestiona el idioma actual de la aplicación
+ * y permite traducir claves de texto dinámicamente.
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class LanguageService {
   private currentLanguageSubject = new BehaviorSubject<string>('es');
   public currentLanguage$ = this.currentLanguageSubject.asObservable();
-
+  /**
+   * Diccionario interno de traducciones multilingües.
+   */
   private translations: Translations = {
     // Navegación
     'dashboard': {
@@ -119,7 +129,9 @@ export class LanguageService {
       'de': 'Fehler beim Speichern'
     }
   };
-
+  /**
+   * Constructor del servicio. Intenta cargar el idioma guardado desde localStorage.
+   */
   constructor() {
     // Cargar idioma guardado en localStorage
     const savedLanguage = localStorage.getItem('app_language');
@@ -127,7 +139,12 @@ export class LanguageService {
       this.setLanguage(savedLanguage);
     }
   }
-
+  /**
+   * Cambia el idioma actual y lo guarda en localStorage.
+   * También actualiza los atributos `lang` y `dir` del DOM.
+   * 
+   * @param languageCode Código ISO del nuevo idioma (ej. 'en', 'es').
+   */
   setLanguage(languageCode: string) {
     this.currentLanguageSubject.next(languageCode);
     localStorage.setItem('app_language', languageCode);
@@ -142,11 +159,21 @@ export class LanguageService {
       document.documentElement.dir = 'ltr';
     }
   }
-
+  /**
+   * Obtiene el código del idioma actualmente activo.
+   * 
+   * @returns Código de idioma actual (por ejemplo, 'es').
+   */
   getCurrentLanguage(): string {
     return this.currentLanguageSubject.value;
   }
 
+  /**
+   * Traduce una clave dada al idioma actual.
+   * 
+   * @param key Clave de texto a traducir.
+   * @returns Traducción correspondiente o la clave original si no existe.
+   */
   translate(key: string): string {
     const currentLang = this.getCurrentLanguage();
     const translation = this.translations[key];

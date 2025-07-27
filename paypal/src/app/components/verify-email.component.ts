@@ -1,3 +1,10 @@
+/**
+ * Componente encargado de verificar el correo electrónico del usuario mediante un token.
+ * Se activa al visitar el enlace de confirmación enviado al correo.
+ *
+ * @component
+ * @selector app-verify-email
+ */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -25,9 +32,17 @@ export class VerifyEmailComponent implements OnInit {
   loading = true;
   success = false;
   message = '';
-
+  /**
+   * Inyecta los servicios necesarios: ruta activa y cliente HTTP.
+   *
+   * @param route - Proporciona acceso al token en los parámetros de la URL.
+   * @param http - Cliente HTTP para comunicarse con el backend.
+   */
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
-
+  /**
+   * Al inicializar el componente, intenta verificar el token recibido como parámetro en la URL.
+   * Si es exitoso, muestra un mensaje de éxito. De lo contrario, informa del error.
+   */
   ngOnInit() {
     const token = this.route.snapshot.queryParamMap.get('token');
     if (token) {

@@ -77,7 +77,7 @@ export class Transferencia {
    */
   @Column({ type: 'varchar', length: 50, nullable: true })
   cuenta_destino: string | null;
-}
+
   /**
    * Monto de la transferencia en pesos chilenos (CLP).
    */

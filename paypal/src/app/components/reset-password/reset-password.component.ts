@@ -1,3 +1,7 @@
+/**
+ * Componente que permite al usuario restablecer su contraseña mediante un token recibido por correo.
+ * Incluye validación de campos y lógica de coincidencia de contraseñas.
+ */
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,12 +16,22 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent {
+    /**
+   * Formulario reactivo de restablecimiento de contraseña.
+   */
   resetForm: FormGroup;
   submitted = false;
   message = '';
   error = '';
   token = '';
-
+  /**
+   * Constructor que inyecta servicios necesarios para el componente.
+   * - Recupera el token desde la query param `?token=`.
+   * @param fb FormBuilder para construir el formulario reactivo.
+   * @param route ActivatedRoute para acceder a parámetros de la ruta.
+   * @param router Router para redireccionar al login tras el éxito.
+   * @param authService Servicio de autenticación para manejar el restablecimiento.
+   */
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -32,12 +46,20 @@ export class ResetPasswordComponent {
       this.token = params['token'] || '';
     });
   }
-
+  /**
+   * Validador personalizado para asegurar que ambas contraseñas coincidan.
+   * @param form FormGroup con campos `newPassword` y `confirmPassword`.
+   * @returns `null` si coinciden, objeto con error si no.
+   */
   passwordsMatchValidator(form: FormGroup) {
     return form.get('newPassword')!.value === form.get('confirmPassword')!.value
       ? null : { mismatch: true };
   }
-
+  /**
+   * Envia la nueva contraseña al backend para restablecerla.
+   * Si tiene éxito, muestra mensaje y redirige al login.
+   * Si falla, muestra mensaje de error.
+   */
   async onSubmit() {
     this.submitted = true;
     this.message = '';

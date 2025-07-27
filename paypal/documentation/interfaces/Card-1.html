@@ -1,0 +1,701 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>paypal documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">paypal documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  Card</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/components/tarjetas/tarjetas.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#cardNumber" 
+>
+                                            cardNumber
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#cvv" 
+>
+                                            cvv
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#expirationDate" 
+>
+                                            expirationDate
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#is_blocked" 
+>
+                                            is_blocked
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="cardNumber"></a>
+                                        <span class="name "><b>cardNumber</b>
+                                            <a href="#cardNumber">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>cardNumber:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="cvv"></a>
+                                        <span class="name "><b>cvv</b>
+                                            <a href="#cvv">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>cvv:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="expirationDate"></a>
+                                        <span class="name "><b>expirationDate</b>
+                                            <a href="#expirationDate">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>expirationDate:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="is_blocked"></a>
+                                        <span class="name "><b>is_blocked</b>
+                                            <a href="#is_blocked">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>is_blocked:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ChangeDetectorRef, OnDestroy } from &#x27;@angular/core&#x27;;
+import { CommonModule, CurrencyPipe } from &#x27;@angular/common&#x27;;
+import { HttpClient, HttpClientModule, HttpHeaders } from &#x27;@angular/common/http&#x27;;
+import { CuentasService, Cuenta } from &#x27;../../services/cuentas.service&#x27;;
+import { catchError, tap } from &#x27;rxjs/operators&#x27;;
+import { of } from &#x27;rxjs&#x27;;
+import { UserService } from &#x27;../../services/user.service&#x27;;
+import { CardService } from &#x27;../../services/card.service&#x27;;
+import { NgbModal } from &#x27;@ng-bootstrap/ng-bootstrap&#x27;;
+import { Subscription, timer } from &#x27;rxjs&#x27;;
+import { FormatCardNumberPipe } from &#x27;../../utils/format-card-number.pipe&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+
+// Interfaces para tipar los datos del backend
+export interface Card {
+  id: string;
+  cardNumber: string;
+  cvv: string;
+  expirationDate: string;
+  is_blocked: boolean;
+}
+
+export interface CuentaConTarjeta extends Cuenta {
+  cards: Card[];
+}
+
+@Component({
+  selector: &#x27;app-tarjetas&#x27;,
+  standalone: true,
+  imports: [CommonModule, CurrencyPipe, HttpClientModule, FormatCardNumberPipe],
+  providers: [UserService, CardService],
+  templateUrl: &#x27;./tarjetas.component.html&#x27;,
+  styleUrls: [&#x27;./tarjetas.component.scss&#x27;]
+})
+export class TarjetasComponent implements OnInit, OnDestroy {
+  isLoading: boolean &#x3D; true;
+  cuentas: Cuenta[] &#x3D; [];
+  selectedCuenta: Cuenta | null &#x3D; null;
+  currentCard: Card | null &#x3D; null;
+  userName: string &#x3D; &#x27;Usuario&#x27;;
+  titular: string &#x3D; &#x27;Nombre Apellido&#x27;;
+  showCardDetails: boolean &#x3D; false;
+  showSelectionPanel: boolean &#x3D; false;
+  error: string | null &#x3D; null;
+  hasCuentaDeAhorro: boolean &#x3D; false;
+
+  // El estado de la tarjeta ya no se guarda aquí
+  showFullCardDetails: boolean &#x3D; false;
+  private cardDetailsTimeout: any;
+
+  private detailsTimerSubscription: Subscription | null &#x3D; null;
+  private actionToConfirm: &#x27;viewDetails&#x27; | &#x27;toggleBlock&#x27; | null &#x3D; null;
+
+  constructor(
+    private cuentasService: CuentasService,
+    private userService: UserService,
+    private cardService: CardService,
+    private http: HttpClient,
+    private modalService: NgbModal,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) {}
+/**
+ * Inicializa los datos al cargar el componente, incluyendo nombre del usuario
+ * y sus cuentas asociadas.
+ * También intenta restaurar la cuenta seleccionada previamente desde localStorage.
+ */
+  ngOnInit(): void {
+    this.loadInitialData();
+    // Restaurar selección de cuenta si existe
+    const savedCuentaId &#x3D; localStorage.getItem(&#x27;selectedCuentaId&#x27;);
+    if (savedCuentaId) {
+      this.selectedCuenta &#x3D; null; // Se asignará correctamente tras cargar cuentas
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.detailsTimerSubscription) {
+      this.detailsTimerSubscription.unsubscribe();
+    }
+  }
+
+/**
+ * Carga el perfil del usuario desde el backend y luego sus cuentas.
+ */
+  loadInitialData(): void {
+    this.isLoading &#x3D; true;
+    // Obtener nombre del usuario
+    this.http.get&lt;any&gt;(&#x27;http://localhost:3000/api/users/profile&#x27;).pipe(
+      tap(profile &#x3D;&gt; {
+        this.userName &#x3D; &#x60;${profile.nombre} ${profile.apellido}&#x60;.toUpperCase();
+        this.titular &#x3D; this.userName; // Actualizar titular aquí
+      }),
+      catchError(() &#x3D;&gt; {
+        this.userName &#x3D; &#x27;USUARIO&#x27;; // Valor por defecto en caso de error
+        this.titular &#x3D; this.userName;
+        return of(null);
+      })
+    ).subscribe(() &#x3D;&gt; {
+      // Una vez tenemos el nombre, cargamos las cuentas
+      this.loadCuentas();
+    });
+  }
+
+  loadCuentas(): void {
+    this.cuentasService.getCuentas().subscribe({
+      next: (cuentasData) &#x3D;&gt; {
+        this.cuentas &#x3D; cuentasData;
+        // Restaurar selección si existe en localStorage
+        const savedCuentaId &#x3D; localStorage.getItem(&#x27;selectedCuentaId&#x27;);
+        if (savedCuentaId) {
+          const cuentaGuardada &#x3D; this.cuentas.find(c &#x3D;&gt; c.id.toString() &#x3D;&#x3D;&#x3D; savedCuentaId);
+          if (cuentaGuardada) {
+            this.selectedCuenta &#x3D; cuentaGuardada;
+          } else {
+            this.selectedCuenta &#x3D; this.cuentas[0];
+          }
+        } else if (this.cuentas.length &gt; 0 &amp;&amp; !this.selectedCuenta) {
+          this.selectedCuenta &#x3D; this.cuentas[0];
+        }
+        // Asignar la tarjeta actual si existe
+        if (this.selectedCuenta &amp;&amp; this.selectedCuenta.cards &amp;&amp; this.selectedCuenta.cards.length &gt; 0) {
+          this.currentCard &#x3D; this.selectedCuenta.cards[0];
+        } else {
+          this.currentCard &#x3D; null;
+        }
+        this.hasCuentaDeAhorro &#x3D; this.cuentas.some(c &#x3D;&gt; c.tipo_cuenta &#x3D;&#x3D;&#x3D; &#x27;Cuenta de Ahorro&#x27;);
+        this.isLoading &#x3D; false;
+      },
+      error: (err) &#x3D;&gt; {
+        this.error &#x3D; &#x27;Error al cargar tus cuentas y tarjetas.&#x27;;
+        this.isLoading &#x3D; false;
+        console.error(err);
+      }
+    });
+  }
+  
+  solicitarCuentaDeAhorro(): void {
+    // Mostrar el modal Bootstrap
+    const modal &#x3D; new (window as any).bootstrap.Modal(document.getElementById(&#x27;cuentaAhorroModal&#x27;));
+    modal.show();
+  }
+
+  confirmarCuentaAhorro(): void {
+    this.cuentasService.createCuenta(&#x27;Cuenta de Ahorro&#x27;).subscribe({
+      next: () &#x3D;&gt; {
+        // Mostrar modal de éxito
+        const modal &#x3D; new (window as any).bootstrap.Modal(document.getElementById(&#x27;ahorroSuccessModal&#x27;));
+        modal.show();
+        this.loadCuentas(); // Recargar los datos
+      },
+      error: (err) &#x3D;&gt; {
+        this.error &#x3D; err.error.message || &#x27;No se pudo crear la cuenta de ahorro.&#x27;;
+      }
+    });
+  }
+
+  selectCuenta(cuenta: Cuenta): void {
+    this.selectedCuenta &#x3D; cuenta;
+    localStorage.setItem(&#x27;selectedCuentaId&#x27;, cuenta.id.toString()); // Guardar selección
+    this.showSelectionPanel &#x3D; false;
+    this.showFullCardDetails &#x3D; false;
+    if (this.cardDetailsTimeout) {
+      clearTimeout(this.cardDetailsTimeout);
+    }
+    // Asignar la tarjeta actual si existe
+    if (this.selectedCuenta &amp;&amp; this.selectedCuenta.cards &amp;&amp; this.selectedCuenta.cards.length &gt; 0) {
+      this.currentCard &#x3D; this.selectedCuenta.cards[0];
+    } else {
+      this.currentCard &#x3D; null;
+    }
+  }
+
+  toggleBlockCard(isVerified: boolean &#x3D; false): void {
+    if (!this.currentCard) return;
+
+    // Si la tarjeta está bloqueada, necesitamos la clave para desbloquear
+    if (this.currentCard.is_blocked &amp;&amp; !isVerified) {
+       // El modal debe ser abierto por otro método que pase la plantilla.
+       // Esta lógica se moverá al manejador del botón.
+      return; 
+    }
+
+    const newStatus &#x3D; !this.currentCard.is_blocked;
+    this.cardService.toggleBlock(this.currentCard.id).subscribe({
+      next: (updatedCard: Card) &#x3D;&gt; {
+        this.currentCard &#x3D; updatedCard;
+        this.cdr.detectChanges();
+      },
+      error: (err: any) &#x3D;&gt; {
+        this.error &#x3D; err.error.message || &#x60;Error al ${newStatus ? &#x27;bloquear&#x27; : &#x27;desbloquear&#x27;} la tarjeta.&#x60;;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  promptForBePass(action: &#x27;viewDetails&#x27; | &#x27;toggleBlock&#x27;, bepassModal: any): void {
+    // Verificar si el usuario tiene Be Pass antes de mostrar el modal
+    this.userService.hasBepass().subscribe({
+      next: (res) &#x3D;&gt; {
+        if (res.hasBepass) {
+          this.actionToConfirm &#x3D; action;
+          this.modalService.open(bepassModal, { centered: true, ariaLabelledBy: &#x27;modal-title&#x27; });
+        } else {
+          // Mostrar modal de advertencia
+          const modal &#x3D; new (window as any).bootstrap.Modal(document.getElementById(&#x27;bepassRequiredModal&#x27;));
+          modal.show();
+        }
+      },
+      error: () &#x3D;&gt; {
+        // En caso de error, asumir que no tiene Be Pass
+        const modal &#x3D; new (window as any).bootstrap.Modal(document.getElementById(&#x27;bepassRequiredModal&#x27;));
+        modal.show();
+      }
+    });
+  }
+
+  handleBePassConfirmation(bepass: string, modal: any): void {
+    if (!bepass || bepass.length !&#x3D;&#x3D; 6) {
+      this.error &#x3D; &quot;La clave Be Pass debe tener 6 dígitos.&quot;;
+      return;
+    }
+    
+    this.userService.verifyBepass(bepass).subscribe({
+      next: (response: { success: boolean }) &#x3D;&gt; {
+        if (response.success) {
+          modal.close();
+          if (this.actionToConfirm &#x3D;&#x3D;&#x3D; &#x27;viewDetails&#x27;) {
+            this.revealCardDetails();
+          } else if (this.actionToConfirm &#x3D;&#x3D;&#x3D; &#x27;toggleBlock&#x27;) {
+            this.toggleBlockCard(true);
+          }
+        } else {
+          this.error &#x3D; &quot;Clave Be Pass incorrecta.&quot;;
+          this.cdr.detectChanges();
+        }
+      },
+      error: (err: any) &#x3D;&gt; {
+        this.error &#x3D; err.error.message || &quot;Error al verificar la clave Be Pass.&quot;;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+  
+  revealCardDetails(): void {
+    this.showCardDetails &#x3D; true;
+    this.cdr.detectChanges();
+
+    // Ocultar detalles después de 30 segundos
+    this.detailsTimerSubscription &#x3D; timer(30000).subscribe(() &#x3D;&gt; {
+      this.showCardDetails &#x3D; false;
+      this.cdr.detectChanges();
+    });
+  }
+
+  get isMastercard(): boolean {
+    return this.selectedCuenta?.tipo_cuenta !&#x3D;&#x3D; &#x27;Cuenta Vista&#x27;;
+  }
+
+  toggleSelectionPanel(): void {
+    this.showSelectionPanel &#x3D; !this.showSelectionPanel;
+  }
+
+  goToSecurity() {
+    this.router.navigate([&#x27;/security&#x27;]);
+  }
+} </code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Card-1.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

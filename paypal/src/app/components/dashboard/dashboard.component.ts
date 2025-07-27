@@ -1,3 +1,13 @@
+/**
+ * Componente principal del panel de control (dashboard).
+ * 
+ * Muestra estadísticas financieras del usuario incluyendo:
+ * - Historial de transferencias con gráficos de línea por cuenta.
+ * - Movimientos categorizados con filtros de fecha y categoría.
+ * - Gráfico de torta para visualización de gastos por categoría.
+ * 
+ * Utiliza los servicios `MovimientosService` y `TransferService` para obtener datos desde el backend.
+ */
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,19 +25,28 @@ import { TransferService } from '../../services/transfer.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+/** Lista completa de movimientos del usuario. */
   movimientos: MovimientoHistorialDto[] = [];
+   /** Movimientos filtrados según fecha y categoría. */
   filteredMovimientos: MovimientoHistorialDto[] = [];
+  
+  /** Historial de transferencias obtenidas del servicio. */
   historial: any[] = [];
-
+ /** Fecha de inicio del filtro. */
   fechaInicio: string = '';
+  /** Fecha de término del filtro. */
   fechaFin: string = '';
+  /** Categoría actualmente seleccionada para el filtro. */
   categoriaSeleccionada: string = 'Todas';
+  /** Lista de categorías disponibles para filtrar movimientos. */
   categorias: string[] = ['Todas'];
-
+/** Datos procesados para el gráfico de torta. */
   pieChartData: any[] = [];
 
-  // Cambiamos esta variable: ahora será un array de objetos, uno por cuenta
+    /**
+   * Datos organizados para múltiples gráficos de línea,
+   * cada uno correspondiente a una cuenta diferente.
+   */
   lineChartsDataPorCuenta: {
     cuenta: string;
     tipoCuenta: string;
@@ -42,7 +61,11 @@ export class DashboardComponent implements OnInit {
   lineChartLegend = true;
   lineChartXAxisLabel = 'Fecha y Hora';
   lineChartYAxisLabel = 'Saldo';
-
+  /**
+   * Constructor que inyecta los servicios necesarios.
+   * @param movimientosService Servicio para obtener movimientos del usuario.
+   * @param transferService Servicio para obtener historial y datos de cuentas.
+   */
   constructor(
     private movimientosService: MovimientosService,
     private transferService: TransferService
@@ -52,7 +75,9 @@ export class DashboardComponent implements OnInit {
     this.cargarHistorial();
     this.cargarMovimientos();
   }
-
+  /**
+   * Obtiene el historial de transferencias del usuario y lo guarda.
+   */
   cargarHistorial() {
     this.transferService.obtenerHistorialUsuario().subscribe({
       next: data => {
@@ -64,7 +89,10 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-
+  /**
+   * Obtiene los movimientos financieros del usuario.
+   * También construye las categorías únicas para filtrar.
+   */
   cargarMovimientos(): void {
     this.movimientosService.obtenerMovimientosPorUsuario().subscribe({
       next: data => {
@@ -77,7 +105,10 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-
+  /**
+   * Filtra los movimientos por fecha y categoría seleccionada.
+   * Luego actualiza el gráfico de torta.
+   */
   aplicarFiltros(): void {
     this.filteredMovimientos = this.movimientos.filter(m => {
       const fecha = new Date(m.fecha);
@@ -89,7 +120,10 @@ export class DashboardComponent implements OnInit {
 
     this.actualizarPieChart();
   }
-
+ /**
+   * Procesa los movimientos filtrados para construir el gráfico de torta.
+   * Agrupa por categoría y suma los abonos.
+   */
   actualizarPieChart(): void {
     const movimientosFiltrados = this.filteredMovimientos.filter(m => m.categoria !== 'Transferencia');
 
@@ -100,7 +134,12 @@ export class DashboardComponent implements OnInit {
 
     this.pieChartData = Object.entries(agrupado).map(([name, value]) => ({ name, value }));
   }
-
+  /**
+   * Construye los datos necesarios para mostrar gráficos de línea,
+   * uno por cada cuenta en el historial del usuario.
+   * 
+   * Obtiene el tipo de cuenta y saldo actual llamando al backend.
+   */
   async actualizarLineChartsPorCuenta(): Promise<void> {
     const cuentasMap = new Map<string, { name: string; series: { name: string; value: number }[] }>();
 

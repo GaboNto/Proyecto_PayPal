@@ -1,3 +1,13 @@
+/**
+ * Componente que muestra información pública sobre las medidas de seguridad de la plataforma.
+ *
+ * Este componente está orientado a usuarios que aún no están registrados, presentando detalles
+ * sobre cifrado, protección contra fraudes, autenticación en dos pasos y recomendaciones de seguridad.
+ *
+ * También incluye enlaces útiles hacia recursos oficiales de PayPal relacionados con la seguridad.
+ *
+ * Contenido visual renderizado directamente mediante plantilla embebida (`template`) en lugar de usar un archivo HTML separado.
+ */
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 

@@ -1,0 +1,521 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>paypal documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">paypal documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  PagoAutomatico</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/components/pay.component.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interfaz que representa un pago automático registrado por el usuario.</p>
+
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#activo" 
+>
+                                            activo
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#diaPago" 
+>
+                                            diaPago
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#monto" 
+>
+                                            monto
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#nombre" 
+>
+                                            nombre
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="activo"></a>
+                                        <span class="name "><b>activo</b>
+                                            <a href="#activo">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>activo:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="diaPago"></a>
+                                        <span class="name "><b>diaPago</b>
+                                            <a href="#diaPago">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>diaPago:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="monto"></a>
+                                        <span class="name "><b>monto</b>
+                                            <a href="#monto">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>monto:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="nombre"></a>
+                                        <span class="name "><b>nombre</b>
+                                            <a href="#nombre">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>nombre:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { CommonModule, NgFor, NgClass } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+/**
+ * Interfaz que representa un pago automático registrado por el usuario.
+ */
+interface PagoAutomatico {
+  nombre: string;
+  monto: number;
+  diaPago: string; // &quot;05&quot;, &quot;15&quot;, &quot;28&quot;, etc.
+  activo: boolean;
+}
+
+@Component({
+  selector: &#x27;app-pay&#x27;,
+  standalone: true,
+  imports: [CommonModule, NgFor, NgClass, FormsModule],
+  templateUrl: &#x27;./pay.component.html&#x27;,
+  styleUrl: &#x27;./pay.component.css&#x27;
+})
+export class PayComponent {
+    /**
+   * Lista de pagos automáticos registrados.
+   */
+  pagos: PagoAutomatico[] &#x3D; [
+    { nombre: &#x27;Netflix&#x27;, monto: 8990, diaPago: &#x27;05&#x27;, activo: true },
+    { nombre: &#x27;Spotify&#x27;, monto: 4990, diaPago: &#x27;15&#x27;, activo: true },
+    { nombre: &#x27;Luz&#x27;, monto: 25990, diaPago: &#x27;28&#x27;, activo: false },
+    { nombre: &#x27;Agua&#x27;, monto: 15990, diaPago: &#x27;10&#x27;, activo: true },
+  ];
+
+  /**
+   * Modelo temporal para crear un nuevo pago.
+   */
+  nuevoPago: PagoAutomatico &#x3D; { nombre: &#x27;&#x27;, monto: 0, diaPago: &#x27;01&#x27;, activo: true };
+  
+  /**
+   * Controla si el formulario de nuevo pago está visible.
+   */
+  mostrarFormulario: boolean &#x3D; false;
+    /**
+   * Controla si el ticket de confirmación está visible.
+   */
+  mostrarTicket: boolean &#x3D; false;
+    /**
+   * Almacena temporalmente el pago en espera de confirmación.
+   */
+  pagoPendiente: PagoAutomatico | null &#x3D; null;
+
+  /**
+   * Calcula el total de gastos fijos activos.
+   *
+   * @returns Total en CLP de los pagos activos
+   */
+  get gastosFijos(): number {
+    return this.pagos.filter(p &#x3D;&gt; p.activo).reduce((acc, p) &#x3D;&gt; acc + p.monto, 0);
+  }
+  /**
+   * Prepara un nuevo pago para su confirmación.
+   * Muestra un ticket resumen antes de agregarlo a la lista.
+   */
+  agregarPago() {
+    if (this.nuevoPago.nombre &amp;&amp; this.nuevoPago.monto &gt; 0 &amp;&amp; this.nuevoPago.diaPago) {
+      this.pagoPendiente &#x3D; { ...this.nuevoPago };
+      this.mostrarTicket &#x3D; true;
+    }
+  }
+  /**
+   * Confirma y guarda el pago pendiente en la lista principal.
+   */
+  confirmarPago() {
+    if (this.pagoPendiente) {
+      this.pagos.push(this.pagoPendiente);
+      this.nuevoPago &#x3D; { nombre: &#x27;&#x27;, monto: 0, diaPago: &#x27;01&#x27;, activo: true };
+      this.mostrarFormulario &#x3D; false;
+      this.mostrarTicket &#x3D; false;
+      this.pagoPendiente &#x3D; null;
+    }
+  }
+  /**
+   * Cancela la visualización del ticket sin guardar el pago.
+   */
+  cancelarTicket() {
+    this.mostrarTicket &#x3D; false;
+    this.pagoPendiente &#x3D; null;
+  }
+
+  /**
+   * Elimina un pago de la lista.
+   *
+   * @param index - Índice del pago a eliminar
+   */
+  eliminarPago(index: number) {
+    this.pagos.splice(index, 1);
+  }
+  /**
+   * Cambia el estado activo/inactivo de un pago.
+   *
+   * @param pago - Pago a modificar
+   */
+  alternarActivo(pago: PagoAutomatico) {
+    pago.activo &#x3D; !pago.activo;
+  }
+  /**
+   * Muestra el formulario para agregar un nuevo pago.
+   */
+  abrirFormulario() {
+    this.mostrarFormulario &#x3D; true;
+  }
+
+  /**
+   * Oculta el formulario y reinicia el modelo de nuevo pago.
+   */
+  cancelarFormulario() {
+    this.mostrarFormulario &#x3D; false;
+    this.nuevoPago &#x3D; { nombre: &#x27;&#x27;, monto: 0, diaPago: &#x27;01&#x27;, activo: true };
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'PagoAutomatico.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

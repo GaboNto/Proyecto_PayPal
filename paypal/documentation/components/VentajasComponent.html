@@ -1,0 +1,776 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>paypal documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">paypal documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  VentajasComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/ventajas/ventajas.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>AfterViewInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-ventajas</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./ventajas.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./ventajas.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">function Object() { [native code] }</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(el: ElementRef)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/components/ventajas/ventajas.component.ts:11</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>el</td>
+                                                  
+                                                        <td>
+                                                                    <code>ElementRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="17"
+                                    class="link-to-prism">src/app/components/ventajas/ventajas.component.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, AfterViewInit, ElementRef } from &#x27;@angular/core&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+
+// Decorador del componente con selector, plantilla y estilos asociados
+@Component({
+  selector: &#x27;app-ventajas&#x27;, // Nombre para usar en otros templates si fuera necesario
+  templateUrl: &#x27;./ventajas.component.html&#x27;, // Ruta al archivo HTML
+  styleUrls: [&#x27;./ventajas.component.css&#x27;]   // Ruta al archivo CSS
+})
+export class VentajasComponent implements AfterViewInit {
+
+  // Inyectamos ElementRef para acceder al DOM del componente
+  constructor(private el: ElementRef) {}
+
+  // Se ejecuta después de que la vista está completamente inicializada (ideal para trabajar con el DOM)
+  ngAfterViewInit(): void {
+    // Seleccionamos todas las tarjetas que usen la clase .feature-card
+    const cards: NodeListOf&lt;HTMLElement&gt; &#x3D; this.el.nativeElement.querySelectorAll(&#x27;.feature-card&#x27;);
+
+    // Creamos un IntersectionObserver para detectar cuándo las tarjetas entran en pantalla
+    const observer &#x3D; new IntersectionObserver((entries, observer) &#x3D;&gt; {
+      entries.forEach(entry &#x3D;&gt; {
+        const target &#x3D; entry.target as HTMLElement;
+
+        // Si el elemento es visible (intersecta con el viewport)
+        if (entry.isIntersecting) {
+          target.classList.add(&#x27;show&#x27;);     // Activamos la animación de entrada
+          observer.unobserve(target);       // Dejamos de observarlo para que no desaparezca al salir
+        }
+      });
+    }, {
+      threshold: 0.1 // El 10% del elemento debe ser visible para activar la animación
+    });
+
+    // Observamos cada tarjeta por separado
+    cards.forEach((card: HTMLElement) &#x3D;&gt; {
+      observer.observe(card);
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- HERO PRINCIPAL --&gt;
+&lt;div class&#x3D;&quot;hero-section&quot;&gt;
+  &lt;h1&gt;El banco que se adapta a ti&lt;/h1&gt; &lt;!-- Título destacado --&gt;
+  &lt;p&gt;
+    Conoce por qué miles de personas ya confían en nuestra plataforma segura,
+    rápida y fácil de usar.
+  &lt;/p&gt; &lt;!-- Subtítulo breve y claro que apoya el valor de la marca --&gt;
+&lt;/div&gt;
+
+&lt;!--CONTENEDOR DE TARJETAS --&gt;
+&lt;div class&#x3D;&quot;grid-1xN&quot;&gt;
+  &lt;!-- Cada tarjeta presenta una ventaja clave, con animación alternada --&gt;
+  &lt;div class&#x3D;&quot;feature-card slide-left&quot;&gt;
+    &lt;h2&gt;🔐 Seguridad de primer nivel&lt;/h2&gt;
+    &lt;p&gt;Tu información personal y financiera está protegida con cifrado avanzado y autenticación de dos pasos.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;feature-card slide-right&quot;&gt;
+    &lt;h2&gt;⚡ Transacciones instantáneas&lt;/h2&gt;
+    &lt;p&gt;Transferencias, pagos y movimientos en tiempo real desde cualquier dispositivo.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;feature-card slide-left&quot;&gt;
+    &lt;h2&gt;📊 Visualización inteligente&lt;/h2&gt;
+    &lt;p&gt;Consulta tus finanzas con gráficos claros y resúmenes automáticos para tomar mejores decisiones.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;feature-card slide-right&quot;&gt;
+    &lt;h2&gt;📱 Plataforma moderna&lt;/h2&gt;
+    &lt;p&gt;Diseño responsivo, accesible y pensado para que todo esté a un clic.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;feature-card slide-left&quot;&gt;
+    &lt;h2&gt;💡 Asesoramiento Personalizado&lt;/h2&gt;
+    &lt;p&gt;Recibe recomendaciones proactivas y consejos inteligentes basados en tus hábitos para mejorar tu salud financiera.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;feature-card slide-right&quot;&gt;
+    &lt;h2&gt;🚀 Control Total de Gastos&lt;/h2&gt;
+    &lt;p&gt;Clasifica automáticamente tus transacciones y descubre dónde va tu dinero con nuestra inteligencia artificial.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;feature-card slide-left&quot;&gt;
+    &lt;h2&gt;🎯 Metas Claras&lt;/h2&gt;
+    &lt;p&gt;Establece y sigue tus objetivos de ahorro e inversión con herramientas que te guían paso a paso.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;feature-card slide-right&quot;&gt;
+    &lt;h2&gt;📈 Predicción de Tendencias&lt;/h2&gt;
+    &lt;p&gt;Anticípate a tus gastos futuros y planifica con mayor precisión gracias a nuestros análisis avanzados.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;feature-card slide-left&quot;&gt;
+    &lt;h2&gt;🧡 Hábitos Saludables&lt;/h2&gt;
+    &lt;p&gt;Fomentamos el bienestar financiero con herramientas que te inspiran a ahorrar y gestionar mejor tu dinero.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- COMPARATIVA CON OTROS BANCOS --&gt;
+&lt;div class&#x3D;&quot;feature-card negative full-span&quot;&gt;
+  &lt;h2&gt;❌ ¿Y los otros bancos?&lt;/h2&gt;
+  &lt;div class&#x3D;&quot;negative-content&quot;&gt;
+    &lt;div class&#x3D;&quot;sad-icon&quot;&gt;😓&lt;/div&gt; &lt;!-- Icono emocional de desventaja --&gt;
+    &lt;p&gt;
+      Mientras nosotros innovamos para brindarte herramientas modernas, otros bancos aún lidian con:
+    &lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;⏳ Procesos lentos y burocráticos&lt;/li&gt;
+      &lt;li&gt;📵 Soporte limitado o inexistente&lt;/li&gt;
+      &lt;li&gt;🔓 Seguridad obsoleta y riesgo de fraudes&lt;/li&gt;
+      &lt;li&gt;📉 Falta de visualización clara&lt;/li&gt;
+      &lt;li&gt;🌀 Interfaz complicada y anticuada&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p class&#x3D;&quot;contrast-note&quot;&gt;
+      Nosotros te ofrecemos mucho más, porque tú mereces lo mejor.
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- LLAMADO A LA ACCIÓN  --&gt;
+&lt;div class&#x3D;&quot;call-to-action&quot;&gt;
+  &lt;h2&gt;¿Listo para mejorar tu vida financiera?&lt;/h2&gt;
+  &lt;p&gt;
+    No te quedes atrás. Únete hoy sin costo y descubre todo lo que nuestro banco tiene para ofrecerte.
+  &lt;/p&gt;
+&lt;a href&#x3D;&quot;/register&quot; class&#x3D;&quot;cta-button&quot;&gt;
+  ✨ Regístrate sin costo
+&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./ventajas.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">/* HERO PRINCIPAL */
+.hero-section {
+  background: linear-gradient(135deg, #0070ba, #009cde); /* Estilo institucional moderno (PayPal-like) */
+  color: white; /* Contraste accesible */
+  text-align: center;
+  padding: 5rem 1rem; /* Espaciado amplio para jerarquía visual */
+  border-radius: 0 0 2rem 2rem; /* Bordes inferiores redondeados para transición suave */
+}
+
+.hero-section h1 {
+  font-size: 2.8rem; /* Tamaño destacado para título principal */
+  margin-bottom: 1rem;
+}
+
+.hero-section p {
+  font-size: 1.3rem;
+  max-width: 800px; /* Limita el ancho del texto para mejor legibilidad */
+  margin: 0 auto;
+}
+
+
+/* CONTENEDOR DE TARJETAS */
+.grid-1xN {
+  display: flex;
+  flex-direction: column; /* Estructura vertical */
+  align-items: center;
+  gap: 2.5rem; /* Espaciado entre tarjetas */
+  padding: 4rem 2rem;
+  background-color: #f5f9fc; /* Fondo claro y suave */
+}
+
+
+/* TARJETAS INDIVIDUALES */
+.feature-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem 1.8rem;
+  max-width: 700px; /* Limita ancho en pantallas grandes */
+  width: 100%;
+  min-height: 260px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra suave para profundidad */
+  opacity: 0; /* Inicialmente oculto para animación */
+  transform: translateY(100px); /* Posición inicial de entrada */
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out; /* Animación suave */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1; /* Asegura que estén sobre las sombras laterales */
+}
+
+.feature-card.slide-left {
+  transform: translateX(-80px); /* Entrada desde la izquierda */
+}
+
+.feature-card.slide-right {
+  transform: translateX(80px); /* Entrada desde la derecha */
+}
+
+.feature-card.show {
+  opacity: 1;
+  transform: translateX(0) translateY(0); /* Estado visible */
+}
+
+.feature-card h2 {
+  font-size: 1.35rem;
+  color: #003087; /* Azul oscuro institucional */
+  margin-bottom: 0.6rem;
+}
+
+.feature-card p {
+  font-size: 1.1rem;
+  color: #444;
+  max-width: 90%; /* Mejora legibilidad */
+  line-height: 1.6;
+}
+
+
+/* COMPARATIVA NEGATIVA */
+.feature-card.negative {
+  background-color: #fff5f5;
+  border: 2px solid #ffcccc;
+  color: #a33;
+  text-align: center;
+  margin: 3rem auto;
+  max-width: 750px;
+  padding: 2rem 1.5rem;
+}
+
+.negative-content {
+  padding: 1rem 0.5rem;
+}
+
+.sad-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.negative-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.negative-content li {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+.contrast-note {
+  margin-top: 2rem;
+  font-weight: bold;
+  color: #c00;
+  font-size: 1.05rem;
+}
+
+
+/* CALL TO ACTION FINAL */
+.call-to-action {
+  background-color: #ffffff;
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 2px solid #0070ba; /* Línea superior institucional */
+  border-radius: 0 0 2rem 2rem;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05); /* Elevación hacia arriba */
+}
+
+.call-to-action h2 {
+  font-size: 1.8rem;
+  color: #003087;
+  margin-bottom: 1rem;
+}
+
+.call-to-action p {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+.cta-button {
+  background-color: #0070ba;
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+
+.cta-button:hover {
+  background-color: #003087;
+  transform: scale(1.05); /* Feedback visual al usuario */
+}
+
+
+/* SOMBRAS SPOTLIGHT LATERALES */
+body::before,
+body::after {
+  content: &#x27;&#x27;;
+  position: fixed;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+body::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.04), transparent); /* Sombra suave desde la izquierda */
+}
+
+body::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.04), transparent); /* Sombra suave desde la derecha */
+}
+
+
+/* DISEÑO RESPONSIVO */
+@media (max-width: 768px) {
+  .feature-card {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+
+  .feature-card h2 {
+    font-size: 1.25rem;
+  }
+
+  .feature-card p {
+    font-size: 1rem;
+  }
+
+  body::before,
+  body::after {
+    display: none; /* Oculta las sombras laterales en móviles */
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- HERO PRINCIPAL --><div class="hero-section">  <h1>El banco que se adapta a ti</h1> <!-- Título destacado -->  <p>    Conoce por qué miles de personas ya confían en nuestra plataforma segura,    rápida y fácil de usar.  </p> <!-- Subtítulo breve y claro que apoya el valor de la marca --></div><!--CONTENEDOR DE TARJETAS --><div class="grid-1xN">  <!-- Cada tarjeta presenta una ventaja clave, con animación alternada -->  <div class="feature-card slide-left">    <h2>🔐 Seguridad de primer nivel</h2>    <p>Tu información personal y financiera está protegida con cifrado avanzado y autenticación de dos pasos.</p>  </div>  <div class="feature-card slide-right">    <h2>⚡ Transacciones instantáneas</h2>    <p>Transferencias, pagos y movimientos en tiempo real desde cualquier dispositivo.</p>  </div>  <div class="feature-card slide-left">    <h2>📊 Visualización inteligente</h2>    <p>Consulta tus finanzas con gráficos claros y resúmenes automáticos para tomar mejores decisiones.</p>  </div>  <div class="feature-card slide-right">    <h2>📱 Plataforma moderna</h2>    <p>Diseño responsivo, accesible y pensado para que todo esté a un clic.</p>  </div>  <div class="feature-card slide-left">    <h2>💡 Asesoramiento Personalizado</h2>    <p>Recibe recomendaciones proactivas y consejos inteligentes basados en tus hábitos para mejorar tu salud financiera.</p>  </div>  <div class="feature-card slide-right">    <h2>🚀 Control Total de Gastos</h2>    <p>Clasifica automáticamente tus transacciones y descubre dónde va tu dinero con nuestra inteligencia artificial.</p>  </div>  <div class="feature-card slide-left">    <h2>🎯 Metas Claras</h2>    <p>Establece y sigue tus objetivos de ahorro e inversión con herramientas que te guían paso a paso.</p>  </div>  <div class="feature-card slide-right">    <h2>📈 Predicción de Tendencias</h2>    <p>Anticípate a tus gastos futuros y planifica con mayor precisión gracias a nuestros análisis avanzados.</p>  </div>  <div class="feature-card slide-left">    <h2>🧡 Hábitos Saludables</h2>    <p>Fomentamos el bienestar financiero con herramientas que te inspiran a ahorrar y gestionar mejor tu dinero.</p>  </div></div><!-- COMPARATIVA CON OTROS BANCOS --><div class="feature-card negative full-span">  <h2>❌ ¿Y los otros bancos?</h2>  <div class="negative-content">    <div class="sad-icon">😓</div> <!-- Icono emocional de desventaja -->    <p>      Mientras nosotros innovamos para brindarte herramientas modernas, otros bancos aún lidian con:    </p>    <ul>      <li>⏳ Procesos lentos y burocráticos</li>      <li>📵 Soporte limitado o inexistente</li>      <li>🔓 Seguridad obsoleta y riesgo de fraudes</li>      <li>📉 Falta de visualización clara</li>      <li>🌀 Interfaz complicada y anticuada</li>    </ul>    <p class="contrast-note">      Nosotros te ofrecemos mucho más, porque tú mereces lo mejor.    </p>  </div></div><!-- LLAMADO A LA ACCIÓN  --><div class="call-to-action">  <h2>¿Listo para mejorar tu vida financiera?</h2>  <p>    No te quedes atrás. Únete hoy sin costo y descubre todo lo que nuestro banco tiene para ofrecerte.  </p><a href="/register" class="cta-button">  ✨ Regístrate sin costo</a></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BalanceComponent', 'selector': 'app-balance'},{'name': 'ChatBubbleComponent', 'selector': 'app-chat-bubble'},{'name': 'ConfiguracionComponent', 'selector': 'app-configuracion'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DondeComprarComponent', 'selector': 'app-donde-comprar'},{'name': 'FinancialGoalsComponent', 'selector': 'app-financial-goals'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'Google2faComponent', 'selector': 'app-google-2fa'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MovimientosComponent', 'selector': 'app-movimientos'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PayComponent', 'selector': 'app-pay'},{'name': 'PreRegistroComponent', 'selector': 'app-pre-registro'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'SeguridadPublicaComponent', 'selector': 'app-seguridad-publica'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TarjetasComponent', 'selector': 'app-tarjetas'},{'name': 'TarjetasPublicaComponent', 'selector': 'app-tarjetas-publica'},{'name': 'TransactionsComponent', 'selector': 'app-transactions'},{'name': 'VentajasComponent', 'selector': 'app-ventajas'},{'name': 'VerifyDisable2faComponent', 'selector': 'app-verify-disable-2fa'},{'name': 'VerifyEmailComponent', 'selector': 'app-verify-email'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'VentajasComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'VentajasComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,1873 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>paypal documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">paypal documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SecurityComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/security/security.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-security</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                                <code><a href="../components/Google2faComponent.html" target="_self" >Google2faComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./security.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./security.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#bepassData" >bepassData</a>
+                            </li>
+                            <li>
+                                <a href="#changeBepassData" >changeBepassData</a>
+                            </li>
+                            <li>
+                                <a href="#changeError" >changeError</a>
+                            </li>
+                            <li>
+                                <a href="#changeMessage" >changeMessage</a>
+                            </li>
+                            <li>
+                                <a href="#error" >error</a>
+                            </li>
+                            <li>
+                                <a href="#hasBePass" >hasBePass</a>
+                            </li>
+                            <li>
+                                <a href="#is2FAVerified" >is2FAVerified</a>
+                            </li>
+                            <li>
+                                <a href="#message" >message</a>
+                            </li>
+                            <li>
+                                <a href="#qrData" >qrData</a>
+                            </li>
+                            <li>
+                                <a href="#recoverEmail" >recoverEmail</a>
+                            </li>
+                            <li>
+                                <a href="#recoverError" >recoverError</a>
+                            </li>
+                            <li>
+                                <a href="#recoverMessage" >recoverMessage</a>
+                            </li>
+                            <li>
+                                <a href="#show2FAQr" >show2FAQr</a>
+                            </li>
+                            <li>
+                                <a href="#showRecoverPassword" >showRecoverPassword</a>
+                            </li>
+                            <li>
+                                <a href="#userEmail" >userEmail</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#close2FAQr" >close2FAQr</a>
+                            </li>
+                            <li>
+                                <a href="#closeRecoverPassword" >closeRecoverPassword</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#on2FAVerified" >on2FAVerified</a>
+                            </li>
+                            <li>
+                                <a href="#onBepassInput" >onBepassInput</a>
+                            </li>
+                            <li>
+                                <a href="#onChangeBepassInput" >onChangeBepassInput</a>
+                            </li>
+                            <li>
+                                <a href="#onChangeBepassSubmit" >onChangeBepassSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#onRecoverPasswordSubmit" >onRecoverPasswordSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#openRecoverPassword" >openRecoverPassword</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">function Object() { [native code] }</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/components/security/security.component.ts:54</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor con servicios inyectados.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Servicio para operaciones de usuario.</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Servicio para autenticación y 2FA.</p>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="close2FAQr"></a>
+                    <span class="name">
+                        <span ><b>close2FAQr</b></span>
+                        <a href="#close2FAQr"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>close2FAQr()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">src/app/components/security/security.component.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cierra el modal de QR 2FA.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeRecoverPassword"></a>
+                    <span class="name">
+                        <span ><b>closeRecoverPassword</b></span>
+                        <a href="#closeRecoverPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeRecoverPassword()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="205"
+                                    class="link-to-prism">src/app/components/security/security.component.ts:205</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cierra el modal de recuperación de contraseña.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">src/app/components/security/security.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Inicializa el componente consultando si el usuario tiene Be Pass
+y obtiene su email para futuras operaciones como recuperación.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="on2FAVerified"></a>
+                    <span class="name">
+                        <span ><b>on2FAVerified</b></span>
+                        <a href="#on2FAVerified"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>on2FAVerified(success: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/components/security/security.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Evento que se activa cuando el usuario verifica el 2FA con éxito.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>success</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Resultado del evento de verificación.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onBepassInput"></a>
+                    <span class="name">
+                        <span ><b>onBepassInput</b></span>
+                        <a href="#onBepassInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onBepassInput(event: Event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">src/app/components/security/security.component.ts:94</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Filtra entrada para que solo se ingresen números en los campos Be Pass.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>Event</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onChangeBepassInput"></a>
+                    <span class="name">
+                        <span ><b>onChangeBepassInput</b></span>
+                        <a href="#onChangeBepassInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onChangeBepassInput(event: Event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="160"
+                                    class="link-to-prism">src/app/components/security/security.component.ts:160</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Maneja entradas numéricas para cambio de Be Pass.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>Event</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onChangeBepassSubmit"></a>
+                    <span class="name">
+                        <span ><b>onChangeBepassSubmit</b></span>
+                        <a href="#onChangeBepassSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onChangeBepassSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="172"
+                                    class="link-to-prism">src/app/components/security/security.component.ts:172</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Envío del formulario para cambiar Be Pass.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onRecoverPasswordSubmit"></a>
+                    <span class="name">
+                        <span ><b>onRecoverPasswordSubmit</b></span>
+                        <a href="#onRecoverPasswordSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onRecoverPasswordSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="211"
+                                    class="link-to-prism">src/app/components/security/security.component.ts:211</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Envío del formulario para solicitar recuperación de contraseña por email.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="109"
+                                    class="link-to-prism">src/app/components/security/security.component.ts:109</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Envío del formulario para crear Be Pass y configurar 2FA.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openRecoverPassword"></a>
+                    <span class="name">
+                        <span ><b>openRecoverPassword</b></span>
+                        <a href="#openRecoverPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openRecoverPassword()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="196"
+                                    class="link-to-prism">src/app/components/security/security.component.ts:196</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Abre el formulario de recuperación de contraseña.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bepassData"></a>
+                    <span class="name">
+                        <span ><b>bepassData</b></span>
+                        <a href="#bepassData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    newBepass: &#x27;&#x27;,
+    confirmBepass: &#x27;&#x27;,
+    currentPassword: &#x27;&#x27;
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/components/security/security.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Datos del formulario para crear clave Be Pass.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeBepassData"></a>
+                    <span class="name">
+                        <span ><b>changeBepassData</b></span>
+                        <a href="#changeBepassData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    newBepass: &#x27;&#x27;,
+    confirmBepass: &#x27;&#x27;,
+    currentPassword: &#x27;&#x27;
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/components/security/security.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeError"></a>
+                    <span class="name">
+                        <span ><b>changeError</b></span>
+                        <a href="#changeError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/components/security/security.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeMessage"></a>
+                    <span class="name">
+                        <span ><b>changeMessage</b></span>
+                        <a href="#changeMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/components/security/security.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="error"></a>
+                    <span class="name">
+                        <span ><b>error</b></span>
+                        <a href="#error"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/components/security/security.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasBePass"></a>
+                    <span class="name">
+                        <span ><b>hasBePass</b></span>
+                        <a href="#hasBePass"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/components/security/security.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="is2FAVerified"></a>
+                    <span class="name">
+                        <span ><b>is2FAVerified</b></span>
+                        <a href="#is2FAVerified"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/components/security/security.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="message"></a>
+                    <span class="name">
+                        <span ><b>message</b></span>
+                        <a href="#message"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/components/security/security.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="qrData"></a>
+                    <span class="name">
+                        <span ><b>qrData</b></span>
+                        <a href="#qrData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/security/security.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recoverEmail"></a>
+                    <span class="name">
+                        <span ><b>recoverEmail</b></span>
+                        <a href="#recoverEmail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/components/security/security.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recoverError"></a>
+                    <span class="name">
+                        <span ><b>recoverError</b></span>
+                        <a href="#recoverError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/components/security/security.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recoverMessage"></a>
+                    <span class="name">
+                        <span ><b>recoverMessage</b></span>
+                        <a href="#recoverMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/components/security/security.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="show2FAQr"></a>
+                    <span class="name">
+                        <span ><b>show2FAQr</b></span>
+                        <a href="#show2FAQr"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/components/security/security.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showRecoverPassword"></a>
+                    <span class="name">
+                        <span ><b>showRecoverPassword</b></span>
+                        <a href="#showRecoverPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/components/security/security.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userEmail"></a>
+                    <span class="name">
+                        <span ><b>userEmail</b></span>
+                        <a href="#userEmail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/components/security/security.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { UserService } from &#x27;../../services/user.service&#x27;;
+import { Google2faComponent } from &#x27;./google-2fa.component&#x27;;
+import { AuthService } from &#x27;../../services/auth.service&#x27;;
+
+@Component({
+  selector: &#x27;app-security&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, Google2faComponent],
+  templateUrl: &#x27;./security.component.html&#x27;,
+  styleUrl: &#x27;./security.component.css&#x27;
+})
+export class SecurityComponent implements OnInit {
+   /**
+   * Datos del formulario para crear clave Be Pass.
+   */
+  bepassData &#x3D; {
+    newBepass: &#x27;&#x27;,
+    confirmBepass: &#x27;&#x27;,
+    currentPassword: &#x27;&#x27;
+  };
+
+  message: string &#x3D; &#x27;&#x27;;
+  error: string &#x3D; &#x27;&#x27;;
+
+  hasBePass: boolean &#x3D; false;
+  is2FAVerified: boolean &#x3D; false;
+
+  show2FAQr: boolean &#x3D; false;
+  qrData: string &#x3D; &#x27;&#x27;;
+
+  changeBepassData &#x3D; {
+    newBepass: &#x27;&#x27;,
+    confirmBepass: &#x27;&#x27;,
+    currentPassword: &#x27;&#x27;
+  };
+  changeMessage: string &#x3D; &#x27;&#x27;;
+  changeError: string &#x3D; &#x27;&#x27;;
+
+  showRecoverPassword: boolean &#x3D; false;
+  recoverEmail: string &#x3D; &#x27;&#x27;;
+  recoverMessage: string &#x3D; &#x27;&#x27;;
+  recoverError: string &#x3D; &#x27;&#x27;;
+
+  // Asumimos que el email está en el perfil del usuario
+  userEmail: string &#x3D; &#x27;&#x27;;
+  /**
+   * Constructor con servicios inyectados.
+   * @param userService Servicio para operaciones de usuario.
+   * @param authService Servicio para autenticación y 2FA.
+   */
+  constructor(private userService: UserService, private authService: AuthService) {}
+  /**
+   * Inicializa el componente consultando si el usuario tiene Be Pass
+   * y obtiene su email para futuras operaciones como recuperación.
+   */
+  ngOnInit(): void {
+    this.userService.hasBepass().subscribe({
+      next: (res) &#x3D;&gt; {
+        this.hasBePass &#x3D; res.hasBepass;
+      },
+      error: () &#x3D;&gt; {
+        this.hasBePass &#x3D; false;
+      }
+    });
+    // Obtener email del usuario
+    this.userService.getProfile().subscribe({
+      next: (user) &#x3D;&gt; {
+        this.userEmail &#x3D; user.email || user.correo_electronico || &#x27;&#x27;;
+        this.recoverEmail &#x3D; this.userEmail;
+      }
+    });
+  }
+  /**
+   * Evento que se activa cuando el usuario verifica el 2FA con éxito.
+   * @param success Resultado del evento de verificación.
+   */
+  on2FAVerified(success: boolean) {
+    if (success) {
+      this.is2FAVerified &#x3D; true;
+    }
+  }
+  /**
+   * Filtra entrada para que solo se ingresen números en los campos Be Pass.
+   */
+  onBepassInput(event: Event): void {
+    const input &#x3D; event.target as HTMLInputElement;
+    // Reemplaza cualquier caracter que no sea un número
+    input.value &#x3D; input.value.replace(/[^0-9]/g, &#x27;&#x27;);
+    
+    // Asigna el valor limpio al modelo correcto
+    if (input.name &#x3D;&#x3D;&#x3D; &#x27;newBepass&#x27;) {
+      this.bepassData.newBepass &#x3D; input.value;
+    } else if (input.name &#x3D;&#x3D;&#x3D; &#x27;confirmBepass&#x27;) {
+      this.bepassData.confirmBepass &#x3D; input.value;
+    }
+  }
+  /**
+   * Envío del formulario para crear Be Pass y configurar 2FA.
+   */
+  onSubmit(): void {
+    this.message &#x3D; &#x27;&#x27;;
+    this.error &#x3D; &#x27;&#x27;;
+
+    if (this.bepassData.newBepass !&#x3D;&#x3D; this.bepassData.confirmBepass) {
+      this.error &#x3D; &#x27;Las claves Be Pass no coinciden.&#x27;;
+      return;
+    }
+
+    if (!/^[0-9]{6}$/.test(this.bepassData.newBepass)) {
+      this.error &#x3D; &#x27;La clave Be Pass debe contener exactamente 6 números.&#x27;;
+      return;
+    }
+
+    this.userService.setBepass({ ...this.bepassData, isChange: false }).subscribe({
+      next: (response) &#x3D;&gt; {
+        this.message &#x3D; response.message;
+        this.bepassData &#x3D; { newBepass: &#x27;&#x27;, confirmBepass: &#x27;&#x27;, currentPassword: &#x27;&#x27; };
+        this.hasBePass &#x3D; true; // Actualizar estado inmediatamente
+        
+        // Consultar setup2FA tras crear el Be Pass
+        this.authService.setup2FA().subscribe({
+          next: (res) &#x3D;&gt; {
+            if (res.qr) {
+              this.qrData &#x3D; res.qr;
+              this.show2FAQr &#x3D; true;
+            }
+          },
+          error: () &#x3D;&gt; {
+            // Si ya tiene 2FA, no mostrar nada
+            this.show2FAQr &#x3D; false;
+          }
+        });
+      },
+      error: (err) &#x3D;&gt; {
+        this.error &#x3D; err.error.message || &#x27;Ocurrió un error al actualizar la clave.&#x27;;
+      }
+    });
+  }
+  /**
+   * Cierra el modal de QR 2FA.
+   */
+  close2FAQr() {
+    this.show2FAQr &#x3D; false;
+    this.qrData &#x3D; &#x27;&#x27;;
+    // Redirigir a configuración después de cerrar el QR
+    window.location.href &#x3D; &#x27;/configuracion?tab&#x3D;seguridad&#x27;;
+  }
+ /**
+   * Maneja entradas numéricas para cambio de Be Pass.
+   */
+  onChangeBepassInput(event: Event): void {
+    const input &#x3D; event.target as HTMLInputElement;
+    input.value &#x3D; input.value.replace(/[^0-9]/g, &#x27;&#x27;);
+    if (input.name &#x3D;&#x3D;&#x3D; &#x27;newBepass&#x27;) {
+      this.changeBepassData.newBepass &#x3D; input.value;
+    } else if (input.name &#x3D;&#x3D;&#x3D; &#x27;confirmBepass&#x27;) {
+      this.changeBepassData.confirmBepass &#x3D; input.value;
+    }
+  }
+  /**
+   * Envío del formulario para cambiar Be Pass.
+   */
+  onChangeBepassSubmit(): void {
+    this.changeMessage &#x3D; &#x27;&#x27;;
+    this.changeError &#x3D; &#x27;&#x27;;
+    if (this.changeBepassData.newBepass !&#x3D;&#x3D; this.changeBepassData.confirmBepass) {
+      this.changeError &#x3D; &#x27;Las claves Be Pass no coinciden.&#x27;;
+      return;
+    }
+    if (!/^[0-9]{6}$/.test(this.changeBepassData.newBepass)) {
+      this.changeError &#x3D; &#x27;La clave Be Pass debe contener exactamente 6 números.&#x27;;
+      return;
+    }
+    this.userService.setBepass({ ...this.changeBepassData, isChange: true }).subscribe({
+      next: (response) &#x3D;&gt; {
+        this.changeMessage &#x3D; response.message;
+        this.changeBepassData &#x3D; { newBepass: &#x27;&#x27;, confirmBepass: &#x27;&#x27;, currentPassword: &#x27;&#x27; };
+      },
+      error: (err) &#x3D;&gt; {
+        this.changeError &#x3D; err.error.message || &#x27;Ocurrió un error al cambiar la clave.&#x27;;
+      }
+    });
+  }
+  /**
+   * Abre el formulario de recuperación de contraseña.
+   */
+  openRecoverPassword() {
+    this.showRecoverPassword &#x3D; true;
+    this.recoverMessage &#x3D; &#x27;&#x27;;
+    this.recoverError &#x3D; &#x27;&#x27;;
+    this.recoverEmail &#x3D; this.userEmail;
+  }
+  /**
+   * Cierra el modal de recuperación de contraseña.
+   */
+  closeRecoverPassword() {
+    this.showRecoverPassword &#x3D; false;
+  }
+  /**
+   * Envío del formulario para solicitar recuperación de contraseña por email.
+   */
+  onRecoverPasswordSubmit() {
+    this.recoverMessage &#x3D; &#x27;&#x27;;
+    this.recoverError &#x3D; &#x27;&#x27;;
+    this.authService.forgotPassword(this.recoverEmail).subscribe({
+      next: (res) &#x3D;&gt; {
+        this.recoverMessage &#x3D; res.message || &#x27;Si el correo es válido, recibirás instrucciones para restablecer tu contraseña.&#x27;;
+      },
+      error: (err) &#x3D;&gt; {
+        this.recoverError &#x3D; err.error?.message || &#x27;Ocurrió un error al enviar el correo.&#x27;;
+      }
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container mt-4&quot;&gt;
+  &lt;div class&#x3D;&quot;row&quot;&gt;
+    &lt;div class&#x3D;&quot;col-md-8 offset-md-2&quot;&gt;
+      
+      &lt;!-- Si NO tiene Be Pass, muestra el formulario de creación --&gt;
+      &lt;div *ngIf&#x3D;&quot;!hasBePass&quot;&gt;
+        &lt;!-- Formulario para Clave Be Pass (creación) --&gt;
+        &lt;div class&#x3D;&quot;card shadow-sm mb-5&quot;&gt;
+          &lt;div class&#x3D;&quot;card-body&quot;&gt;
+            &lt;h2 class&#x3D;&quot;card-title&quot;&gt;Configuración de Clave Be Pass&lt;/h2&gt;
+            &lt;p class&#x3D;&quot;card-subtitle mb-4 text-muted&quot;&gt;Esta clave de 6 dígitos es tu firma electrónica para autorizar transferencias y operaciones importantes.&lt;/p&gt;
+
+            &lt;div *ngIf&#x3D;&quot;message&quot; class&#x3D;&quot;alert alert-success mt-3&quot;&gt;{{ message }}&lt;/div&gt;
+            &lt;div *ngIf&#x3D;&quot;error&quot; class&#x3D;&quot;alert alert-danger mt-3&quot;&gt;{{ error }}&lt;/div&gt;
+
+            &lt;form (ngSubmit)&#x3D;&quot;onSubmit()&quot; #bepassForm&#x3D;&quot;ngForm&quot;&gt;
+              &lt;div class&#x3D;&quot;form-group&quot;&gt;
+                &lt;label for&#x3D;&quot;newBepass&quot;&gt;Crear nueva Clave Be Pass&lt;/label&gt;
+                &lt;input type&#x3D;&quot;password&quot; id&#x3D;&quot;newBepass&quot; name&#x3D;&quot;newBepass&quot; class&#x3D;&quot;form-control&quot; 
+                       [(ngModel)]&#x3D;&quot;bepassData.newBepass&quot; required minlength&#x3D;&quot;6&quot; maxlength&#x3D;&quot;6&quot; 
+                       pattern&#x3D;&quot;[0-9]{6}&quot; inputmode&#x3D;&quot;numeric&quot; (input)&#x3D;&quot;onBepassInput($event)&quot;&gt;
+                &lt;small class&#x3D;&quot;form-text text-muted&quot;&gt;Debe contener exactamente 6 números.&lt;/small&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;form-group&quot;&gt;
+                &lt;label for&#x3D;&quot;confirmBepass&quot;&gt;Confirmar nueva Clave&lt;/label&gt;
+                &lt;input type&#x3D;&quot;password&quot; id&#x3D;&quot;confirmBepass&quot; name&#x3D;&quot;confirmBepass&quot; class&#x3D;&quot;form-control&quot; 
+                       [(ngModel)]&#x3D;&quot;bepassData.confirmBepass&quot; required (input)&#x3D;&quot;onBepassInput($event)&quot; maxlength&#x3D;&quot;6&quot;&gt;
+              &lt;/div&gt;
+
+              &lt;hr class&#x3D;&quot;my-4&quot;&gt;
+
+              &lt;div class&#x3D;&quot;form-group&quot;&gt;
+                &lt;label for&#x3D;&quot;currentPassword&quot;&gt;Contraseña de tu cuenta&lt;/label&gt;
+                &lt;input type&#x3D;&quot;password&quot; id&#x3D;&quot;currentPassword&quot; name&#x3D;&quot;currentPassword&quot; class&#x3D;&quot;form-control&quot; 
+                       [(ngModel)]&#x3D;&quot;bepassData.currentPassword&quot; required&gt;
+                &lt;small class&#x3D;&quot;form-text text-muted&quot;&gt;Por tu seguridad, ingresa tu contraseña actual para confirmar el cambio.&lt;/small&gt;
+              &lt;/div&gt;
+
+              &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-primary btn-block mt-4&quot; [disabled]&#x3D;&quot;!bepassForm.form.valid&quot;&gt;Establecer Clave Be Pass&lt;/button&gt;
+            &lt;/form&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Si tiene Be Pass y NO ha pasado 2FA, muestra el flujo de 2FA --&gt;
+      &lt;div *ngIf&#x3D;&quot;hasBePass &amp;&amp; !is2FAVerified&quot;&gt;
+        &lt;div class&#x3D;&quot;card shadow-sm mb-5&quot;&gt;
+          &lt;div class&#x3D;&quot;card-body&quot;&gt;
+            &lt;h2 class&#x3D;&quot;card-title&quot;&gt;Verificación 2FA&lt;/h2&gt;
+            &lt;p class&#x3D;&quot;card-subtitle mb-4 text-muted&quot;&gt;Ingresa el código de Google Authenticator para continuar.&lt;/p&gt;
+            &lt;app-google-2fa (verified)&#x3D;&quot;on2FAVerified($event)&quot;&gt;&lt;/app-google-2fa&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Si tiene Be Pass y ya pasó 2FA, muestra el formulario de cambio --&gt;
+      &lt;div *ngIf&#x3D;&quot;hasBePass &amp;&amp; is2FAVerified&quot;&gt;
+        &lt;div class&#x3D;&quot;card shadow-sm mb-5&quot;&gt;
+          &lt;div class&#x3D;&quot;card-body&quot;&gt;
+            &lt;h2 class&#x3D;&quot;card-title&quot;&gt;Cambiar Clave Be Pass&lt;/h2&gt;
+            &lt;form (ngSubmit)&#x3D;&quot;onChangeBepassSubmit()&quot; #changeBepassForm&#x3D;&quot;ngForm&quot;&gt;
+              &lt;div class&#x3D;&quot;form-group&quot;&gt;
+                &lt;label for&#x3D;&quot;changeNewBepass&quot;&gt;Nueva Clave Be Pass&lt;/label&gt;
+                &lt;input type&#x3D;&quot;password&quot; id&#x3D;&quot;changeNewBepass&quot; name&#x3D;&quot;newBepass&quot; class&#x3D;&quot;form-control&quot;
+                       [(ngModel)]&#x3D;&quot;changeBepassData.newBepass&quot; required minlength&#x3D;&quot;6&quot; maxlength&#x3D;&quot;6&quot;
+                       pattern&#x3D;&quot;[0-9]{6}&quot; inputmode&#x3D;&quot;numeric&quot; (input)&#x3D;&quot;onChangeBepassInput($event)&quot;&gt;
+                &lt;small class&#x3D;&quot;form-text text-muted&quot;&gt;Debe contener exactamente 6 números.&lt;/small&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;form-group&quot;&gt;
+                &lt;label for&#x3D;&quot;changeConfirmBepass&quot;&gt;Confirmar nueva Clave&lt;/label&gt;
+                &lt;input type&#x3D;&quot;password&quot; id&#x3D;&quot;changeConfirmBepass&quot; name&#x3D;&quot;confirmBepass&quot; class&#x3D;&quot;form-control&quot;
+                       [(ngModel)]&#x3D;&quot;changeBepassData.confirmBepass&quot; required (input)&#x3D;&quot;onChangeBepassInput($event)&quot; maxlength&#x3D;&quot;6&quot;&gt;
+              &lt;/div&gt;
+              &lt;hr class&#x3D;&quot;my-4&quot;&gt;
+              &lt;div class&#x3D;&quot;form-group&quot;&gt;
+                &lt;label for&#x3D;&quot;changeCurrentPassword&quot;&gt;Contraseña de tu cuenta&lt;/label&gt;
+                &lt;input type&#x3D;&quot;password&quot; id&#x3D;&quot;changeCurrentPassword&quot; name&#x3D;&quot;currentPassword&quot; class&#x3D;&quot;form-control&quot;
+                       [(ngModel)]&#x3D;&quot;changeBepassData.currentPassword&quot; required&gt;
+                &lt;small class&#x3D;&quot;form-text text-muted&quot;&gt;Por tu seguridad, ingresa tu contraseña actual para confirmar el cambio.&lt;/small&gt;
+              &lt;/div&gt;
+              &lt;div *ngIf&#x3D;&quot;changeMessage&quot; class&#x3D;&quot;alert alert-success mt-3&quot;&gt;{{ changeMessage }}&lt;/div&gt;
+              &lt;div *ngIf&#x3D;&quot;changeError&quot; class&#x3D;&quot;alert alert-danger mt-3&quot;&gt;{{ changeError }}&lt;/div&gt;
+              &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-primary btn-block mt-4&quot; [disabled]&#x3D;&quot;!changeBepassForm.form.valid&quot;&gt;Cambiar Clave Be Pass&lt;/button&gt;
+            &lt;/form&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Apartado de recuperación de contraseña --&gt;
+      &lt;div class&#x3D;&quot;d-flex flex-column align-items-center w-100&quot;&gt;
+        &lt;div class&#x3D;&quot;card shadow-sm mb-5 security-card&quot;&gt;
+          &lt;div class&#x3D;&quot;card-body&quot;&gt;
+            &lt;div class&#x3D;&quot;d-flex flex-column align-items-center w-100&quot;&gt;
+              &lt;div class&#x3D;&quot;recover-password-form w-100 compact-recover-form&quot;&gt;
+                &lt;h2 class&#x3D;&quot;card-title&quot;&gt;Recuperar contraseña de la cuenta&lt;/h2&gt;
+                &lt;p class&#x3D;&quot;card-subtitle mb-4 text-muted&quot;&gt;Se enviará un correo a tu email registrado para restablecer tu contraseña.&lt;/p&gt;
+                &lt;form (ngSubmit)&#x3D;&quot;onRecoverPasswordSubmit()&quot;&gt;
+                  &lt;div class&#x3D;&quot;mb-2&quot;&gt;
+                    &lt;label for&#x3D;&quot;recoverEmail&quot; class&#x3D;&quot;form-label&quot;&gt;Correo electrónico&lt;/label&gt;
+                    &lt;input type&#x3D;&quot;email&quot; id&#x3D;&quot;recoverEmail&quot; name&#x3D;&quot;recoverEmail&quot; class&#x3D;&quot;form-control&quot; [(ngModel)]&#x3D;&quot;recoverEmail&quot; [readonly]&#x3D;&quot;true&quot; required&gt;
+                  &lt;/div&gt;
+                  &lt;div *ngIf&#x3D;&quot;recoverMessage&quot; class&#x3D;&quot;alert alert-success mt-2&quot;&gt;{{ recoverMessage }}&lt;/div&gt;
+                  &lt;div *ngIf&#x3D;&quot;recoverError&quot; class&#x3D;&quot;alert alert-danger mt-2&quot;&gt;{{ recoverError }}&lt;/div&gt;
+                  &lt;div class&#x3D;&quot;d-grid mt-2&quot;&gt;
+                    &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-primary btn-lg&quot;&gt;Enviar correo&lt;/button&gt;
+                  &lt;/div&gt;
+                &lt;/form&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Consejos de Seguridad --&gt;
+      &lt;div class&#x3D;&quot;security-advice-container&quot;&gt;
+        &lt;h1&gt;Consejos de Seguridad&lt;/h1&gt;
+        &lt;p class&#x3D;&quot;subtitle&quot;&gt;Protege tu cuenta y tus datos personales siguiendo estas recomendaciones:&lt;/p&gt;
+        &lt;div class&#x3D;&quot;advice-list&quot;&gt;
+          &lt;div class&#x3D;&quot;advice-item&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-shield-alt&quot;&gt;&lt;/i&gt;
+            &lt;h3&gt;Verifica siempre la URL&lt;/h3&gt;
+            &lt;p&gt;Asegúrate de que la dirección web sea la oficial antes de ingresar tus datos. No hagas clic en enlaces sospechosos.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;advice-item&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-user-lock&quot;&gt;&lt;/i&gt;
+            &lt;h3&gt;No compartas tu contraseña&lt;/h3&gt;
+            &lt;p&gt;Nunca compartas tu contraseña ni códigos de verificación con nadie, ni siquiera con supuestos empleados.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;advice-item&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-envelope-open-text&quot;&gt;&lt;/i&gt;
+            &lt;h3&gt;Cuidado con correos y mensajes&lt;/h3&gt;
+            &lt;p&gt;No abras archivos adjuntos ni respondas a mensajes de remitentes desconocidos. El phishing es una técnica común para robar información.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;advice-item&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-search-dollar&quot;&gt;&lt;/i&gt;
+            &lt;h3&gt;Revisa bien antes de enviar dinero&lt;/h3&gt;
+            &lt;p&gt;Verifica los datos del destinatario antes de confirmar cualquier transferencia o pago.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;advice-item&quot;&gt;
+            &lt;i class&#x3D;&quot;fas fa-sync-alt&quot;&gt;&lt;/i&gt;
+            &lt;h3&gt;Actualiza tus contraseñas periódicamente&lt;/h3&gt;
+            &lt;p&gt;Cambia tus contraseñas cada cierto tiempo y utiliza combinaciones seguras para proteger tu cuenta.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Modal/Sección QR 2FA --&gt;
+      &lt;div *ngIf&#x3D;&quot;show2FAQr&quot; class&#x3D;&quot;modal-backdrop show&quot;&gt;&lt;/div&gt;
+      &lt;div *ngIf&#x3D;&quot;show2FAQr&quot; class&#x3D;&quot;modal d-block&quot; tabindex&#x3D;&quot;-1&quot;&gt;
+        &lt;div class&#x3D;&quot;modal-dialog modal-dialog-centered&quot;&gt;
+          &lt;div class&#x3D;&quot;modal-content&quot;&gt;
+            &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+              &lt;h5 class&#x3D;&quot;modal-title&quot;&gt;Configura Google Authenticator&lt;/h5&gt;
+              &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn-close&quot; aria-label&#x3D;&quot;Cerrar&quot; (click)&#x3D;&quot;close2FAQr()&quot;&gt;&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;modal-body text-center&quot;&gt;
+              &lt;p&gt;Escanea este código QR con Google Authenticator para activar la verificación en dos pasos.&lt;/p&gt;
+              &lt;img [src]&#x3D;&quot;qrData&quot; alt&#x3D;&quot;QR 2FA&quot; /&gt;
+              &lt;p class&#x3D;&quot;mt-3&quot;&gt;&lt;strong&gt;¿Ya lo escaneaste?&lt;/strong&gt;&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+              &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;close2FAQr()&quot;&gt;Listo&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="container mt-4">  <div class="row">    <div class="col-md-8 offset-md-2">            <!-- Si NO tiene Be Pass, muestra el formulario de creación -->      <div *ngIf="!hasBePass">        <!-- Formulario para Clave Be Pass (creación) -->        <div class="card shadow-sm mb-5">          <div class="card-body">            <h2 class="card-title">Configuración de Clave Be Pass</h2>            <p class="card-subtitle mb-4 text-muted">Esta clave de 6 dígitos es tu firma electrónica para autorizar transferencias y operaciones importantes.</p>            <div *ngIf="message" class="alert alert-success mt-3">{{ message }}</div>            <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>            <form (ngSubmit)="onSubmit()" #bepassForm="ngForm">              <div class="form-group">                <label for="newBepass">Crear nueva Clave Be Pass</label>                <input type="password" id="newBepass" name="newBepass" class="form-control"                        [(ngModel)]="bepassData.newBepass" required minlength="6" maxlength="6"                        pattern="[0-9]{6}" inputmode="numeric" (input)="onBepassInput($event)">                <small class="form-text text-muted">Debe contener exactamente 6 números.</small>              </div>              <div class="form-group">                <label for="confirmBepass">Confirmar nueva Clave</label>                <input type="password" id="confirmBepass" name="confirmBepass" class="form-control"                        [(ngModel)]="bepassData.confirmBepass" required (input)="onBepassInput($event)" maxlength="6">              </div>              <hr class="my-4">              <div class="form-group">                <label for="currentPassword">Contraseña de tu cuenta</label>                <input type="password" id="currentPassword" name="currentPassword" class="form-control"                        [(ngModel)]="bepassData.currentPassword" required>                <small class="form-text text-muted">Por tu seguridad, ingresa tu contraseña actual para confirmar el cambio.</small>              </div>              <button type="submit" class="btn btn-primary btn-block mt-4" [disabled]="!bepassForm.form.valid">Establecer Clave Be Pass</button>            </form>          </div>        </div>      </div>      <!-- Si tiene Be Pass y NO ha pasado 2FA, muestra el flujo de 2FA -->      <div *ngIf="hasBePass && !is2FAVerified">        <div class="card shadow-sm mb-5">          <div class="card-body">            <h2 class="card-title">Verificación 2FA</h2>            <p class="card-subtitle mb-4 text-muted">Ingresa el código de Google Authenticator para continuar.</p>            <app-google-2fa (verified)="on2FAVerified($event)"></app-google-2fa>          </div>        </div>      </div>      <!-- Si tiene Be Pass y ya pasó 2FA, muestra el formulario de cambio -->      <div *ngIf="hasBePass && is2FAVerified">        <div class="card shadow-sm mb-5">          <div class="card-body">            <h2 class="card-title">Cambiar Clave Be Pass</h2>            <form (ngSubmit)="onChangeBepassSubmit()" #changeBepassForm="ngForm">              <div class="form-group">                <label for="changeNewBepass">Nueva Clave Be Pass</label>                <input type="password" id="changeNewBepass" name="newBepass" class="form-control"                       [(ngModel)]="changeBepassData.newBepass" required minlength="6" maxlength="6"                       pattern="[0-9]{6}" inputmode="numeric" (input)="onChangeBepassInput($event)">                <small class="form-text text-muted">Debe contener exactamente 6 números.</small>              </div>              <div class="form-group">                <label for="changeConfirmBepass">Confirmar nueva Clave</label>                <input type="password" id="changeConfirmBepass" name="confirmBepass" class="form-control"                       [(ngModel)]="changeBepassData.confirmBepass" required (input)="onChangeBepassInput($event)" maxlength="6">              </div>              <hr class="my-4">              <div class="form-group">                <label for="changeCurrentPassword">Contraseña de tu cuenta</label>                <input type="password" id="changeCurrentPassword" name="currentPassword" class="form-control"                       [(ngModel)]="changeBepassData.currentPassword" required>                <small class="form-text text-muted">Por tu seguridad, ingresa tu contraseña actual para confirmar el cambio.</small>              </div>              <div *ngIf="changeMessage" class="alert alert-success mt-3">{{ changeMessage }}</div>              <div *ngIf="changeError" class="alert alert-danger mt-3">{{ changeError }}</div>              <button type="submit" class="btn btn-primary btn-block mt-4" [disabled]="!changeBepassForm.form.valid">Cambiar Clave Be Pass</button>            </form>          </div>        </div>      </div>      <!-- Apartado de recuperación de contraseña -->      <div class="d-flex flex-column align-items-center w-100">        <div class="card shadow-sm mb-5 security-card">          <div class="card-body">            <div class="d-flex flex-column align-items-center w-100">              <div class="recover-password-form w-100 compact-recover-form">                <h2 class="card-title">Recuperar contraseña de la cuenta</h2>                <p class="card-subtitle mb-4 text-muted">Se enviará un correo a tu email registrado para restablecer tu contraseña.</p>                <form (ngSubmit)="onRecoverPasswordSubmit()">                  <div class="mb-2">                    <label for="recoverEmail" class="form-label">Correo electrónico</label>                    <input type="email" id="recoverEmail" name="recoverEmail" class="form-control" [(ngModel)]="recoverEmail" [readonly]="true" required>                  </div>                  <div *ngIf="recoverMessage" class="alert alert-success mt-2">{{ recoverMessage }}</div>                  <div *ngIf="recoverError" class="alert alert-danger mt-2">{{ recoverError }}</div>                  <div class="d-grid mt-2">                    <button type="submit" class="btn btn-primary btn-lg">Enviar correo</button>                  </div>                </form>              </div>            </div>          </div>        </div>      </div>      <!-- Consejos de Seguridad -->      <div class="security-advice-container">        <h1>Consejos de Seguridad</h1>        <p class="subtitle">Protege tu cuenta y tus datos personales siguiendo estas recomendaciones:</p>        <div class="advice-list">          <div class="advice-item">            <i class="fas fa-shield-alt"></i>            <h3>Verifica siempre la URL</h3>            <p>Asegúrate de que la dirección web sea la oficial antes de ingresar tus datos. No hagas clic en enlaces sospechosos.</p>          </div>          <div class="advice-item">            <i class="fas fa-user-lock"></i>            <h3>No compartas tu contraseña</h3>            <p>Nunca compartas tu contraseña ni códigos de verificación con nadie, ni siquiera con supuestos empleados.</p>          </div>          <div class="advice-item">            <i class="fas fa-envelope-open-text"></i>            <h3>Cuidado con correos y mensajes</h3>            <p>No abras archivos adjuntos ni respondas a mensajes de remitentes desconocidos. El phishing es una técnica común para robar información.</p>          </div>          <div class="advice-item">            <i class="fas fa-search-dollar"></i>            <h3>Revisa bien antes de enviar dinero</h3>            <p>Verifica los datos del destinatario antes de confirmar cualquier transferencia o pago.</p>          </div>          <div class="advice-item">            <i class="fas fa-sync-alt"></i>            <h3>Actualiza tus contraseñas periódicamente</h3>            <p>Cambia tus contraseñas cada cierto tiempo y utiliza combinaciones seguras para proteger tu cuenta.</p>          </div>        </div>      </div>      <!-- Modal/Sección QR 2FA -->      <div *ngIf="show2FAQr" class="modal-backdrop show"></div>      <div *ngIf="show2FAQr" class="modal d-block" tabindex="-1">        <div class="modal-dialog modal-dialog-centered">          <div class="modal-content">            <div class="modal-header">              <h5 class="modal-title">Configura Google Authenticator</h5>              <button type="button" class="btn-close" aria-label="Cerrar" (click)="close2FAQr()"></button>            </div>            <div class="modal-body text-center">              <p>Escanea este código QR con Google Authenticator para activar la verificación en dos pasos.</p>              <img [src]="qrData" alt="QR 2FA" />              <p class="mt-3"><strong>¿Ya lo escaneaste?</strong></p>            </div>            <div class="modal-footer">              <button type="button" class="btn btn-primary" (click)="close2FAQr()">Listo</button>            </div>          </div>        </div>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BalanceComponent', 'selector': 'app-balance'},{'name': 'ChatBubbleComponent', 'selector': 'app-chat-bubble'},{'name': 'ConfiguracionComponent', 'selector': 'app-configuracion'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DondeComprarComponent', 'selector': 'app-donde-comprar'},{'name': 'FinancialGoalsComponent', 'selector': 'app-financial-goals'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'Google2faComponent', 'selector': 'app-google-2fa'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MovimientosComponent', 'selector': 'app-movimientos'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PayComponent', 'selector': 'app-pay'},{'name': 'PreRegistroComponent', 'selector': 'app-pre-registro'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'SeguridadPublicaComponent', 'selector': 'app-seguridad-publica'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TarjetasComponent', 'selector': 'app-tarjetas'},{'name': 'TarjetasPublicaComponent', 'selector': 'app-tarjetas-publica'},{'name': 'TransactionsComponent', 'selector': 'app-transactions'},{'name': 'VentajasComponent', 'selector': 'app-ventajas'},{'name': 'VerifyDisable2faComponent', 'selector': 'app-verify-disable-2fa'},{'name': 'VerifyEmailComponent', 'selector': 'app-verify-email'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SecurityComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SecurityComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

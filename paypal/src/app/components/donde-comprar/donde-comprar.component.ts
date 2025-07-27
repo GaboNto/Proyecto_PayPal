@@ -1,7 +1,16 @@
+/**
+ * Componente que permite explorar comercios donde se puede comprar con beneficios.
+ * 
+ * Incluye filtros por categoría, búsqueda por nombre o descripción, y destaca comercios populares.
+ * También permite visitar directamente la URL del comercio desde la interfaz.
+ */
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+/**
+ * Interfaz que representa la estructura de un comercio disponible.
+ */
 interface Comercio {
   id: number;
   nombre: string;
@@ -20,7 +29,9 @@ interface Comercio {
   styleUrl: './donde-comprar.component.scss'
 })
 export class DondeComprarComponent {
-
+ /**
+   * Lista de categorías disponibles para filtrar comercios.
+   */
   categorias = [
     { id: 'todos', nombre: 'Todos', icono: '🛒' },
     { id: 'streaming', nombre: 'Streaming', icono: '📺' },
@@ -207,7 +218,9 @@ export class DondeComprarComponent {
     }
   ];
 
-
+  /**
+   * Comercios filtrados según la categoría y búsqueda.
+   */
   get comerciosFiltrados(): Comercio[] {
     let comercios = this.comercios;
 
@@ -229,7 +242,10 @@ export class DondeComprarComponent {
     return comercios;
   }
 
-
+  /**
+   * Retorna la lista de comercios marcados como populares.
+   * No se muestran si hay búsqueda activa.
+   */
   get comerciosPopulares(): Comercio[] {
     if (this.terminoBusqueda.trim() !== '') {
       return []; // No mostrar populares si hay búsqueda activa
@@ -237,28 +253,41 @@ export class DondeComprarComponent {
     return this.comercios.filter(comercio => comercio.popular);
   }
 
-
+  /**
+   * Obtiene el nombre amigable de la categoría seleccionada.
+   */
   get nombreCategoriaSeleccionada(): string {
     const categoria = this.categorias.find(c => c.id === this.categoriaSeleccionada);
     return categoria ? categoria.nombre : 'Todos';
   }
 
-
+  /**
+   * Cambia la categoría seleccionada del filtro.
+   * @param categoria ID de la nueva categoría
+   */
   cambiarCategoria(categoria: string) {
     this.categoriaSeleccionada = categoria;
   }
 
-
+  /**
+   * Actualiza el término de búsqueda para filtrar comercios.
+   * @param termino Texto ingresado por el usuario
+   */
   buscarComercios(termino: string) {
     this.terminoBusqueda = termino;
   }
 
-
+  /**
+   * Limpia el campo de búsqueda.
+   */
   limpiarBusqueda() {
     this.terminoBusqueda = '';
   }
 
-
+  /**
+   * Abre la URL del comercio en una nueva pestaña del navegador.
+   * @param comercio Comercio que se desea visitar
+   */
   visitarComercio(comercio: Comercio) {
     window.open(comercio.url, '_blank');
   }

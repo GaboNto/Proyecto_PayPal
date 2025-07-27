@@ -1,7 +1,15 @@
+/**
+ * Componente para crear, listar y visualizar metas financieras del usuario.
+ * Permite ingresar nombre, monto objetivo, meses, prioridad y monto inicial.
+ * 
+ * También gestiona la lógica del formulario, progreso y visualización modal.
+ */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+/**
+ * Interfaz que representa una meta financiera individual.
+ */
 interface FinancialGoal {
   goalName: string;
   targetAmount: number;
@@ -25,10 +33,20 @@ interface FinancialGoal {
   styleUrl: './financial-goals.component.scss'
 })
 export class FinancialGoalsComponent implements OnInit {
+    /**
+   * Controla si el modal de creación de meta está abierto.
+   */
   showModal = false;
+  
+  /**
+   * Formulario reactivo que gestiona la creación de nuevas metas.
+   */
   goalForm: FormGroup;
   goals: FinancialGoal[] = [];
-
+  /**
+   * Inyección del `FormBuilder` para crear el formulario.
+   * @param fb FormBuilder de Angular.
+   */
   constructor(private fb: FormBuilder) {
     this.goalForm = this.fb.group({
       goalName: ['', Validators.required],
@@ -39,7 +57,9 @@ export class FinancialGoalsComponent implements OnInit {
       description: ['']
     });
   }
-
+  /**
+   * Método del ciclo de vida que inicializa una meta de ejemplo.
+   */
   ngOnInit(): void {
     // Cargar metas existentes (ejemplo)
     this.goals = [
@@ -55,19 +75,26 @@ export class FinancialGoalsComponent implements OnInit {
       }
     ];
   }
-
+  /**
+   * Abre el modal y reinicia el formulario con prioridad por defecto.
+   */
   openModal(): void {
     this.showModal = true;
     this.goalForm.reset({
       priority: 'media'
     });
   }
-
+  /**
+   * Cierra el modal y limpia el formulario.
+   */
   closeModal(): void {
     this.showModal = false;
     this.goalForm.reset();
   }
-
+  /**
+   * Envía el formulario si es válido y crea una nueva meta financiera.
+   * Calcula el progreso inicial con respecto al monto objetivo.
+   */
   onSubmit(): void {
     if (this.goalForm.valid) {
       const formValue = this.goalForm.value;
@@ -89,12 +116,19 @@ export class FinancialGoalsComponent implements OnInit {
     }
   }
 
+  /**
+   * Actualiza el gráfico de metas si existiera integración visual.
+   */
   updateChartData(): void {
     // Aquí puedes actualizar los datos del gráfico si es necesario
     // Por ejemplo, recalcular porcentajes, actualizar barras, etc.
   }
 
-  // Función auxiliar para formatear montos
+    /**
+   * Formatea un monto en pesos chilenos.
+   * @param amount Valor numérico
+   * @returns Monto con formato CLP
+   */
   formatAmount(amount: number): string {
     return new Intl.NumberFormat('es-CL', {
       style: 'currency',
@@ -102,7 +136,11 @@ export class FinancialGoalsComponent implements OnInit {
     }).format(amount);
   }
 
-  // Función auxiliar para formatear fechas
+   /**
+   * Formatea una fecha al formato dd-mm-yyyy.
+   * @param date Fecha a formatear
+   * @returns Fecha formateada en español
+   */
   formatDate(date: Date): string {
     return new Intl.DateTimeFormat('es-CL', {
       day: '2-digit',

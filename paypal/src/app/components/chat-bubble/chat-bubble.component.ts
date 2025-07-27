@@ -1,3 +1,8 @@
+/**
+ * Componente que representa una burbuja de chat flotante.
+ * Permite al usuario interactuar con un asistente financiero mediante mensajes.
+ * Se comunica con un backend en `http://localhost:3000/api/chatbot`.
+ */
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -11,9 +16,15 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   styleUrls: ['./chat-bubble.component.css'],
 })
 export class ChatBubbleComponent {
+    /**
+   * Indica si la burbuja de chat está expandida o colapsada.
+   */
   isExpanded = true;
   inputMessage = '';
   messages: { text: string; type: 'user' | 'bot' }[] = [];
+    /**
+   * Inicializa el componente con un mensaje de bienvenida del bot.
+   */
   ngOnInit(): void {
     this.messages.push({
       text: '¡Hola! Soy tu asesor financiero. ¿En qué puedo ayudarte hoy?',
@@ -21,13 +32,19 @@ export class ChatBubbleComponent {
     });
   }
 
-
+  /**
+   * Inyección del servicio HttpClient para realizar peticiones al backend.
+   * @param http Cliente HTTP usado para enviar y recibir mensajes del bot.
+   */
   constructor(private http: HttpClient) { }
 
   toggleChat() {
     this.isExpanded = !this.isExpanded;
   }
-
+ /**
+   * Envía un mensaje del usuario al asistente y maneja la respuesta del backend.
+   * Agrega ambos mensajes (usuario y bot) a la conversación.
+   */
   sendMessage() {
     const message = this.inputMessage.trim();
     if (!message) return;
@@ -55,7 +72,10 @@ export class ChatBubbleComponent {
         },
       });
   }
-
+  /**
+   * Hace scroll automático al final del contenedor de mensajes.
+   * Garantiza que siempre se vea el último mensaje.
+   */
   scrollToBottom() {
     setTimeout(() => {
       const chatMessages = document.querySelector('.chat-messages');

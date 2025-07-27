@@ -1,0 +1,1518 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>paypal documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">paypal documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  RegisterComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/register/register.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+                <code>AfterViewInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-register</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>HttpClientModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./register.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./register.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#rutError" >rutError</a>
+                            </li>
+                            <li>
+                                <a href="#rutExistsError" >rutExistsError</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#rutSubject" >rutSubject</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#rutSubscription" >rutSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#formatRut" >formatRut</a>
+                            </li>
+                            <li>
+                                <a href="#goToLogin" >goToLogin</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onRutChange" >onRutChange</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#validateRut" >validateRut</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">function Object() { [native code] }</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(http: HttpClient, router: Router)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/components/register/register.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Inyección de dependencias para HTTP y navegación.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>http</td>
+                                                  
+                                                        <td>
+                                                                    <code>HttpClient</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Cliente HTTP para comunicar con el backend.</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Servicio de enrutamiento para redirigir al login.</p>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatRut"></a>
+                    <span class="name">
+                        <span ><b>formatRut</b></span>
+                        <a href="#formatRut"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatRut(rut: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="109"
+                                    class="link-to-prism">src/app/components/register/register.component.ts:109</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Da formato visual al RUT ingresado, separando cuerpo y dígito verificador con <code>-</code>.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rut</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>RUT sin formato.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>RUT con formato (<code>XXXXXXXX-X</code>)</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goToLogin"></a>
+                    <span class="name">
+                        <span ><b>goToLogin</b></span>
+                        <a href="#goToLogin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goToLogin()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="176"
+                                    class="link-to-prism">src/app/components/register/register.component.ts:176</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Redirige al usuario a la vista de login.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">src/app/components/register/register.component.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/app/components/register/register.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Limpia la suscripción al destruir el componente.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="52"
+                                    class="link-to-prism">src/app/components/register/register.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Inicializa la suscripción para verificar el RUT en backend con debounce.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onRutChange"></a>
+                    <span class="name">
+                        <span ><b>onRutChange</b></span>
+                        <a href="#onRutChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onRutChange(event: Event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/components/register/register.component.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Se ejecuta al cambiar el valor del input de RUT.
+Formatea, valida y dispara la verificación en backend.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>Event</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Evento de cambio del input.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit(registerForm: NgForm)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="141"
+                                    class="link-to-prism">src/app/components/register/register.component.ts:141</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Envia el formulario de registro si los campos son válidos.
+Muestra un modal de éxito o errores según la respuesta.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>registerForm</td>
+                                            <td>
+                                                        <code>NgForm</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Formulario de registro (template-driven).</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateRut"></a>
+                    <span class="name">
+                        <span ><b>validateRut</b></span>
+                        <a href="#validateRut"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validateRut(rut: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/components/register/register.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Valida el RUT chileno (con dígito verificador).</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rut</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>RUT ingresado por el usuario.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> si es válido, <code>false</code> si no.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rutError"></a>
+                    <span class="name">
+                        <span ><b>rutError</b></span>
+                        <a href="#rutError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/register/register.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rutExistsError"></a>
+                    <span class="name">
+                        <span ><b>rutExistsError</b></span>
+                        <a href="#rutExistsError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/components/register/register.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rutSubject"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>rutSubject</b></span>
+                        <a href="#rutSubject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject&lt;string&gt;()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/components/register/register.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rutSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>rutSubscription</b></span>
+                        <a href="#rutSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription | undefined</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/components/register/register.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    nombre: &#x27;&#x27;,
+    apellido: &#x27;&#x27;,
+    fecha_nacimiento: &#x27;&#x27;,
+    ciudad: &#x27;&#x27;,
+    pais: &#x27;&#x27;,
+    email: &#x27;&#x27;,
+    password: &#x27;&#x27;,
+    rut: &#x27;&#x27;,
+    privacidad: false,          // 🔹 AGREGADO
+    condiciones: false          // 🔹 AGREGADO
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/components/register/register.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Objeto que contiene los datos del formulario de registro.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy, AfterViewInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, NgForm } from &#x27;@angular/forms&#x27;;
+import { HttpClientModule, HttpClient } from &#x27;@angular/common/http&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { Subject, Subscription, of } from &#x27;rxjs&#x27;;
+import { debounceTime, distinctUntilChanged, switchMap, catchError, tap } from &#x27;rxjs/operators&#x27;;
+
+@Component({
+  selector: &#x27;app-register&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, HttpClientModule],
+  templateUrl: &#x27;./register.component.html&#x27;,
+  styleUrls: [&#x27;./register.component.css&#x27;]
+})
+export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
+  /**
+   * Objeto que contiene los datos del formulario de registro.
+   */
+  user &#x3D; {
+    nombre: &#x27;&#x27;,
+    apellido: &#x27;&#x27;,
+    fecha_nacimiento: &#x27;&#x27;,
+    ciudad: &#x27;&#x27;,
+    pais: &#x27;&#x27;,
+    email: &#x27;&#x27;,
+    password: &#x27;&#x27;,
+    rut: &#x27;&#x27;,
+    privacidad: false,          // 🔹 AGREGADO
+    condiciones: false          // 🔹 AGREGADO
+  };
+
+  rutError: string &#x3D; &#x27;&#x27;;
+  rutExistsError: string &#x3D; &#x27;&#x27;;
+  private rutSubject &#x3D; new Subject&lt;string&gt;();
+  private rutSubscription: Subscription | undefined;
+  /**
+   * Inyección de dependencias para HTTP y navegación.
+   * @param http Cliente HTTP para comunicar con el backend.
+   * @param router Servicio de enrutamiento para redirigir al login.
+   */
+  constructor(private http: HttpClient, private router: Router) {}
+
+  /**
+   * Inicializa la suscripción para verificar el RUT en backend con debounce.
+   */
+  ngOnInit(): void {
+    this.rutSubscription &#x3D; this.rutSubject.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      tap(() &#x3D;&gt; this.rutExistsError &#x3D; &#x27;&#x27;),
+      switchMap(rut &#x3D;&gt; {
+        if (this.validateRut(rut)) {
+          return this.http.get&lt;{ exists: boolean }&gt;(&#x60;http://localhost:3000/api/auth/check-rut/${rut}&#x60;).pipe(
+            catchError(() &#x3D;&gt; of({ exists: false }))
+          );
+        }
+        return of({ exists: false });
+      })
+    ).subscribe(response &#x3D;&gt; {
+      if (response.exists) {
+        this.rutExistsError &#x3D; &#x27;El RUT ya se encuentra registrado.&#x27;;
+      }
+    });
+  }
+  /**
+   * Limpia la suscripción al destruir el componente.
+   */
+  ngOnDestroy(): void {
+    this.rutSubscription?.unsubscribe();
+  }
+
+  ngAfterViewInit(): void {}
+  /**
+   * Valida el RUT chileno (con dígito verificador).
+   * @param rut RUT ingresado por el usuario.
+   * @returns &#x60;true&#x60; si es válido, &#x60;false&#x60; si no.
+   */
+  validateRut(rut: string): boolean {
+    if (!rut) return false;
+    rut &#x3D; rut.replace(/\./g, &#x27;&#x27;).replace(&#x27;-&#x27;, &#x27;&#x27;).trim().toLowerCase();
+    const body &#x3D; rut.slice(0, -1);
+    let dv &#x3D; rut.slice(-1);
+
+    if (!/^[0-9]+[0-9kK]{1}$/.test(rut)) return false;
+
+    let sum &#x3D; 0;
+    let M &#x3D; 2;
+    for (let i &#x3D; body.length - 1; i &gt;&#x3D; 0; i--) {
+      sum +&#x3D; parseInt(body.charAt(i), 10) * M;
+      M &#x3D; M &lt; 7 ? M + 1 : 2;
+    }
+
+    const VCalc &#x3D; 11 - (sum % 11);
+    const dvCalc &#x3D; VCalc &#x3D;&#x3D;&#x3D; 11 ? &#x27;0&#x27; : VCalc &#x3D;&#x3D;&#x3D; 10 ? &#x27;k&#x27; : VCalc.toString();
+
+    return dvCalc &#x3D;&#x3D;&#x3D; dv;
+  }
+  /**
+   * Da formato visual al RUT ingresado, separando cuerpo y dígito verificador con &#x60;-&#x60;.
+   * @param rut RUT sin formato.
+   * @returns RUT con formato (&#x60;XXXXXXXX-X&#x60;)
+   */
+  formatRut(rut: string): string {
+    rut &#x3D; rut.replace(/[^0-9kK]/g, &#x27;&#x27;);
+    if (rut.length &gt; 1) {
+      const body &#x3D; rut.slice(0, -1);
+      const dv &#x3D; rut.slice(-1);
+      rut &#x3D; &#x60;${body}-${dv}&#x60;;
+    }
+    return rut;
+  }
+  /**
+   * Se ejecuta al cambiar el valor del input de RUT.
+   * Formatea, valida y dispara la verificación en backend.
+   * @param event Evento de cambio del input.
+   */
+  onRutChange(event: Event): void {
+    const input &#x3D; event.target as HTMLInputElement;
+    const formattedValue &#x3D; this.formatRut(input.value);
+    this.user.rut &#x3D; formattedValue;
+    this.rutError &#x3D; &#x27;&#x27;;
+    this.rutExistsError &#x3D; &#x27;&#x27;;
+
+    if (formattedValue &amp;&amp; !this.validateRut(formattedValue)) {
+      this.rutError &#x3D; &#x27;El RUT ingresado no es válido.&#x27;;
+    } else if (formattedValue) {
+      this.rutSubject.next(formattedValue);
+    }
+  }
+  /**
+   * Envia el formulario de registro si los campos son válidos.
+   * Muestra un modal de éxito o errores según la respuesta.
+   * @param registerForm Formulario de registro (template-driven).
+   */
+  onSubmit(registerForm: NgForm) {
+    if (
+      registerForm.invalid ||
+      this.rutError ||
+      this.rutExistsError ||
+      !this.user.privacidad ||
+      !this.user.condiciones
+    ) {
+      alert(&#x27;Por favor, completa todos los campos correctamente y acepta las condiciones.&#x27;);
+      return;
+    }
+
+    this.http.post(&#x27;http://localhost:3000/api/auth/register&#x27;, this.user)
+      .subscribe({
+        next: (response) &#x3D;&gt; {
+          console.log(&#x27;Registro exitoso&#x27;, response);
+          const modal &#x3D; new (window as any).bootstrap.Modal(document.getElementById(&#x27;successModal&#x27;));
+          modal.show();
+        },
+        error: (error) &#x3D;&gt; {
+          console.error(&#x27;Error en el registro&#x27;, error);
+          const errorMessage &#x3D; error.error.message || &#x27;Hubo un error durante el registro.&#x27;;
+          if (typeof errorMessage &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+            alert(errorMessage);
+          } else if (Array.isArray(errorMessage)) {
+            alert(errorMessage.join(&#x27;\n&#x27;));
+          } else {
+            alert(&#x27;Hubo un error durante el registro. Por favor, inténtalo de nuevo.&#x27;);
+          }
+        }
+      });
+  }
+  /**
+   * Redirige al usuario a la vista de login.
+   */
+  goToLogin() {
+    this.router.navigate([&#x27;/login&#x27;]);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;auth-container&quot;&gt;
+  &lt;div class&#x3D;&quot;auth-card&quot;&gt;
+    &lt;img src&#x3D;&quot;assets/paypal-logo.svg&quot; alt&#x3D;&quot;PayPal Logo&quot; class&#x3D;&quot;logo&quot;&gt;
+    &lt;h2&gt;Crear una cuenta&lt;/h2&gt;
+    &lt;p class&#x3D;&quot;auth-subtitle&quot;&gt;Regístrate para empezar a gestionar tus finanzas.&lt;/p&gt;
+    &lt;form #registerForm&#x3D;&quot;ngForm&quot; (ngSubmit)&#x3D;&quot;onSubmit(registerForm)&quot;&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label for&#x3D;&quot;nombre&quot;&gt;Nombre&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;nombre&quot; name&#x3D;&quot;nombre&quot; class&#x3D;&quot;form-control&quot; [(ngModel)]&#x3D;&quot;user.nombre&quot; required&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label for&#x3D;&quot;apellido&quot;&gt;Apellido&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;apellido&quot; name&#x3D;&quot;apellido&quot; class&#x3D;&quot;form-control&quot; [(ngModel)]&#x3D;&quot;user.apellido&quot; required&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label for&#x3D;&quot;rut&quot;&gt;RUT&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;rut&quot; name&#x3D;&quot;rut&quot; class&#x3D;&quot;form-control&quot; [(ngModel)]&#x3D;&quot;user.rut&quot; (input)&#x3D;&quot;onRutChange($event)&quot; required&gt;
+        &lt;small *ngIf&#x3D;&quot;rutError&quot; class&#x3D;&quot;form-text text-danger&quot;&gt;{{ rutError }}&lt;/small&gt;
+        &lt;small *ngIf&#x3D;&quot;rutExistsError&quot; class&#x3D;&quot;form-text text-danger&quot;&gt;{{ rutExistsError }}&lt;/small&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label for&#x3D;&quot;ciudad&quot;&gt;Ciudad&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;ciudad&quot; name&#x3D;&quot;ciudad&quot; class&#x3D;&quot;form-control&quot; [(ngModel)]&#x3D;&quot;user.ciudad&quot; required&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label for&#x3D;&quot;pais&quot;&gt;País&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;pais&quot; name&#x3D;&quot;pais&quot; class&#x3D;&quot;form-control&quot; [(ngModel)]&#x3D;&quot;user.pais&quot; required&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label for&#x3D;&quot;email&quot;&gt;Correo electrónico&lt;/label&gt;
+        &lt;input type&#x3D;&quot;email&quot; id&#x3D;&quot;email&quot; name&#x3D;&quot;email&quot; class&#x3D;&quot;form-control&quot; [(ngModel)]&#x3D;&quot;user.email&quot; required email&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label for&#x3D;&quot;password&quot;&gt;Contraseña&lt;/label&gt;
+        &lt;input type&#x3D;&quot;password&quot; id&#x3D;&quot;password&quot; name&#x3D;&quot;password&quot; class&#x3D;&quot;form-control&quot; [(ngModel)]&#x3D;&quot;user.password&quot; required minlength&#x3D;&quot;6&quot;&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label for&#x3D;&quot;fecha_nacimiento&quot;&gt;Fecha de Nacimiento&lt;/label&gt;
+        &lt;input type&#x3D;&quot;date&quot; id&#x3D;&quot;fecha_nacimiento&quot; name&#x3D;&quot;fecha_nacimiento&quot; class&#x3D;&quot;form-control&quot; [(ngModel)]&#x3D;&quot;user.fecha_nacimiento&quot; required&gt;
+      &lt;/div&gt;
+
+      &lt;!-- ✅ CHECKBOXES AÑADIDOS --&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label&gt;
+          &lt;input type&#x3D;&quot;checkbox&quot; name&#x3D;&quot;privacidad&quot; [(ngModel)]&#x3D;&quot;user.privacidad&quot; required&gt;
+          Acepto el uso de mis datos de acuerdo con las políticas de privacidad.
+        &lt;/label&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label&gt;
+          &lt;input type&#x3D;&quot;checkbox&quot; name&#x3D;&quot;condiciones&quot; [(ngModel)]&#x3D;&quot;user.condiciones&quot; required&gt;
+          Acepto los términos y condiciones de evaluación crediticia.
+        &lt;/label&gt;
+      &lt;/div&gt;
+
+      &lt;p style&#x3D;&quot;font-size: 12px; color: #555;&quot;&gt;
+        Al presionar &quot;Crear cuenta&quot; estás de acuerdo con nuestros 
+        &lt;a href&#x3D;&quot;assets/terminos_y_condiciones.pdf&quot; target&#x3D;&quot;_blank&quot;&gt;Términos y condiciones&lt;/a&gt;
+        &lt;a href&#x3D;&quot;assets/politica_de_datos.pdf&quot; target&#x3D;&quot;_blank&quot;&gt;Utilización de datos&lt;/a&gt;
+
+      &lt;/p&gt;
+
+      &lt;button 
+        type&#x3D;&quot;submit&quot; 
+        class&#x3D;&quot;btn btn-primary btn-block&quot; 
+        [disabled]&#x3D;&quot;!registerForm.form.valid || rutError || rutExistsError || !user.privacidad || !user.condiciones&quot;
+      &gt;
+        Crear cuenta
+      &lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;div class&#x3D;&quot;auth-link&quot;&gt;
+      &lt;p&gt;¿Ya tienes una cuenta? &lt;a routerLink&#x3D;&quot;/login&quot;&gt;Inicia sesión&lt;/a&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Modal de éxito de registro --&gt;
+&lt;div class&#x3D;&quot;modal fade&quot; id&#x3D;&quot;successModal&quot; tabindex&#x3D;&quot;-1&quot; aria-labelledby&#x3D;&quot;successModalLabel&quot; aria-hidden&#x3D;&quot;true&quot;&gt;
+  &lt;div class&#x3D;&quot;modal-dialog modal-dialog-centered&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-content&quot;&gt;
+      &lt;div class&#x3D;&quot;modal-header bg-success text-white&quot;&gt;
+        &lt;h5 class&#x3D;&quot;modal-title&quot; id&#x3D;&quot;successModalLabel&quot;&gt;¡Registro Exitoso!&lt;/h5&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn-close&quot; data-bs-dismiss&#x3D;&quot;modal&quot; aria-label&#x3D;&quot;Cerrar&quot;&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-body text-center&quot;&gt;
+        &lt;i class&#x3D;&quot;bi bi-check-circle-fill display-3 text-success mb-3&quot;&gt;&lt;/i&gt;
+        &lt;p class&#x3D;&quot;fs-5&quot;&gt;¡Tu cuenta ha sido creada exitosamente! Ahora puedes iniciar sesión.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-footer justify-content-center&quot;&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-primary w-50&quot; (click)&#x3D;&quot;goToLogin()&quot; data-bs-dismiss&#x3D;&quot;modal&quot;&gt;Iniciar sesión&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./register.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  padding: 2rem 0;
+  background-color: #f5f7fa;
+}
+
+.auth-card {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+}
+
+.logo {
+  max-width: 120px;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  color: #003087;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #0070ba;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+.auth-button:hover {
+  background-color: #005ea6;
+}
+
+.auth-button:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #d93025;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.auth-link {
+  margin-top: 1.5rem;
+  color: #555;
+}
+
+.auth-link a {
+  color: #0070ba;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+/* ✅ NUEVO: estilos para checkboxes de términos */
+
+.form-group input[type&#x3D;&quot;checkbox&quot;] {
+  width: auto;
+  margin-right: 0.5rem;
+  transform: scale(1.2);
+}
+
+.form-group label[for&#x3D;&quot;privacidad&quot;],
+.form-group label[for&#x3D;&quot;condiciones&quot;] {
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+}
+
+.legal-text {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.legal-text a {
+  color: #0070ba;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.legal-text a:hover {
+  text-decoration: underline;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="auth-container">  <div class="auth-card">    <img src="assets/paypal-logo.svg" alt="PayPal Logo" class="logo">    <h2>Crear una cuenta</h2>    <p class="auth-subtitle">Regístrate para empezar a gestionar tus finanzas.</p>    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">      <div class="form-group">        <label for="nombre">Nombre</label>        <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="user.nombre" required>      </div>      <div class="form-group">        <label for="apellido">Apellido</label>        <input type="text" id="apellido" name="apellido" class="form-control" [(ngModel)]="user.apellido" required>      </div>      <div class="form-group">        <label for="rut">RUT</label>        <input type="text" id="rut" name="rut" class="form-control" [(ngModel)]="user.rut" (input)="onRutChange($event)" required>        <small *ngIf="rutError" class="form-text text-danger">{{ rutError }}</small>        <small *ngIf="rutExistsError" class="form-text text-danger">{{ rutExistsError }}</small>      </div>      <div class="form-group">        <label for="ciudad">Ciudad</label>        <input type="text" id="ciudad" name="ciudad" class="form-control" [(ngModel)]="user.ciudad" required>      </div>      <div class="form-group">        <label for="pais">País</label>        <input type="text" id="pais" name="pais" class="form-control" [(ngModel)]="user.pais" required>      </div>      <div class="form-group">        <label for="email">Correo electrónico</label>        <input type="email" id="email" name="email" class="form-control" [(ngModel)]="user.email" required email>      </div>      <div class="form-group">        <label for="password">Contraseña</label>        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="user.password" required minlength="6">      </div>      <div class="form-group">        <label for="fecha_nacimiento">Fecha de Nacimiento</label>        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control" [(ngModel)]="user.fecha_nacimiento" required>      </div>      <!-- ✅ CHECKBOXES AÑADIDOS -->      <div class="form-group">        <label>          <input type="checkbox" name="privacidad" [(ngModel)]="user.privacidad" required>          Acepto el uso de mis datos de acuerdo con las políticas de privacidad.        </label>      </div>      <div class="form-group">        <label>          <input type="checkbox" name="condiciones" [(ngModel)]="user.condiciones" required>          Acepto los términos y condiciones de evaluación crediticia.        </label>      </div>      <p style="font-size: 12px; color: #555;">        Al presionar "Crear cuenta" estás de acuerdo con nuestros         <a href="assets/terminos_y_condiciones.pdf" target="_blank">Términos y condiciones</a>        <a href="assets/politica_de_datos.pdf" target="_blank">Utilización de datos</a>      </p>      <button         type="submit"         class="btn btn-primary btn-block"         [disabled]="!registerForm.form.valid || rutError || rutExistsError || !user.privacidad || !user.condiciones"      >        Crear cuenta      </button>    </form>    <div class="auth-link">      <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>    </div>  </div></div><!-- Modal de éxito de registro --><div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">  <div class="modal-dialog modal-dialog-centered">    <div class="modal-content">      <div class="modal-header bg-success text-white">        <h5 class="modal-title" id="successModalLabel">¡Registro Exitoso!</h5>        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>      </div>      <div class="modal-body text-center">        <i class="bi bi-check-circle-fill display-3 text-success mb-3"></i>        <p class="fs-5">¡Tu cuenta ha sido creada exitosamente! Ahora puedes iniciar sesión.</p>      </div>      <div class="modal-footer justify-content-center">        <button type="button" class="btn btn-primary w-50" (click)="goToLogin()" data-bs-dismiss="modal">Iniciar sesión</button>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BalanceComponent', 'selector': 'app-balance'},{'name': 'ChatBubbleComponent', 'selector': 'app-chat-bubble'},{'name': 'ConfiguracionComponent', 'selector': 'app-configuracion'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DondeComprarComponent', 'selector': 'app-donde-comprar'},{'name': 'FinancialGoalsComponent', 'selector': 'app-financial-goals'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'Google2faComponent', 'selector': 'app-google-2fa'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MovimientosComponent', 'selector': 'app-movimientos'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PayComponent', 'selector': 'app-pay'},{'name': 'PreRegistroComponent', 'selector': 'app-pre-registro'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'SeguridadPublicaComponent', 'selector': 'app-seguridad-publica'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TarjetasComponent', 'selector': 'app-tarjetas'},{'name': 'TarjetasPublicaComponent', 'selector': 'app-tarjetas-publica'},{'name': 'TransactionsComponent', 'selector': 'app-transactions'},{'name': 'VentajasComponent', 'selector': 'app-ventajas'},{'name': 'VerifyDisable2faComponent', 'selector': 'app-verify-disable-2fa'},{'name': 'VerifyEmailComponent', 'selector': 'app-verify-email'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'RegisterComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'RegisterComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

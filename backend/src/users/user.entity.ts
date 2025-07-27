@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable */
+
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Cuenta } from '../cuentas/entities/cuenta.entity';
 import { Destinatario } from '../destinatarios/entities/destinatario.entity';

@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable */
+
 import { Injectable, NotFoundException, BadRequestException, InternalServerErrorException, UnauthorizedException, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
@@ -327,6 +329,7 @@ export class TransfersService {
       };
     });
   }
+  
   /**
    * Retorna el historial de saldos de todas las cuentas de un usuario.
    */
