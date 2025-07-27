@@ -35,40 +35,40 @@
                     <div class="col-md-6 mb-2">
                       <label class="form-label">Nombre</label>
                       <input type="text" class="form-control" [(ngModel)]="newDestinatario.nombre" name="nombre"
-                        required placeholder="Nombre" title="Nombre">
+                        required placeholder="{{ 'transactions.name' | translate }}" title="{{ 'transactions.name' | translate }}">
                     </div>
                     <div class="col-md-6 mb-2">
                       <label class="form-label">RUT</label>
                       <input type="text" class="form-control" [(ngModel)]="newDestinatario.rut" name="rut" required
-                        placeholder="RUT" title="RUT">
+                        placeholder="{{ 'transactions.rut' | translate }}" title="{{ 'transactions.rut' | translate }}">
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6 mb-2">
                       <label class="form-label">Alias</label>
                       <input type="text" class="form-control" [(ngModel)]="newDestinatario.alias" name="alias"
-                        placeholder="Alias" title="Alias">
+                        placeholder="{{ 'transactions.alias' | translate }}" title="{{ 'transactions.alias' | translate }}">
                     </div>
                     <div class="col-md-6 mb-2">
                       <label class="form-label">Email</label>
                       <input type="email" class="form-control" [(ngModel)]="newDestinatario.correo_electronico"
-                        name="email" placeholder="Email" title="Email">
+                        name="email" placeholder="{{ 'transactions.email' | translate }}" title="{{ 'transactions.email' | translate }}">
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6 mb-2">
                       <label class="form-label">Banco</label>
                       <select class="form-select" [(ngModel)]="newDestinatario.banco" name="banco" required
-                        title="Banco">
-                        <option value="">Seleccionar banco</option>
+                        title="{{ 'transactions.bank' | translate }}">
+                        <option value="">{{ 'transactions.selectBank' | translate }}</option>
                         <option *ngFor="let banco of bancos" [value]="banco">{{ banco }}</option>
                       </select>
                     </div>
                     <div class="col-md-6 mb-2">
                       <label class="form-label">Tipo de cuenta</label>
                       <select class="form-select" [(ngModel)]="newDestinatario.tipo_cuenta" name="tipo_cuenta" required
-                        title="Tipo de cuenta">
-                        <option value="">Seleccionar tipo</option>
+                        title="{{ 'transactions.accountType' | translate }}">
+                        <option value="">{{ 'transactions.selectType' | translate }}</option>
                         <option *ngFor="let tipo of tiposDeCuenta" [value]="tipo">{{ tipo }}</option>
                       </select>
                     </div>
@@ -76,7 +76,7 @@
                   <div class="mb-3">
                     <label class="form-label">Número de cuenta</label>
                     <input type="text" class="form-control" [(ngModel)]="newDestinatario.numero_cuenta"
-                      name="numero_cuenta" required placeholder="Número de cuenta" title="Número de cuenta">
+                      name="numero_cuenta" required placeholder="{{ 'transactions.accountNumber' | translate }}" title="{{ 'transactions.accountNumber' | translate }}">
                   </div>
                   <div class="d-flex gap-2">
                     <button type="submit" class="btn btn-primary">
@@ -111,20 +111,20 @@
                     </div>
                     <div class="d-flex align-items-center gap-2">
                       <button class="btn btn-sm btn-outline-warning" (click)="toggleFavorito(destinatario.id)"
-                        aria-label="Marcar como favorito" title="Marcar como favorito">
+                        aria-label="{{ 'transactions.markAsFavorite' | translate }}" title="{{ 'transactions.markAsFavorite' | translate }}">
                         <i class="bi" [class.bi-star]="!destinatario.es_favorito"
                           [class.bi-star-fill]="destinatario.es_favorito"></i>
                       </button>
                       <button class="btn btn-sm btn-outline-primary" (click)="seleccionarDestinatario(destinatario)"
-                        aria-label="Seleccionar destinatario" title="Seleccionar destinatario">
+                        aria-label="{{ 'transactions.selectRecipient' | translate }}" title="{{ 'transactions.selectRecipient' | translate }}">
                         <i class="bi bi-arrow-right"></i>
                       </button>
                       <button class="btn btn-sm btn-outline-secondary" (click)="handleEdit(destinatario)"
-                        aria-label="Editar destinatario" title="Editar destinatario">
+                        aria-label="{{ 'transactions.editRecipient' | translate }}" title="{{ 'transactions.editRecipient' | translate }}">
                         <i class="bi bi-pencil"></i>
                       </button>
                       <button class="btn btn-sm btn-outline-danger" (click)="handleDelete(destinatario.id)"
-                        aria-label="Eliminar destinatario" title="Eliminar destinatario">
+                        aria-label="{{ 'transactions.deleteRecipient' | translate }}" title="{{ 'transactions.deleteRecipient' | translate }}">
                         <i class="bi bi-trash"></i>
                       </button>
                     </div>
@@ -153,7 +153,7 @@
                     <label class="form-label">Cuenta de origen</label>
                     <ng-container *ngIf="cuentas.length > 1">
                       <select class="form-select" [(ngModel)]="cuentaOrigenId" name="cuentaOrigenId" required
-                        title="Cuenta de origen" (ngModelChange)="onCuentaOrigenChange()">
+                        title="{{ 'transactions.originAccount' | translate }}" (ngModelChange)="onCuentaOrigenChange()">
                         <option *ngFor="let cuenta of cuentas" [ngValue]="cuenta.id">
                           {{ cuenta.tipo_cuenta }} - ...{{ cuenta.numero_cuenta.slice(-4) }} ({{ cuenta.saldo |
                           currency:'CLP':'symbol':'1.0-0' }})
@@ -163,26 +163,26 @@
                     <ng-container *ngIf="cuentas.length === 1">
                       <input class="form-control"
                         [value]="cuentas[0].tipo_cuenta + ' - ...' + cuentas[0].numero_cuenta.slice(-4)" readonly
-                        title="Cuenta de origen seleccionada">
+                        title="{{ 'transactions.selectedOriginAccount' | translate }}">
                     </ng-container>
                   </div>
                   <div class="col-md-6 mb-3">
                     <label class="form-label">Nombre del destinatario</label>
                     <input type="text" class="form-control" [(ngModel)]="transferData.nombre_destinatario"
-                      name="destinatario-nombre" required placeholder="Nombre del destinatario"
-                      title="Nombre del destinatario">
+                      name="destinatario-nombre" required placeholder="{{ 'transactions.recipientName' | translate }}"
+                      title="{{ 'transactions.recipientName' | translate }}">
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label class="form-label">RUT del destinatario</label>
                     <input type="text" class="form-control" [(ngModel)]="transferData.rut_destinatario"
-                      name="destinatario-rut" required placeholder="RUT del destinatario" title="RUT del destinatario">
+                      name="destinatario-rut" required placeholder="{{ 'transactions.recipientRut' | translate }}" title="{{ 'transactions.recipientRut' | translate }}">
                   </div>
                   <div class="col-md-6 mb-3">
                     <label class="form-label">Banco de destino</label>
                     <select class="form-select" [(ngModel)]="transferData.banco_destino" name="destinatario-banco"
-                      required title="Banco de destino">
+                      required title="{{ 'transactions.destinationBank' | translate }}">
                       <option value="">Seleccionar banco</option>
                       <option *ngFor="let banco of bancos" [value]="banco">{{ banco }}</option>
                     </select>
@@ -192,7 +192,7 @@
                   <div class="col-md-6 mb-3">
                     <label class="form-label">Tipo de cuenta</label>
                     <select class="form-select" [(ngModel)]="transferData.tipo_cuenta" name="destinatario-tipo-cuenta"
-                      required title="Tipo de cuenta de destino">
+                      required title="{{ 'transactions.destinationAccountType' | translate }}">
                       <option value="">Seleccionar tipo</option>
                       <option *ngFor="let tipo of tiposDeCuenta" [value]="tipo">{{ tipo }}</option>
                     </select>
@@ -200,15 +200,15 @@
                   <div class="col-md-6 mb-3">
                     <label class="form-label">Número de cuenta</label>
                     <input type="text" class="form-control" [(ngModel)]="transferData.numero_cuenta"
-                      name="destinatario-numero-cuenta" required placeholder="Número de cuenta de destino"
-                      title="Número de cuenta de destino">
+                      name="destinatario-numero-cuenta" required placeholder="{{ 'transactions.destinationAccountNumber' | translate }}"
+                      title="{{ 'transactions.destinationAccountNumber' | translate }}">
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label class="form-label">Monto a transferir</label>
                     <input type="number" class="form-control" [(ngModel)]="transferData.monto" name="monto" required
-                      placeholder="Monto a transferir" title="Monto a transferir">
+                      placeholder="{{ 'transactions.amountToTransfer' | translate }}" title="{{ 'transactions.amountToTransfer' | translate }}">
                     <div *ngIf="montoError" class="text-danger mt-1">
                       <i class="bi bi-exclamation-triangle"></i> {{ montoError }}
                     </div>
@@ -238,7 +238,7 @@
                   <div class="col-md-6 mb-3">
                     <label class="form-label">Desde la cuenta</label>
                     <select class="form-select" [(ngModel)]="cuentaOrigenId" name="cuentaOrigen" required
-                      title="Cuenta de origen">
+                      title="{{ 'transactions.originAccount' | translate }}">
                       <option *ngIf="!cuentas.length" disabled>Cargando cuentas...</option>
                       <option *ngFor="let cuenta of cuentas" [ngValue]="cuenta.id">
                         {{ cuenta.tipo_cuenta }} (Saldo: {{ cuenta.saldo | currency:'CLP':'symbol':'1.0-0' }})
@@ -248,7 +248,7 @@
                   <div class="col-md-6 mb-3">
                     <label class="form-label">Hacia la cuenta</label>
                     <select class="form-select" [(ngModel)]="cuentaDestinoId" name="cuentaDestino" required
-                      title="Cuenta de destino">
+                      title="{{ 'transactions.destinationAccount' | translate }}">
                       <option [ngValue]="null" disabled>Selecciona una cuenta de destino</option>
                       <option *ngFor="let cuenta of filteredCuentasDestino" [ngValue]="cuenta.id">
                         {{ cuenta.tipo_cuenta }}
@@ -260,7 +260,7 @@
                   <div class="col-md-6 mb-3">
                     <label class="form-label">Monto a transferir</label>
                     <input type="number" class="form-control" [(ngModel)]="montoInterno" name="montoInterno" required
-                      placeholder="Monto a transferir" title="Monto a transferir">
+                      placeholder="{{ 'transactions.amountToTransfer' | translate }}" title="{{ 'transactions.amountToTransfer' | translate }}">
                   </div>
                 </div>
                 <button type="submit" class="btn btn-primary w-100"
@@ -284,21 +284,21 @@
               <div class="col-md-3">
                 <label>Desde:</label>
                 <input type="date" class="form-control" [(ngModel)]="fechaInicio" (change)="cargarHistorial()"
-                  title="Fecha de inicio" placeholder="Desde">
+                  title="{{ 'transactions.startDate' | translate }}" placeholder="{{ 'transactions.from' | translate }}">
               </div>
               <div class="col-md-3">
                 <label>Hasta:</label>
                 <input type="date" class="form-control" [(ngModel)]="fechaFin" (change)="cargarHistorial()"
-                  title="Fecha de fin" placeholder="Hasta">
+                  title="{{ 'transactions.endDate' | translate }}" placeholder="{{ 'transactions.to' | translate }}">
               </div>
               <div class="col-md-3">
                 <label>Monto:</label>
-                <input type="number" class="form-control" [(ngModel)]="filtroMonto" placeholder="Filtrar por monto">
+                <input type="number" class="form-control" [(ngModel)]="filtroMonto" placeholder="{{ 'transactions.filterByAmount' | translate }}">
               </div>
               <div class="col-md-3">
                 <label>Destinatario:</label>
                 <input type="text" class="form-control" [(ngModel)]="filtroDestinatario"
-                  placeholder="Filtrar por destinatario">
+                  placeholder="{{ 'transactions.filterByRecipient' | translate }}">
               </div>
             </div>
           </div>
@@ -353,21 +353,21 @@
 
   <ng-template #bepassModal let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Confirmar Transferencia</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      <h4 class="modal-title" id="modal-basic-title">{{ 'transactions.confirmTransfer' | translate }}</h4>
+                      <button type="button" class="btn-close" aria-label="{{ 'common.close' | translate }}" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-      <p>Por su seguridad, ingrese su Clave Be Pass para confirmar la transferencia.</p>
+      <p>{{ 'transactions.securityBePassMessage' | translate }}</p>
 
       <div class="mb-3">
-        <label for="bepassInput" class="form-label">Clave Be Pass</label>
+        <label for="bepassInput" class="form-label">{{ 'security.bePassKey' | translate }}</label>
         <input type="password" class="form-control" id="bepassInput" [(ngModel)]="bepassFromModal"
-          name="bepassFromModal" (keyup.enter)="confirmTransferWithBepass(); modal.close()" placeholder="Clave Be Pass"
-          title="Clave Be Pass">
+          name="bepassFromModal" (keyup.enter)="confirmTransferWithBepass(); modal.close()" placeholder="{{ 'security.bePassKey' | translate }}"
+                                title="{{ 'security.bePassKey' | translate }}">
       </div>
 
       <div class="alert alert-warning text-center" *ngIf="isCountdownRunning">
-        Tiempo restante: <span class="fw-bold">{{ countdownDisplay }}</span>
+        {{ 'transactions.remainingTime' | translate }}: <span class="fw-bold">{{ countdownDisplay }}</span>
       </div>
     </div>
     <div class="modal-footer">
@@ -382,8 +382,8 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Detalles de la Transferencia</h5>
-          <button type="button" class="btn-close" aria-label="Cerrar" (click)="cerrarDetalles()"></button>
+          <h5 class="modal-title">{{ 'transactions.transferDetails' | translate }}</h5>
+                          <button type="button" class="btn-close" aria-label="{{ 'common.close' | translate }}" (click)="cerrarDetalles()"></button>
         </div>
         <div class="modal-body">
           <p><b>Fecha:</b> {{ transferenciaSeleccionada.fecha | date:'dd/MM/yyyy' }}</p>

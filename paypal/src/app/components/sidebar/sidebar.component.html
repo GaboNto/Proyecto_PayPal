@@ -1,6 +1,6 @@
-<aside class="sidebar" *ngIf="(isLoggedIn$ | async) && mostrarSidebar" role="navigation" aria-label="Sidebar principal">
+<aside class="sidebar" *ngIf="(isLoggedIn$ | async) && mostrarSidebar" role="navigation" aria-label="{{ 'sidebar.main' | translate }}">
 
-    <div class="sidebar-logo" routerLink="/" role="link" aria-label="Ir a página principal">
+    <div class="sidebar-logo" routerLink="/" role="link" aria-label="{{ 'sidebar.goToMain' | translate }}">
         <img src="assets/logo3.webp" alt="Logo" />
     </div>
 
