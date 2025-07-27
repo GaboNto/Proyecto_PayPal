@@ -2,12 +2,11 @@
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-content">
-            <h1>La forma más segura y fácil de mover tu dinero</h1>
-            <p class="hero-subtitle">Gestiona tus finanzas de manera inteligente con nuestra plataforma segura y
-                confiable</p>
+            <h1>{{ 'home.hero.title' | translate }}</h1>
+            <p class="hero-subtitle">{{ 'home.hero.subtitle' | translate }}</p>
             <div class="cta-buttons">
-                <a *ngIf="!(isLoggedIn$ | async)" routerLink="/pre-registro" class="btn btn-primary">Comenzar ahora</a>
-                <a href="#features" class="btn btn-secondary">Conoce más</a>
+                <a *ngIf="!(isLoggedIn$ | async)" routerLink="/pre-registro" class="btn btn-primary">{{ 'home.hero.getStarted' | translate }}</a>
+                <a href="#features" class="btn btn-secondary">{{ 'home.hero.learnMore' | translate }}</a>
             </div>
         </div>
         <div class="hero-image">
@@ -17,7 +16,7 @@
 
     <!-- Features Section -->
     <section id="features" class="features-section">
-        <h2>Todo lo que necesitas en un solo lugar</h2>
+        <h2>{{ 'home.features.title' | translate }}</h2>
         <div class="features-grid">
             <!-- Eliminar el feature-card de balance -->
             <!--
@@ -34,32 +33,32 @@
                 <div class="feature-icon">
                     <i class="fas fa-exchange-alt"></i>
                 </div>
-                <h3>Transacciones seguras</h3>
-                <p>Realiza y monitorea todas tus transferencias con la máxima seguridad y protección.</p>
-                <a routerLink="/transactions" class="feature-link">Ver transacciones <i
+                <h3>{{ 'home.features.secure' | translate }}</h3>
+                <p>{{ 'home.features.secureDesc' | translate }}</p>
+                <a routerLink="/transactions" class="feature-link">{{ 'transactions.title' | translate }} <i
                         class="fas fa-arrow-right"></i></a>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-bullseye"></i>
                 </div>
-                <h3>Metas financieras</h3>
-                <p>Establece y alcanza tus objetivos de ahorro y gasto de manera sencilla.</p>
-                <a routerLink="/financial-goals" class="feature-link">Ver metas <i class="fas fa-arrow-right"></i></a>
+                <h3>{{ 'home.features.fast' | translate }}</h3>
+                <p>{{ 'home.features.fastDesc' | translate }}</p>
+                <a routerLink="/financial-goals" class="feature-link">{{ 'common.view' | translate }} {{ 'common.goals' | translate }} <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-user-friends"></i>
                 </div>
-                <h3>Pagos entre amigos</h3>
-                <p>Envía y recibe dinero de tus contactos de forma rápida y sin comisiones ocultas.</p>
+                <h3>{{ 'home.features.convenient' | translate }}</h3>
+                <p>{{ 'home.features.convenientDesc' | translate }}</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-shield-alt"></i>
                 </div>
-                <h3>Protección avanzada</h3>
-                <p>Encriptación de datos, autenticación de dos factores y monitoreo 24/7 para tu tranquilidad.</p>
+                <h3>{{ 'home.features.free' | translate }}</h3>
+                <p>{{ 'home.features.freeDesc' | translate }}</p>
             </div>
         </div>
     </section>
@@ -67,12 +66,12 @@
     <!-- Security Section -->
     <section class="security-section">
         <div class="security-content">
-            <h2>Tu seguridad es nuestra prioridad</h2>
-            <p>Utilizamos la última tecnología en seguridad para proteger tus transacciones y datos personales</p>
+            <h2>{{ 'security.title' | translate }}</h2>
+            <p>{{ 'security.description' | translate }}</p>
             <ul class="security-features">
-                <li><i class="fas fa-shield-alt"></i> Encriptación de datos avanzada</li>
-                <li><i class="fas fa-lock"></i> Autenticación de dos factores</li>
-                <li><i class="fas fa-user-shield"></i> Monitoreo 24/7</li>
+                <li><i class="fas fa-shield-alt"></i> {{ 'security.encryption' | translate }}</li>
+                <li><i class="fas fa-lock"></i> {{ 'security.twoFactor' | translate }}</li>
+                <li><i class="fas fa-user-shield"></i> {{ 'security.monitoring' | translate }}</li>
             </ul>
         </div>
     </section>

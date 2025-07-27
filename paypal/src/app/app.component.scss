@@ -1,6 +1,7 @@
 // Estilos globales del componente principal
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   background-color: #f5f5f5;
 }
@@ -11,8 +12,14 @@
   width: 100%;
 }
 
+.layout-wrapper {
+  display: flex;
+  flex: 1;
+}
+
 .main-container {
+  flex: 1;
   padding: 20px;
-  min-height: calc(100vh - 60px); // Ajusta esto según la altura de tu navbar
+  min-height: calc(100vh - 60px - 300px); // Ajusta para el navbar y footer
   background-color: #f8fafc;
 } 

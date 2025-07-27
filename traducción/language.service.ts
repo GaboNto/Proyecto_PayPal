@@ -37,10 +37,4 @@ export class LanguageService {
   getLanguage(): Language {
     return this.languageSubject.value;
   }
-
-  toggleLanguage() {
-    const currentLang = this.getLanguage();
-    const newLang = currentLang === 'es' ? 'en' : 'es';
-    this.setLanguage(newLang);
-  }
 } 

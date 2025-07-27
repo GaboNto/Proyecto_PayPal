@@ -32,9 +32,7 @@ const pagos_module_1 = require("./pagos/pagos.module");
 const pago_entity_1 = require("./pagos/entities/pago.entity");
 const chatbot_module_1 = require("./chatbot/chatbot.module");
 const movimientos_module_1 = require("./movimientos/movimientos.module");
-const crypto = require("crypto");
 const historial_saldos_1 = require("./transfers/entities/historial-saldos");
-global.crypto = crypto;
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;

@@ -2,18 +2,17 @@
 
   <!-- Saldo Actual -->
   <div class="saldo-actual-banner text-center shadow-sm mb-4">
-    <h6 class="text-uppercase mb-1">Saldo Actual</h6>
+    <h6 class="text-uppercase mb-1">{{ 'transactions.balance' | translate }}</h6>
     <p class="h2 fw-bold mb-0">{{ saldoActual | currency:'CLP':'symbol-narrow':'1.0-0' }}</p>
   </div>
 
   <div class="transactions-container">
     <div class="tabs mb-4">
-      <button class="btn btn-outline-primary me-2" (click)="selectTab('new')" [class.active]="activeTab === 'new'">Nueva
-        Transferencia</button>
+      <button class="btn btn-outline-primary me-2" (click)="selectTab('new')" [class.active]="activeTab === 'new'">{{ 'transactions.newTransfer' | translate }}</button>
       <button class="btn btn-outline-primary me-2" (click)="selectTab('internal')"
-        [class.active]="activeTab === 'internal'">Transferir entre mis Cuentas</button>
+        [class.active]="activeTab === 'internal'">{{ 'transactions.internalTransfer' | translate }}</button>
       <button class="btn btn-outline-primary" (click)="selectTab('history')"
-        [class.active]="activeTab === 'history'">Historial</button>
+        [class.active]="activeTab === 'history'">{{ 'transactions.history' | translate }}</button>
     </div>
 
     <!-- Nueva Transferencia -->

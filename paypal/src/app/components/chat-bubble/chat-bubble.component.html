@@ -5,7 +5,7 @@
 
   <div class="chat-window" *ngIf="isExpanded" (click)="$event.stopPropagation()">
     <div class="chat-header">
-      <span>Asesor Financiero</span>
+      <span>{{ 'chat.financialAdvisor' | translate }}</span>
       <button (click)="isExpanded = false; $event.stopPropagation()">X</button>
 
     </div>
@@ -18,8 +18,8 @@
     </div>
 
     <div class="chat-input">
-      <input [(ngModel)]="inputMessage" placeholder="Escribe un mensaje..." (keydown.enter)="sendMessage()" />
-      <button (click)="sendMessage()">Enviar</button>
+      <input [(ngModel)]="inputMessage" placeholder="{{ 'chat.writeMessage' | translate }}" (keydown.enter)="sendMessage()" />
+      <button (click)="sendMessage()">{{ 'chat.send' | translate }}</button>
     </div>
   </div>
 </div>

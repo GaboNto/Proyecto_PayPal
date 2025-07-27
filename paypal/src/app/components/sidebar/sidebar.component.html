@@ -5,39 +5,39 @@
     </div>
 
     <nav class="sidebar-nav">
-        <a routerLink="/profile" routerLinkActive="active" data-tooltip="Perfil" role="link" tabindex="0">
+        <a routerLink="/profile" routerLinkActive="active" role="link" tabindex="0">
             <span class="icon icon-user" aria-hidden="true"></span>
-            Perfil
+            {{ 'profile.title' | translate }}
         </a>
 
-        <a routerLink="/dashboard" routerLinkActive="active" data-tooltip="Dashboard" role="link" tabindex="0">
+        <a routerLink="/dashboard" routerLinkActive="active" role="link" tabindex="0">
             <span class="icon icon-dashboard" aria-hidden="true"></span>
-            Dashboard
+            {{ 'sidebar.dashboard' | translate }}
         </a>
 
-        <a routerLink="/tarjetas" data-tooltip="Tarjetas" role="link" tabindex="0">
+        <a routerLink="/tarjetas" role="link" tabindex="0">
             <span class="icon icon-card" aria-hidden="true"></span>
-            Tarjetas
+            {{ 'cards.title' | translate }}
         </a>
 
-        <a routerLink="/transactions" routerLinkActive="active" data-tooltip="Transferencias" role="link" tabindex="0">
+        <a routerLink="/transactions" routerLinkActive="active" role="link" tabindex="0">
             <span class="icon icon-transfer" aria-hidden="true"></span>
-            Transferencias
+            {{ 'transactions.title' | translate }}
         </a>
 
-        <a routerLink="/movimientos" routerLinkActive="active" data-tooltip="Movimientos" role="link" tabindex="0">
+        <a routerLink="/movimientos" routerLinkActive="active" role="link" tabindex="0">
             <span class="icon icon-movements" aria-hidden="true"></span>
-            Movimientos
+            {{ 'transactions.title' | translate }}
         </a>
 
-        <a routerLink="/configuracion" routerLinkActive="active" data-tooltip="Configuración" role="link" tabindex="0">
+        <a routerLink="/configuracion" routerLinkActive="active" role="link" tabindex="0">
             <span class="icon icon-settings" aria-hidden="true"></span>
-            Configuración
+            {{ 'settings.title' | translate }}
         </a>
 
-        <a (click)="logout()" data-tooltip="Cerrar sesión" role="button" tabindex="0">
+        <a (click)="logout()" role="button" tabindex="0">
             <span class="icon icon-logout" aria-hidden="true"></span>
-            Cerrar sesión
+            {{ 'auth.logout' | translate }}
         </a>
     </nav>
 </aside>

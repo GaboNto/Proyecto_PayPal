@@ -4,19 +4,18 @@
       <a routerLink="/"><img src="assets/paypal-logo.svg" alt="PayPal Logo"></a>
     </div>
     <div class="navbar-links">
-      <a routerLink="/ventajas">¿Por Qué Paypal?</a>
-      <a routerLink="/tarjetas-publica">Tarjetas</a>
-      <a href="#features">Característica</a>
-      <a routerLink="/donde-comprar">¿Dónde comprar?</a>
+      <a routerLink="/ventajas">{{ 'home.features.title' | translate }}</a>
+      <a routerLink="/tarjetas-publica">{{ 'cards.title' | translate }}</a>
+      <a href="#features">{{ 'common.features' | translate }}</a>
+      <a routerLink="/donde-comprar">{{ 'home.features.convenient' | translate }}</a>
     </div>
     <div class="navbar-actions">
       <ng-container *ngIf="isLoggedIn$ | async; else showLogin">
-        <button class="btn-logout" routerLink="/profile">Perfil</button>
-
+        <button class="btn-logout" routerLink="/profile">{{ 'profile.title' | translate }}</button>
       </ng-container>
       <ng-template #showLogin>
-        <a routerLink="/login" class="btn-login">Iniciar Sesión</a>
-        <a routerLink="/pre-registro" class="btn-register">Registrarse</a>
+        <a routerLink="/login" class="btn-login">{{ 'auth.login' | translate }}</a>
+        <a routerLink="/pre-registro" class="btn-register">{{ 'auth.register' | translate }}</a>
       </ng-template>
     </div>
   </nav>
