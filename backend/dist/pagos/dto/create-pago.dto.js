@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreatePagoDto = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class CreatePagoDto {
     numeroCuenta;
     monto;
@@ -18,16 +19,29 @@ class CreatePagoDto {
 }
 exports.CreatePagoDto = CreatePagoDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'El número de cuenta desde la cual se realizará el pago.',
+        example: '1234567890',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreatePagoDto.prototype, "numeroCuenta", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'El monto del pago. Debe ser un número entero.',
+        example: 10000,
+        type: 'integer',
+    }),
     (0, class_validator_1.IsInt)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
 ], CreatePagoDto.prototype, "monto", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Una descripción del pago.',
+        example: 'Pago de arriendo mensual',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)

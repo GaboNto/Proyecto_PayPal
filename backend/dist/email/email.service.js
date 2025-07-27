@@ -18,7 +18,7 @@ let EmailService = class EmailService {
         },
     });
     async sendLoginNotification(to, nombre) {
-        const cambioContraeña = 'http://localhost:4200/forgot-password';
+        const cambioContraeña = 'http://paypalbank.sytes.net:3000/forgot-password';
         const fecha = new Date().toLocaleString('es-CL', { timeZone: 'America/Santiago' });
         const info = await this.transporter.sendMail({
             from: '"PayPal" <no-reply@paypal-clone.com>',

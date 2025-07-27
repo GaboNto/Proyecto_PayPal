@@ -20,6 +20,7 @@ const set_bepass_dto_1 = require("./dto/set-bepass.dto");
 const verify_bepass_dto_1 = require("./dto/verify-bepass.dto");
 const speakeasy = require("speakeasy");
 const qrcode = require("qrcode");
+const swagger_1 = require("@nestjs/swagger");
 let UsersController = class UsersController {
     usersService;
     constructor(usersService) {
@@ -77,6 +78,24 @@ exports.UsersController = UsersController;
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('profile'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Obtiene el perfil del usuario autenticado' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Perfil del usuario obtenido exitosamente',
+        schema: {
+            type: 'object',
+            properties: {
+                id: { type: 'integer', example: 1 },
+                nombre: { type: 'string', example: 'Juan' },
+                apellido: { type: 'string', example: 'Pérez' },
+                email: { type: 'string', example: 'juan.perez@example.com' },
+                rut: { type: 'string', example: '12345678-9' },
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado (token JWT inválido o ausente)' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -85,6 +104,19 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('verify-bepass'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Verifica la clave BePass del usuario' }),
+    (0, swagger_1.ApiBody)({ type: verify_bepass_dto_1.VerifyBepassDto, description: 'Clave BePass a verificar' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200, description: 'Clave BePass verificada exitosamente', schema: {
+            type: 'object',
+            properties: {
+                success: { type: 'boolean', example: true }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado o clave BePass incorrecta' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
@@ -94,6 +126,20 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Patch)('set-bepass'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Establece o actualiza la clave BePass del usuario' }),
+    (0, swagger_1.ApiBody)({ type: set_bepass_dto_1.SetBepassDto, description: 'Nueva clave BePass y contraseña actual' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200, description: 'Clave BePass establecida/actualizada exitosamente', schema: {
+            type: 'object',
+            properties: {
+                success: { type: 'boolean', example: true }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: 'Datos inválidos o contraseña actual incorrecta' }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
@@ -103,6 +149,18 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('has-bepass'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Verifica si el usuario tiene una clave BePass configurada' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200, description: 'Estado de BePass del usuario', schema: {
+            type: 'object',
+            properties: {
+                hasBepass: { type: 'boolean', example: true }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -111,6 +169,19 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('2fa/setup'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Inicia la configuración de la autenticación de dos factores (2FA) para el usuario' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200, description: 'Retorna el secreto TOTP y un código QR para configurar 2FA', schema: {
+            type: 'object',
+            properties: {
+                secret: { type: 'string', example: 'JBSWY3DPEHPK3PXP' },
+                qr: { type: 'string', example: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...' }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -119,6 +190,28 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('2fa/verify'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Verifica el código TOTP para la autenticación de dos factores (2FA)' }),
+    (0, swagger_1.ApiBody)({
+        schema: {
+            type: 'object',
+            properties: {
+                code: { type: 'string', example: '123456', minLength: 6, maxLength: 6 }
+            },
+            required: ['code']
+        },
+        description: 'Código TOTP de 6 dígitos generado por la aplicación de autenticación'
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200, description: 'Código 2FA verificado exitosamente', schema: {
+            type: 'object',
+            properties: {
+                success: { type: 'boolean', example: true }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado o código 2FA incorrecto/no configurado' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)('code')),
     __metadata("design:type", Function),
@@ -126,6 +219,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "verify2FA", null);
 exports.UsersController = UsersController = __decorate([
+    (0, swagger_1.ApiTags)('Users'),
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);

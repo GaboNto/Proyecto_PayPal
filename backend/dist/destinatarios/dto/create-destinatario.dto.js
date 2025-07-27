@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateDestinatarioDto = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class CreateDestinatarioDto {
     nombre;
     rut;
@@ -22,37 +23,69 @@ class CreateDestinatarioDto {
 }
 exports.CreateDestinatarioDto = CreateDestinatarioDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Nombre del destinatario',
+        example: 'Carlos',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)({ message: 'El nombre es requerido.' }),
     __metadata("design:type", String)
 ], CreateDestinatarioDto.prototype, "nombre", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'RUT (Rol Único Tributario) del destinatario',
+        example: '11222333-4',
+        pattern: '^[0-9]{1,2}\\.?[0-9]{3}\\.?[0-9]{3}-?[0-9kK]{1}$',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)({ message: 'El RUT es requerido.' }),
     (0, class_validator_1.Matches)(/^[0-9]{1,2}\.?[0-9]{3}\.?[0-9]{3}-?[0-9kK]{1}$/, { message: 'El formato del RUT no es válido.' }),
     __metadata("design:type", String)
 ], CreateDestinatarioDto.prototype, "rut", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Alias o apodo para el destinatario (opcional)',
+        example: 'Amigo del trabajo',
+        required: false,
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateDestinatarioDto.prototype, "alias", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Correo electrónico del destinatario (opcional)',
+        example: 'carlos.rodriguez@example.com',
+        format: 'email',
+        required: false,
+    }),
     (0, class_validator_1.IsEmail)({}, { message: 'El correo electrónico no es válido.' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateDestinatarioDto.prototype, "correo_electronico", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Nombre del banco del destinatario',
+        example: 'Banco de Chile',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)({ message: 'El banco es requerido.' }),
     __metadata("design:type", String)
 ], CreateDestinatarioDto.prototype, "banco", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Tipo de cuenta del destinatario (ej. Cuenta Corriente, Cuenta de Ahorro)',
+        example: 'Cuenta Corriente',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)({ message: 'El tipo de cuenta es requerido.' }),
     __metadata("design:type", String)
 ], CreateDestinatarioDto.prototype, "tipo_cuenta", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Número de cuenta del destinatario',
+        example: '987654321',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)({ message: 'El número de cuenta es requerido.' }),
     __metadata("design:type", String)

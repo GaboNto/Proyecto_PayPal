@@ -16,6 +16,7 @@ exports.CardController = void 0;
 const common_1 = require("@nestjs/common");
 const card_service_1 = require("./card.service");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const swagger_1 = require("@nestjs/swagger");
 let CardController = class CardController {
     cardService;
     constructor(cardService) {
@@ -29,6 +30,30 @@ exports.CardController = CardController;
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Patch)(':id/toggle-block'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Cambia el estado de bloqueo de una tarjeta (bloquear/desbloquear)' }),
+    (0, swagger_1.ApiParam)({
+        name: 'id',
+        description: 'ID UUID de la tarjeta a bloquear/desbloquear',
+        type: 'string',
+        format: 'uuid',
+        example: '123e4567-e89b-12d3-a456-426614174000'
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Estado de bloqueo de la tarjeta actualizado exitosamente',
+        schema: {
+            type: 'object',
+            properties: {
+                id: { type: 'string', format: 'uuid', example: '123e4567-e89b-12d3-a456-426614174000' },
+                cardNumber: { type: 'string', example: '**** **** **** 1234' },
+                is_blocked: { type: 'boolean', example: true },
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado (token JWT inválido o ausente)' }),
+    (0, swagger_1.ApiResponse)({ status: 403, description: 'Prohibido (el usuario no tiene permisos para esta tarjeta)' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Tarjeta no encontrada' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
@@ -36,6 +61,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CardController.prototype, "toggleBlockStatus", null);
 exports.CardController = CardController = __decorate([
+    (0, swagger_1.ApiTags)('Cards'),
     (0, common_1.Controller)('cards'),
     __metadata("design:paramtypes", [card_service_1.CardService])
 ], CardController);

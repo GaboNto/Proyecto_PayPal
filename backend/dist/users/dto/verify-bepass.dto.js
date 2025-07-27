@@ -11,11 +11,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.VerifyBepassDto = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class VerifyBepassDto {
     bepass;
 }
 exports.VerifyBepassDto = VerifyBepassDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'La clave BePass de 6 dígitos a verificar.',
+        example: '123456',
+        minLength: 6,
+        maxLength: 6,
+        pattern: '^[0-9]+$',
+    }),
     (0, class_validator_1.IsString)({ message: 'La clave Be Pass debe ser un texto.' }),
     (0, class_validator_1.IsNotEmpty)({ message: 'La clave Be Pass no puede estar vacía.' }),
     (0, class_validator_1.Length)(6, 6, { message: 'La clave Be Pass debe tener exactamente 6 dígitos.' }),
