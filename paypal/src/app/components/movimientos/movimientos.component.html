@@ -1,7 +1,28 @@
+<div class="filtros">
+    <label>
+        Categoría:
+        <select [(ngModel)]="filtroCategoria">
+            <option value="">Todas</option>
+            <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+        </select>
+    </label>
+
+    <label>
+        Fecha inicio:
+        <input type="date" [(ngModel)]="filtroFechaInicio" />
+    </label>
+
+    <label>
+        Fecha fin:
+        <input type="date" [(ngModel)]="filtroFechaFin" />
+    </label>
+</div>
+
+<!-- Aquí va el resto del template de la tabla, usando movimientosFiltrados en vez de movimientos -->
 <div *ngIf="loading" class="loading">Cargando movimientos...</div>
 <div *ngIf="error" class="error">{{ error }}</div>
 
-<div class="table-container" *ngIf="!loading && !error && movimientos.length > 0">
+<div class="table-container" *ngIf="!loading && !error && movimientosFiltrados.length > 0">
     <table>
         <thead>
             <tr>
@@ -12,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let movimiento of movimientos">
+            <tr *ngFor="let movimiento of movimientosFiltrados">
                 <td>{{ movimiento.fecha | date:'short' }}</td>
                 <td>{{ movimiento.descripcion }}</td>
                 <td>{{ movimiento.categoria }}</td>
@@ -24,7 +45,7 @@
     </table>
 </div>
 
-<div *ngIf="!loading && movimientos.length === 0" class="empty-state">
+<div *ngIf="!loading && movimientosFiltrados.length === 0" class="empty-state">
     <h3>No hay movimientos</h3>
     <p>Cuando los haya, aparecerán aquí.</p>
 </div>

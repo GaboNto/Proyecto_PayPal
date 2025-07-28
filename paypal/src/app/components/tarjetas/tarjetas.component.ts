@@ -10,6 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, timer } from 'rxjs';
 import { FormatCardNumberPipe } from '../../utils/format-card-number.pipe';
 import { Router } from '@angular/router';
+import { ENDPOINTS } from '../../config/api-config';
 
 // Interfaces para tipar los datos del backend
 export interface Card {
@@ -22,6 +23,7 @@ export interface Card {
 
 export interface CuentaConTarjeta extends Cuenta {
   cards: Card[];
+
 }
 
 @Component({
@@ -43,6 +45,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
   showSelectionPanel: boolean = false;
   error: string | null = null;
   hasCuentaDeAhorro: boolean = false;
+  private baseUrl = ENDPOINTS.base;
 
   // El estado de la tarjeta ya no se guarda aquí
   showFullCardDetails: boolean = false;
@@ -59,7 +62,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private cdr: ChangeDetectorRef,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadInitialData();
@@ -78,8 +81,8 @@ export class TarjetasComponent implements OnInit, OnDestroy {
 
   loadInitialData(): void {
     this.isLoading = true;
-    // Obtener nombre del usuario
-    this.http.get<any>('http://localhost:3000/api/users/profile').pipe(
+    // Obtener nombre del usuario        'http://localhost:3000/api/users/profile'
+    this.http.get<any>(`${this.baseUrl}/auth/login`).pipe(
       tap(profile => {
         this.userName = `${profile.nombre} ${profile.apellido}`.toUpperCase();
         this.titular = this.userName; // Actualizar titular aquí
@@ -127,7 +130,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
       }
     });
   }
-  
+
   solicitarCuentaDeAhorro(): void {
     // Mostrar el modal Bootstrap
     const modal = new (window as any).bootstrap.Modal(document.getElementById('cuentaAhorroModal'));
@@ -169,9 +172,9 @@ export class TarjetasComponent implements OnInit, OnDestroy {
 
     // Si la tarjeta está bloqueada, necesitamos la clave para desbloquear
     if (this.currentCard.is_blocked && !isVerified) {
-       // El modal debe ser abierto por otro método que pase la plantilla.
-       // Esta lógica se moverá al manejador del botón.
-      return; 
+      // El modal debe ser abierto por otro método que pase la plantilla.
+      // Esta lógica se moverá al manejador del botón.
+      return;
     }
 
     const newStatus = !this.currentCard.is_blocked;
@@ -213,7 +216,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
       this.error = "La clave Be Pass debe tener 6 dígitos.";
       return;
     }
-    
+
     this.userService.verifyBepass(bepass).subscribe({
       next: (response: { success: boolean }) => {
         if (response.success) {
@@ -234,7 +237,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
       }
     });
   }
-  
+
   revealCardDetails(): void {
     this.showCardDetails = true;
     this.cdr.detectChanges();

@@ -33,10 +33,13 @@ export class MovimientosService {
         return usuario?.nombre || `usuario #${id}`;
     }
 
-    private async obtenerCuenta(id: number): Promise<string> {
-        const cuenta = await this.cuentaRepository.findOneBy({ id });
+
+
+    private async obtenerCuenta(cuenta_destino: string): Promise<string> {
+        const cuenta = await this.cuentaRepository.findOneBy({ numero_cuenta: cuenta_destino });
         return cuenta?.tipo_cuenta ?? 'Desconocida';
     }
+
 
 
     async obtenerMovimientosPorUsuario(idUsuario: number): Promise<MovimientoHistorialDto[]> {
@@ -68,13 +71,14 @@ export class MovimientosService {
 
             const esEmisor = t.usuario_id_origen === idUsuario;
             const otroUsuarioId = esEmisor ? t.id_usuario_destino : t.usuario_id_origen;
+            let tipoCuenta;
             let nombreOtro;
             if (idUsuario == otroUsuarioId) {
-                nombreOtro = await this.obtenerCuenta(t.id!)
+                tipoCuenta = await this.obtenerCuenta(t.cuenta_destino!)
                 historial.push({
                     fecha: t.fecha,
                     descripcion:
-                        `Transferencia a ${nombreOtro}`,
+                        `Transferencia a ${tipoCuenta}`,
                     categoria: 'Transferencia',
                     abono: esEmisor ? t.monto : t.monto,
                 });
@@ -95,7 +99,6 @@ export class MovimientosService {
         }
 
         historial.sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
-        console.log(historial)
         return historial;
     }
 

@@ -46,4 +46,64 @@
 }
 .shop-item:hover {
   box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+.comercio-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  display: block;
+  margin: 0 auto 0.5rem auto;
+  padding: 4px;
+  background: none;
+}
+.comercio-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.popular-badge {
+  display: block;
+  margin: 0 auto 0.5rem auto;
+  text-align: center;
+  font-weight: 600;
+  color: #e25822;
+  background: #fff6f0;
+  border-radius: 8px;
+  padding: 2px 10px;
+  font-size: 0.95rem;
+  width: fit-content;
+}
+.comercio-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+.paypal-badge {
+  color: #0070ba;
+  background: #e6f0fa;
+  border-radius: 8px;
+  padding: 2px 10px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-align: left;
+  flex: 1;
+  max-width: 60%;
+}
+.visitar-btn {
+  background: #0070ba;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-left: auto;
+}
+.visitar-btn:hover {
+  background: #005fa3;
 } 

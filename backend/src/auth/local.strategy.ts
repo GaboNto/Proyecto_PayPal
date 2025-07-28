@@ -10,10 +10,18 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(email: string, password: string): Promise<any> {
+    console.log('LocalStrategy - Email recibido:', email);
+    console.log('LocalStrategy - Password recibido:', password ? '***' : 'undefined');
+    
     const user = await this.authService.validateUser(email, password);
+    console.log('LocalStrategy - Usuario validado:', user ? 'Sí' : 'No');
+    
     if (!user) {
+      console.log('LocalStrategy - Lanzando UnauthorizedException');
       throw new UnauthorizedException('Credenciales incorrectas');
     }
+    
+    console.log('LocalStrategy - Usuario retornado exitosamente');
     return user;
   }
 } 

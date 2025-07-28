@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateCardDto = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class CreateCardDto {
     cardNumber;
     cvv;
@@ -18,16 +19,33 @@ class CreateCardDto {
 }
 exports.CreateCardDto = CreateCardDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'El número de la tarjeta (16 dígitos)',
+        example: '1234567890123456',
+        minLength: 16,
+        maxLength: 16,
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Length)(16, 16, { message: 'El número de tarjeta debe tener 16 dígitos' }),
     __metadata("design:type", String)
 ], CreateCardDto.prototype, "cardNumber", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'El código de seguridad CVV (3 dígitos)',
+        example: '123',
+        minLength: 3,
+        maxLength: 3,
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Length)(3, 3, { message: 'El CVV debe tener 3 dígitos' }),
     __metadata("design:type", String)
 ], CreateCardDto.prototype, "cvv", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'La fecha de expiración de la tarjeta en formato MM/YY',
+        example: '12/25',
+        pattern: '^(0[1-9]|1[0-2])\\/\\d{2}$',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Matches)(/^(0[1-9]|1[0-2])\/\d{2}$/, {
         message: 'La fecha debe tener el formato MM/YY',

@@ -18,13 +18,13 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import * as nodemailer from 'nodemailer';
 import { randomBytes } from 'crypto';
+import { EmailService } from 'src/email/email.service';
 
 @Injectable()
 export class AuthService {
   private transporter: nodemailer.Transporter;
   // Almacenamiento temporal de tokens: { token: { email, expires } }
   private recoveryTokens: Record<string, { email: string; expires: number }> = {};
-  private emailVerificationTokens: Record<string, { email: string; expires: number }> = {};
 
   constructor(
     private usersService: UsersService,
@@ -35,6 +35,7 @@ export class AuthService {
     private cuentasRepository: Repository<Cuenta>,
     @InjectRepository(Card)
     private cardRepository: Repository<Card>,
+    private readonly emailService: EmailService
   ) {
     // Configuración de Ethereal
     nodemailer.createTestAccount().then((testAccount) => {
@@ -52,12 +53,26 @@ export class AuthService {
 
   // Validar al usuario comparando la contraseña
   async validateUser(email: string, pass: string): Promise<any> {
+    console.log('ValidateUser - Email recibido:', email);
+    console.log('ValidateUser - Password recibido:', pass ? '***' : 'undefined');
+    
     const user = await this.usersRepository.findOne({ where: { email } });
-    if (user && (await bcrypt.compare(pass, user.password))) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...result } = user;
-      return result;
+    console.log('ValidateUser - Usuario encontrado:', user ? 'Sí' : 'No');
+    
+    if (user) {
+      console.log('ValidateUser - Comparando contraseñas...');
+      const isPasswordValid = await bcrypt.compare(pass, user.password);
+      console.log('ValidateUser - Contraseña válida:', isPasswordValid);
+      
+      if (isPasswordValid) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, ...result } = user;
+        console.log('ValidateUser - Usuario validado exitosamente');
+        return result;
+      }
     }
+    
+    console.log('ValidateUser - Validación fallida');
     return null;
   }
 
@@ -66,7 +81,7 @@ export class AuthService {
     const payload = { username: user.email, sub: user.id_usuario };
 
     // Enviar notificación por correo
-    await this.sendLoginNotification(user.email, user.nombre);
+    await this.emailService.sendLoginNotification(user.email, user.nombre);
 
     return {
       accessToken: this.jwtService.sign(payload),
@@ -156,19 +171,6 @@ export class AuthService {
     return { message: 'Contraseña restablecida correctamente.' };
   }
 
-  async sendEmailVerification(email: string) {
-    // Generar token aleatorio
-    const token = randomBytes(32).toString('hex');
-    // Guardar token con expiración (ej: 1 hora)
-    this.emailVerificationTokens[token] = {
-      email,
-      expires: Date.now() + 60 * 60 * 1000,
-    };
-    // Enviar correo
-    await this.sendVerificationEmail(email, token);
-    return { message: 'Se ha enviado un correo de verificación.' };
-  }
-
   private async sendRecoveryEmail(to: string, token: string) {
     const info = await this.transporter.sendMail({
       from: 'no-reply@paypal-clone.com',
@@ -181,48 +183,6 @@ export class AuthService {
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   }
 
-  private async sendLoginNotification(to: string, nombre: string) {
-    let cambioContraeña = 'http://localhost:4200/forgot-password'
-    const info = await this.transporter.sendMail({
-      from: 'no-reply@paypal-clone.com',
-      to,
-      subject: 'Notificación de inicio de sesión',
-      text: `Hola ${nombre}, se ha iniciado sesión en tu cuenta.`,
-      html: `
-      <p>Hola <strong>${nombre}</strong>,</p>
-      <p>Se ha iniciado sesión en tu cuenta de PayPal.</p>
-      <p>Si no fuiste tú, por favor cambia tu contraseña de inmediato en: <strong>${cambioContraeña}</strong>.</p>
-      <p><small>Fecha y hora: ${new Date().toLocaleString()}</small></p>
-    `
-    });
 
-    console.log('Login email enviado. Vista previa: %s', nodemailer.getTestMessageUrl(info));
-  }
-
-  private async sendVerificationEmail(to: string, token: string) {
-    const info = await this.transporter.sendMail({
-      from: 'no-reply@paypal-clone.com',
-      to,
-      subject: 'Verificación de correo electrónico',
-      text: `Para verificar tu correo, haz clic en el siguiente enlace: http://localhost:3000/verify-email?token=${token}`,
-      html: `<p>Para verificar tu correo, haz clic en el siguiente enlace:</p><a href="http://localhost:3000/verify-email?token=${token}">Verificar correo</a>`
-    });
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-  }
-
-  async verifyEmailToken(token: string) {
-    const tokenData = this.emailVerificationTokens[token];
-    if (!tokenData || tokenData.expires < Date.now()) {
-      return { success: false, message: 'Token inválido o expirado.' };
-    }
-    const user = await this.usersRepository.findOne({ where: { email: tokenData.email } });
-    if (!user) {
-      return { success: false, message: 'Usuario no encontrado.' };
-    }
-    user.emailVerificado = true;
-    await this.usersRepository.save(user);
-    delete this.emailVerificationTokens[token];
-    return { success: true, message: 'Correo verificado correctamente.' };
-  }
 
 }

@@ -14,12 +14,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const pago_entity_1 = require("../pagos/entities/pago.entity");
 const user_entity_1 = require("../users/user.entity");
 const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
+const movimientos_module_1 = require("../movimientos/movimientos.module");
 let ChatbotModule = class ChatbotModule {
 };
 exports.ChatbotModule = ChatbotModule;
 exports.ChatbotModule = ChatbotModule = __decorate([
     (0, common_1.Module)({
-        imports: [
+        imports: [movimientos_module_1.MovimientosModule,
             typeorm_1.TypeOrmModule.forFeature([pago_entity_1.Pago, user_entity_1.User, cuenta_entity_1.Cuenta])
         ],
         controllers: [chatbot_controller_1.ChatbotController],

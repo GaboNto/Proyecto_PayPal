@@ -41,8 +41,7 @@ let ChatbotService = class ChatbotService {
                     'Content-Type': 'application/json',
                 },
             });
-            const data = response.data;
-            const output = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            const output = response.data.candidates?.[0]?.content?.parts?.[0]?.text;
             return output || 'Sin respuesta del modelo.';
         }
         catch (error) {

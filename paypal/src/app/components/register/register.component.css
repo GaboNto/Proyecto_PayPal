@@ -97,3 +97,36 @@ h2 {
 .auth-link a:hover {
   text-decoration: underline;
 }
+
+/* ✅ NUEVO: estilos para checkboxes de términos */
+
+.form-group input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.5rem;
+  transform: scale(1.2);
+}
+
+.form-group label[for="privacidad"],
+.form-group label[for="condiciones"] {
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+}
+
+.legal-text {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.legal-text a {
+  color: #0070ba;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.legal-text a:hover {
+  text-decoration: underline;
+}

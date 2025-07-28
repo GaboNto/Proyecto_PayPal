@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ENDPOINTS } from '../../config/api-config';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +18,8 @@ export class LoginComponent {
   password = '';
   error: string | null = null;
   loginForm: FormGroup;
+  isLoading = false;
+  private baseUrl = ENDPOINTS.base;  // 👈 Declaración fuera del constructor
 
   constructor(
     private http: HttpClient,
@@ -30,33 +32,34 @@ export class LoginComponent {
     });
   }
 
-  isLoading = false; // Declara esta propiedad en tu componente
-
-
   onSubmit() {
     if (this.loginForm.valid) {
       this.isLoading = true;
       this.error = null;
-
-      this.http.post<{ accessToken: string }>('http://localhost:3000/api/auth/login', this.loginForm.value)
+      
+      const loginData = this.loginForm.value;
+      console.log('Login - Datos enviados:', { email: loginData.email, password: '***' });
+      console.log('Login - URL:', `${this.baseUrl}/auth/login`);
+      
+      this.http.post<{ accessToken: string }>(`${this.baseUrl}/auth/login`, loginData)
         .subscribe({
           next: (response) => {
             this.isLoading = false;
-            if (response && response.accessToken) {
+            console.log('Login - Respuesta exitosa:', response);
+            if (response?.accessToken) {
               this.authService.login(response.accessToken);
               this.router.navigate(['/profile']);
             } else {
-              this.error = 'No se recibió el token de acceso';
+              this.error = 'No se recibió el token de acceso.';
             }
           },
           error: (err) => {
             this.isLoading = false;
+            console.error('Login - Error completo:', err);
             this.error = 'Credenciales incorrectas. Por favor, verifica tu email y contraseña.';
             console.error('Error de autenticación:', err);
           }
         });
     }
   }
-
-
 }

@@ -35,8 +35,8 @@ let MovimientosService = class MovimientosService {
         const usuario = await this.userRepository.findOneBy({ id_usuario: id });
         return usuario?.nombre || `usuario #${id}`;
     }
-    async obtenerCuenta(id) {
-        const cuenta = await this.cuentaRepository.findOneBy({ id });
+    async obtenerCuenta(cuenta_destino) {
+        const cuenta = await this.cuentaRepository.findOneBy({ numero_cuenta: cuenta_destino });
         return cuenta?.tipo_cuenta ?? 'Desconocida';
     }
     async obtenerMovimientosPorUsuario(idUsuario) {
@@ -63,12 +63,13 @@ let MovimientosService = class MovimientosService {
         for (const t of transferencias) {
             const esEmisor = t.usuario_id_origen === idUsuario;
             const otroUsuarioId = esEmisor ? t.id_usuario_destino : t.usuario_id_origen;
+            let tipoCuenta;
             let nombreOtro;
             if (idUsuario == otroUsuarioId) {
-                nombreOtro = await this.obtenerCuenta(t.id);
+                tipoCuenta = await this.obtenerCuenta(t.cuenta_destino);
                 historial.push({
                     fecha: t.fecha,
-                    descripcion: `Transferencia a ${nombreOtro}`,
+                    descripcion: `Transferencia a ${tipoCuenta}`,
                     categoria: 'Transferencia',
                     abono: esEmisor ? t.monto : t.monto,
                 });
@@ -86,7 +87,6 @@ let MovimientosService = class MovimientosService {
             }
         }
         historial.sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
-        console.log(historial);
         return historial;
     }
 };

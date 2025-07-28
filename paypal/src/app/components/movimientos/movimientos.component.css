@@ -20,37 +20,39 @@
   max-width: 650px;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: background-color 0.3s ease;
 }
 
 .loading {
   background-color: #e7f0ff;
   color: #1a2b4c;
-  border-left: 4px solid #5b9dff;
+  border-left: 5px solid #5b9dff;
 }
 
 .error {
   background-color: #ffecec;
   color: #c0392b;
-  border-left: 4px solid #e74c3c;
+  border-left: 5px solid #e74c3c;
 }
 
 /* Contenedor más ancho y centrado */
 .table-container {
   width: 100%;
-  max-width: 820px; /* Aumentado */
+  max-width: 900px; /* Más ancho para mejor lectura */
   margin: 2rem auto;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow-x: auto;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
   border: 1px solid #dde3ec;
 }
 
-/* Tabla espaciosa */
+/* Tabla espaciosa y moderna */
 table {
   width: 100%;
-  border-collapse: collapse;
-  font-size: 0.98rem;
+  border-collapse: separate;
+  border-spacing: 0 8px; /* Espacio entre filas */
+  font-size: 1rem;
   color: #2d2d2d;
   table-layout: fixed;
 }
@@ -59,48 +61,52 @@ thead {
   background-color: #0052cc;
   color: #fff;
   text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  border-radius: 12px 12px 0 0;
 }
 
 th, td {
   padding: 1rem 1.4rem;
   text-align: left;
-  border-bottom: 1px solid #f0f2f5;
+  vertical-align: middle;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: unset;
+  text-overflow: ellipsis;
 }
 
-
-
-
-/* Column widths ajustadas */
 th:first-child, td:first-child {
-  width: 140px;
+  width: 150px;
 }
 
 th:nth-child(2), td:nth-child(2) {
-  width: 300px;
+  width: 320px;
 }
 
 th:nth-child(3), td:nth-child(3) {
-  width: 130px;
+  width: 150px;
 }
 
 th:last-child, td:last-child {
-  width: 140px; /* más espacio para montos largos */
+  width: 160px;
 }
 
-/* Alternancia y hover */
-tr:nth-child(even) {
-  background-color: #f8f9fc;
+/* Fila con fondo claro para separación */
+tbody tr {
+  background-color: #fefefe;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.05);
+  transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+  background-color: #e8f0ff;
 }
 
 /* Valores positivos/negativos */
 .positivo {
   color: #2e7d32;
-  font-weight: 600;
+  font-weight: 700;
   font-family: 'Roboto Mono', monospace;
 }
 .positivo::before {
@@ -110,45 +116,122 @@ tr:nth-child(even) {
 
 .negativo {
   color: #c62828;
-  font-weight: 600;
+  font-weight: 700;
   font-family: 'Roboto Mono', monospace;
 }
 
 /* Estado vacío */
 .empty-state {
-  padding: 2rem;
+  padding: 2rem 3rem;
   background-color: white;
   text-align: center;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.07);
+  max-width: 550px;
   width: 90%;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
 .empty-state h3 {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: #333;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
 }
 .empty-state p {
-  font-size: 0.9rem;
-  color: #777;
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Filtros */
+.filtros {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+.filtros label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 14px;
+  color: #444;
+}
+
+.filtros select,
+.filtros input[type="date"] {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1.8px solid #bbb;
+  min-width: 160px;
+  transition: border-color 0.3s ease;
+}
+
+.filtros select:focus,
+.filtros input[type="date"]:focus {
+  border-color: #0052cc;
+  outline: none;
+}
+
+/* Botón limpiar */
+.filtros button {
+  background-color: #0052cc;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 7px rgb(0 82 204 / 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  align-self: center;
+  min-width: 120px;
+}
+
+.filtros button:hover {
+  background-color: #003d99;
+  box-shadow: 0 4px 12px rgb(0 61 153 / 0.6);
 }
 
 /* Responsive para móviles */
 @media (max-width: 768px) {
   .table-container {
     max-width: 100%;
-    border-radius: 8px;
+    border-radius: 10px;
   }
 
   table {
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     min-width: 650px; /* permite scroll horizontal si es necesario */
   }
 
   th, td {
-    padding: 0.8rem 1rem;
+    padding: 0.7rem 1rem;
+  }
+
+  .filtros {
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .filtros label {
+    min-width: 120px;
+  }
+
+  .filtros select,
+  .filtros input[type="date"] {
+    min-width: 120px;
+  }
+
+  .filtros button {
+    min-width: 100px;
+    padding: 8px 14px;
   }
 }

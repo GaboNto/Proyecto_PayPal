@@ -11,13 +11,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForgotPasswordDto = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class ForgotPasswordDto {
     email;
+    nombre;
 }
 exports.ForgotPasswordDto = ForgotPasswordDto;
 __decorate([
-    (0, class_validator_1.IsEmail)(),
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, swagger_1.ApiProperty)({
+        description: 'La dirección de correo electrónico del usuario para restablecer la contraseña.',
+        example: 'usuario@example.com',
+        format: 'email',
+    }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'El correo electrónico no puede estar vacío.' }),
+    (0, class_validator_1.IsEmail)({}, { message: 'El formato del correo electrónico es inválido.' }),
     __metadata("design:type", String)
 ], ForgotPasswordDto.prototype, "email", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'El nombre del usuario (opcional, puede ser usado para personalización del email).',
+        example: 'Juan',
+        required: false,
+    }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'El nombre no puede estar vacío.' }),
+    (0, class_validator_1.IsString)({ message: 'El nombre debe ser una cadena de texto.' }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], ForgotPasswordDto.prototype, "nombre", void 0);
 //# sourceMappingURL=forgot-password.dto.js.map

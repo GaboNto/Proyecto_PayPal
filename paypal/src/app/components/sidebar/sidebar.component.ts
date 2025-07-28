@@ -11,7 +11,7 @@ import { Router, NavigationEnd, Event } from '@angular/router';
   selector: 'app-sidebar',
   imports: [CommonModule, RouterModule],
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
   isLoggedIn$: Observable<boolean>;
@@ -32,11 +32,23 @@ export class SidebarComponent {
       const navEnd = event as NavigationEnd;
       const urlActual = navEnd.urlAfterRedirects;
 
-      if (urlActual === '/donde-comprar' || urlActual.startsWith('/otra-ruta')) {
+      const rutasSinSidebar = [
+        '/donde-comprar',
+        '/ventajas',
+        '/tarjetas-publica',
+        '/seguridad-publica',
+        '/register',
+        '/pre-registro',
+        '/login',
+        '/', '/#features', '/forgot-password'
+      ];
+
+      if (rutasSinSidebar.includes(urlActual) || urlActual.startsWith('/otra-ruta')) {
         this.mostrarSidebar = false;
       } else {
         this.mostrarSidebar = true;
       }
+
     });
   }
 }

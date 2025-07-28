@@ -16,5 +16,6 @@ import { Cuenta } from 'src/cuentas/entities/cuenta.entity';
   ],
   controllers: [MovimientosController],
   providers: [MovimientosService],
+  exports: [MovimientosService],
 })
 export class MovimientosModule { }

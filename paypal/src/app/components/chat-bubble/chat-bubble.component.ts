@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ENDPOINTS } from '../../config/api-config';
 
 @Component({
   selector: 'app-chat-bubble',
@@ -11,6 +12,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   styleUrls: ['./chat-bubble.component.css'],
 })
 export class ChatBubbleComponent {
+  private baseUrl = ENDPOINTS.base;
   isExpanded = true;
   inputMessage = '';
   messages: { text: string; type: 'user' | 'bot' }[] = [];
@@ -37,7 +39,7 @@ export class ChatBubbleComponent {
     this.scrollToBottom();
 
     this.http
-      .post<{ respuesta: string }>('http://localhost:3000/api/chatbot', {
+      .post<{ respuesta: string }>(`${this.baseUrl}/chatbot`, {
         texto: message,
       })
       .subscribe({

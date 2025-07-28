@@ -24,21 +24,23 @@ const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
 const card_entity_1 = require("../card/card.entity");
 const nodemailer = require("nodemailer");
 const crypto_1 = require("crypto");
+const email_service_1 = require("../email/email.service");
 let AuthService = class AuthService {
     usersService;
     jwtService;
     usersRepository;
     cuentasRepository;
     cardRepository;
+    emailService;
     transporter;
     recoveryTokens = {};
-    emailVerificationTokens = {};
-    constructor(usersService, jwtService, usersRepository, cuentasRepository, cardRepository) {
+    constructor(usersService, jwtService, usersRepository, cuentasRepository, cardRepository, emailService) {
         this.usersService = usersService;
         this.jwtService = jwtService;
         this.usersRepository = usersRepository;
         this.cuentasRepository = cuentasRepository;
         this.cardRepository = cardRepository;
+        this.emailService = emailService;
         nodemailer.createTestAccount().then((testAccount) => {
             this.transporter = nodemailer.createTransport({
                 host: 'smtp.ethereal.email',
@@ -52,16 +54,26 @@ let AuthService = class AuthService {
         });
     }
     async validateUser(email, pass) {
+        console.log('ValidateUser - Email recibido:', email);
+        console.log('ValidateUser - Password recibido:', pass ? '***' : 'undefined');
         const user = await this.usersRepository.findOne({ where: { email } });
-        if (user && (await bcrypt.compare(pass, user.password))) {
-            const { password, ...result } = user;
-            return result;
+        console.log('ValidateUser - Usuario encontrado:', user ? 'Sí' : 'No');
+        if (user) {
+            console.log('ValidateUser - Comparando contraseñas...');
+            const isPasswordValid = await bcrypt.compare(pass, user.password);
+            console.log('ValidateUser - Contraseña válida:', isPasswordValid);
+            if (isPasswordValid) {
+                const { password, ...result } = user;
+                console.log('ValidateUser - Usuario validado exitosamente');
+                return result;
+            }
         }
+        console.log('ValidateUser - Validación fallida');
         return null;
     }
     async login(user) {
         const payload = { username: user.email, sub: user.id_usuario };
-        await this.sendLoginNotification(user.email, user.nombre);
+        await this.emailService.sendLoginNotification(user.email, user.nombre);
         return {
             accessToken: this.jwtService.sign(payload),
         };
@@ -128,15 +140,6 @@ let AuthService = class AuthService {
         delete this.recoveryTokens[token];
         return { message: 'Contraseña restablecida correctamente.' };
     }
-    async sendEmailVerification(email) {
-        const token = (0, crypto_1.randomBytes)(32).toString('hex');
-        this.emailVerificationTokens[token] = {
-            email,
-            expires: Date.now() + 60 * 60 * 1000,
-        };
-        await this.sendVerificationEmail(email, token);
-        return { message: 'Se ha enviado un correo de verificación.' };
-    }
     async sendRecoveryEmail(to, token) {
         const info = await this.transporter.sendMail({
             from: 'no-reply@paypal-clone.com',
@@ -146,46 +149,6 @@ let AuthService = class AuthService {
             html: `<p>Para restablecer tu contraseña, haz clic en el siguiente enlace:</p><a href="http://localhost:3000/reset-password?token=${token}">Restablecer contraseña</a>`
         });
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-    }
-    async sendLoginNotification(to, nombre) {
-        let cambioContraeña = 'http://localhost:4200/forgot-password';
-        const info = await this.transporter.sendMail({
-            from: 'no-reply@paypal-clone.com',
-            to,
-            subject: 'Notificación de inicio de sesión',
-            text: `Hola ${nombre}, se ha iniciado sesión en tu cuenta.`,
-            html: `
-      <p>Hola <strong>${nombre}</strong>,</p>
-      <p>Se ha iniciado sesión en tu cuenta de PayPal.</p>
-      <p>Si no fuiste tú, por favor cambia tu contraseña de inmediato en: <strong>${cambioContraeña}</strong>.</p>
-      <p><small>Fecha y hora: ${new Date().toLocaleString()}</small></p>
-    `
-        });
-        console.log('Login email enviado. Vista previa: %s', nodemailer.getTestMessageUrl(info));
-    }
-    async sendVerificationEmail(to, token) {
-        const info = await this.transporter.sendMail({
-            from: 'no-reply@paypal-clone.com',
-            to,
-            subject: 'Verificación de correo electrónico',
-            text: `Para verificar tu correo, haz clic en el siguiente enlace: http://localhost:3000/verify-email?token=${token}`,
-            html: `<p>Para verificar tu correo, haz clic en el siguiente enlace:</p><a href="http://localhost:3000/verify-email?token=${token}">Verificar correo</a>`
-        });
-        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-    }
-    async verifyEmailToken(token) {
-        const tokenData = this.emailVerificationTokens[token];
-        if (!tokenData || tokenData.expires < Date.now()) {
-            return { success: false, message: 'Token inválido o expirado.' };
-        }
-        const user = await this.usersRepository.findOne({ where: { email: tokenData.email } });
-        if (!user) {
-            return { success: false, message: 'Usuario no encontrado.' };
-        }
-        user.emailVerificado = true;
-        await this.usersRepository.save(user);
-        delete this.emailVerificationTokens[token];
-        return { success: true, message: 'Correo verificado correctamente.' };
     }
 };
 exports.AuthService = AuthService;
@@ -198,6 +161,7 @@ exports.AuthService = AuthService = __decorate([
         jwt_1.JwtService,
         typeorm_2.Repository,
         typeorm_2.Repository,
-        typeorm_2.Repository])
+        typeorm_2.Repository,
+        email_service_1.EmailService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

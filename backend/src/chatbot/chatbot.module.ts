@@ -7,8 +7,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Pago } from 'src/pagos/entities/pago.entity';
 import { User } from 'src/users/user.entity';
 import { Cuenta } from 'src/cuentas/entities/cuenta.entity';
+import { MovimientosModule } from 'src/movimientos/movimientos.module';
 @Module({
-  imports: [
+  imports: [MovimientosModule,
     TypeOrmModule.forFeature([Pago, User, Cuenta])
   ],
   controllers: [ChatbotController],

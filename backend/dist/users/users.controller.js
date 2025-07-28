@@ -14,13 +14,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
-const update_user_dto_1 = require("./dto/update-user.dto");
 const users_service_1 = require("./users.service");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const set_bepass_dto_1 = require("./dto/set-bepass.dto");
 const verify_bepass_dto_1 = require("./dto/verify-bepass.dto");
+const update_profile_dto_1 = require("./dto/update-profile.dto");
 const speakeasy = require("speakeasy");
 const qrcode = require("qrcode");
+const swagger_1 = require("@nestjs/swagger");
 let UsersController = class UsersController {
     usersService;
     constructor(usersService) {
@@ -29,8 +30,9 @@ let UsersController = class UsersController {
     getProfile(req) {
         return this.usersService.findById(req.user.sub);
     }
-    async updateProfile(req, updateUserDto) {
-        return this.usersService.updateUserProfile(req.user.sub, updateUserDto);
+    updateProfile(req, updateProfileDto) {
+        const userId = req.user.sub;
+        return this.usersService.updateProfile(userId, updateProfileDto);
     }
     verifyBepass(req, verifyBepassDto) {
         const userId = req.user.sub;
@@ -43,6 +45,15 @@ let UsersController = class UsersController {
     async hasBepass(req) {
         const user = await this.usersService.findById(req.user.sub);
         return { hasBepass: !!user.bepass };
+    }
+    async get2FAStatus(req) {
+        const user = await this.usersService.findById(req.user.sub);
+        if (!user)
+            throw new common_1.NotFoundException('Usuario no encontrado');
+        return {
+            isEnabled: user.twoFAEnabled,
+            hasBepass: !!user.bepass
+        };
     }
     async setup2FA(req) {
         const user = await this.usersService.findById(req.user.sub);
@@ -74,30 +85,56 @@ let UsersController = class UsersController {
         });
         if (!verified)
             throw new common_1.UnauthorizedException('Código 2FA incorrecto');
-        user.twoFAEnabled = true;
-        await this.usersService.save(user);
         return { success: true };
     }
-    async requestDisable2FA(req) {
-        const userId = req.user.sub;
-        return this.usersService.requestDisable2FA(userId);
-    }
-    async confirmDisable2FA(req, token) {
-        const userId = req.user.sub;
-        return this.usersService.confirmDisable2FA(userId, token);
-    }
-    async get2FAStatus(req) {
+    async activate2FA(req, code) {
         const user = await this.usersService.findById(req.user.sub);
+        if (!user || !user.totpSecret)
+            throw new common_1.UnauthorizedException('2FA no configurado');
+        const verified = speakeasy.totp.verify({
+            secret: user.totpSecret,
+            encoding: 'base32',
+            token: code,
+            window: 1
+        });
+        if (!verified)
+            throw new common_1.UnauthorizedException('Código 2FA incorrecto');
+        user.twoFAEnabled = true;
+        await this.usersService.save(user);
         return {
-            isEnabled: !!user.twoFAEnabled,
-            hasBepass: !!user.bepass
+            success: true,
+            message: '2FA activado correctamente'
         };
+    }
+    async disable2FARequest(req) {
+        const user = await this.usersService.findById(req.user.sub);
+        if (!user)
+            throw new common_1.NotFoundException('Usuario no encontrado');
+        return { message: 'Solicitud de desactivación de 2FA procesada' };
     }
 };
 exports.UsersController = UsersController;
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('profile'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Obtiene el perfil del usuario autenticado' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Perfil del usuario obtenido exitosamente',
+        schema: {
+            type: 'object',
+            properties: {
+                id: { type: 'integer', example: 1 },
+                nombre: { type: 'string', example: 'Juan' },
+                apellido: { type: 'string', example: 'Pérez' },
+                email: { type: 'string', example: 'juan.perez@example.com' },
+                rut: { type: 'string', example: '12345678-9' },
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado (token JWT inválido o ausente)' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -106,15 +143,49 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Patch)('profile'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Actualiza el perfil del usuario autenticado' }),
+    (0, swagger_1.ApiBody)({ type: update_profile_dto_1.UpdateProfileDto, description: 'Datos a actualizar del perfil' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Perfil del usuario actualizado exitosamente',
+        schema: {
+            type: 'object',
+            properties: {
+                id_usuario: { type: 'integer', example: 1 },
+                nombre: { type: 'string', example: 'Juan' },
+                apellido: { type: 'string', example: 'Pérez' },
+                email: { type: 'string', example: 'juan.perez@example.com' },
+                direccion: { type: 'string', example: 'Calle Falsa 123' },
+                facturacion: { type: 'string', example: 'Boleta Electrónica' },
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: 'Datos de actualización inválidos' }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, update_user_dto_1.UpdateUserDto]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:paramtypes", [Object, update_profile_dto_1.UpdateProfileDto]),
+    __metadata("design:returntype", void 0)
 ], UsersController.prototype, "updateProfile", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('verify-bepass'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Verifica la clave BePass del usuario' }),
+    (0, swagger_1.ApiBody)({ type: verify_bepass_dto_1.VerifyBepassDto, description: 'Clave BePass a verificar' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200, description: 'Clave BePass verificada exitosamente', schema: {
+            type: 'object',
+            properties: {
+                success: { type: 'boolean', example: true }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado o clave BePass incorrecta' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
@@ -124,6 +195,20 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Patch)('set-bepass'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Establece o actualiza la clave BePass del usuario' }),
+    (0, swagger_1.ApiBody)({ type: set_bepass_dto_1.SetBepassDto, description: 'Nueva clave BePass y contraseña actual' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200, description: 'Clave BePass establecida/actualizada exitosamente', schema: {
+            type: 'object',
+            properties: {
+                success: { type: 'boolean', example: true }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: 'Datos inválidos o contraseña actual incorrecta' }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
@@ -133,6 +218,18 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('has-bepass'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Verifica si el usuario tiene una clave BePass configurada' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200, description: 'Estado de BePass del usuario', schema: {
+            type: 'object',
+            properties: {
+                hasBepass: { type: 'boolean', example: true }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -140,7 +237,41 @@ __decorate([
 ], UsersController.prototype, "hasBepass", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('2fa/status'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Obtiene el estado de la autenticación de dos factores (2FA) del usuario' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200, description: 'Estado de 2FA del usuario', schema: {
+            type: 'object',
+            properties: {
+                isEnabled: { type: 'boolean', example: true },
+                hasBepass: { type: 'boolean', example: true }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "get2FAStatus", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('2fa/setup'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Inicia la configuración de la autenticación de dos factores (2FA) para el usuario' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200, description: 'Retorna el secreto TOTP y un código QR para configurar 2FA', schema: {
+            type: 'object',
+            properties: {
+                secret: { type: 'string', example: 'JBSWY3DPEHPK3PXP' },
+                qr: { type: 'string', example: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...' }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -149,6 +280,28 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('2fa/verify'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Verifica el código TOTP para la autenticación de dos factores (2FA)' }),
+    (0, swagger_1.ApiBody)({
+        schema: {
+            type: 'object',
+            properties: {
+                code: { type: 'string', example: '123456', minLength: 6, maxLength: 6 }
+            },
+            required: ['code']
+        },
+        description: 'Código TOTP de 6 dígitos generado por la aplicación de autenticación'
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200, description: 'Código 2FA verificado exitosamente', schema: {
+            type: 'object',
+            properties: {
+                success: { type: 'boolean', example: true }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado o código 2FA incorrecto/no configurado' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)('code')),
     __metadata("design:type", Function),
@@ -157,30 +310,58 @@ __decorate([
 ], UsersController.prototype, "verify2FA", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Post)('2fa/disable-request'),
+    (0, common_1.Post)('2fa/activate'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Activa la autenticación de dos factores (2FA) después de verificar el código' }),
+    (0, swagger_1.ApiBody)({
+        schema: {
+            type: 'object',
+            properties: {
+                code: { type: 'string', example: '123456', minLength: 6, maxLength: 6 }
+            },
+            required: ['code']
+        },
+        description: 'Código TOTP de 6 dígitos para activar 2FA'
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200, description: '2FA activado exitosamente', schema: {
+            type: 'object',
+            properties: {
+                success: { type: 'boolean', example: true },
+                message: { type: 'string', example: '2FA activado correctamente' }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado o código 2FA incorrecto' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "requestDisable2FA", null);
-__decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Post)('2fa/disable-confirm'),
-    __param(0, (0, common_1.Request)()),
-    __param(1, (0, common_1.Body)('token')),
+    __param(1, (0, common_1.Body)('code')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "confirmDisable2FA", null);
+], UsersController.prototype, "activate2FA", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Get)('2fa/status'),
+    (0, common_1.Post)('2fa/disable-request'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Solicita la desactivación de la autenticación de dos factores (2FA)' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200, description: 'Solicitud de desactivación de 2FA procesada exitosamente', schema: {
+            type: 'object',
+            properties: {
+                message: { type: 'string', example: 'Solicitud de desactivación de 2FA procesada' }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuario no encontrado' }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "get2FAStatus", null);
+], UsersController.prototype, "disable2FARequest", null);
 exports.UsersController = UsersController = __decorate([
+    (0, swagger_1.ApiTags)('Users'),
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);

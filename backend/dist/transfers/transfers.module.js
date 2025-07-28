@@ -16,14 +16,17 @@ const usuario_externo_entity_1 = require("./entities/usuario-externo.entity");
 const user_entity_1 = require("../users/user.entity");
 const auth_module_1 = require("../auth/auth.module");
 const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
+const historial_saldos_1 = require("./entities/historial-saldos");
+const email_module_1 = require("../email/email.module");
 let TransfersModule = class TransfersModule {
 };
 exports.TransfersModule = TransfersModule;
 exports.TransfersModule = TransfersModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([transferencia_entity_1.Transferencia, usuario_externo_entity_1.UsuarioExterno, user_entity_1.User, cuenta_entity_1.Cuenta]),
+            typeorm_1.TypeOrmModule.forFeature([transferencia_entity_1.Transferencia, usuario_externo_entity_1.UsuarioExterno, user_entity_1.User, cuenta_entity_1.Cuenta, historial_saldos_1.HistorialSaldos]),
             auth_module_1.AuthModule,
+            email_module_1.EmailModule,
         ],
         controllers: [transfers_controller_1.TransfersController],
         providers: [transfers_service_1.TransfersService],

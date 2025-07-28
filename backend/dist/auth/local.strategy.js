@@ -21,10 +21,15 @@ let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)
         this.authService = authService;
     }
     async validate(email, password) {
+        console.log('LocalStrategy - Email recibido:', email);
+        console.log('LocalStrategy - Password recibido:', password ? '***' : 'undefined');
         const user = await this.authService.validateUser(email, password);
+        console.log('LocalStrategy - Usuario validado:', user ? 'Sí' : 'No');
         if (!user) {
+            console.log('LocalStrategy - Lanzando UnauthorizedException');
             throw new common_1.UnauthorizedException('Credenciales incorrectas');
         }
+        console.log('LocalStrategy - Usuario retornado exitosamente');
         return user;
     }
 };

@@ -13,12 +13,13 @@ const pagos_controller_1 = require("./pagos.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const pago_entity_1 = require("./entities/pago.entity");
 const cuenta_entity_1 = require("../cuentas/entities/cuenta.entity");
+const card_entity_1 = require("../card/card.entity");
 let PagosModule = class PagosModule {
 };
 exports.PagosModule = PagosModule;
 exports.PagosModule = PagosModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([pago_entity_1.Pago, cuenta_entity_1.Cuenta])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([pago_entity_1.Pago, cuenta_entity_1.Cuenta, card_entity_1.Card])],
         controllers: [pagos_controller_1.PagosController],
         providers: [pagos_service_1.PagosService],
     })

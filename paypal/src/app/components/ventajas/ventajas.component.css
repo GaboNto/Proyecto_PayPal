@@ -1,0 +1,204 @@
+/* HERO PRINCIPAL */
+.hero-section {
+  background: linear-gradient(135deg, #0070ba, #009cde); /* Estilo institucional moderno (PayPal-like) */
+  color: white; /* Contraste accesible */
+  text-align: center;
+  padding: 5rem 1rem; /* Espaciado amplio para jerarquía visual */
+  border-radius: 0 0 2rem 2rem; /* Bordes inferiores redondeados para transición suave */
+}
+
+.hero-section h1 {
+  font-size: 2.8rem; /* Tamaño destacado para título principal */
+  margin-bottom: 1rem;
+}
+
+.hero-section p {
+  font-size: 1.3rem;
+  max-width: 800px; /* Limita el ancho del texto para mejor legibilidad */
+  margin: 0 auto;
+}
+
+
+/* CONTENEDOR DE TARJETAS */
+.grid-1xN {
+  display: flex;
+  flex-direction: column; /* Estructura vertical */
+  align-items: center;
+  gap: 2.5rem; /* Espaciado entre tarjetas */
+  padding: 4rem 2rem;
+  background-color: #f5f9fc; /* Fondo claro y suave */
+}
+
+
+/* TARJETAS INDIVIDUALES */
+.feature-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem 1.8rem;
+  max-width: 700px; /* Limita ancho en pantallas grandes */
+  width: 100%;
+  min-height: 260px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra suave para profundidad */
+  opacity: 0; /* Inicialmente oculto para animación */
+  transform: translateY(100px); /* Posición inicial de entrada */
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out; /* Animación suave */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1; /* Asegura que estén sobre las sombras laterales */
+}
+
+.feature-card.slide-left {
+  transform: translateX(-80px); /* Entrada desde la izquierda */
+}
+
+.feature-card.slide-right {
+  transform: translateX(80px); /* Entrada desde la derecha */
+}
+
+.feature-card.show {
+  opacity: 1;
+  transform: translateX(0) translateY(0); /* Estado visible */
+}
+
+.feature-card h2 {
+  font-size: 1.35rem;
+  color: #003087; /* Azul oscuro institucional */
+  margin-bottom: 0.6rem;
+}
+
+.feature-card p {
+  font-size: 1.1rem;
+  color: #444;
+  max-width: 90%; /* Mejora legibilidad */
+  line-height: 1.6;
+}
+
+
+/* COMPARATIVA NEGATIVA */
+.feature-card.negative {
+  background-color: #fff5f5;
+  border: 2px solid #ffcccc;
+  color: #a33;
+  text-align: center;
+  margin: 3rem auto;
+  max-width: 750px;
+  padding: 2rem 1.5rem;
+}
+
+.negative-content {
+  padding: 1rem 0.5rem;
+}
+
+.sad-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.negative-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.negative-content li {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+.contrast-note {
+  margin-top: 2rem;
+  font-weight: bold;
+  color: #c00;
+  font-size: 1.05rem;
+}
+
+
+/* CALL TO ACTION FINAL */
+.call-to-action {
+  background-color: #ffffff;
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 2px solid #0070ba; /* Línea superior institucional */
+  border-radius: 0 0 2rem 2rem;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05); /* Elevación hacia arriba */
+}
+
+.call-to-action h2 {
+  font-size: 1.8rem;
+  color: #003087;
+  margin-bottom: 1rem;
+}
+
+.call-to-action p {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+.cta-button {
+  background-color: #0070ba;
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+
+.cta-button:hover {
+  background-color: #003087;
+  transform: scale(1.05); /* Feedback visual al usuario */
+}
+
+
+/* SOMBRAS SPOTLIGHT LATERALES */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+body::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.04), transparent); /* Sombra suave desde la izquierda */
+}
+
+body::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.04), transparent); /* Sombra suave desde la derecha */
+}
+
+
+/* DISEÑO RESPONSIVO */
+@media (max-width: 768px) {
+  .feature-card {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+
+  .feature-card h2 {
+    font-size: 1.25rem;
+  }
+
+  .feature-card p {
+    font-size: 1rem;
+  }
+
+  body::before,
+  body::after {
+    display: none; /* Oculta las sombras laterales en móviles */
+  }
+}

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ConfiguracionComponent } from './configuracion/configuracion.component';
+import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { FinancialGoalsComponent } from './components/financial-goals/financial-goals.component';
@@ -15,34 +15,39 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { DondeComprarComponent } from './components/donde-comprar/donde-comprar.component';
 import { SeguridadPublicaComponent } from './components/seguridad-publica/seguridad-publica.component';
 import { TarjetasPublicaComponent } from './components/tarjetas/tarjetas-publica.component';
+import { VentajasComponent } from './components/ventajas/ventajas.component';
 import { authGuard } from './auth.guard';
 import { MovimientosComponent } from './components/movimientos/movimientos.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { VerifyEmailComponent } from './components/verify-email.component';
 import { VerifyDisable2faComponent } from './components/verify-disable-2fa.component';
 import { PreRegistroComponent } from './components/pre-registro/pre-registro.component';
+import { RedirectIfAuthGuard } from './guards/redirect-if-auth.guard';
+
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'transactions', component: TransactionsComponent, canActivate: [authGuard] },
-  { path: 'financial-goals', component: FinancialGoalsComponent },
-  { path: 'pay', component: PayComponent },
+  { path: 'financial-goals', component: FinancialGoalsComponent, canActivate: [authGuard] },
+  { path: 'pay', component: PayComponent, canActivate: [authGuard] },
   { path: 'tarjetas', component: TarjetasComponent, canActivate: [authGuard] },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [RedirectIfAuthGuard] },
   { path: 'pre-registro', component: PreRegistroComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [RedirectIfAuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'security', component: SecurityComponent, canActivate: [authGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'donde-comprar', component: DondeComprarComponent },
   { path: 'seguridad-publica', component: SeguridadPublicaComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
+
   { path: 'tarjetas-publica', component: TarjetasPublicaComponent },
-  { path: 'movimientos', component: MovimientosComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'configuracion', component: ConfiguracionComponent },
-  { path: 'verify-email', component: VerifyEmailComponent },
-  { path: 'verify-disable-2fa', component: VerifyDisable2faComponent }
+  { path: 'movimientos', component: MovimientosComponent, canActivate: [authGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
+  { path: 'configuracion', component: ConfiguracionComponent, canActivate: [authGuard] },
+  { path: 'verify-email', component: VerifyEmailComponent, canActivate: [authGuard] },
+  { path: 'verify-disable-2fa', component: VerifyDisable2faComponent, canActivate: [authGuard] },
+  { path: 'ventajas', component: VentajasComponent }
 ];
 
 export const appImports = [

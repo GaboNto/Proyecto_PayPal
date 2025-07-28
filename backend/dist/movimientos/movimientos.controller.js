@@ -16,6 +16,8 @@ exports.MovimientosController = void 0;
 const common_1 = require("@nestjs/common");
 const movimientos_service_1 = require("./movimientos.service");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const swagger_1 = require("@nestjs/swagger");
+const movimiento_historial_dto_1 = require("./dto/movimiento-historial.dto");
 let MovimientosController = class MovimientosController {
     movimientosService;
     constructor(movimientosService) {
@@ -33,8 +35,15 @@ let MovimientosController = class MovimientosController {
 };
 exports.MovimientosController = MovimientosController;
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Obtiene todos los movimientos detallados para el usuario autenticado' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Lista de movimientos detallados del usuario',
+        type: [movimiento_historial_dto_1.MovimientoHistorialDto]
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado (token JWT inválido o ausente)' }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -42,13 +51,22 @@ __decorate([
 ], MovimientosController.prototype, "getMovimientos", null);
 __decorate([
     (0, common_1.Get)('historial'),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, swagger_1.ApiOperation)({ summary: 'Obtiene el historial de movimientos simplificado para el usuario autenticado' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Historial de movimientos simplificado del usuario',
+        type: [movimiento_historial_dto_1.MovimientoHistorialDto]
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'No autorizado (token JWT inválido o ausente)' }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], MovimientosController.prototype, "obtenerHistorial", null);
 exports.MovimientosController = MovimientosController = __decorate([
+    (0, swagger_1.ApiTags)('Movimientos'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Controller)('movimientos'),
     __metadata("design:paramtypes", [movimientos_service_1.MovimientosService])
 ], MovimientosController);

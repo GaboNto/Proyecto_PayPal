@@ -27,6 +27,7 @@ exports.MovimientosModule = MovimientosModule = __decorate([
         ],
         controllers: [movimientos_controller_1.MovimientosController],
         providers: [movimientos_service_1.MovimientosService],
+        exports: [movimientos_service_1.MovimientosService],
     })
 ], MovimientosModule);
 //# sourceMappingURL=movimientos.module.js.map

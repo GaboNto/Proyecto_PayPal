@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ENDPOINTS } from '../config/api-config'; // Ajusta ruta según estructura
 
 export interface MovimientoHistorialDto {
     fecha: string;
@@ -13,17 +14,16 @@ export interface MovimientoHistorialDto {
     providedIn: 'root'
 })
 export class MovimientosService {
-    private baseUrl = 'http://localhost:3000/api/movimientos/historial';
 
     constructor(private http: HttpClient) { }
-
+    private baseUrl = ENDPOINTS.base;
     obtenerMovimientosPorUsuario(): Observable<MovimientoHistorialDto[]> {
         const token = localStorage.getItem('token');
         const headers = new HttpHeaders({
             Authorization: `Bearer ${token}`
         });
 
-        let historial = this.http.get<MovimientoHistorialDto[]>(this.baseUrl, { headers })
+        let historial = this.http.get<MovimientoHistorialDto[]>(`${this.baseUrl}/movimientos/historial`, { headers })
         return historial;
     }
 }
