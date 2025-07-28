@@ -10,7 +10,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, timer } from 'rxjs';
 import { FormatCardNumberPipe } from '../../utils/format-card-number.pipe';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 
 // Interfaces para tipar los datos del backend
 export interface Card {
@@ -28,7 +27,7 @@ export interface CuentaConTarjeta extends Cuenta {
 @Component({
   selector: 'app-tarjetas',
   standalone: true,
-  imports: [CommonModule, CurrencyPipe, HttpClientModule, FormatCardNumberPipe, TranslateModule],
+  imports: [CommonModule, CurrencyPipe, HttpClientModule, FormatCardNumberPipe],
   providers: [UserService, CardService],
   templateUrl: './tarjetas.component.html',
   styleUrls: ['./tarjetas.component.scss']

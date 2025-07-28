@@ -1,47 +1,46 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-tarjetas-publica',
   standalone: true,
-  imports: [CommonModule, RouterModule, TranslateModule],
+  imports: [CommonModule, RouterModule],
   template: `
     <div class="tarjetas-publica-container">
-      <h1>{{ 'publicCards.title' | translate }}</h1>
-      <p class="subtitle">{{ 'publicCards.subtitle' | translate }}</p>
+      <h1>Tarjetas PayPal: Virtual y Física</h1>
+      <p class="subtitle">Descubre los dos tipos de tarjetas que puedes obtener con tu cuenta PayPal.</p>
       <div class="tarjetas-tipos">
         <div class="tarjeta-info virtual">
-          <h2>💳 {{ 'publicCards.virtualCard' | translate }}</h2>
+          <h2>💳 Tarjeta Virtual</h2>
           <ul>
-            <li>{{ 'publicCards.idealForOnline' | translate }}</li>
-            <li>{{ 'publicCards.generatedInstantly' | translate }}</li>
-            <li>{{ 'publicCards.greaterSecurity' | translate }}</li>
-            <li>{{ 'publicCards.noPhysicalShipping' | translate }}</li>
+            <li>Ideal para compras online y suscripciones</li>
+            <li>Generada al instante tras registrarte</li>
+            <li>Mayor seguridad: puedes bloquearla o eliminarla cuando quieras</li>
+            <li>No requiere envío físico</li>
           </ul>
         </div>
         <div class="tarjeta-info fisica">
-          <h2>🏦 {{ 'publicCards.physicalCard' | translate }}</h2>
+          <h2>🏦 Tarjeta Física</h2>
           <ul>
-            <li>{{ 'publicCards.perfectForPhysicalStores' | translate }}</li>
-            <li>{{ 'publicCards.homeDelivery' | translate }}</li>
-            <li>{{ 'publicCards.contactlessCompatible' | translate }}</li>
-            <li>{{ 'publicCards.internationalSupport' | translate }}</li>
+            <li>Perfecta para compras en tiendas físicas y cajeros</li>
+            <li>Envío a domicilio tras tu solicitud</li>
+            <li>Compatible con pagos contactless y chip</li>
+            <li>Soporte internacional</li>
           </ul>
         </div>
       </div>
       <div class="ventajas">
-        <h2>{{ 'publicCards.cardAdvantages' | translate }}</h2>
+        <h2>Ventajas de nuestras tarjetas</h2>
         <ul>
-          <li>{{ 'publicCards.100PercentOnline' | translate }}</li>
-          <li>{{ 'publicCards.instantBlockUnblock' | translate }}</li>
-          <li>{{ 'publicCards.realTimeNotifications' | translate }}</li>
-          <li>{{ 'publicCards.noHiddenCosts' | translate }}</li>
+          <li>Gestión 100% online desde tu cuenta</li>
+          <li>Bloqueo y desbloqueo instantáneo</li>
+          <li>Notificaciones en tiempo real de cada movimiento</li>
+          <li>Sin costos de mantenimiento ocultos</li>
         </ul>
       </div>
       <div class="cta">
-        <a routerLink="/register" class="btn btn-primary">{{ 'publicCards.requestCardByRegistering' | translate }}</a>
+        <a routerLink="/register" class="btn btn-primary">Solicita tu tarjeta registrándote</a>
       </div>
     </div>
   `,

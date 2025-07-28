@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MovimientosService, MovimientoHistorialDto } from '../../services/movimientos.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-movimientos',
@@ -11,7 +10,6 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     FormsModule,
-    TranslateModule,
   ],
   standalone: true
 })

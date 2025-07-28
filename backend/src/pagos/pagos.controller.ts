@@ -35,6 +35,7 @@ export class PagosController {
     return await this.pagosService.create(createPagoDto);
   }
 
+  @UseGuards(JwtAuthGuard) // Protege este endpoint, requiriendo un token JWT válido
   @Post('debit-card') // <-- ¡NUEVO ENDPOINT para tarjeta de crédito!
   @ApiBearerAuth('access-token') // Indica que este endpoint requiere un token JWT
   @ApiOperation({ summary: 'Crea un nuevo pago utilizando una tarjeta de crédito/débito' }) // Descripción de la operación

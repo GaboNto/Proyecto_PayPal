@@ -5,7 +5,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ChatBubbleComponent } from "./components/chat-bubble/chat-bubble.component";
 import { AuthService } from './services/auth.service';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { FooterComponent } from './components/footer/footer.component';
 
 
 @Component({
@@ -19,7 +18,6 @@ import { FooterComponent } from './components/footer/footer.component';
     NavbarComponent,
     ChatBubbleComponent,
     SidebarComponent,
-    FooterComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

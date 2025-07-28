@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-chat-bubble',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule, TranslateModule],
+  imports: [FormsModule, CommonModule, HttpClientModule],
   templateUrl: './chat-bubble.component.html',
   styleUrls: ['./chat-bubble.component.css'],
 })

@@ -15,8 +15,8 @@ export declare class UsersController {
         hasBepass: boolean;
     }>;
     setup2FA(req: any): Promise<{
-        secret: string;
-        qr: string;
+        secret: string | undefined;
+        qr: any;
     }>;
     verify2FA(req: any, code: string): Promise<{
         success: boolean;
