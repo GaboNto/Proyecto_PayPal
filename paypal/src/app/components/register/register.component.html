@@ -56,8 +56,28 @@
       <!-- CONTRASEÑA -->
       <div class="form-group">
         <label for="password">Contraseña</label>
-        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="user.password" required
-          minlength="6">
+        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="user.password" 
+          (input)="validatePassword(user.password)" required minlength="8">
+        
+        <!-- Indicador de fortaleza de contraseña -->
+        <div *ngIf="user.password" class="password-strength mt-2">
+          <div class="strength-bar">
+            <div class="strength-fill" [class]="'strength-' + passwordStrength"></div>
+          </div>
+          <small class="text-muted">
+            Fortaleza: 
+            <span [class]="'text-' + (passwordStrength === 'weak' ? 'danger' : passwordStrength === 'medium' ? 'warning' : 'success')">
+              {{ passwordStrength === 'weak' ? 'Débil' : passwordStrength === 'medium' ? 'Media' : 'Fuerte' }}
+            </span>
+          </small>
+        </div>
+
+        <!-- Errores de validación -->
+        <div *ngIf="passwordErrors.length > 0" class="password-errors mt-2">
+          <small *ngFor="let error of passwordErrors" class="form-text text-danger d-block">
+            ❌ {{ error }}
+          </small>
+        </div>
       </div>
 
       <!-- CONFIRMAR CONTRASEÑA -->
@@ -112,6 +132,7 @@
           || emailExistsError
           || checkingEmail
           || passwordMismatch
+          || passwordErrors.length > 0
         ">
         Crear cuenta
       </button>

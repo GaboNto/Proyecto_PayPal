@@ -54,8 +54,6 @@ export class ConfiguracionComponent implements OnInit {
     emailNotifications: true,
     pushNotifications: true,
     reportFrequency: 'weekly',
-    dailyLimit: '500000',
-    deviceVerification: true,
     newsletter: false,
     promotionalEmails: false,
     securityAlerts: true
@@ -649,8 +647,5 @@ export class ConfiguracionComponent implements OnInit {
     }
   }
 
-  showActiveSessions() {
-    // Implementar modal para mostrar sesiones activas
-    alert('Funcionalidad de sesiones activas próximamente...');
-  }
+
 }

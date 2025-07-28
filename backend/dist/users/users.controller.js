@@ -110,7 +110,13 @@ let UsersController = class UsersController {
         const user = await this.usersService.findById(req.user.sub);
         if (!user)
             throw new common_1.NotFoundException('Usuario no encontrado');
-        return { message: 'Solicitud de desactivación de 2FA procesada' };
+        user.twoFAEnabled = false;
+        user.totpSecret = undefined;
+        await this.usersService.save(user);
+        return {
+            success: true,
+            message: '2FA desactivado correctamente'
+        };
     }
 };
 exports.UsersController = UsersController;
@@ -344,12 +350,13 @@ __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('2fa/disable-request'),
     (0, swagger_1.ApiBearerAuth)('access-token'),
-    (0, swagger_1.ApiOperation)({ summary: 'Solicita la desactivación de la autenticación de dos factores (2FA)' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Desactiva la autenticación de dos factores (2FA)' }),
     (0, swagger_1.ApiResponse)({
-        status: 200, description: 'Solicitud de desactivación de 2FA procesada exitosamente', schema: {
+        status: 200, description: '2FA desactivado exitosamente', schema: {
             type: 'object',
             properties: {
-                message: { type: 'string', example: 'Solicitud de desactivación de 2FA procesada' }
+                success: { type: 'boolean', example: true },
+                message: { type: 'string', example: '2FA desactivado correctamente' }
             }
         }
     }),

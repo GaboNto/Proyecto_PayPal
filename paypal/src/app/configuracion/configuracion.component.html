@@ -332,45 +332,7 @@
       </div>
     </div>
 
-    <!-- Configuración de Seguridad -->
-    <div class="preferences-section">
-      <h3>🔒 Configuración de Seguridad</h3>
-      <div class="preferences-grid">
-        <div class="preference-item">
-          <div class="preference-header">
-            <h4>Límite de Transacciones Diarias</h4>
-            <select [(ngModel)]="preferences.dailyLimit" class="form-control">
-              <option value="100000">$100.000 CLP</option>
-              <option value="500000">$500.000 CLP</option>
-              <option value="1000000">$1.000.000 CLP</option>
-              <option value="unlimited">Sin límite</option>
-            </select>
-          </div>
-          <p class="preference-description">Límite máximo de transferencias por día.</p>
-        </div>
-        
-        <div class="preference-item">
-          <div class="preference-header">
-            <h4>Verificación de Dispositivos</h4>
-            <label class="switch">
-              <input type="checkbox" [(ngModel)]="preferences.deviceVerification" />
-              <span class="slider"></span>
-            </label>
-          </div>
-          <p class="preference-description">Solicitar verificación en dispositivos nuevos.</p>
-        </div>
-        
-        <div class="preference-item">
-          <div class="preference-header">
-            <h4>Gestionar Sesiones</h4>
-            <button type="button" class="btn btn-outline-primary" (click)="showActiveSessions()">
-              Ver Sesiones
-            </button>
-          </div>
-          <p class="preference-description">Ver y cerrar sesiones activas en otros dispositivos.</p>
-        </div>
-      </div>
-    </div>
+
 
     <!-- Configuración de Comunicaciones -->
     <div class="preferences-section">

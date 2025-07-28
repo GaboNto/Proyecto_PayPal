@@ -57,8 +57,6 @@ export class ConfiguracionComponent implements OnInit {
     emailNotifications: true,
     pushNotifications: true,
     reportFrequency: 'weekly',
-    dailyLimit: '500000',
-    deviceVerification: true,
     newsletter: false,
     promotionalEmails: false,
     securityAlerts: true
@@ -541,6 +539,12 @@ export class ConfiguracionComponent implements OnInit {
       next: (res) => {
         this.disable2FAMessage = '✅ ' + res.message;
         this.disable2FALoading = false;
+        // Actualizar el estado del 2FA después de la desactivación exitosa
+        this.is2FAVerified = false;
+        this.is2FAAuthenticated = false;
+        this.clear2FAAuthState();
+        // Recargar el estado del 2FA desde el servidor
+        this.check2FAStatus();
       },
       error: (err) => {
         this.disable2FAMessage = '❌ ' + (err.error?.message || 'Error al solicitar la desactivación de 2FA');
@@ -553,6 +557,8 @@ export class ConfiguracionComponent implements OnInit {
     this.showDisable2FAModal = false;
     this.disable2FAMessage = '';
     this.disable2FALoading = false;
+    // Recargar el estado del 2FA después de cerrar el modal
+    this.check2FAStatus();
   }
 
   mostrarQR2FA() {
@@ -654,8 +660,5 @@ export class ConfiguracionComponent implements OnInit {
     }
   }
 
-  showActiveSessions() {
-    // Implementar modal para mostrar sesiones activas
-    alert('Funcionalidad de sesiones activas próximamente...');
-  }
+
 }

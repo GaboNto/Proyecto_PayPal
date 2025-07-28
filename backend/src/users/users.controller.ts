@@ -289,12 +289,13 @@ export class UsersController {
   @UseGuards(JwtAuthGuard) // Protege este endpoint
   @Post('2fa/disable-request') // Maneja solicitudes POST a /api/users/2fa/disable-request
   @ApiBearerAuth('access-token')
-  @ApiOperation({ summary: 'Solicita la desactivación de la autenticación de dos factores (2FA)' })
+  @ApiOperation({ summary: 'Desactiva la autenticación de dos factores (2FA)' })
   @ApiResponse({
-    status: 200, description: 'Solicitud de desactivación de 2FA procesada exitosamente', schema: {
+    status: 200, description: '2FA desactivado exitosamente', schema: {
       type: 'object',
       properties: {
-        message: { type: 'string', example: 'Solicitud de desactivación de 2FA procesada' }
+        success: { type: 'boolean', example: true },
+        message: { type: 'string', example: '2FA desactivado correctamente' }
       }
     }
   })
@@ -304,8 +305,14 @@ export class UsersController {
     const user = await this.usersService.findById(req.user.sub);
     if (!user) throw new NotFoundException('Usuario no encontrado');
     
-    // Por ahora, simplemente retornamos un mensaje de éxito
-    // En una implementación real, aquí se podría enviar un email de confirmación
-    return { message: 'Solicitud de desactivación de 2FA procesada' };
+    // Desactivar 2FA
+    user.twoFAEnabled = false;
+    user.totpSecret = undefined; // Limpiar el secreto TOTP
+    await this.usersService.save(user);
+    
+    return { 
+      success: true, 
+      message: '2FA desactivado correctamente' 
+    };
   }
 }

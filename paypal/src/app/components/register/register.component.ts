@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { Observable, map } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { EmailValidatorService } from '../../services/email-validator.service';
+
 import { ENDPOINTS } from '../../config/api-config';
 
 
@@ -38,12 +39,19 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
 
   rutError: string = '';
   rutExistsError: string = '';
+  passwordErrors: string[] = [];
+  passwordStrength: 'weak' | 'medium' | 'strong' = 'weak';
   private rutSubject = new Subject<string>();
   private rutSubscription: Subscription | undefined;
   private baseUrl = ENDPOINTS.base;  // 👈 Declaración fuera del constructor
 
 
-  constructor(private emailValidatorService: EmailValidatorService, private authService: AuthService, private http: HttpClient, private router: Router) { }
+  constructor(
+    private emailValidatorService: EmailValidatorService, 
+    private authService: AuthService, 
+    private http: HttpClient, 
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.rutSubscription = this.rutSubject.pipe(
@@ -71,6 +79,34 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
 
   get passwordMismatch(): boolean {
     return this.user.password !== this.confirmPassword;
+  }
+
+  validatePassword(password: string): void {
+    // Validación directa sin servicio por ahora
+    this.passwordErrors = [];
+    
+    if (password.length < 8) {
+      this.passwordErrors.push('La contraseña debe tener al menos 8 caracteres');
+    }
+    
+    if (!/[A-Z]/.test(password)) {
+      this.passwordErrors.push('La contraseña debe contener al menos una mayúscula');
+    }
+    
+    if (!/\d/.test(password)) {
+      this.passwordErrors.push('La contraseña debe contener al menos un número');
+    }
+    
+    // Calcular fortaleza
+    let score = 0;
+    if (password.length >= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/\d/.test(password)) score++;
+    
+    if (score <= 2) this.passwordStrength = 'weak';
+    else if (score <= 3) this.passwordStrength = 'medium';
+    else this.passwordStrength = 'strong';
   }
 
   ngAfterViewInit(): void { }

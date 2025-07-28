@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
+
 @Component({
   selector: 'app-reset-password',
   standalone: true,
@@ -17,6 +18,8 @@ export class ResetPasswordComponent {
   message = '';
   error = '';
   token = '';
+  passwordErrors: string[] = [];
+  passwordStrength: 'weak' | 'medium' | 'strong' = 'weak';
 
   constructor(
     private fb: FormBuilder,
@@ -25,7 +28,7 @@ export class ResetPasswordComponent {
     private authService: AuthService
   ) {
     this.resetForm = this.fb.group({
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]]
     }, { validator: this.passwordsMatchValidator });
     this.route.queryParams.subscribe(params => {
@@ -36,6 +39,34 @@ export class ResetPasswordComponent {
   passwordsMatchValidator(form: FormGroup) {
     return form.get('newPassword')!.value === form.get('confirmPassword')!.value
       ? null : { mismatch: true };
+  }
+
+  validatePassword(password: string): void {
+    // Validación directa sin servicio por ahora
+    this.passwordErrors = [];
+    
+    if (password.length < 8) {
+      this.passwordErrors.push('La contraseña debe tener al menos 8 caracteres');
+    }
+    
+    if (!/[A-Z]/.test(password)) {
+      this.passwordErrors.push('La contraseña debe contener al menos una mayúscula');
+    }
+    
+    if (!/\d/.test(password)) {
+      this.passwordErrors.push('La contraseña debe contener al menos un número');
+    }
+    
+    // Calcular fortaleza
+    let score = 0;
+    if (password.length >= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/\d/.test(password)) score++;
+    
+    if (score <= 2) this.passwordStrength = 'weak';
+    else if (score <= 3) this.passwordStrength = 'medium';
+    else this.passwordStrength = 'strong';
   }
 
   async onSubmit() {

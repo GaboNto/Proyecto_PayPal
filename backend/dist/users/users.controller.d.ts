@@ -32,6 +32,7 @@ export declare class UsersController {
         message: string;
     }>;
     disable2FARequest(req: any): Promise<{
+        success: boolean;
         message: string;
     }>;
 }
