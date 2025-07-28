@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const pagos_service_1 = require("./pagos.service");
 const create_pago_dto_1 = require("./dto/create-pago.dto");
 const create_credit_card_payment_dto_1 = require("./dto/create-credit-card-payment.dto");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const swagger_1 = require("@nestjs/swagger");
 let PagosController = class PagosController {
     pagosService;
@@ -56,6 +57,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PagosController.prototype, "create", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('debit-card'),
     (0, swagger_1.ApiBearerAuth)('access-token'),
     (0, swagger_1.ApiOperation)({ summary: 'Crea un nuevo pago utilizando una tarjeta de crédito/débito' }),

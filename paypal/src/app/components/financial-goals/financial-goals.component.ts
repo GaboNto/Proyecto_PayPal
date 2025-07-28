@@ -3,14 +3,27 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } 
 import { CommonModule } from '@angular/common';
 
 interface FinancialGoal {
+  id?: string;
   goalName: string;
   targetAmount: number;
-  months: number;
+  duration: number;
+  interestRate: number;
   initialAmount?: number;
   priority: string;
   description?: string;
   createdAt: Date;
   progress: number;
+  monthlySavings?: number;
+  totalSavings?: number;
+  totalInterest?: number;
+  yearlySavings?: number;
+}
+
+interface CalculationResult {
+  monthlySavings: number;
+  totalSavings: number;
+  totalInterest: number;
+  yearlySavings: number;
 }
 
 @Component({
@@ -28,15 +41,19 @@ export class FinancialGoalsComponent implements OnInit {
   showModal = false;
   goalForm: FormGroup;
   goals: FinancialGoal[] = [];
+  calculationResult: CalculationResult | null = null;
+  editingGoal: FinancialGoal | null = null;
 
   constructor(private fb: FormBuilder) {
     this.goalForm = this.fb.group({
       goalName: ['', Validators.required],
       targetAmount: ['', [Validators.required, Validators.min(1)]],
-      months: ['', [Validators.required, Validators.min(1)]],
-      initialAmount: [''],
+      duration: ['', [Validators.required, Validators.min(1), Validators.max(50)]],
+      interestRate: ['', [Validators.required, Validators.min(0), Validators.max(20)]],
+      initialAmount: [0],
       priority: ['media', Validators.required],
-      description: ['']
+      description: [''],
+      taxExemption: [0]
     });
   }
 
@@ -44,67 +61,190 @@ export class FinancialGoalsComponent implements OnInit {
     // Cargar metas existentes (ejemplo)
     this.goals = [
       {
+        id: '1',
         goalName: 'Viaje de Vacaciones',
-        targetAmount: 1500000,
-        months: 8,
-        initialAmount: 150000,
+        targetAmount: 500000,
+        duration: 2,
+        interestRate: 3.5,
+        initialAmount: 50000,
         priority: 'media',
         description: 'Viaje de vacaciones para diciembre 2025',
         createdAt: new Date('2025-12-20'),
-        progress: 10
+        progress: 10,
+        monthlySavings: 20000,
+        totalSavings: 50000,
+        totalInterest: 15000,
+        yearlySavings: 240000
+      },
+      {
+        id: '2',
+        goalName: 'Entrada para Casa',
+        targetAmount: 5000000,
+        duration: 5,
+        interestRate: 4.0,
+        initialAmount: 500000,
+        priority: 'alta',
+        description: 'Ahorrar para la entrada de una casa',
+        createdAt: new Date('2025-01-15'),
+        progress: 25,
+        monthlySavings: 80000,
+        totalSavings: 1250000,
+        totalInterest: 300000,
+        yearlySavings: 960000
       }
     ];
   }
 
+  calculateGoal(): void {
+    if (this.goalForm.valid) {
+      const formValue = this.goalForm.value;
+      const targetAmount = formValue.targetAmount;
+      const duration = formValue.duration;
+      const interestRate = formValue.interestRate / 100;
+      const initialAmount = formValue.initialAmount || 0;
+      const taxExemption = formValue.taxExemption / 100;
+
+      // Cálculo del interés compuesto
+      const effectiveInterestRate = interestRate * (1 - taxExemption);
+      const futureValue = targetAmount;
+      const presentValue = initialAmount;
+      
+      // Fórmula para calcular el pago mensual necesario
+      const monthlyRate = effectiveInterestRate / 12;
+      const numberOfPayments = duration * 12;
+      
+      let monthlySavings = 0;
+      if (monthlyRate > 0) {
+        monthlySavings = (futureValue - presentValue * Math.pow(1 + monthlyRate, numberOfPayments)) / 
+                        ((Math.pow(1 + monthlyRate, numberOfPayments) - 1) / monthlyRate);
+      } else {
+        monthlySavings = (futureValue - presentValue) / numberOfPayments;
+      }
+
+      const totalSavings = monthlySavings * numberOfPayments + initialAmount;
+      const totalInterest = futureValue - totalSavings;
+      const yearlySavings = monthlySavings * 12;
+
+      this.calculationResult = {
+        monthlySavings: Math.max(0, monthlySavings),
+        totalSavings: Math.max(0, totalSavings),
+        totalInterest: Math.max(0, totalInterest),
+        yearlySavings: Math.max(0, yearlySavings)
+      };
+    }
+  }
+
+  saveGoal(): void {
+    if (this.calculationResult && this.goalForm.valid) {
+      const formValue = this.goalForm.value;
+      const newGoal: FinancialGoal = {
+        id: Date.now().toString(),
+        goalName: formValue.goalName,
+        targetAmount: formValue.targetAmount,
+        duration: formValue.duration,
+        interestRate: formValue.interestRate,
+        initialAmount: formValue.initialAmount || 0,
+        priority: formValue.priority,
+        description: formValue.description,
+        createdAt: new Date(),
+        progress: formValue.initialAmount ? 
+          (formValue.initialAmount / formValue.targetAmount * 100) : 0,
+        monthlySavings: this.calculationResult.monthlySavings,
+        totalSavings: this.calculationResult.totalSavings,
+        totalInterest: this.calculationResult.totalInterest,
+        yearlySavings: this.calculationResult.yearlySavings
+      };
+
+      this.goals.unshift(newGoal);
+      this.calculationResult = null;
+      this.goalForm.reset({
+        priority: 'media',
+        taxExemption: 0,
+        initialAmount: 0
+      });
+    }
+  }
+
   openModal(): void {
     this.showModal = true;
+    this.editingGoal = null;
     this.goalForm.reset({
-      priority: 'media'
+      priority: 'media',
+      taxExemption: 0,
+      initialAmount: 0
     });
+  }
+
+  editGoal(goal: FinancialGoal): void {
+    this.editingGoal = goal;
+    this.showModal = true;
+    this.goalForm.patchValue({
+      goalName: goal.goalName,
+      targetAmount: goal.targetAmount,
+      duration: goal.duration,
+      interestRate: goal.interestRate,
+      initialAmount: goal.initialAmount || 0,
+      priority: goal.priority,
+      description: goal.description
+    });
+  }
+
+  deleteGoal(goal: FinancialGoal): void {
+    if (confirm('¿Estás seguro de que quieres eliminar este objetivo?')) {
+      this.goals = this.goals.filter(g => g.id !== goal.id);
+    }
   }
 
   closeModal(): void {
     this.showModal = false;
+    this.editingGoal = null;
     this.goalForm.reset();
   }
 
   onSubmit(): void {
     if (this.goalForm.valid) {
       const formValue = this.goalForm.value;
-      const newGoal: FinancialGoal = {
-        ...formValue,
-        createdAt: new Date(),
-        progress: formValue.initialAmount ? 
-          (formValue.initialAmount / formValue.targetAmount * 100) : 0
-      };
-
-      // Añadir la nueva meta al inicio del array
-      this.goals.unshift(newGoal);
       
-      // Actualizar el gráfico con los nuevos datos
-      this.updateChartData();
+      if (this.editingGoal) {
+        // Actualizar objetivo existente
+        const index = this.goals.findIndex(g => g.id === this.editingGoal?.id);
+        if (index !== -1) {
+          this.goals[index] = {
+            ...this.editingGoal,
+            ...formValue,
+            progress: formValue.initialAmount ? 
+              (formValue.initialAmount / formValue.targetAmount * 100) : 0
+          };
+        }
+      } else {
+        // Crear nuevo objetivo
+        const newGoal: FinancialGoal = {
+          id: Date.now().toString(),
+          ...formValue,
+          createdAt: new Date(),
+          progress: formValue.initialAmount ? 
+            (formValue.initialAmount / formValue.targetAmount * 100) : 0
+        };
+        this.goals.unshift(newGoal);
+      }
       
-      // Cerrar el modal después de guardar
       this.closeModal();
     }
   }
 
-  updateChartData(): void {
-    // Aquí puedes actualizar los datos del gráfico si es necesario
-    // Por ejemplo, recalcular porcentajes, actualizar barras, etc.
-  }
-
-  // Función auxiliar para formatear montos
-  formatAmount(amount: number): string {
+  // Función auxiliar para formatear moneda
+  formatCurrency(amount: number): string {
     return new Intl.NumberFormat('es-CL', {
       style: 'currency',
-      currency: 'CLP'
+      currency: 'CLP',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
     }).format(amount);
   }
 
   // Función auxiliar para formatear fechas
   formatDate(date: Date): string {
-    return new Intl.DateTimeFormat('es-CL', {
+    return new Intl.DateTimeFormat('es-ES', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric'
