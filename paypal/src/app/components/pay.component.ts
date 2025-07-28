@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgFor, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 
 interface PagoAutomatico {
   nombre: string;
@@ -13,7 +12,7 @@ interface PagoAutomatico {
 @Component({
   selector: 'app-pay',
   standalone: true,
-  imports: [CommonModule, NgFor, NgClass, FormsModule, TranslateModule],
+  imports: [CommonModule, NgFor, NgClass, FormsModule],
   templateUrl: './pay.component.html',
   styleUrl: './pay.component.css'
 })

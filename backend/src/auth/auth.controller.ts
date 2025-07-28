@@ -70,7 +70,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Mensaje de éxito (el email se envía si el usuario existe)' })
   @ApiResponse({ status: 400, description: 'Email inválido' })
   async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
-    await this.emailService.sendPasswordResetEmail(forgotPasswordDto.email, forgotPasswordDto.nombre);
+    await this.emailService.sendPasswordResetEmail(forgotPasswordDto.email);
     return { message: 'Si la dirección de correo electrónico está registrada, recibirás un enlace para restablecer tu contraseña.' };
   }
 

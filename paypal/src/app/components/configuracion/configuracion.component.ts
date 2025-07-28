@@ -7,12 +7,11 @@ import { Google2faComponent } from '../security/google-2fa.component';
 import { UserService } from '../../services/user.service';
 import { LanguageService } from '../../services/language.service';
 import { ENDPOINTS } from '../../config/api-config';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-configuracion',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormsModule, Google2faComponent, TranslateModule],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, Google2faComponent],
   templateUrl: './configuracion.component.html',
   styleUrl: './configuracion.component.css'
 })

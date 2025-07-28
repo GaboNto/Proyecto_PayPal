@@ -79,7 +79,7 @@ export class EmailService {
     console.log('Correo de transferencia enviado:', info.messageId);
   }
 
-  async sendPasswordResetEmail(to: string, nombre: string) {
+  async sendPasswordResetEmail(to: string) {
     const resetUrl = `http://paypalbank.sytes.net:3000/`;
     const fechaSolicitud = new Date().toLocaleString('es-CL', { timeZone: 'America/Santiago' });
 
@@ -88,11 +88,10 @@ export class EmailService {
         from: '"PayPal" <no-reply@paypal-clone.com>',
         to,
         subject: 'Restablece tu contraseña de PayPal',
-        text: `Hola ${nombre},\n\nHas solicitado restablecer tu contraseña. Haz clic en el siguiente enlace para continuar: ${resetUrl}\n\nEste enlace expirará pronto. Si no solicitaste esto, ignora este correo.\n\nAtentamente,\nEl equipo de PayPal.`,
+        text: `Hola,\n\nHas solicitado restablecer tu contraseña. Haz clic en el siguiente enlace para continuar: ${resetUrl}\n\nEste enlace expirará pronto. Si no solicitaste esto, ignora este correo.\n\nAtentamente,\nEl equipo de PayPal.`,
         html: `
           <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px;">
             <h2 style="color: #0070ba; text-align: center;">Restablece tu Contraseña</h2>
-            <p>Hola <strong>${nombre}</strong>,</p>
             <p>Hemos recibido una solicitud para restablecer la contraseña de tu cuenta de PayPal. Si no solicitaste esto, puedes ignorar este correo.</p>
             <p>Para crear una nueva contraseña, por favor haz clic en el botón de abajo. Este enlace es válido por un tiempo limitado por razones de seguridad.</p>
             <p style="text-align: center; margin: 30px 0;">

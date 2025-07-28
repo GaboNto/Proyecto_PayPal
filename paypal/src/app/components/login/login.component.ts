@@ -5,12 +5,11 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ENDPOINTS } from '../../config/api-config';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule, RouterLink, ReactiveFormsModule, TranslateModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, RouterLink, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

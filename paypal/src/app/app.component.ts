@@ -19,7 +19,7 @@ import { FooterComponent } from './components/footer/footer.component';
     NavbarComponent,
     ChatBubbleComponent,
     SidebarComponent,
-    FooterComponent,
+    FooterComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

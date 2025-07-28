@@ -4,12 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Google2faComponent } from './google-2fa.component';
 import { AuthService } from '../../services/auth.service';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-security',
   standalone: true,
-  imports: [CommonModule, FormsModule, Google2faComponent, TranslateModule],
+  imports: [CommonModule, FormsModule, Google2faComponent],
   templateUrl: './security.component.html',
   styleUrl: './security.component.css'
 })

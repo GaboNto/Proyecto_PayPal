@@ -57,4 +57,9 @@ export class AuthService {
   sendEmailVerification(email: string, nombre: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/auth/send-verification-email`, { email, nombre });
   }
+
+  sendPasswordResetEmailDirect(to: { to: string }): Observable<any> { // <--- CAMBIO AQUÍ: Recibe directamente el objeto
+    // Envía el payload directamente, ya no se necesita una interfaz separada para el payload.
+    return this.http.post(`${this.baseUrl}/email/send-password-reset`, to);
+  }
 } 

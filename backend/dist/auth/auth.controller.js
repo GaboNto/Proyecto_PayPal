@@ -37,7 +37,7 @@ let AuthController = class AuthController {
         return this.authService.checkRutExists(rut);
     }
     async forgotPassword(forgotPasswordDto) {
-        await this.emailService.sendPasswordResetEmail(forgotPasswordDto.email, forgotPasswordDto.nombre);
+        await this.emailService.sendPasswordResetEmail(forgotPasswordDto.email);
         return { message: 'Si la dirección de correo electrónico está registrada, recibirás un enlace para restablecer tu contraseña.' };
     }
     async sendEmailVerification(forgotPasswordDto) {

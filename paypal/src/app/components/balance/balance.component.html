@@ -1,24 +1,24 @@
 <div class="balance-container">
   <div class="balance-header">
-    <h2>{{ 'balance.title' | translate }}</h2>
+    <h2>Balance</h2>
   </div>
 
   <div class="transactions-table">
     <div class="transactions-header">
-      <h3>{{ 'balance.transactionHistory' | translate }}</h3>
+      <h3>Historial de Transacciones</h3>
       <button class="toggle-btn" (click)="toggleTransactions()">
         <i [class]="showTransactions ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
-        {{ showTransactions ? ('balance.viewLess' | translate) : ('balance.viewMore' | translate) }}
+        {{ showTransactions ? 'Ver menos' : 'Ver más' }}
       </button>
     </div>
     <div class="transactions-content" [class.show]="showTransactions">
       <table>
         <thead>
           <tr>
-            <th>{{ 'balance.date' | translate }}</th>
-            <th>{{ 'balance.description' | translate }}</th>
-            <th>{{ 'balance.amount' | translate }}</th>
-            <th>{{ 'balance.balance' | translate }}</th>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Monto</th>
+            <th>Balance</th>
           </tr>
         </thead>
         <tbody>
@@ -65,22 +65,22 @@
 
   <div class="current-balance">
     <div class="balance-info">
-      <h3>{{ 'balance.currentBalance' | translate }}</h3>
+      <h3>Balance Actual</h3>
       <div class="amount">$890.000</div>
-      <div class="status">{{ 'balance.available' | translate }}</div>
+      <div class="status">Disponible</div>
     </div>
     <div class="balance-buttons">
-      <button class="btn btn-primary">{{ 'balance.transfer' | translate }}</button>
-      <button class="btn btn-secondary">{{ 'balance.deposit' | translate }}</button>
+      <button class="btn btn-primary">Transferir</button>
+      <button class="btn btn-secondary">Depositar</button>
     </div>
   </div>
 
   <div class="financial-goals">
     <div class="goals-header">
-      <h3>{{ 'balance.financialGoals' | translate }}</h3>
+      <h3>Objetivos financieros</h3>
       <button class="toggle-btn" (click)="toggleFinancialGoals()">
         <i [class]="showFinancialGoals ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
-        {{ showFinancialGoals ? ('balance.hide' | translate) : ('balance.show' | translate) }}
+        {{ showFinancialGoals ? 'Ocultar' : 'Mostrar' }}
       </button>
     </div>
     <div class="goals-content" [class.show]="showFinancialGoals">

@@ -37,9 +37,9 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'security', component: SecurityComponent, canActivate: [authGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'reset-password', component: ResetPasswordComponent, canActivate: [authGuard] },
   { path: 'donde-comprar', component: DondeComprarComponent },
   { path: 'seguridad-publica', component: SeguridadPublicaComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
 
   { path: 'tarjetas-publica', component: TarjetasPublicaComponent },
   { path: 'movimientos', component: MovimientosComponent, canActivate: [authGuard] },

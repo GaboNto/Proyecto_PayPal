@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { firstValueFrom } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
 
 import { MovimientosService, MovimientoHistorialDto } from '../../services/movimientos.service';
 import { TransferService } from '../../services/transfer.service';
@@ -11,7 +10,7 @@ import { TransferService } from '../../services/transfer.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgxChartsModule, TranslateModule],
+  imports: [CommonModule, FormsModule, NgxChartsModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })

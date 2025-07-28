@@ -2,16 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-verify-email',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule],
   template: `
     <div class="verify-email-container">
-      <h2>{{ 'verifyEmail.title' | translate }}</h2>
-      <div *ngIf="loading">{{ 'verifyEmail.verifying' | translate }}</div>
+      <h2>Verificación de correo electrónico</h2>
+      <div *ngIf="loading">Verificando...</div>
       <div *ngIf="!loading && success" class="success">{{ message }}</div>
       <div *ngIf="!loading && !success" class="error">{{ message }}</div>
     </div>
@@ -40,13 +39,13 @@ export class VerifyEmailComponent implements OnInit {
         },
         error: (err) => {
           this.success = false;
-          this.message = err.error?.message || 'verifyEmail.errorVerifying';
+          this.message = err.error?.message || 'Error al verificar el correo.';
           this.loading = false;
         }
       });
     } else {
       this.success = false;
-      this.message = 'verifyEmail.tokenNotProvided';
+      this.message = 'Token no proporcionado.';
       this.loading = false;
     }
   }

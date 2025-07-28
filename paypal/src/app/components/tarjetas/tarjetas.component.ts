@@ -10,7 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, timer } from 'rxjs';
 import { FormatCardNumberPipe } from '../../utils/format-card-number.pipe';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { ENDPOINTS } from '../../config/api-config';
 
 // Interfaces para tipar los datos del backend
 export interface Card {
@@ -23,12 +23,13 @@ export interface Card {
 
 export interface CuentaConTarjeta extends Cuenta {
   cards: Card[];
+
 }
 
 @Component({
   selector: 'app-tarjetas',
   standalone: true,
-  imports: [CommonModule, CurrencyPipe, HttpClientModule, FormatCardNumberPipe, TranslateModule],
+  imports: [CommonModule, CurrencyPipe, HttpClientModule, FormatCardNumberPipe],
   providers: [UserService, CardService],
   templateUrl: './tarjetas.component.html',
   styleUrls: ['./tarjetas.component.scss']
@@ -44,6 +45,7 @@ export class TarjetasComponent implements OnInit, OnDestroy {
   showSelectionPanel: boolean = false;
   error: string | null = null;
   hasCuentaDeAhorro: boolean = false;
+  private baseUrl = ENDPOINTS.base;
 
   // El estado de la tarjeta ya no se guarda aquí
   showFullCardDetails: boolean = false;
@@ -79,8 +81,8 @@ export class TarjetasComponent implements OnInit, OnDestroy {
 
   loadInitialData(): void {
     this.isLoading = true;
-    // Obtener nombre del usuario
-    this.http.get<any>('http://localhost:3000/api/users/profile').pipe(
+    // Obtener nombre del usuario        'http://localhost:3000/api/users/profile'
+    this.http.get<any>(`${this.baseUrl}/auth/login`).pipe(
       tap(profile => {
         this.userName = `${profile.nombre} ${profile.apellido}`.toUpperCase();
         this.titular = this.userName; // Actualizar titular aquí
