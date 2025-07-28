@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { TransferService } from '../../services/transfer.service';
 import { FormsModule } from '@angular/forms';
 import { ENDPOINTS } from '../../config/api-config';
+import { TranslateModule } from '@ngx-translate/core';
 
 export interface UserProfile {
   id_usuario: number;
@@ -24,7 +25,7 @@ export interface UserProfile {
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, TranslateModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })

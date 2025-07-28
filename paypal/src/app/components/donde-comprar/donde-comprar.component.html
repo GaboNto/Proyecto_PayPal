@@ -2,8 +2,8 @@
 
   <div class="header">
     <div class="header-content">
-      <h1>🛒 ¿Dónde comprar con PayPal?</h1>
-      <p>Descubre miles de comercios que aceptan PayPal para pagos seguros y rápidos</p>
+      <h1>🛒 {{ 'whereToBuy.title' | translate }}</h1>
+      <p>{{ 'whereToBuy.subtitle' | translate }}</p>
     </div>
   </div>
 
@@ -12,13 +12,13 @@
     <div class="search-container">
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" placeholder="Buscar comercios, categorías o productos..." class="search-input"
+        <input type="text" placeholder="{{ 'whereToBuy.searchPlaceholder' | translate }}" class="search-input"
           [(ngModel)]="terminoBusqueda" (input)="buscarComercios(terminoBusqueda)">
         <button class="search-button" *ngIf="terminoBusqueda.trim() !== ''" (click)="limpiarBusqueda()">
-          Limpiar
+          {{ 'whereToBuy.clear' | translate }}
         </button>
         <button class="search-button" *ngIf="terminoBusqueda.trim() === ''">
-          Buscar
+          {{ 'whereToBuy.search' | translate }}
         </button>
       </div>
     </div>
@@ -26,7 +26,7 @@
 
 
   <div class="categories-section">
-    <h2>Categorías populares</h2>
+    <h2>{{ 'whereToBuy.popularCategories' | translate }}</h2>
     <div class="categories-grid">
       <button *ngFor="let categoria of categorias" class="category-card"
         [class.active]="categoriaSeleccionada === categoria.id" (click)="cambiarCategoria(categoria.id)">
@@ -38,19 +38,19 @@
 
 
   <div class="popular-section" *ngIf="categoriaSeleccionada === 'todos' && comerciosPopulares.length > 0">
-    <h2>🔥 Comercios más populares</h2>
+    <h2>🔥 {{ 'whereToBuy.mostPopularStores' | translate }}</h2>
     <div class="comercios-grid">
       <div *ngFor="let comercio of comerciosPopulares" class="comercio-card popular"
         (click)="visitarComercio(comercio)">
         <div class="comercio-header">
           <img class="comercio-logo" [src]="comercio.logo" [alt]="comercio.nombre + ' logo'" />
         </div>
-        <span class="popular-badge" *ngIf="comercio.popular">🔥 Popular</span>
+        <span class="popular-badge" *ngIf="comercio.popular">🔥 {{ 'whereToBuy.popular' | translate }}</span>
         <h3 class="comercio-nombre">{{ comercio.nombre }}</h3>
         <p class="comercio-descripcion">{{ comercio.descripcion }}</p>
         <div class="comercio-footer">
-          <span class="paypal-badge">💙 Acepta PayPal</span>
-          <button class="visitar-btn">Visitar →</button>
+          <span class="paypal-badge">💙 {{ 'whereToBuy.acceptsPayPal' | translate }}</span>
+          <button class="visitar-btn">{{ 'whereToBuy.visit' | translate }} →</button>
         </div>
       </div>
     </div>
@@ -77,12 +77,12 @@
         <div class="comercio-header">
           <img class="comercio-logo" [src]="comercio.logo" [alt]="comercio.nombre + ' logo'" />
         </div>
-        <span class="popular-badge" *ngIf="comercio.popular">🔥 Popular</span>
+        <span class="popular-badge" *ngIf="comercio.popular">🔥 {{ 'whereToBuy.popular' | translate }}</span>
         <h3 class="comercio-nombre">{{ comercio.nombre }}</h3>
         <p class="comercio-descripcion">{{ comercio.descripcion }}</p>
         <div class="comercio-footer">
-          <span class="paypal-badge">💙 Acepta PayPal</span>
-          <button class="visitar-btn">Visitar →</button>
+          <span class="paypal-badge">💙 {{ 'whereToBuy.acceptsPayPal' | translate }}</span>
+          <button class="visitar-btn">{{ 'whereToBuy.visit' | translate }} →</button>
         </div>
       </div>
     </div>

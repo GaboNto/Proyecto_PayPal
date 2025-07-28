@@ -1,12 +1,15 @@
 // Importamos los módulos necesarios
 import { Component, AfterViewInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 // Decorador del componente con selector, plantilla y estilos asociados
 @Component({
   selector: 'app-ventajas', // Nombre para usar en otros templates si fuera necesario
   templateUrl: './ventajas.component.html', // Ruta al archivo HTML
-  styleUrls: ['./ventajas.component.css']   // Ruta al archivo CSS
+  styleUrls: ['./ventajas.component.css'],   // Ruta al archivo CSS
+  imports: [TranslateModule],
+  standalone: true
 })
 export class VentajasComponent implements AfterViewInit {
 

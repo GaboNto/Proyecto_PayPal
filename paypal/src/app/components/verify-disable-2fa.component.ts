@@ -2,38 +2,39 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-verify-disable-2fa',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   template: `
     <div class="verify-disable-2fa-container">
       <div class="card">
         <div class="card-header">
-          <h2>Confirmar desactivación de 2FA</h2>
+          <h2>{{ 'verifyDisable2FA.title' | translate }}</h2>
         </div>
         <div class="card-body">
           <div *ngIf="loading" class="loading">
             <div class="spinner"></div>
-            <p>Verificando...</p>
+            <p>{{ 'verifyDisable2FA.verifying' | translate }}</p>
           </div>
           
           <div *ngIf="!loading && success" class="success">
             <div class="success-icon">✓</div>
-            <h3>2FA desactivado correctamente</h3>
+            <h3>{{ 'verifyDisable2FA.successTitle' | translate }}</h3>
             <p>{{ message }}</p>
             <button class="btn btn-primary" (click)="goToConfig()">
-              Ir a Configuración
+              {{ 'verifyDisable2FA.goToSettings' | translate }}
             </button>
           </div>
           
           <div *ngIf="!loading && !success" class="error">
             <div class="error-icon">✗</div>
-            <h3>Error al desactivar 2FA</h3>
+            <h3>{{ 'verifyDisable2FA.errorTitle' | translate }}</h3>
             <p>{{ message }}</p>
             <button class="btn btn-secondary" (click)="goToConfig()">
-              Volver a Configuración
+              {{ 'verifyDisable2FA.backToSettings' | translate }}
             </button>
           </div>
         </div>
@@ -181,13 +182,13 @@ export class VerifyDisable2faComponent implements OnInit {
         },
         error: (err) => {
           this.success = false;
-          this.message = err.error?.message || 'Error al desactivar 2FA. El enlace puede haber expirado o ser inválido.';
+          this.message = err.error?.message || 'verifyDisable2FA.errorDisabling';
           this.loading = false;
         }
       });
     } else {
       this.success = false;
-      this.message = 'Token no proporcionado. Enlace inválido.';
+      this.message = 'verifyDisable2FA.tokenNotProvided';
       this.loading = false;
     }
   }

@@ -10,12 +10,13 @@ import { Observable, map } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { EmailValidatorService } from '../../services/email-validator.service';
 import { ENDPOINTS } from '../../config/api-config';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule, TranslateModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })

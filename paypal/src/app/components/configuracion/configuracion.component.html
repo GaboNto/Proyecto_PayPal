@@ -1,52 +1,52 @@
 <div class="config-container">
   <ul class="tabs">
-    <li [class.active]="selectedTab === 'personales'" (click)="selectedTab = 'personales'; onTabChange()">Datos Personales</li>
-    <li [class.active]="selectedTab === 'seguridad'" (click)="selectedTab = 'seguridad'; onTabChange()">Seguridad</li>
-    <li [class.active]="selectedTab === 'preferencias'" (click)="selectedTab = 'preferencias'; onTabChange()">Preferencias</li>
-    <li [class.active]="selectedTab === 'soporte'" (click)="selectedTab = 'soporte'; onTabChange()">Soporte y Ayuda</li>
+    <li [class.active]="selectedTab === 'personales'" (click)="selectedTab = 'personales'; onTabChange()">{{ 'settings.personalData' | translate }}</li>
+    <li [class.active]="selectedTab === 'seguridad'" (click)="selectedTab = 'seguridad'; onTabChange()">{{ 'settings.security' | translate }}</li>
+    <li [class.active]="selectedTab === 'preferencias'" (click)="selectedTab = 'preferencias'; onTabChange()">{{ 'settings.preferences' | translate }}</li>
+    <li [class.active]="selectedTab === 'soporte'" (click)="selectedTab = 'soporte'; onTabChange()">{{ 'settings.support' | translate }}</li>
   </ul>
 
   <div *ngIf="selectedTab === 'personales'">
-    <h2>Datos Personales</h2>
+    <h2>{{ 'settings.personalData' | translate }}</h2>
     <form [formGroup]="configForm" (ngSubmit)="onSubmit()" class="config-form">
       <div class="form-group">
-        <label for="nombre">Nombre completo</label>
+        <label for="nombre">{{ 'settings.fullName' | translate }}</label>
         <input id="nombre" formControlName="nombre" type="text" readonly />
       </div>
       <div class="form-group">
-        <label for="apellido">Apellido</label>
+        <label for="apellido">{{ 'settings.lastName' | translate }}</label>
         <input id="apellido" formControlName="apellido" type="text" readonly />
       </div>
       <div class="form-group">
-        <label for="fecha_nacimiento">Fecha de nacimiento</label>
+        <label for="fecha_nacimiento">{{ 'settings.birthDate' | translate }}</label>
         <input id="fecha_nacimiento" formControlName="fecha_nacimiento" type="date" readonly />
       </div>
       <div class="form-group">
-        <label for="email">Correo electrónico</label>
+        <label for="email">{{ 'settings.email' | translate }}</label>
         <input id="email" formControlName="email" type="email" readonly />
         <button type="button" (click)="verificarEmail()" [disabled]="emailVerificado || emailVerificadoLoading">
-          <ng-container *ngIf="emailVerificado">Verificado</ng-container>
+          <ng-container *ngIf="emailVerificado">{{ 'settings.verified' | translate }}</ng-container>
           <ng-container *ngIf="!emailVerificado && emailVerificadoLoading">
             <span class="spinner"></span>
           </ng-container>
-          <ng-container *ngIf="!emailVerificado && !emailVerificadoLoading">Verificar</ng-container>
+          <ng-container *ngIf="!emailVerificado && !emailVerificadoLoading">{{ 'settings.verify' | translate }}</ng-container>
         </button>
         <div *ngIf="!emailVerificado && emailVerificadoMsg" class="success">{{ emailVerificadoMsg }}</div>
         <div *ngIf="emailVerificadoError" class="error">{{ emailVerificadoError }}</div>
       </div>
       <!-- Eliminar campo de verificación de teléfono -->
       <div class="form-group">
-        <label for="direccion">Dirección de envío</label>
+        <label for="direccion">{{ 'settings.shippingAddress' | translate }}</label>
         <input id="direccion" formControlName="direccion" type="text" />
       </div>
       <div class="form-group">
-        <label for="facturacion">Dirección de facturación</label>
+        <label for="facturacion">{{ 'settings.billingAddress' | translate }}</label>
         <input id="facturacion" formControlName="facturacion" type="text" />
       </div>
       <div class="form-actions">
         <div *ngIf="successMsg" class="alert-success-float">{{ successMsg }}</div>
         <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
-        <button type="submit" [disabled]="configForm.invalid">Guardar cambios</button>
+        <button type="submit" [disabled]="configForm.invalid">{{ 'settings.saveChanges' | translate }}</button>
       </div>
     </form>
   </div>
@@ -190,7 +190,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">Configura Google Authenticator</h5>
-              <button type="button" class="btn-close" aria-label="Cerrar" (click)="close2FAQr()"></button>
+              <button type="button" class="btn-close" aria-label="{{ 'common.close' | translate }}" (click)="close2FAQr()"></button>
             </div>
             <div class="modal-body text-center">
               <p>Escanea este código QR con Google Authenticator para activar la verificación en dos pasos.</p>
@@ -253,7 +253,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Confirmar desactivación de 2FA</h5>
-          <button type="button" class="btn-close" aria-label="Cerrar" (click)="closeDisable2FAModal()"></button>
+                        <button type="button" class="btn-close" aria-label="{{ 'common.close' | translate }}" (click)="closeDisable2FAModal()"></button>
         </div>
         <div class="modal-body">
           <div *ngIf="!disable2FAMessage" class="confirmation-message">
