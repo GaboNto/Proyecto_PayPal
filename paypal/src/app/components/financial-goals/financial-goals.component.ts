@@ -71,10 +71,10 @@ export class FinancialGoalsComponent implements OnInit {
         description: 'Viaje de vacaciones para diciembre 2025',
         createdAt: new Date('2025-12-20'),
         progress: 10,
-        monthlySavings: 20000,
+        monthlySavings: 18500,
         totalSavings: 50000,
         totalInterest: 15000,
-        yearlySavings: 240000
+        yearlySavings: 222000
       },
       {
         id: '2',
@@ -87,10 +87,10 @@ export class FinancialGoalsComponent implements OnInit {
         description: 'Ahorrar para la entrada de una casa',
         createdAt: new Date('2025-01-15'),
         progress: 25,
-        monthlySavings: 80000,
+        monthlySavings: 75000,
         totalSavings: 1250000,
         totalInterest: 300000,
-        yearlySavings: 960000
+        yearlySavings: 900000
       }
     ];
   }
@@ -201,9 +201,43 @@ export class FinancialGoalsComponent implements OnInit {
     this.goalForm.reset();
   }
 
+  calculateMonthlySavings(goal: FinancialGoal): number {
+    const targetAmount = goal.targetAmount;
+    const duration = goal.duration;
+    const interestRate = goal.interestRate / 100;
+    const initialAmount = goal.initialAmount || 0;
+    
+    // Cálculo del interés compuesto
+    const monthlyRate = interestRate / 12;
+    const numberOfPayments = duration * 12;
+    
+    let monthlySavings = 0;
+    if (monthlyRate > 0) {
+      monthlySavings = (targetAmount - initialAmount * Math.pow(1 + monthlyRate, numberOfPayments)) / 
+                      ((Math.pow(1 + monthlyRate, numberOfPayments) - 1) / monthlyRate);
+    } else {
+      monthlySavings = (targetAmount - initialAmount) / numberOfPayments;
+    }
+    
+    return Math.max(0, monthlySavings);
+  }
+
   onSubmit(): void {
     if (this.goalForm.valid) {
       const formValue = this.goalForm.value;
+      
+      // Calcular el ahorro mensual
+      const monthlySavings = this.calculateMonthlySavings({
+        targetAmount: formValue.targetAmount,
+        duration: formValue.duration,
+        interestRate: formValue.interestRate,
+        initialAmount: formValue.initialAmount || 0,
+        progress: 0,
+        createdAt: new Date(),
+        goalName: formValue.goalName,
+        priority: formValue.priority,
+        description: formValue.description
+      });
       
       if (this.editingGoal) {
         // Actualizar objetivo existente
@@ -213,7 +247,8 @@ export class FinancialGoalsComponent implements OnInit {
             ...this.editingGoal,
             ...formValue,
             progress: formValue.initialAmount ? 
-              (formValue.initialAmount / formValue.targetAmount * 100) : 0
+              (formValue.initialAmount / formValue.targetAmount * 100) : 0,
+            monthlySavings: monthlySavings
           };
         }
       } else {
@@ -223,7 +258,8 @@ export class FinancialGoalsComponent implements OnInit {
           ...formValue,
           createdAt: new Date(),
           progress: formValue.initialAmount ? 
-            (formValue.initialAmount / formValue.targetAmount * 100) : 0
+            (formValue.initialAmount / formValue.targetAmount * 100) : 0,
+          monthlySavings: monthlySavings
         };
         this.goals.unshift(newGoal);
       }

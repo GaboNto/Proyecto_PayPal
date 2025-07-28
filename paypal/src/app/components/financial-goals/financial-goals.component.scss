@@ -344,6 +344,29 @@
   }
 }
 
+.goal-monthly {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #0070ba, #005ea6);
+  border-radius: 8px;
+  margin-top: 1rem;
+  
+  .label {
+    font-size: 0.875rem;
+    color: #ffffff;
+    font-weight: 500;
+  }
+  
+  .value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #ffffff;
+  }
+}
+
 .goal-progress {
   margin-bottom: 1rem;
   

@@ -41,6 +41,11 @@
             <span class="label">Duración:</span>
             <span class="value">{{ goal.duration }} años</span>
           </div>
+          
+          <div class="goal-monthly" *ngIf="goal.monthlySavings">
+            <span class="label">Ahorro mensual:</span>
+            <span class="value monthly-amount">{{ formatCurrency(goal.monthlySavings) }}</span>
+          </div>
         </div>
         
         <div class="goal-actions">
